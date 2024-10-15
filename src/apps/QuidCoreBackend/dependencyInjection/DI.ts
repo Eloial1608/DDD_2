@@ -1,8 +1,8 @@
 import {ContainerBuilder, YamlFileLoader} from 'node-dependency-injection'
 import path from 'path';
 
-class IoC {
-  private static instance: IoC;
+class DI {
+  private static instance: DI;
   private container: ContainerBuilder;
 
   // El constructor es privado para evitar instancias múltiples
@@ -12,11 +12,11 @@ class IoC {
   }
 
   // Método para obtener la instancia única del singleton
-  public static getInstance(): IoC {
-    if (!IoC.instance) {
-      IoC.instance = new IoC();
+  public static getInstance(): DI {
+    if (!DI.instance) {
+      DI.instance = new DI();
     }
-    return IoC.instance;
+    return DI.instance;
   }
 
   public async initialize () {
@@ -35,4 +35,4 @@ class IoC {
   }
 }
 
-export default IoC;
+export default DI;

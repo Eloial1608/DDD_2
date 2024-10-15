@@ -3,5 +3,5 @@ import { QueryResponse } from "./QueryResponse";
 
 export interface QueryHandler<Q extends Query, R extends QueryResponse<any>> {
     subscribedTo (): Q
-    handle(data: Q): R
+    handle(data: Q): Promise<R>
 }

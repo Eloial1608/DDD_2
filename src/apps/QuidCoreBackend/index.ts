@@ -1,11 +1,11 @@
-import IoC from "./IoC/IoC"
+import DI from "./DI/DI"
 import { Server } from "./server"
 
 const application = new Server()
-const ioc = IoC.getInstance()
+const di = DI.getInstance()
 
 const starter = async () => {
-    await ioc.initialize()
+    await di.initialize()
     application.start()
 }
 

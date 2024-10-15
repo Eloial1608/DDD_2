@@ -1,4 +1,4 @@
 
 export interface QueryResponse<T extends any> {
-    response: T
+    response: T | Array<T>
 }
