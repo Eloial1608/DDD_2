@@ -21,7 +21,7 @@
     ],
     "@QuidCoreBackend/*": [
       "src/apps/QuidCoreBackend/*"
-    ]
+    ],
   },
   },
   "include": [

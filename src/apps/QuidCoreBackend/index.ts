@@ -1,4 +1,4 @@
-import DI from "./DI/DI"
+import DI from "./dependencyInjection/DI"
 import { Server } from "./server"
 
 const application = new Server()
