@@ -1,0 +1,5 @@
+CREATE USER core_user WITH PASSWORD 'core_pass' CREATEDB;
+CREATE DATABASE core;
+GRANT ALL PRIVILEGES ON DATABASE core TO core_user;
+GRANT ALL ON SCHEMA public TO core_user;
+
