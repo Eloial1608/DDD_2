@@ -1,11 +1,18 @@
 {
-  "name": "quid-backend",
+  "name": "quid",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "lint": "eslint --quiet",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "test": "vitest",
+    "migrations:core:generate": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:generate persistence/migrations/core/core -d src/apps/Core/backend/dataSource -o",
+    "migrations:core:run": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:run -d src/apps/Core/backend/dataSource",
+    "migrations:core:revert": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:revert -d src/apps/Core/backend/dataSource",
+    "migrations:core:generate:windows": "ts-node -r tsconfig-paths/register node_modules\\typeorm\\cli.js migration:generate persistence/migrations/core/core -d src/apps/Core/backend/dataSource -o",
+    "migrations:core:run:windows": "ts-node -r tsconfig-paths/register node_modules\\typeorm\\cli.js migration:run -d src/apps/Core/backend/dataSource",
+    "migrations:core:revert:windows": "ts-node -r tsconfig-paths/register node_modules\\typeorm\\cli.js migration:revert -d src/apps/Core/backend/dataSource"
   },
   "author": "Quid",
   "license": "ISC",
@@ -20,11 +27,13 @@
     "http": "^0.0.1-security",
     "node-dependency-injection": "^3.2.0",
     "path": "^0.12.7",
+    "typeorm": "^0.3.20",
     "typescript": "^5.6.2",
     "uuid": "^11.0.3",
     "uuid-validate": "^0.0.3"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.2.0",
     "@types/compression": "^1.7.5",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
@@ -34,6 +43,9 @@
     "@typescript-eslint/parser": "^8.7.0",
     "eslint": "^8.57.1",
     "eslint-plugin-import": "^2.30.0",
-    "eslint-plugin-node": "^11.1.0"
+    "eslint-plugin-node": "^11.1.0",
+    "vite-tsconfig-paths": "^5.1.2",
+    "vitest": "^2.1.4",
+    "vitest-mock-extended": "^2.0.2"
   }
 }

@@ -1,4 +1,4 @@
-import { ICommandBus } from "@Shared/domain/CommandBus/ICommandBus";
+import { CommandBus as ICommandBus } from "@Shared/domain/CommandBus/CommandBus.js";
 import { CommandHandlerInformationMap } from '../../domain/CommandBus/CommandHandlerInformationMap.ts';
 import { Command } from "@Shared/domain/CommandBus/Command.js";
 

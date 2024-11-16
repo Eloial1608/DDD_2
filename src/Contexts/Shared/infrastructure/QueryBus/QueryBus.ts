@@ -1,4 +1,4 @@
-import { IQueryBus } from "@Shared/domain/QueryBus/IQueryBus";
+import { QueryBus as IQueryBus } from "@Shared/domain/QueryBus/QueryBus";
 import { Query } from "@Shared/domain/QueryBus/Query";
 import { QueryHandlerInformationMap } from "@Shared/domain/QueryBus/QueryHandlerInformationMap.ts";
 import { QueryResponse } from "@Shared/domain/QueryBus/QueryResponse";

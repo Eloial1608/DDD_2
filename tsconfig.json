@@ -6,7 +6,7 @@
     "noImplicitAny": true,
     "moduleResolution": "Node",
     "sourceMap": true,
-    // "types": ["vitest/globals"],
+    "types": ["vitest/globals"],
     "skipLibCheck": true,
     "rootDir": ".",
     "strict": true,
@@ -19,8 +19,14 @@
     "@Shared/*": [
       "src/Contexts/Shared/*"
     ],
-    "@QuidCoreBackend/*": [
-      "src/apps/QuidCoreBackend/*"
+    "@Apps/*": [
+      "src/apps/*"
+    ],
+    "@Tests/*": [
+      "tests/*"
+    ],
+    "@Core/*": [
+      "src/Contexts/Core/*"
     ],
   },
   },
