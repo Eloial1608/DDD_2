@@ -8,6 +8,8 @@
     },
     "exclude": [
         "node_modules",
-        "tests"
+        "tests",
+        ".husky",
+        "etc"
     ]
 }
