@@ -5,7 +5,6 @@ import { DomainEventMapping } from '@Shared/infrastructure/EventBus/DomainEventM
 import { mockFn } from '@Tests/Contexts/mockUtils'
 
 export default class EventBusMock implements EventBus {
-
   private publishSpy = mockFn()
 
   async publish (events: DomainEvent[]) {
@@ -13,7 +12,7 @@ export default class EventBusMock implements EventBus {
   }
 
   async start (): Promise<void> {}
-  async startPublisher(): Promise<void> {}
+  async startPublisher (): Promise<void> {}
 
   addSubscribers (subscribers: DomainEventSubscriber<DomainEvent>[]): void {}
 

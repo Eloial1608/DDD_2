@@ -1,6 +1,6 @@
-import { Command } from "./Command";
-import { CommandHandler } from "./CommandHandler";
+import { Command } from './Command'
+import { CommandHandler } from './CommandHandler'
 
 export interface CommandHandlerInformationMap {
-    search (command: Command): CommandHandler<Command>   
+    search (command: Command): CommandHandler<Command>
 }

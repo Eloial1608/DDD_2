@@ -1,6 +1,6 @@
-import { EnumValueObject } from "@Shared/domain/ValueObjects/EnumValueObject";
-import { InvalidAllowedFeature } from "../Errors/InvalidAllowedFeature";
-import { ArrayValueObject } from "@Shared/domain/ValueObjects/ArrayValueObject";
+import { EnumValueObject } from '@Shared/domain/ValueObjects/EnumValueObject'
+import { InvalidAllowedFeature } from '../Errors/InvalidAllowedFeature'
+import { ArrayValueObject } from '@Shared/domain/ValueObjects/ArrayValueObject'
 
 enum ALLOWED_FEATURES {
     POST = 'post',
@@ -16,18 +16,17 @@ enum ALLOWED_FEATURES {
 }
 
 export class AllowedFeature extends EnumValueObject<ALLOWED_FEATURES> {
+  constructor (value: ALLOWED_FEATURES) {
+    super(value, Object.values(ALLOWED_FEATURES))
+  }
 
-    constructor (value: ALLOWED_FEATURES) {
-        super(value, Object.values(ALLOWED_FEATURES))
-    }
-
-    protected throwErrorForInvalidValue(value: ALLOWED_FEATURES): void {
-        throw new InvalidAllowedFeature(this)
-    }
+  protected throwErrorForInvalidValue (value: ALLOWED_FEATURES): void {
+    throw new InvalidAllowedFeature(this)
+  }
 }
 
 export class AllowedFeatures extends ArrayValueObject<AllowedFeature> {
-    static fromPrimitives (data: ALLOWED_FEATURES[]): AllowedFeatures {
-        return new AllowedFeatures(data.map(x => new AllowedFeature(x)))
-    }
+  static fromPrimitives (data: ALLOWED_FEATURES[]): AllowedFeatures {
+    return new AllowedFeatures(data.map(x => new AllowedFeature(x)))
+  }
 }

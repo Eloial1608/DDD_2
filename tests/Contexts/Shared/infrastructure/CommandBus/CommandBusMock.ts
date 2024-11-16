@@ -1,18 +1,15 @@
-import { Command } from '@Shared/domain/CommandBus/Command';
+import { Command } from '@Shared/domain/CommandBus/Command'
 import { CommandBus } from '@Shared/domain/CommandBus/CommandBus'
-import { mockFn } from '../../../mockUtils';
-
+import { mockFn } from '../../../mockUtils'
 
 export class CommandBusMock implements CommandBus {
+  private dispatcher = mockFn()
 
-    private dispatcher = mockFn()
+  async dispatch (command: Command): Promise<void> {
+    this.dispatcher(command)
+  }
 
-    async dispatch(command: Command): Promise<void> {
-        this.dispatcher(command)
-    }
-
-    assertCommandHasBeenDispatch(command: Command): void {
-        expect(this.dispatcher).toHaveBeenCalledWith(command)
-    }
-    
+  assertCommandHasBeenDispatch (command: Command): void {
+    expect(this.dispatcher).toHaveBeenCalledWith(command)
+  }
 }

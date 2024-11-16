@@ -1,15 +1,15 @@
-import DI from "./dependencyInjection/DI"
-import { Server } from "./server"
-import { Worker } from "./worker"
+import DI from './dependencyInjection/DI'
+import { Server } from './server'
+import { Worker } from './worker'
 
 const application = new Server()
 const worker = new Worker()
 const di = DI.getInstance()
 
 const starter = async () => {
-    await di.initialize()
-    await application.start()
-    await worker.start()
+  await di.initialize()
+  await application.start()
+  await worker.start()
 }
 
 try {

@@ -1,7 +1,7 @@
-import { Nullable } from "@Shared/domain/Nullable";
-import { Id } from "./ValueObjects/Id";
-import { Community } from "./Community";
-import { Criteria } from "@Shared/domain/Criteria/Criteria";
+import { Nullable } from '@Shared/domain/Nullable'
+import { Id } from './ValueObjects/Id'
+import { Community } from './Community'
+import { Criteria } from '@Shared/domain/Criteria/Criteria'
 
 export interface CommunityRepository {
     find (id: Id): Promise<Nullable<Community>>

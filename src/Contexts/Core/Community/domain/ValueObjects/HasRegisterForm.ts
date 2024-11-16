@@ -1,3 +1,3 @@
-import { BooleanValueObject } from "@Shared/domain/ValueObjects/BooleanValueObject";
+import { BooleanValueObject } from '@Shared/domain/ValueObjects/BooleanValueObject'
 
 export class HasRegisterForm extends BooleanValueObject {}
