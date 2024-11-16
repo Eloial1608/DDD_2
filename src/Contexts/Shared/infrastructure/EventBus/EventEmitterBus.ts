@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events'
-import { DomainEvent } from '@Shared/domain/DomainEvent'
-import { DomainEventSubscriber } from '@Shared/domain/DomainEventSubscriber'
+import { DomainEvent } from '@Shared/domain/EventBus/DomainEvent'
+import { DomainEventSubscriber } from '@Shared/domain/EventBus/DomainEventSubscriber'
 
 export class EventEmitterBus extends EventEmitter {
   constructor (subscribers: Array<DomainEventSubscriber<DomainEvent>>) {

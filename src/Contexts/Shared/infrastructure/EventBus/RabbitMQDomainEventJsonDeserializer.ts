@@ -1,4 +1,4 @@
-import { DomainEvent } from '@Shared/domain/DomainEvent'
+import { DomainEvent } from '@Shared/domain/EventBus/DomainEvent'
 import { DomainEventMapping } from './DomainEventMapping'
 
 export class RabbitMQDomainEventJsonDeserializer {
