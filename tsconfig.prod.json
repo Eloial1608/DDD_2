@@ -10,6 +10,7 @@
         "node_modules",
         "tests",
         ".husky",
-        "etc"
+        "etc",
+        "vitest.config.ts"
     ]
 }
