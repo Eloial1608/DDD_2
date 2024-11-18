@@ -26,7 +26,7 @@ export class AllowedFeature extends EnumValueObject<ALLOWED_FEATURES> {
 }
 
 export class AllowedFeatures extends ArrayValueObject<AllowedFeature> {
-  static fromPrimitives (data: ALLOWED_FEATURES[]): AllowedFeatures {
-    return new AllowedFeatures(data.map(x => new AllowedFeature(x)))
+  static fromPrimitives (data: string[]): AllowedFeatures {
+    return new AllowedFeatures(data.map(x => new AllowedFeature(x as ALLOWED_FEATURES)))
   }
 }

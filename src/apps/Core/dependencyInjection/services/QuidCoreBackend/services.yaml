@@ -2,3 +2,13 @@ services:
   Community.Repository:
     class: src/Contexts/Core/Community/infrastructure/persistence/TypeOrmCommunityRepository
     arguments: ["@Shared.ORM.Connection"]
+  
+  Community.Create.Creator:
+    class: src/Contexts/Core/Community/application/Create/Creator
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.Create.CreateCommunityCommandHandler:
+    class: src/Contexts/Core/Community/application/Create/CreateCommunityCommandHandler
+    arguments: ["@Community.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }

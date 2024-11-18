@@ -30,7 +30,7 @@ export class CommunityMother {
       params.domain ?? null,
       params.membersCount ?? new MembersCount(0),
       params.firstPaymentDone ?? new FirstPaymentDone(false),
-      params.spacesCount ?? new SpacesCount(0),
+      params.spacesCount ?? new SpacesCount(1),
       params.hasPayment ?? new HasPayment(false),
       params.allowedFeatures ?? new AllowedFeatures([]),
       params.hasRegisterForm ?? new HasRegisterForm(false),
@@ -46,5 +46,9 @@ export class CommunityMother {
       params.updatedAt ?? new UpdatedAt(new Date()),
       params.deletedAt ?? null
     )
+  }
+
+  static random (): Community {
+    return this.create({})
   }
 }

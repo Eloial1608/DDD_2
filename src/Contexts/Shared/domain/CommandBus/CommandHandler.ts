@@ -1,6 +1,6 @@
 import { Command } from './Command'
 
 export interface CommandHandler<C extends Command> {
-    subscribedTo (): C
+    subscribedTo (): Command
     handle (command: C): Promise<void>
 }

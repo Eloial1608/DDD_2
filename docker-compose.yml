@@ -2,6 +2,7 @@ services:
   core-service-server:
     depends_on:
       - db
+      - rabbitmq
     build:
       context: ./
       dockerfile: ./Dockerfile

@@ -1,7 +1,7 @@
-import { Command } from './Command'
+import { Command } from '../CommandBus/Command'
 import { InFilterPrimitives } from '@Shared/domain/Criteria/InFilter'
 
-export abstract class CriteriaCommand extends Command {
+export abstract class CriteriaCommand implements Command {
   readonly filters?: Array<Map<string, string | number | null>>
   readonly inFilters?: Array<InFilterPrimitives>
   readonly orderBy?: string
@@ -17,7 +17,6 @@ export abstract class CriteriaCommand extends Command {
     limit?: number,
     offset?: number
   ) {
-    super()
     this.filters = filters
     this.inFilters = inFilters
     this.orderBy = orderBy

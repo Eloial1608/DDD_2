@@ -1,5 +1,5 @@
 import { CommandBus as ICommandBus } from '@Shared/domain/CommandBus/CommandBus.js'
-import { CommandHandlerInformationMap } from '../../domain/CommandBus/CommandHandlerInformationMap.ts'
+import { CommandHandlerInformationMap } from '../../domain/CommandBus/CommandHandlerInformationMap'
 import { Command } from '@Shared/domain/CommandBus/Command.js'
 
 export class CommandBus implements ICommandBus {
