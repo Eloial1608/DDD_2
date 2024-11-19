@@ -12,3 +12,13 @@ services:
     arguments: ["@Community.Create.Creator"]
     tags:
       - { name: "commandHandler" }
+  
+  Community.FindById.FinderById:
+    class: src/Contexts/Core/Community/application/FindById/FinderById
+    arguments: ['@Community.Repository']
+  
+  Community.FindById.FindCommunityByIdQueryHandler:
+    class: src/Contexts/Core/Community/application/FindById/FindCommunityByIdQueryHandler
+    arguments: ['@Community.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
