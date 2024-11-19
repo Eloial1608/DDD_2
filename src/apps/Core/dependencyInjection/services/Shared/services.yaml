@@ -20,6 +20,18 @@ services:
       class: src/Contexts/Core/Shared/infrastructure/persistence/typeorm/TypeOrmConfigFactory
       method: "create"
 
+  Shared.SyncEventBus:
+    class: src/Contexts/Shared/infrastructure/EventBus/InMemory/InMemoryAsyncEventBus
+
+  Shared.EventBus.Config:
+    factory:
+      class: src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/RabbitMQEventBusConfigFactory
+      method: 'createConfig'
+
+  Shared.EventBus:
+    class: src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/RabbitMQEventBus
+    arguments: ['@Shared.EventBus.Config']
+
   Shared.ORM.Connection:
     factory:
       class: src/Contexts/Shared/infrastructure/persistence/typeorm/DataSourceFactory

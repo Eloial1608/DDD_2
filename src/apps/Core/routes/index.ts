@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import glob from 'glob'
+import { glob } from 'glob'
 import path from 'path'
 
 export function registerRoutes (router: Router) {

@@ -1,13 +1,16 @@
+import './env/loadEnv'
 import DI from './dependencyInjection/DI'
 import { Server } from './server'
 import { Worker } from './worker'
 
-const application = new Server()
-const worker = new Worker()
+let application: Server
+let worker: Worker
 const di = DI.getInstance()
 
-const starter = async () => {
+export const starter = async () => {
   await di.initialize()
+  application = new Server()
+  worker = new Worker()
   await application.start()
   await worker.start()
 }

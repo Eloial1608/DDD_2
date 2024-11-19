@@ -1,0 +1,7 @@
+import { defineConfig } from '@playwright/test'
+export default defineConfig({
+  testDir: 'tests/apps',
+  use: {
+    baseURL: `http://127.0.0.1:${process.env.PORT}`
+  }
+})

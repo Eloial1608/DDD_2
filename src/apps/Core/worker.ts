@@ -1,4 +1,3 @@
-import './env/loadEnv'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 import DI from './dependencyInjection/DI'
 import { DomainEvent } from '@Shared/domain/EventBus/DomainEvent'

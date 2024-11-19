@@ -1,0 +1,7 @@
+services:
+  Apps.Core.Controllers.CommunityByIdGetController:
+    class: src/apps/Core/controllers/Community/CommunityByIdGetController
+    arguments: ["@Shared.QueryBus"]
+  
+  Apps.Core.Controllers.HealthGetController:
+    class: src/apps/Core/controllers/HealthGetController
