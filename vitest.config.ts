@@ -19,6 +19,7 @@ export default defineConfig({
     alias
   },
   test: {
+    include: ['tests/Contexts/**/*.test.ts'],
     globals: true,
     isolate: false,
     passWithNoTests: true
