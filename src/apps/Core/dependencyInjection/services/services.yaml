@@ -1,4 +1,4 @@
 imports:
-    - { resource: ./QuidCoreBackend/Services.yaml }
+    - { resource: ./Core/Services.yaml }
     - { resource: ./Shared/Services.yaml }
     - { resource: ./Apps/Services.yaml }
