@@ -3,7 +3,6 @@ import { AllowedFeatures } from '@Core/Community/domain/ValueObjects/AllowedFeat
 import { AllowedUsers } from '@Core/Community/domain/ValueObjects/AllowedUsers'
 import { Color } from '@Core/Community/domain/ValueObjects/Color'
 import { CreatedAt } from '@Core/Community/domain/ValueObjects/CreatedAt'
-import { Domain } from '@Core/Community/domain/ValueObjects/Domain'
 import { ExpiresAt } from '@Core/Community/domain/ValueObjects/ExpiresAt'
 import { FirstPaymentDone } from '@Core/Community/domain/ValueObjects/FirstPaymentDone'
 import { HasPayment } from '@Core/Community/domain/ValueObjects/HasPayment'
@@ -28,7 +27,7 @@ export class CommunityMother {
       params.id ?? new Id(UuidMother.random()),
       params.name ?? new Name(WordMother.random()),
       params.suffix ?? new Suffix(WordMother.random()),
-      params.domain ?? new Domain(WordMother.random()),
+      params.domain ?? null,
       params.membersCount ?? new MembersCount(0),
       params.firstPaymentDone ?? new FirstPaymentDone(false),
       params.spacesCount ?? new SpacesCount(1),
