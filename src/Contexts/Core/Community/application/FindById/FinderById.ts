@@ -7,10 +7,10 @@ export class FinderById {
   constructor (private readonly repository: CommunityRepository) {}
 
   async find (id: Id): Promise<Community> {
-    const guide = await this.repository.find(id)
+    const community = await this.repository.find(id)
 
-    if (!guide) throw new CommunityNotFound(id)
+    if (!community) throw new CommunityNotFound(id)
 
-    return guide
+    return community
   }
 }

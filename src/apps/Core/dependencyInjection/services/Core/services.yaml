@@ -22,3 +22,13 @@ services:
     arguments: ['@Community.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+  
+  Community.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/Community/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Community.Repository']
+  
+  Community.FindByCriteria.FindCommunitiesByCriteriaQueryHandler:
+    class: src/Contexts/Core/Community/application/FindByCriteria/FindCommunitiesByCriteriaQueryHandler
+    arguments: ['@Community.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }

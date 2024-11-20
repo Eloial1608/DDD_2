@@ -2,7 +2,7 @@ import { Nullable } from '@Shared/domain/Nullable'
 import { Community } from '../domain/Community'
 import { QueryResponse } from '@Shared/domain/QueryBus/QueryResponse'
 
-type CommunityResponseBody = {
+export type CommunityResponseBody = {
     readonly id: string
     readonly name: string
     readonly suffix: string
