@@ -23,7 +23,7 @@ test('GET Community by Id should return a community', async ({ request }) => {
   const community = CommunityMother.random()
   await repository.persist(community)
 
-  const r = await request.get(`/v1/communities/${community.id}`)
+  const r = await request.get(`/v1/communities/id/${community.id}`)
 
   expect(r.ok()).toBeTruthy()
 })

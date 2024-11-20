@@ -4,5 +4,5 @@ import { CommunityByIdGetController } from '@Apps/Core/controllers/Community/Com
 
 export const register = (router: Router) => {
   const controller = DI.getInstance().resolve<CommunityByIdGetController>('Apps.Core.Controllers.CommunityByIdGetController')
-  router.get('/v1/communities/:id', (req: Request, res: Response) => controller.run(req, res))
+  router.get('/v1/communities/id/:id', (req: Request, res: Response) => controller.run(req, res))
 }

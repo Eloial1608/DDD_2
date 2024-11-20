@@ -5,3 +5,11 @@ services:
   
   Apps.Core.Controllers.HealthGetController:
     class: src/apps/Core/controllers/HealthGetController
+  
+  Apps.Core.Controllers.CommunityBySuffixGetController:
+    class: src/apps/Core/controllers/Community/CommunityBySuffixGetController
+    arguments: ["@Shared.QueryBus"]
+  
+  Apps.Core.Controllers.CommunityByDomainGetController:
+    class: src/apps/Core/controllers/Community/CommunityByDomainGetController
+    arguments: ["@Shared.QueryBus"]
