@@ -22,6 +22,7 @@ import { CreatedAt } from './ValueObjects/CreatedAt'
 import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { DeletedAt } from './ValueObjects/DeletedAt'
 import { CommunityCreatedDomainEvent } from './Events/CommunityCreatedDomainEvent'
+import { CommunityDeletedDomainEvent } from './Events/CommunityDeletedDomainEvent'
 
 export class Community extends AggregateRoot {
   constructor (
@@ -86,6 +87,36 @@ export class Community extends AggregateRoot {
     )
 
     community.record(CommunityCreatedDomainEvent.fromAggregate(community))
+
+    return community
+  }
+
+  delete (): Community {
+    const community = new Community(
+      this.id,
+      this.name,
+      this.suffix,
+      this.domain,
+      this.membersCount,
+      this.firstPaymentDone,
+      this.spacesCount,
+      this.hasPayment,
+      this.allowedFeatures,
+      this.hasRegisterForm,
+      this.registerFormId,
+      this.planId,
+      this.allowedUsers,
+      this.color,
+      this.isPrivate,
+      this.isRegisterOpen,
+      this.homeSpaceId,
+      this.expiresAt,
+      this.createdAt,
+      this.updatedAt,
+      new DeletedAt(new Date())
+    )
+
+    community.record(CommunityDeletedDomainEvent.fromAggregate(community))
 
     return community
   }

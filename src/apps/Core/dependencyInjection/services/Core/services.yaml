@@ -32,3 +32,13 @@ services:
     arguments: ['@Community.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+  
+  Community.Delete.Deleter:
+    class: src/Contexts/Core/Community/application/Delete/Deleter
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.Delete.DeleteCommunityCommandHandler:
+    class: src/Contexts/Core/Community/application/Delete/DeleteCommunityCommandHandler
+    arguments: ["@Community.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
