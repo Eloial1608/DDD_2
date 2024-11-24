@@ -42,3 +42,7 @@ services:
     arguments: ["@Community.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
+  
+  Plan.Repository:
+    class: src/Contexts/Core/Plan/infrastructure/persistence/TypeOrmPlanRepository
+    arguments: ["@Shared.ORM.Connection"]
