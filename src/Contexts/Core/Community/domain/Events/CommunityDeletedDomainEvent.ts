@@ -14,7 +14,6 @@ type CommunityDeletedDomainEventBody = {
     readonly allowedFeatures: string[]
     readonly hasRegisterForm: boolean
     readonly registerFormId: Nullable<string>
-    readonly planId: string
     readonly allowedUsers: number
     readonly color: string
     readonly isPrivate: boolean
@@ -40,7 +39,6 @@ export class CommunityDeletedDomainEvent extends DomainEvent {
   readonly allowedFeatures: string[]
   readonly hasRegisterForm: boolean
   readonly registerFormId: Nullable<string>
-  readonly planId: string
   readonly allowedUsers: number
   readonly color: string
   readonly isPrivate: boolean
@@ -71,7 +69,6 @@ export class CommunityDeletedDomainEvent extends DomainEvent {
     this.hasPayment = params.hasPayment
     this.allowedFeatures = params.allowedFeatures
     this.hasRegisterForm = params.hasRegisterForm
-    this.planId = params.planId
     this.allowedUsers = params.allowedUsers
     this.color = params.color
     this.isPrivate = params.isPrivate
@@ -101,7 +98,6 @@ export class CommunityDeletedDomainEvent extends DomainEvent {
       domain: community.domain?.valueOf(),
       registerFormId: community.registerFormId?.valueOf(),
       hasRegisterForm: community.hasRegisterForm.valueOf(),
-      planId: community.planId.valueOf(),
       allowedUsers: community.allowedUsers.valueOf(),
       deletedAt: community.deletedAt!.valueOf()
 

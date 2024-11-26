@@ -11,7 +11,6 @@ import { HasPayment } from './ValueObjects/HasPayment'
 import { AllowedFeatures } from './ValueObjects/AllowedFeatures'
 import { HasRegisterForm } from './ValueObjects/HasRegisterForm'
 import { RegisterFormId } from './ValueObjects/RegisterFormId'
-import { PlanId } from './ValueObjects/PlanId'
 import { AllowedUsers } from './ValueObjects/AllowedUsers'
 import { Color } from './ValueObjects/Color'
 import { IsPrivate } from './ValueObjects/IsPrivate'
@@ -37,7 +36,6 @@ export class Community extends AggregateRoot {
         readonly allowedFeatures: AllowedFeatures,
         readonly hasRegisterForm: HasRegisterForm,
         readonly registerFormId: Nullable<RegisterFormId>,
-        readonly planId: PlanId,
         readonly allowedUsers: AllowedUsers,
         readonly color: Color,
         readonly isPrivate: IsPrivate,
@@ -55,7 +53,6 @@ export class Community extends AggregateRoot {
     id: Id,
     name: Name,
     suffix: Suffix,
-    planId: PlanId,
     color: Color,
     allowedFeatures: AllowedFeatures,
     allowedUsers: AllowedUsers,
@@ -74,7 +71,6 @@ export class Community extends AggregateRoot {
       allowedFeatures,
       new HasRegisterForm(false),
       null,
-      planId,
       allowedUsers,
       color,
       new IsPrivate(false),
@@ -104,7 +100,6 @@ export class Community extends AggregateRoot {
       this.allowedFeatures,
       this.hasRegisterForm,
       this.registerFormId,
-      this.planId,
       this.allowedUsers,
       this.color,
       this.isPrivate,

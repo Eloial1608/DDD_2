@@ -5,7 +5,6 @@ import { Command } from '@Shared/domain/CommandBus/Command'
 import { Id } from '@Core/Community/domain/ValueObjects/Id'
 import { Name } from '@Core/Community/domain/ValueObjects/Name'
 import { Suffix } from '@Core/Community/domain/ValueObjects/Suffix'
-import { PlanId } from '@Core/Community/domain/ValueObjects/PlanId'
 import { Color } from '@Core/Community/domain/ValueObjects/Color'
 import { AllowedFeatures } from '@Core/Community/domain/ValueObjects/AllowedFeatures'
 import { HomeSpaceId } from '@Core/Community/domain/ValueObjects/HomeSpaceId'
@@ -24,7 +23,6 @@ export class CreateCommunityCommandHandler implements CommandHandler<CreateCommu
       id: new Id(command.id),
       name: new Name(command.name),
       suffix: new Suffix(command.suffix),
-      planId: new PlanId(command.planId),
       color: new Color(command.color),
       allowedFeatures: AllowedFeatures.fromPrimitives(command.allowedFeatures),
       homeSpaceId: new HomeSpaceId(command.homeSpaceId),
