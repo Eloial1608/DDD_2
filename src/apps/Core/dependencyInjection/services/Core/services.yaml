@@ -46,3 +46,13 @@ services:
   Plan.Repository:
     class: src/Contexts/Core/Plan/infrastructure/persistence/TypeOrmPlanRepository
     arguments: ["@Shared.ORM.Connection"]
+  
+  Plan.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/Plan/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Plan.Repository']
+  
+  Plan.FindByCriteria.FindPlansByCriteriaQueryHandler:
+    class: src/Contexts/Core/Plan/application/FindByCriteria/FindPlansByCriteriaQueryHandler
+    arguments: ['@Plan.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
