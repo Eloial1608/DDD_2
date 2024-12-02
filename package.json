@@ -27,6 +27,7 @@
     "cors": "^2.8.5",
     "currency.js": "^2.0.4",
     "express": "^4.21.0",
+    "firebase-admin": "^13.0.1",
     "glob": "^11.0.0",
     "helmet": "^7.1.0",
     "http": "^0.0.1-security",

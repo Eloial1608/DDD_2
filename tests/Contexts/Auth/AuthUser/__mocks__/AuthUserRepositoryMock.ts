@@ -23,8 +23,8 @@ export class AuthUserRepositoryMock implements AuthUserRepository {
     return this.expectedFind
   }
 
-  returnOnFind (authuser: Nullable<AuthUser>): void {
-    this.expectedFind = authuser
+  returnOnFind (authUser: Nullable<AuthUser>): void {
+    this.expectedFind = authUser
   }
 
   async findByCommunityMethodAndSecret (communityId: CommunityId, method: Method, secret: Secret): Promise<Nullable<AuthUser>> {
@@ -32,12 +32,12 @@ export class AuthUserRepositoryMock implements AuthUserRepository {
     return this.expectedFindByCommunityMethodAndSecret
   }
 
-  returnOnFindByCommunityMethodAndSecret (authuser: Nullable<AuthUser>): void {
-    this.expectedFindByCommunityMethodAndSecret = authuser
+  returnOnFindByCommunityMethodAndSecret (authUser: Nullable<AuthUser>): void {
+    this.expectedFindByCommunityMethodAndSecret = authUser
   }
 
-  returnOnSearch (authuser: Array<AuthUser>): void {
-    this.expectedSearch = authuser
+  returnOnSearch (authUser: Array<AuthUser>): void {
+    this.expectedSearch = authUser
   }
 
   async search (criteria: Criteria): Promise<Array<AuthUser>> {
@@ -45,12 +45,12 @@ export class AuthUserRepositoryMock implements AuthUserRepository {
     return this.expectedSearch
   }
 
-  async persist (authuser: AuthUser): Promise<void> {
-    this.mockPersist(authuser)
+  async persist (authUser: AuthUser): Promise<void> {
+    this.mockPersist(authUser)
   }
 
-  assertPersistHasBeenCalledWith (authuser: AuthUser) {
-    expect(this.mockPersist).toHaveBeenCalledWith(authuser)
+  assertPersistHasBeenCalledWith (authUser: AuthUser) {
+    expect(this.mockPersist).toHaveBeenCalledWith(authUser)
   }
 
   assertFindHasBeenCalledWith (id: Id) {

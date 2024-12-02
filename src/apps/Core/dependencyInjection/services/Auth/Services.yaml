@@ -2,3 +2,35 @@ services:
   AuthUser.Repository:
     class: src/Contexts/Auth/AuthUser/infrastructure/persistence/TypeOrmAuthUserRepository
     arguments: ["@Shared.ORM.Connection"]
+  
+  Auth.Firebase.ConfigOptions:
+    factory:
+      class: src/Contexts/Auth/Shared/infrastructure/Persistence/Firebase/ConfigFactory
+      method: 'create'
+
+  Auth.Firebase.Connection:
+    arguments: ['@Auth.Firebase.ConfigOptions']
+    factory:
+      class: src/Contexts/Auth/Shared/infrastructure/Persistence/Firebase/ClientFactory
+      method: 'create'
+  
+  Auth.AuthUser.OAuthRepository:
+    arguments: ['@Auth.Firebase.Connection']
+    class: src/Contexts/Auth/AuthUser/infrastructure/OAuth/FirebaseOAuthRepository
+  
+  Auth.Encrypter.Config:
+    factory:
+      class: src/Contexts/Auth/Shared/infrastructure/Encrypt/HMacEncrypterConfigFactory
+      method: 'create'
+  
+  Auth.Encrypter:
+    class: src/Contexts/Auth/Shared/infrastructure/Encrypt/HMacEncrypter
+    arguments: ['@Auth.Encrypter.Config']
+  
+  Auth.AuthUser.Create.Creator:
+    arguments: ['@AuthUser.Repository', '@Shared.EventBus', '@Auth.AuthUser.OAuthRepository', '@Auth.Encrypter']
+    class: src/Contexts/Auth/AuthUser/application/Create/Creator
+  
+  Auth.AuthUser.Create.CreateAuthUserCommandHandler:
+    arguments: ['@Auth.AuthUser.Create.Creator']
+    class: src/Contexts/Auth/AuthUser/application/Create/CreateAuthUserCommandHandler

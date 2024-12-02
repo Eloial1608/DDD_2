@@ -37,7 +37,7 @@ export class TypeOrmAuthUserRepository extends TypeOrmRepository<AuthUser> imple
     return (await this.criteriaToQueryBuilder(criteria)).getMany()
   }
 
-  async persist (authuser: AuthUser): Promise<void> {
-    await (await this.repository()).save(authuser)
+  async persist (authUser: AuthUser): Promise<void> {
+    await (await this.repository()).save(authUser)
   }
 }

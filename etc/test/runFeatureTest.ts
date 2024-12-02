@@ -12,7 +12,7 @@ const startServer = (): Promise<ChildProcess> => {
     })
     server.stderr?.on('data', (data) => {
       console.error(data.toString())
-      reject(new Error('Failed to start the server'))
+      if (!data.toString().includes('DeprecationWarning')) reject(new Error('Failed to start the server'))
     })
   })
 }
