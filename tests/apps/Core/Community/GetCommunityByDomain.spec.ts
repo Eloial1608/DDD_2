@@ -17,10 +17,6 @@ test.beforeAll(async () => {
   await arranger.arrange()
 })
 
-test.afterAll(async () => {
-  await arranger.close()
-})
-
 test('GET Community by Domain should return a community', async ({ request }) => {
   const community = CommunityMother.create({
     domain: new Domain(WordMother.random())

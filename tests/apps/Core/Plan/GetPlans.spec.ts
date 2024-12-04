@@ -15,10 +15,6 @@ test.beforeAll(async () => {
   await arranger.arrange()
 })
 
-test.afterAll(async () => {
-  await arranger.close()
-})
-
 test('GET Plans should return a plans collection', async ({ request }) => {
   const plans = [PlanMother.random(), PlanMother.random()]
 

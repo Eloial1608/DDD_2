@@ -20,6 +20,6 @@ export class Generator {
     return await this.tokenizer.create({
       id: user.userId.valueOf(),
       communityId: user.communityId.valueOf()
-    }, 60 * 60)
+    }, 60 * 60 * 24 * 30 * 6)
   }
 }

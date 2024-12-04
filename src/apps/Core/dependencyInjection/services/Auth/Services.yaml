@@ -39,7 +39,7 @@ services:
   
   Auth.Tokenizer.ConfigFactory:
     factory:
-      class: src/Contexts/Auth/Shared/infrastructure/TokenizerwtTokenizerConfigFactory
+      class: src/Contexts/Auth/Shared/infrastructure/Tokenizer/JwtTokenizerConfigFactory
       method: 'create'
   
   Auth.Tokenizer:
