@@ -32,3 +32,7 @@ services:
     arguments: ['@Community.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+
+  Account.Repository:
+    class: src/Contexts/Core/Account/infrastructure/persistence/TypeOrmAccountRepository
+    arguments: ["@Shared.ORM.Connection"]
