@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { Controller } from '../@types/Controller'
+import { Controller } from './@types/Controller'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { GenerateTokenQuery } from '@Auth/AuthUser/application/GenerateToken/GenerateTokenQuery'
 import { GenerateTokenResponse } from '@Auth/AuthUser/application/GenerateToken/GenerateTokenResponse'
