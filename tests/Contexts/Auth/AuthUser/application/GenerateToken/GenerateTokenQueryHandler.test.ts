@@ -36,7 +36,7 @@ describe('GenerateTokenQueryHandler should ', () => {
     tokenizer.assertTokenizerHasBeenCalledWith({
       id: authUser.userId.valueOf(),
       communityId: authUser.communityId.valueOf()
-    }, 3600)
+    }, 15552000)
   })
 
   test('Fail if the auth user doesnt exists', async () => {
