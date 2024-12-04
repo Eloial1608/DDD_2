@@ -11,7 +11,7 @@ export class TypeOrmConfigFactory {
       database: process.env.DB_NAME,
       synchronize: false,
       logging: false,
-      entities: ['src/Contexts/Core/**/*Schema*', 'src/Contexts/Auth/**/*Schema*'],
+      entities: ['src/Contexts/Core/**/*Schema*'],
       migrations: ['persistence/migrations/core/*.js']
     }
   }

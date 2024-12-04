@@ -1,0 +1,4 @@
+services:
+  Apps.Auth.Controllers.LoginPostController:
+    class: src/apps/Auth/controllers/LoginPostController
+    arguments: ["@Shared.QueryBus"]

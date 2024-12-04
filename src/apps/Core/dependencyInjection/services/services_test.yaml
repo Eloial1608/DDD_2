@@ -9,6 +9,3 @@ services:
     Core.EnvironmentArranger:
         class: tests/Contexts/Shared/infrastructure/Arranger/Typeorm/TypeOrmEnvironmentArranger
         arguments: ['@Shared.ORM.Connection']
-    
-    Auth.Tokenizer:
-        class: tests/Contexts/Auth/Shared/infrastructure/Tokenizer/JwtTokenizerFake
