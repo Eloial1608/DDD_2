@@ -1,6 +1,7 @@
 import { AuthUser } from '@Auth/AuthUser/domain/AuthUser'
 import { AuthUserRepository } from '@Auth/AuthUser/domain/AuthUserRepository'
 import { CommunityId } from '@Auth/AuthUser/domain/ValueObjects/CommunityId'
+import { Email } from '@Auth/AuthUser/domain/ValueObjects/Email'
 import { Id } from '@Auth/AuthUser/domain/ValueObjects/Id'
 import { Method } from '@Auth/AuthUser/domain/ValueObjects/Method'
 import { Secret } from '@Auth/AuthUser/domain/ValueObjects/Secret'
@@ -10,12 +11,12 @@ import { mockFn } from '@Tests/Contexts/mockUtils'
 
 export class AuthUserRepositoryMock implements AuthUserRepository {
   private mockFind = mockFn()
-  private mockFindByCommunityMethodAndSecret = mockFn()
+  private mockFindByCommunityMethodEmailAndSecret = mockFn()
   private mockSearch = mockFn()
   private mockPersist = mockFn()
 
   private expectedFind: Nullable<AuthUser>
-  private expectedFindByCommunityMethodAndSecret: Nullable<AuthUser>
+  private expectedFindByCommunityMethodEmailAndSecret: Nullable<AuthUser>
   private expectedSearch: Array<AuthUser> = []
 
   async find (id: Id): Promise<Nullable<AuthUser>> {
@@ -27,13 +28,13 @@ export class AuthUserRepositoryMock implements AuthUserRepository {
     this.expectedFind = authUser
   }
 
-  async findByCommunityMethodAndSecret (communityId: CommunityId, method: Method, secret: Secret): Promise<Nullable<AuthUser>> {
-    this.mockFindByCommunityMethodAndSecret(communityId, method, secret)
-    return this.expectedFindByCommunityMethodAndSecret
+  async findByCommunityMethodEmailAndSecret (communityId: CommunityId, method: Method, email: Email, secret: Secret): Promise<Nullable<AuthUser>> {
+    this.mockFindByCommunityMethodEmailAndSecret(communityId, method, email, secret)
+    return this.expectedFindByCommunityMethodEmailAndSecret
   }
 
   returnOnFindByCommunityMethodAndSecret (authUser: Nullable<AuthUser>): void {
-    this.expectedFindByCommunityMethodAndSecret = authUser
+    this.expectedFindByCommunityMethodEmailAndSecret = authUser
   }
 
   returnOnSearch (authUser: Array<AuthUser>): void {
@@ -57,8 +58,8 @@ export class AuthUserRepositoryMock implements AuthUserRepository {
     expect(this.mockFind).toHaveBeenCalledWith(id)
   }
 
-  assertFindByCommunityMethodAndSecretHasBeenCalledWith (communityId: CommunityId, method: Method, secret: Secret) {
-    expect(this.mockFindByCommunityMethodAndSecret).toHaveBeenCalledWith(communityId, method, secret)
+  assertFindByCommunityMethodAndSecretHasBeenCalledWith (communityId: CommunityId, method: Method, email: Email, secret: Secret) {
+    expect(this.mockFindByCommunityMethodEmailAndSecret).toHaveBeenCalledWith(communityId, method, email, secret)
   }
 
   assertSearchHasBeenCalledWith (criteria: Criteria) {

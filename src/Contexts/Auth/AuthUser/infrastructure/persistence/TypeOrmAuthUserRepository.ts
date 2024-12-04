@@ -9,6 +9,7 @@ import { Criteria } from '@Shared/domain/Criteria/Criteria'
 import { CommunityId } from '@Auth/AuthUser/domain/ValueObjects/CommunityId'
 import { Method } from '@Auth/AuthUser/domain/ValueObjects/Method'
 import { Secret } from '@Auth/AuthUser/domain/ValueObjects/Secret'
+import { Email } from '@Auth/AuthUser/domain/ValueObjects/Email'
 
 export class TypeOrmAuthUserRepository extends TypeOrmRepository<AuthUser> implements AuthUserRepository {
   protected get entitySchema (): EntitySchema {
@@ -19,15 +20,17 @@ export class TypeOrmAuthUserRepository extends TypeOrmRepository<AuthUser> imple
     return await (await this.repository()).findOneBy({ id: Equal(id) })
   }
 
-  async findByCommunityMethodAndSecret (
+  async findByCommunityMethodEmailAndSecret (
     communityId: CommunityId,
     method: Method,
+    email: Email,
     secret: Secret
   ): Promise<Nullable<AuthUser>> {
     return await (await this.repository()).findOneBy(
       {
         communityId: Equal(communityId),
         method: Equal(method),
+        email: Equal(email),
         secret: Equal(secret)
       }
     )

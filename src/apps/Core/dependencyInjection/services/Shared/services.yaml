@@ -37,3 +37,12 @@ services:
       class: src/Contexts/Shared/infrastructure/persistence/typeorm/DataSourceFactory
       method: "createPostgres"
     arguments: ["core", "@Shared.ORM.DataSourceOptions"]
+  
+  Shared.TokenDecoder.ConfigFactory:
+    factory:
+      class: src/Contexts/Shared/infrastructure/TokenDecoder/JwtTokenDecoderConfigFactory
+      method: 'create'
+  
+  Shared.TokenDecoder:
+    arguments: ['@Shared.TokenDecoder.ConfigFactory']
+    class: src/Contexts/Shared/infrastructure/TokenDecoder/JwtTokenDecoder

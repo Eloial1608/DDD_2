@@ -34,3 +34,24 @@ services:
   Auth.AuthUser.Create.CreateAuthUserCommandHandler:
     arguments: ['@Auth.AuthUser.Create.Creator']
     class: src/Contexts/Auth/AuthUser/application/Create/CreateAuthUserCommandHandler
+    tags:
+      - { name: "commandHandler" }
+  
+  Auth.Tokenizer.ConfigFactory:
+    factory:
+      class: src/Contexts/Auth/Shared/infrastructure/TokenizerwtTokenizerConfigFactory
+      method: 'create'
+  
+  Auth.Tokenizer:
+    arguments: ['@Auth.Tokenizer.ConfigFactory']
+    class: src/Contexts/Auth/Shared/infrastructure/Tokenizer/JwtTokenizer
+  
+  Auth.AuthUser.GenerateToken.Generator:
+    arguments: ['@AuthUser.Repository', '@Auth.Tokenizer', '@Auth.Encrypter']
+    class: src/Contexts/Auth/AuthUser/application/GenerateToken/Generator
+  
+  Auth.AuthUser.GenerateToken.GenerateTokenQueryHandler:
+    arguments: ['@Auth.AuthUser.GenerateToken.Generator']
+    class: src/Contexts/Auth/AuthUser/application/GenerateToken/GenerateTokenQueryHandler
+    tags:
+      - { name: "queryHandler" }
