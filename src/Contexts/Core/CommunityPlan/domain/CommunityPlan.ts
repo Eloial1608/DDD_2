@@ -39,7 +39,7 @@ export class CommunityPlan extends AggregateRoot {
     price: Price,
     allowedUsers: AllowedUsers,
     renovationInterval: RenovationInterval,
-    RenovationType: RenovationType,
+    renovationType: RenovationType,
   ): CommunityPlan {
     const communityPlan = new CommunityPlan(
       id,
@@ -50,7 +50,7 @@ export class CommunityPlan extends AggregateRoot {
       price,
       allowedUsers,
       renovationInterval,
-      RenovationType,
+      renovationType,
       new CreatedAt(new Date()),
       new UpdatedAt(new Date()),
     )
