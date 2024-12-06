@@ -23,7 +23,7 @@ export class CommunityPlan extends AggregateRoot {
         readonly price: Price,
         readonly allowedUsers: AllowedUsers,
         readonly renovationInterval: RenovationInterval,
-        readonly RenovationType: RenovationType,
+        readonly renovationType: RenovationType,
         readonly createdAt: CreatedAt,
         readonly updatedAt: UpdatedAt,
   ) {
