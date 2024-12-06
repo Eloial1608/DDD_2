@@ -1,9 +1,7 @@
-import { Query } from '@Shared/domain/Criteria/Query'
+import { Query } from '@Shared/domain/QueryBus/Query'
 
-export class FindCommunityByIdQuery extends Query {
+export class FindCommunityByIdQuery implements Query {
   constructor (
         readonly id: string
-  ) {
-    super()
-  }
+  ) {}
 }

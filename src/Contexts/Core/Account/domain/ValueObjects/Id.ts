@@ -1,3 +1,3 @@
-import { AccountId } from "@Core/Shared/domain/SharedValueObjects/Account/AccountId";
+import { AccountId } from '@Core/Shared/domain/SharedValueObjects/Account/AccountId'
 
 export class Id extends AccountId {}

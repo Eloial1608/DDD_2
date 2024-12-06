@@ -1,5 +1,5 @@
 import { Account } from '@Core/Account/domain/Account'
-import { AccountRepository} from '@Core/Account/domain/AccountRepository'
+import { AccountRepository } from '@Core/Account/domain/AccountRepository'
 import { TypeOrmRepository } from '@Shared/infrastructure/persistence/typeorm/TypeOrmRepository'
 import { EntitySchema, Equal } from 'typeorm'
 import { AccountSchema } from './entity/AccountSchema'

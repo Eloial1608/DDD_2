@@ -13,7 +13,7 @@ export class CreateAuthUserCommandHandler implements CommandHandler<CreateAuthUs
   constructor (private readonly creator: Creator) {}
 
   subscribedTo (): Command {
-    return [CreateAuthUserCommand]
+    return CreateAuthUserCommand
   }
 
   async handle (command: CreateAuthUserCommand): Promise<void> {

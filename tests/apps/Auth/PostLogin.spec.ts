@@ -1,5 +1,5 @@
-import '@Apps/Core/env/loadEnv'
-import DI from '@Apps/Core/dependencyInjection/DI'
+import '@Apps/Auth/env/loadEnv'
+import DI from '@Apps/Auth/dependencyInjection/DI'
 import { test, expect } from '@playwright/test'
 import { EnvironmentArranger } from '@Tests/Contexts/Shared/infrastructure/Arranger/EnvironmentArranger'
 import { AuthUserMother } from '@Tests/Contexts/Auth/AuthUser/domain/AuthUserMother'
@@ -14,7 +14,7 @@ let encrypter: Encrypter
 
 test.beforeAll(async () => {
   await DI.getInstance().initialize()
-  arranger = await DI.getInstance().resolve<EnvironmentArranger>('Core.EnvironmentArranger')
+  arranger = await DI.getInstance().resolve<EnvironmentArranger>('Auth.EnvironmentArranger')
   repository = await DI.getInstance().resolve<AuthUserRepository>('AuthUser.Repository')
   encrypter = await DI.getInstance().resolve<Encrypter>('Auth.Encrypter')
   await arranger.arrange()

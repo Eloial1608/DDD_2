@@ -2,3 +2,10 @@ services:
   Apps.Auth.Controllers.LoginPostController:
     class: src/apps/Auth/controllers/LoginPostController
     arguments: ["@Shared.QueryBus"]
+  
+  Apps.Auth.Controllers.RegisterPostController:
+    class: src/apps/Auth/controllers/RegisterPostController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus"]
+  
+  Apps.Auth.Controllers.HealthGetController:
+    class: src/apps/Auth/controllers/HealthGetController

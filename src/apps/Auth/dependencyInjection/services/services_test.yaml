@@ -6,7 +6,7 @@ services:
         class: src/Contexts/Shared/infrastructure/EventBus/InMemory/InMemorySyncEventBus
         arguments: []
 
-    Core.EnvironmentArranger:
+    Auth.EnvironmentArranger:
         class: tests/Contexts/Shared/infrastructure/Arranger/Typeorm/TypeOrmEnvironmentArranger
         arguments: ['@Shared.ORM.Connection']
     

@@ -19,7 +19,7 @@ export class CommandHandlerInformation {
   }
 
   search (command: Command): CommandHandler<Command> {
-    const handler = this.commandHandlersMap.get(command)
+    const handler = this.commandHandlersMap.get(command.constructor)
 
     if (!handler) {
       throw new CommandNotRegisteredError(command)
