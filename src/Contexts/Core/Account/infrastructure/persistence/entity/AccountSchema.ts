@@ -33,6 +33,7 @@ export const AccountSchema = new EntitySchema<Account>({
         },
         methodId:{
             type: String,
+            nullable: true,
             transformer : ValueObjectTransformer(MethodId)
         }
     }
