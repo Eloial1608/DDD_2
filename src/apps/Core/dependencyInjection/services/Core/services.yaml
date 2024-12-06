@@ -60,3 +60,7 @@ services:
     arguments: ['@Plan.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+  
+  User.Repository:
+    class: src/Contexts/Core/User/infrastructure/persistence/TypeOrmUserRepository
+    arguments: ["@Shared.ORM.Connection"]
