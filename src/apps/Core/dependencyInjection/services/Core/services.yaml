@@ -64,3 +64,7 @@ services:
   CommunityPlan.Repository:
     class: src/Contexts/Core/CommunityPlan/infrastructure/persistence/TypeOrmPlanRepository
     arguments: ["@Shared.ORM.Connection"]
+  
+  User.Repository:
+    class: src/Contexts/Core/User/infrastructure/persistence/TypeOrmUserRepository
+    arguments: ["@Shared.ORM.Connection"]
