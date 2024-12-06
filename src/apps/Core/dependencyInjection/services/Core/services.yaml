@@ -60,3 +60,7 @@ services:
     arguments: ['@Plan.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+
+  CommunityPlan.Repository:
+    class: src/Contexts/Core/CommunityPlan/infrastructure/persistence/TypeOrmPlanRepository
+    arguments: ["@Shared.ORM.Connection"]
