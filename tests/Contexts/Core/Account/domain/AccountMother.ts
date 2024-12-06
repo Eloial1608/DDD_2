@@ -6,6 +6,7 @@ import { MotherCreator } from '@Tests/Contexts/Shared/domain/MotherCreator'
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
 import { WordMother } from '@Tests/Contexts/Shared/domain/WordMother'
 import { Email } from '@Core/Account/domain/ValueObjects/Email'
+import { MethodId } from '@Core/Account/domain/ValueObjects/MethodId'
 
 export class AccountMother {
   static create (params: Partial<Account>): Account {
@@ -13,7 +14,8 @@ export class AccountMother {
       params.id ?? new Id(UuidMother.random()),
       params.name ?? new Name(WordMother.random()),
       params.email ?? new Email(MotherCreator.random().internet.email()),
-      params.createdAt ?? new CreatedAt(new Date())
+      params.createdAt ?? new CreatedAt(new Date()),
+      params.methodId ?? null
     )
   }
 

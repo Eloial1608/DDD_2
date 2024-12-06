@@ -6,6 +6,7 @@ import{Id} from '@Core/Account/domain/ValueObjects/Id'
 import{Name} from '@Core/Account/domain/ValueObjects/Name'
 import{Email} from '@Core/Account/domain/ValueObjects/Email'
 import{CreatedAt} from '@Core/Account/domain/ValueObjects/CreatedAt'
+import { MethodId } from '@Core/Account/domain/ValueObjects/MethodId'
 
 
 export const AccountSchema = new EntitySchema<Account>({
@@ -29,6 +30,10 @@ export const AccountSchema = new EntitySchema<Account>({
         createdAt:{
             type: Date,
             transformer : ValueObjectTransformer(CreatedAt)
+        },
+        methodId:{
+            type: String,
+            transformer : ValueObjectTransformer(MethodId)
         }
     }
 })
