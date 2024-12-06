@@ -1,9 +1,9 @@
-import '../../src/apps/Core/env/loadEnv'
+import '../../src/apps/Auth/env/loadEnv'
 import { exec, ChildProcess } from 'child_process'
 
 const startServer = (): Promise<ChildProcess> => {
   return new Promise((resolve, reject) => {
-    const server = exec('NODE_ENV=test ts-node -r tsconfig-paths/register src/apps/Core/index.ts')
+    const server = exec('NODE_ENV=test ts-node -r tsconfig-paths/register src/apps/Auth/index.ts')
     server.stdout?.on('data', (data) => {
       console.log(data.toString())
       if (data.includes('is running')) {
@@ -12,7 +12,7 @@ const startServer = (): Promise<ChildProcess> => {
     })
     server.stderr?.on('data', (data) => {
       console.error(data.toString())
-      reject(new Error('Failed to start the server'))
+      if (!data.toString().includes('DeprecationWarning')) reject(new Error('Failed to start the server'))
     })
   })
 }

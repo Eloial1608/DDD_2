@@ -36,3 +36,27 @@ services:
   Account.Repository:
     class: src/Contexts/Core/Account/infrastructure/persistence/TypeOrmAccountRepository
     arguments: ["@Shared.ORM.Connection"]
+  
+  Community.Delete.Deleter:
+    class: src/Contexts/Core/Community/application/Delete/Deleter
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.Delete.DeleteCommunityCommandHandler:
+    class: src/Contexts/Core/Community/application/Delete/DeleteCommunityCommandHandler
+    arguments: ["@Community.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Plan.Repository:
+    class: src/Contexts/Core/Plan/infrastructure/persistence/TypeOrmPlanRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
+  Plan.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/Plan/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Plan.Repository']
+  
+  Plan.FindByCriteria.FindPlansByCriteriaQueryHandler:
+    class: src/Contexts/Core/Plan/application/FindByCriteria/FindPlansByCriteriaQueryHandler
+    arguments: ['@Plan.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }

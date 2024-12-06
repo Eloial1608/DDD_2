@@ -17,7 +17,6 @@ import { SpacesCount } from '@Core/Community/domain/ValueObjects/SpacesCount'
 import { AllowedFeatures } from '@Core/Community/domain/ValueObjects/AllowedFeatures'
 import { HasRegisterForm } from '@Core/Community/domain/ValueObjects/HasRegisterForm'
 import { RegisterFormId } from '@Core/Community/domain/ValueObjects/RegisterFormId'
-import { PlanId } from '@Core/Community/domain/ValueObjects/PlanId'
 import { AllowedUsers } from '@Core/Community/domain/ValueObjects/AllowedUsers'
 import { HomeSpaceId } from '@Core/Community/domain/ValueObjects/HomeSpaceId'
 import { ExpiresAt } from '@Core/Community/domain/ValueObjects/ExpiresAt'
@@ -81,10 +80,6 @@ export const CommunitySchema = new EntitySchema<Community>({
       type: String,
       nullable: true,
       transformer: ValueObjectTransformer(RegisterFormId)
-    },
-    planId: {
-      type: String,
-      transformer: ValueObjectTransformer(PlanId)
     },
     allowedUsers: {
       type: 'int',

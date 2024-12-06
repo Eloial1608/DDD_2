@@ -14,7 +14,6 @@ export type CommunityResponseBody = {
     readonly allowedFeatures: string[]
     readonly hasRegisterForm: boolean
     readonly registerFormId: Nullable<string>
-    readonly planId: string
     readonly allowedUsers: number
     readonly color: string
     readonly isPrivate: boolean
@@ -41,7 +40,6 @@ export class CommunityResponse implements QueryResponse<CommunityResponseBody> {
       allowedFeatures: community.allowedFeatures.valueOf().map(x => x.valueOf()),
       hasRegisterForm: community.hasRegisterForm.valueOf(),
       registerFormId: community.registerFormId?.valueOf(),
-      planId: community.planId.valueOf(),
       allowedUsers: community.allowedUsers.valueOf(),
       color: community.color.valueOf(),
       isPrivate: community.isPrivate.valueOf(),

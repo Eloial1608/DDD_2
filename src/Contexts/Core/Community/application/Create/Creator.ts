@@ -1,7 +1,6 @@
 import { Color } from '@Core/Community/domain/ValueObjects/Color'
 import { Id } from '@Core/Community/domain/ValueObjects/Id'
 import { Name } from '@Core/Community/domain/ValueObjects/Name'
-import { PlanId } from '@Core/Community/domain/ValueObjects/PlanId'
 import { Suffix } from '@Core/Community/domain/ValueObjects/Suffix'
 import { HomeSpaceId } from '@Core/Community/domain/ValueObjects/HomeSpaceId'
 import { ExpiresAt } from '@Core/Community/domain/ValueObjects/ExpiresAt'
@@ -21,7 +20,6 @@ type Params = {
     id: Id
     name: Name
     suffix: Suffix
-    planId: PlanId
     color: Color
     allowedFeatures: AllowedFeatures
     allowedUsers: AllowedUsers
@@ -45,7 +43,6 @@ export class Creator {
       params.id,
       params.name,
       params.suffix,
-      params.planId,
       params.color,
       params.allowedFeatures,
       params.allowedUsers,

@@ -13,7 +13,6 @@ import { IsPrivate } from '@Core/Community/domain/ValueObjects/IsPrivate'
 import { IsRegisterOpen } from '@Core/Community/domain/ValueObjects/IsRegisterOpen'
 import { MembersCount } from '@Core/Community/domain/ValueObjects/MembersCount'
 import { Name } from '@Core/Community/domain/ValueObjects/Name'
-import { PlanId } from '@Core/Community/domain/ValueObjects/PlanId'
 import { SpacesCount } from '@Core/Community/domain/ValueObjects/SpacesCount'
 import { Suffix } from '@Core/Community/domain/ValueObjects/Suffix'
 import { UpdatedAt } from '@Core/Community/domain/ValueObjects/UpdatedAt'
@@ -35,7 +34,6 @@ export class CommunityMother {
       params.allowedFeatures ?? new AllowedFeatures([]),
       params.hasRegisterForm ?? new HasRegisterForm(false),
       params.registerFormId ?? null,
-      params.planId ?? new PlanId(UuidMother.random()),
       params.allowedUsers ?? new AllowedUsers(1),
       params.color ?? new Color(MotherCreator.random().internet.color()),
       params.isPrivate ?? new IsPrivate(false),

@@ -1,0 +1,14 @@
+imports:
+    - { resource: ./services.yaml }
+
+services:
+    Shared.EventBus:
+        class: src/Contexts/Shared/infrastructure/EventBus/InMemory/InMemorySyncEventBus
+        arguments: []
+
+    Core.EnvironmentArranger:
+        class: tests/Contexts/Shared/infrastructure/Arranger/Typeorm/TypeOrmEnvironmentArranger
+        arguments: ['@Shared.ORM.Connection']
+    
+    Auth.Tokenizer:
+        class: tests/Contexts/Auth/Shared/infrastructure/Tokenizer/JwtTokenizerFake

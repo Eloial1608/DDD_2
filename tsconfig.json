@@ -28,6 +28,9 @@
     "@Core/*": [
       "src/Contexts/Core/*"
     ],
+    "@Auth/*": [
+      "src/Contexts/Auth/*"
+    ],
   },
   },
   "include": [
