@@ -32,6 +32,10 @@ services:
     arguments: ['@Community.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+
+  Account.Repository:
+    class: src/Contexts/Core/Account/infrastructure/persistence/TypeOrmAccountRepository
+    arguments: ["@Shared.ORM.Connection"]
   
   Community.Delete.Deleter:
     class: src/Contexts/Core/Community/application/Delete/Deleter
