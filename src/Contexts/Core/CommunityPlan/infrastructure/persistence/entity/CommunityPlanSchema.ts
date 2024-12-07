@@ -13,7 +13,7 @@ import { RenovationInterval } from '@Core/CommunityPlan/domain/ValueObjects/Reno
 import { RenovationType } from '@Core/CommunityPlan/domain/ValueObjects/RenovationType'
 
 const CommunityPlanPriceSchema = new EntitySchema<Price>({
-  name: 'communityplanPrice',
+  name: 'communityPlanPrice',
   target: Price,
   columns: {
     value: {

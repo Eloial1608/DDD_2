@@ -1,3 +1,5 @@
+import { TokenData } from './TokenData'
+
 export interface TokenDecoder {
-    run (token: string): object
+    run (token: string): TokenData
 }

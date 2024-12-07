@@ -21,3 +21,7 @@ services:
   Apps.Core.Controllers.CommunityPostController:
     class: src/apps/Core/controllers/Community/CommunityPostController
     arguments: ["@Shared.CommandBus"]
+  
+  Apps.Core.Controllers.UserPostController:
+    class: src/apps/Core/controllers/User/UserPostController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]

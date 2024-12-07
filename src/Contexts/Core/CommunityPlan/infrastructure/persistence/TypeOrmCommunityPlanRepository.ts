@@ -20,7 +20,7 @@ export class TypeOrmCommunityPlanRepository extends TypeOrmRepository<CommunityP
     return (await this.criteriaToQueryBuilder(criteria)).getMany()
   }
 
-  async persist (communityplan: CommunityPlan): Promise<void> {
-    await (await this.repository()).save(communityplan)
+  async persist (communityPlan: CommunityPlan): Promise<void> {
+    await (await this.repository()).save(communityPlan)
   }
 }

@@ -18,12 +18,12 @@ export class CommunityPlanRepositoryMock implements CommunityPlanRepository {
     return this.expectedFind
   }
 
-  returnOnFind (communityplan: Nullable<CommunityPlan>): void {
-    this.expectedFind = communityplan
+  returnOnFind (communityPlan: Nullable<CommunityPlan>): void {
+    this.expectedFind = communityPlan
   }
 
-  returnOnSearch (communityplan: Array<CommunityPlan>): void {
-    this.expectedSearch = communityplan
+  returnOnSearch (communityPlan: Array<CommunityPlan>): void {
+    this.expectedSearch = communityPlan
   }
 
   async search (criteria: Criteria): Promise<Array<CommunityPlan>> {
@@ -31,12 +31,12 @@ export class CommunityPlanRepositoryMock implements CommunityPlanRepository {
     return this.expectedSearch
   }
 
-  async persist (communityplan: CommunityPlan): Promise<void> {
-    this.mockPersist(communityplan)
+  async persist (communityPlan: CommunityPlan): Promise<void> {
+    this.mockPersist(communityPlan)
   }
 
-  assertPersistHasBeenCalledWith (communityplan: CommunityPlan) {
-    expect(this.mockPersist).toHaveBeenCalledWith(communityplan)
+  assertPersistHasBeenCalledWith (communityPlan: CommunityPlan) {
+    expect(this.mockPersist).toHaveBeenCalledWith(communityPlan)
   }
 
   assertFindHasBeenCalledWith (id: Id) {
