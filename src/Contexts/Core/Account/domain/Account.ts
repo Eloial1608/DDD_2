@@ -5,6 +5,7 @@ import { Email } from '@Core/Account/domain/ValueObjects/Email'
 import { CreatedAt } from '@Core/Account/domain/ValueObjects/CreatedAt'
 import { MethodId } from './ValueObjects/MethodId'
 import { Nullable } from '@Shared/domain/Nullable'
+import { AccountCreatedDomainEvent } from './Events/AccountCreatedDomainEvent'
 
 export class Account extends AggregateRoot {
   constructor (
@@ -15,5 +16,24 @@ export class Account extends AggregateRoot {
         readonly methodId : Nullable<MethodId>
   ) {
     super()
+  }
+
+  static create (
+    id: Id,
+    name: Name,
+    email: Email,
+    methodId: Nullable<MethodId>
+  ) {
+    const account = new Account(
+      id,
+      name,
+      email,
+      new CreatedAt(new Date()),
+      methodId
+    )
+
+    account.record(AccountCreatedDomainEvent.fromAggregate(account))
+
+    return account
   }
 }
