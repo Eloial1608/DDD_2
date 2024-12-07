@@ -61,6 +61,7 @@ export const UserSchema = new EntitySchema<User>({
     },
     registerData: {
       type: 'jsonb',
+      nullable: true,
       transformer: ValueObjectTransformer(RegisterData)
     },
     isBanned: {

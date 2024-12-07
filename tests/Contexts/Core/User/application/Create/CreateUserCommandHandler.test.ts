@@ -33,7 +33,7 @@ describe('CreateUserCommandHandler should ', () => {
 
   test('Fail if a user with the same id already exists', async () => {
     const user = UserMother.random()
-    const existingUser = UserMother.create({ id: user.id })
+    const existingUser = UserMother.create({ id: user.id, username: user.username })
 
     const command = CreateUserCommandMother.fromAggregate(user)
 
@@ -44,7 +44,7 @@ describe('CreateUserCommandHandler should ', () => {
 
   test('Fail if a user with the same suffix already exists', async () => {
     const user = UserMother.random()
-    const existingUser = UserMother.create({ email: user.email })
+    const existingUser = UserMother.create({ email: user.email, username: user.username })
 
     const command = CreateUserCommandMother.fromAggregate(user)
 
