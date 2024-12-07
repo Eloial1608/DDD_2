@@ -108,3 +108,13 @@ services:
     arguments: ["@Account.Create.Creator"]
     tags:
       - { name: "commandHandler" }
+  
+  Account.FindById.FinderById:
+    class: src/Contexts/Core/Account/application/FindById/FinderById
+    arguments: ['@Account.Repository']
+  
+  Account.FindById.FindAccountByIdQueryHandler:
+    class: src/Contexts/Core/Account/application/FindById/FindAccountByIdQueryHandler
+    arguments: ['@Account.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
