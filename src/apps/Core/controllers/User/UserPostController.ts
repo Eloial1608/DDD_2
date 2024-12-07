@@ -9,6 +9,8 @@ import { CreateUserCommand } from '@Core/User/application/Create/CreateUserComma
 import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { UserAlreadyExistsById } from '@Core/User/domain/Errors/UserAlreadyExistsById'
 import { UserAlreadyExistsByEmail } from '@Core/User/domain/Errors/UserAlreadyExistsBySuffix'
+import { FindCommunityByIdQuery } from '@Core/Community/application/FindById/FindCommunityByIdQuery'
+import { CommunityResponse } from '@Core/Community/application/CommunityResponse'
 
 export class UserPostController implements Controller {
   constructor (private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
@@ -18,6 +20,12 @@ export class UserPostController implements Controller {
       if (!req.headers.authorization) return res.status(401).send()
 
       const tokenData = this.decoder.run(req.headers.authorization)
+
+      const communityQuery = new FindCommunityByIdQuery(tokenData.communityId)
+
+      const community = (await this.queryBus.ask<CommunityResponse>(communityQuery)).response
+
+      if (community.membersCount >= community.allowedUsers) return res.status(401).send()
 
       let isOwner = false
 
