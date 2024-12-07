@@ -21,6 +21,7 @@ import { AllowedUsers } from '@Core/Community/domain/ValueObjects/AllowedUsers'
 import { HomeSpaceId } from '@Core/Community/domain/ValueObjects/HomeSpaceId'
 import { ExpiresAt } from '@Core/Community/domain/ValueObjects/ExpiresAt'
 import { DeletedAt } from '@Core/Community/domain/ValueObjects/DeletedAt'
+import { MethodId } from '@Core/Community/domain/ValueObjects/MethodId'
 
 export const CommunitySchema = new EntitySchema<Community>({
   name: 'Community',
@@ -39,6 +40,11 @@ export const CommunitySchema = new EntitySchema<Community>({
     suffix: {
       type: String,
       transformer: ValueObjectTransformer(Suffix)
+    },
+    methodId: {
+      type: String,
+      nullable: true,
+      transformer: ValueObjectTransformer(MethodId)
     },
     domain: {
       type: String,

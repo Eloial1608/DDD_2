@@ -19,6 +19,8 @@ import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { Username } from './ValueObjects/Username'
 import { CommunityId } from './ValueObjects/CommunityId'
 import { UserCreatedDomainEvent } from './Events/UserCreatedDomainEvent'
+import { IsOwner } from './ValueObjects/IsOwner'
+import { IsAdmin } from './ValueObjects/IsAdmin'
 
 export class User extends AggregateRoot {
   constructor (
@@ -32,6 +34,8 @@ export class User extends AggregateRoot {
     readonly hasCompletedRegister: HasCompletedRegister,
     readonly registerData: Nullable<RegisterData>,
     readonly isBanned: IsBanned,
+    readonly isAdmin: IsAdmin,
+    readonly isOwner: IsOwner,
     readonly totalPosts: TotalPosts,
     readonly totalMedia: TotalMedia,
     readonly totalThreads: TotalThreads,
@@ -49,7 +53,9 @@ export class User extends AggregateRoot {
     name: Name,
     username: Username,
     email: Email,
-    communityId: CommunityId
+    communityId: CommunityId,
+    isAdmin: IsAdmin,
+    isOwner: IsOwner
   ): User {
     const user = new User(
       id,
@@ -62,6 +68,8 @@ export class User extends AggregateRoot {
       new HasCompletedRegister(false),
       null,
       new IsBanned(false),
+      isAdmin,
+      isOwner,
       new TotalPosts(0),
       new TotalMedia(0),
       new TotalThreads(0),

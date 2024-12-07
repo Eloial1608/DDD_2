@@ -22,6 +22,7 @@ import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { DeletedAt } from './ValueObjects/DeletedAt'
 import { CommunityCreatedDomainEvent } from './Events/CommunityCreatedDomainEvent'
 import { CommunityDeletedDomainEvent } from './Events/CommunityDeletedDomainEvent'
+import { MethodId } from './ValueObjects/MethodId'
 
 export class Community extends AggregateRoot {
   constructor (
@@ -33,6 +34,7 @@ export class Community extends AggregateRoot {
         readonly firstPaymentDone: FirstPaymentDone,
         readonly spacesCount: SpacesCount,
         readonly hasPayment: HasPayment,
+        readonly methodId: Nullable<MethodId>,
         readonly allowedFeatures: AllowedFeatures,
         readonly hasRegisterForm: HasRegisterForm,
         readonly registerFormId: Nullable<RegisterFormId>,
@@ -68,6 +70,7 @@ export class Community extends AggregateRoot {
       new FirstPaymentDone(false),
       new SpacesCount(1),
       new HasPayment(false),
+      null,
       allowedFeatures,
       new HasRegisterForm(false),
       null,
@@ -97,6 +100,7 @@ export class Community extends AggregateRoot {
       this.firstPaymentDone,
       this.spacesCount,
       this.hasPayment,
+      this.methodId,
       this.allowedFeatures,
       this.hasRegisterForm,
       this.registerFormId,

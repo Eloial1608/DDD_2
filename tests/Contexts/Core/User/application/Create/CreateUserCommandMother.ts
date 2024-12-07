@@ -6,13 +6,17 @@ export class CreateUserCommandMother {
     id: string,
     name: string,
     email: string,
-    communityId: string
+    communityId: string,
+    isAdmin: boolean,
+    isOwner: boolean
   ): CreateUserCommand {
     return new CreateUserCommand(
       id,
       name,
       email,
-      communityId
+      communityId,
+      isAdmin,
+      isOwner
     )
   }
 
@@ -21,7 +25,9 @@ export class CreateUserCommandMother {
       user.id.valueOf(),
       user.name.valueOf(),
       user.email.valueOf(),
-      user.communityId.valueOf()
+      user.communityId.valueOf(),
+      user.isAdmin.valueOf(),
+      user.isOwner.valueOf()
     )
   }
 }

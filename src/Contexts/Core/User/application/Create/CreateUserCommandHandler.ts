@@ -6,6 +6,8 @@ import { Id } from '@Core/User/domain/ValueObjects/Id'
 import { Name } from '@Core/User/domain/ValueObjects/Name'
 import { Email } from '@Core/User/domain/ValueObjects/Email'
 import { CommunityId } from '@Core/User/domain/ValueObjects/CommunityId'
+import { IsAdmin } from '@Core/User/domain/ValueObjects/IsAdmin'
+import { IsOwner } from '@Core/User/domain/ValueObjects/IsOwner'
 
 export class CreateUserCommandHandler implements CommandHandler<CreateUserCommand> {
   constructor (private readonly creator: Creator) {}
@@ -19,7 +21,9 @@ export class CreateUserCommandHandler implements CommandHandler<CreateUserComman
       new Id(command.id),
       new Name(command.name),
       new Email(command.email),
-      new CommunityId(command.communityId)
+      new CommunityId(command.communityId),
+      new IsAdmin(command.isAdmin),
+      new IsOwner(command.isOwner)
     )
   }
 }

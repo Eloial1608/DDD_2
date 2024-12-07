@@ -18,6 +18,8 @@ export type UserResponseBody = {
     readonly totalThreads: number
     readonly totalThreadResponses: number
     readonly communityId: string
+    readonly isAdmin: boolean
+    readonly isOwner: boolean
     readonly createdAt: Date
     readonly updatedAt: Date
 }
@@ -42,6 +44,8 @@ export class UserResponse implements QueryResponse<UserResponseBody> {
       totalThreads: user.totalThreads.valueOf(),
       totalThreadResponses: user.totalThreadResponses.valueOf(),
       communityId: user.communityId.valueOf(),
+      isAdmin: user.isAdmin.valueOf(),
+      isOwner: user.isOwner.valueOf(),
       createdAt: user.createdAt.valueOf(),
       updatedAt: user.updatedAt.valueOf()
     }

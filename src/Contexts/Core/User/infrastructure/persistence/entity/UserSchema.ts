@@ -18,6 +18,8 @@ import { TotalMedia } from '@Core/User/domain/ValueObjects/TotalMedia'
 import { TotalThreads } from '@Core/User/domain/ValueObjects/TotalThreads'
 import { TotalThreadResponses } from '@Core/User/domain/ValueObjects/TotalThreadResponses'
 import { CommunityId } from '@Core/User/domain/ValueObjects/CommunityId'
+import { IsAdmin } from '@Core/User/domain/ValueObjects/IsAdmin'
+import { IsOwner } from '@Core/User/domain/ValueObjects/IsOwner'
 
 export const UserSchema = new EntitySchema<User>({
   name: 'User',
@@ -36,6 +38,14 @@ export const UserSchema = new EntitySchema<User>({
     username: {
       type: String,
       transformer: ValueObjectTransformer(Username)
+    },
+    isAdmin: {
+      type: Boolean,
+      transformer: ValueObjectTransformer(IsAdmin)
+    },
+    isOwner: {
+      type: Boolean,
+      transformer: ValueObjectTransformer(IsOwner)
     },
     about: {
       type: String,

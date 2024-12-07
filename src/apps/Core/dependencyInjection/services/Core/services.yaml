@@ -32,10 +32,6 @@ services:
     arguments: ['@Community.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
-
-  Account.Repository:
-    class: src/Contexts/Core/Account/infrastructure/persistence/TypeOrmAccountRepository
-    arguments: ["@Shared.ORM.Connection"]
   
   Community.Delete.Deleter:
     class: src/Contexts/Core/Community/application/Delete/Deleter
@@ -62,7 +58,7 @@ services:
       - { name: "queryHandler" }
 
   CommunityPlan.Repository:
-    class: src/Contexts/Core/CommunityPlan/infrastructure/persistence/TypeOrmPlanRepository
+    class: src/Contexts/Core/CommunityPlan/infrastructure/persistence/TypeOrmCommunityPlanRepository
     arguments: ["@Shared.ORM.Connection"]
   
   User.Repository:
@@ -98,23 +94,3 @@ services:
     arguments: ["@User.Create.Creator"]
     tags:
       - { name: "commandHandler" }
-  
-  Account.Create.Creator:
-    class: src/Contexts/Core/Account/application/Create/Creator
-    arguments: ['@Account.Repository', '@Shared.EventBus']
-  
-  Account.Create.CreateAccountCommandHandler:
-    class: src/Contexts/Core/Account/application/Create/CreateAccountCommandHandler
-    arguments: ["@Account.Create.Creator"]
-    tags:
-      - { name: "commandHandler" }
-  
-  Account.FindById.FinderById:
-    class: src/Contexts/Core/Account/application/FindById/FinderById
-    arguments: ['@Account.Repository']
-  
-  Account.FindById.FindAccountByIdQueryHandler:
-    class: src/Contexts/Core/Account/application/FindById/FindAccountByIdQueryHandler
-    arguments: ['@Account.FindById.FinderById']
-    tags:
-      - { name: "queryHandler" }

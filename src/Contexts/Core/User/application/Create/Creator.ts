@@ -5,17 +5,19 @@ import { UserRepository } from '@Core/User/domain/UserRepository'
 import { CommunityId } from '@Core/User/domain/ValueObjects/CommunityId'
 import { Email } from '@Core/User/domain/ValueObjects/Email'
 import { Id } from '@Core/User/domain/ValueObjects/Id'
+import { IsAdmin } from '@Core/User/domain/ValueObjects/IsAdmin'
 import { Name } from '@Core/User/domain/ValueObjects/Name'
 import { Username } from '@Core/User/domain/ValueObjects/Username'
 import { Criteria } from '@Shared/domain/Criteria/Criteria'
 import { Filter } from '@Shared/domain/Criteria/Filter'
 import { Filters } from '@Shared/domain/Criteria/Filters'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
+import { IsOwner } from '../../domain/ValueObjects/IsOwner'
 
 export class Creator {
   constructor (private readonly repository: UserRepository, private readonly eventBus: EventBus) {}
 
-  async run (id: Id, name: Name, email: Email, communityId: CommunityId) {
+  async run (id: Id, name: Name, email: Email, communityId: CommunityId, isAdmin: IsAdmin, isOwner: IsOwner) {
     await this.checkIfUserExists(id, email, communityId)
 
     const user = await User.create(
@@ -25,7 +27,9 @@ export class Creator {
         `${name.valueOf()}-${id.valueOf().substring(0, id.valueOf().indexOf('-') - 1)}`
       ),
       email,
-      communityId
+      communityId,
+      isAdmin,
+      isOwner
     )
 
     await this.repository.persist(user)

@@ -31,6 +31,7 @@ export class CommunityMother {
       params.firstPaymentDone ?? new FirstPaymentDone(false),
       params.spacesCount ?? new SpacesCount(1),
       params.hasPayment ?? new HasPayment(false),
+      params.methodId ?? null,
       params.allowedFeatures ?? new AllowedFeatures([]),
       params.hasRegisterForm ?? new HasRegisterForm(false),
       params.registerFormId ?? null,

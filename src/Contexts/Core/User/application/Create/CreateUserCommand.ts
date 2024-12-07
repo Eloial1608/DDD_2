@@ -5,6 +5,8 @@ export class CreateUserCommand implements Command {
         readonly id: string,
         readonly name: string,
         readonly email: string,
-        readonly communityId: string
+        readonly communityId: string,
+        readonly isAdmin: boolean,
+        readonly isOwner: boolean
   ) {}
 }
