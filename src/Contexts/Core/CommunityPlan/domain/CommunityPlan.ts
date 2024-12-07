@@ -11,8 +11,6 @@ import { RenovationInterval } from './ValueObjects/RenovationInterval'
 import { RenovationType } from './ValueObjects/RenovationType'
 import { UpdatedAt } from './ValueObjects/UpdatedAt'
 
-
-
 export class CommunityPlan extends AggregateRoot {
   constructor (
         readonly id: Id,
@@ -25,7 +23,7 @@ export class CommunityPlan extends AggregateRoot {
         readonly renovationInterval: RenovationInterval,
         readonly renovationType: RenovationType,
         readonly createdAt: CreatedAt,
-        readonly updatedAt: UpdatedAt,
+        readonly updatedAt: UpdatedAt
   ) {
     super()
   }
@@ -39,7 +37,7 @@ export class CommunityPlan extends AggregateRoot {
     price: Price,
     allowedUsers: AllowedUsers,
     renovationInterval: RenovationInterval,
-    renovationType: RenovationType,
+    renovationType: RenovationType
   ): CommunityPlan {
     const communityPlan = new CommunityPlan(
       id,
@@ -52,11 +50,9 @@ export class CommunityPlan extends AggregateRoot {
       renovationInterval,
       renovationType,
       new CreatedAt(new Date()),
-      new UpdatedAt(new Date()),
+      new UpdatedAt(new Date())
     )
-
 
     return communityPlan
   }
-
 }

@@ -1,0 +1,47 @@
+import { Nullable } from '@Shared/domain/Nullable'
+import { User } from '../domain/User'
+import { QueryResponse } from '@Shared/domain/QueryBus/QueryResponse'
+
+export type UserResponseBody = {
+    readonly id: string
+    readonly name: string
+    readonly username: string
+    readonly about: string
+    readonly email:string
+    readonly hasPayed: boolean
+    readonly planId: string
+    readonly hasCompletedRegister: boolean
+    readonly registerData: Nullable<object>
+    readonly isBanned: boolean
+    readonly totalPosts: number
+    readonly totalMedia: number
+    readonly totalThreads: number
+    readonly totalThreadResponses: number
+    readonly createdAt: Date
+    readonly updatedAt: Date
+}
+
+export class UserResponse implements QueryResponse<UserResponseBody> {
+  response: UserResponseBody
+
+  constructor (user: User) {
+    this.response = {
+      id: user.id.valueOf(),
+      name: user.name.valueOf(),
+      username: user.username.valueOf(),
+      about: user.about.valueOf(),
+      email: user.email.valueOf(),
+      hasPayed: user.hasPayed.valueOf(),
+      planId: user.planId.valueOf(),
+      hasCompletedRegister: user.hasCompletedRegister.valueOf(),
+      registerData: user.registerData?.valueOf(),
+      isBanned: user.isBanned.valueOf(),
+      totalPosts: user.totalPosts.valueOf(),
+      totalMedia: user.totalMedia.valueOf(),
+      totalThreads: user.totalThreads.valueOf(),
+      totalThreadResponses: user.totalThreadResponses.valueOf(),
+      createdAt: user.createdAt.valueOf(),
+      updatedAt: user.updatedAt.valueOf()
+    }
+  }
+}

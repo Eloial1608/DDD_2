@@ -33,7 +33,7 @@ export class CommunityPlanMother {
       params.renovationInterval ?? new RenovationInterval(4),
       params.renovationType ?? new RenovationType(PlanRenovationTypeValues.MONTH),
       params.createdAt ?? new CreatedAt(new Date()),
-      params.updatedAt ?? new UpdatedAt(new Date()),
+      params.updatedAt ?? new UpdatedAt(new Date())
     )
   }
 

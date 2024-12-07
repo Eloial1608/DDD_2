@@ -68,3 +68,23 @@ services:
   User.Repository:
     class: src/Contexts/Core/User/infrastructure/persistence/TypeOrmUserRepository
     arguments: ["@Shared.ORM.Connection"]
+  
+  User.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/User/application/FindByCriteria/FinderByCriteria
+    arguments: ['@User.Repository']
+  
+  User.FindByCriteria.FindUsersByCriteriaQueryHandler:
+    class: src/Contexts/Core/User/application/FindByCriteria/FindUsersByCriteriaQueryHandler
+    arguments: ['@User.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+  
+  User.FindById.FinderById:
+    class: src/Contexts/Core/User/application/FindById/FinderById
+    arguments: ['@User.Repository']
+  
+  User.FindById.FindUserByIdQueryHandler:
+    class: src/Contexts/Core/User/application/FindById/FindUserByIdQueryHandler
+    arguments: ['@User.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
