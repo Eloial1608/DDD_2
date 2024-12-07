@@ -88,3 +88,13 @@ services:
     arguments: ['@User.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+
+  User.Create.Creator:
+    class: src/Contexts/Core/User/application/Create/Creator
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.Create.CreateUserCommandHandler:
+    class: src/Contexts/Core/User/application/Create/CreateUserCommandHandler
+    arguments: ["@User.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }

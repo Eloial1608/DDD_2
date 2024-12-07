@@ -6,10 +6,10 @@ export type UserResponseBody = {
     readonly id: string
     readonly name: string
     readonly username: string
-    readonly about: string
+    readonly about: Nullable<string>
     readonly email:string
     readonly hasPayed: boolean
-    readonly planId: string
+    readonly planId: Nullable<string>
     readonly hasCompletedRegister: boolean
     readonly registerData: Nullable<object>
     readonly isBanned: boolean
@@ -17,6 +17,7 @@ export type UserResponseBody = {
     readonly totalMedia: number
     readonly totalThreads: number
     readonly totalThreadResponses: number
+    readonly communityId: string
     readonly createdAt: Date
     readonly updatedAt: Date
 }
@@ -29,10 +30,10 @@ export class UserResponse implements QueryResponse<UserResponseBody> {
       id: user.id.valueOf(),
       name: user.name.valueOf(),
       username: user.username.valueOf(),
-      about: user.about.valueOf(),
+      about: user.about?.valueOf(),
       email: user.email.valueOf(),
       hasPayed: user.hasPayed.valueOf(),
-      planId: user.planId.valueOf(),
+      planId: user.planId?.valueOf(),
       hasCompletedRegister: user.hasCompletedRegister.valueOf(),
       registerData: user.registerData?.valueOf(),
       isBanned: user.isBanned.valueOf(),
@@ -40,6 +41,7 @@ export class UserResponse implements QueryResponse<UserResponseBody> {
       totalMedia: user.totalMedia.valueOf(),
       totalThreads: user.totalThreads.valueOf(),
       totalThreadResponses: user.totalThreadResponses.valueOf(),
+      communityId: user.communityId.valueOf(),
       createdAt: user.createdAt.valueOf(),
       updatedAt: user.updatedAt.valueOf()
     }

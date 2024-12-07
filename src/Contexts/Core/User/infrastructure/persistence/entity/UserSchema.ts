@@ -17,6 +17,7 @@ import { TotalPosts } from '@Core/User/domain/ValueObjects/TotalPosts'
 import { TotalMedia } from '@Core/User/domain/ValueObjects/TotalMedia'
 import { TotalThreads } from '@Core/User/domain/ValueObjects/TotalThreads'
 import { TotalThreadResponses } from '@Core/User/domain/ValueObjects/TotalThreadResponses'
+import { CommunityId } from '@Core/User/domain/ValueObjects/CommunityId'
 
 export const UserSchema = new EntitySchema<User>({
   name: 'User',
@@ -38,6 +39,7 @@ export const UserSchema = new EntitySchema<User>({
     },
     about: {
       type: String,
+      nullable: true,
       transformer: ValueObjectTransformer(About)
     },
     email: {
@@ -50,6 +52,7 @@ export const UserSchema = new EntitySchema<User>({
     },
     planId: {
       type: String,
+      nullable: true,
       transformer: ValueObjectTransformer(HasPayed)
     },
     hasCompletedRegister: {
@@ -79,6 +82,10 @@ export const UserSchema = new EntitySchema<User>({
     totalThreadResponses: {
       type: 'int',
       transformer: ValueObjectTransformer(TotalThreadResponses)
+    },
+    communityId: {
+      type: String,
+      transformer: ValueObjectTransformer(CommunityId)
     },
     createdAt: {
       type: Date,

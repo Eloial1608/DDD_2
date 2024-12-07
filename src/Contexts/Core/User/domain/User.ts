@@ -17,16 +17,18 @@ import { TotalThreadResponses } from './ValueObjects/TotalThreadResponses'
 import { TotalThreads } from './ValueObjects/TotalThreads'
 import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { Username } from './ValueObjects/Username'
+import { CommunityId } from './ValueObjects/CommunityId'
+import { UserCreatedDomainEvent } from './Events/UserCreatedDomainEvent'
 
 export class User extends AggregateRoot {
   constructor (
     readonly id: Id,
     readonly name: Name,
     readonly username: Username,
-    readonly about: About,
+    readonly about: Nullable<About>,
     readonly email: Email,
     readonly hasPayed: HasPayed,
-    readonly planId: PlanId,
+    readonly planId: Nullable<PlanId>,
     readonly hasCompletedRegister: HasCompletedRegister,
     readonly registerData: Nullable<RegisterData>,
     readonly isBanned: IsBanned,
@@ -34,10 +36,44 @@ export class User extends AggregateRoot {
     readonly totalMedia: TotalMedia,
     readonly totalThreads: TotalThreads,
     readonly totalThreadResponses: TotalThreadResponses,
+    readonly communityId: CommunityId,
     readonly createdAt: CreatedAt,
     readonly updatedAt:UpdatedAt,
     readonly deletedAt: Nullable<DeletedAt>
   ) {
     super()
+  }
+
+  static create (
+    id: Id,
+    name: Name,
+    username: Username,
+    email: Email,
+    communityId: CommunityId
+  ): User {
+    const user = new User(
+      id,
+      name,
+      username,
+      null,
+      email,
+      new HasPayed(false),
+      null,
+      new HasCompletedRegister(false),
+      null,
+      new IsBanned(false),
+      new TotalPosts(0),
+      new TotalMedia(0),
+      new TotalThreads(0),
+      new TotalThreadResponses(0),
+      communityId,
+      new CreatedAt(new Date()),
+      new UpdatedAt(new Date()),
+      null
+    )
+
+    user.record(UserCreatedDomainEvent.fromAggregate(user))
+
+    return user
   }
 }
