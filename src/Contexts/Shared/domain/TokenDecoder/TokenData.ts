@@ -1,4 +1,4 @@
 export type TokenData = {
-    userId: string,
+    id: string,
     communityId: string
 }

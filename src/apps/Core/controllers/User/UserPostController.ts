@@ -39,7 +39,7 @@ export class UserPostController implements Controller {
       if (result.length === 0) isOwner = true
 
       const command = new CreateUserCommand(
-        tokenData.userId,
+        tokenData.id,
         req.body.name,
         req.body.email,
         tokenData.communityId,

@@ -18,7 +18,7 @@ export class Generator {
     if (!user) throw new AuthUserNotFound('User not found')
 
     return await this.tokenizer.create({
-      userId: user.userId.valueOf(),
+      id: user.userId.valueOf(),
       communityId: user.communityId.valueOf()
     }, 60 * 60 * 24 * 30 * 6)
   }
