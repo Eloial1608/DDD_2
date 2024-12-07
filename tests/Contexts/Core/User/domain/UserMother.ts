@@ -5,7 +5,9 @@ import { Email } from '@Core/User/domain/ValueObjects/Email'
 import { HasCompletedRegister } from '@Core/User/domain/ValueObjects/HasCompletedRegister'
 import { HasPayed } from '@Core/User/domain/ValueObjects/HasPayed'
 import { Id } from '@Core/User/domain/ValueObjects/Id'
+import { IsAdmin } from '@Core/User/domain/ValueObjects/IsAdmin'
 import { IsBanned } from '@Core/User/domain/ValueObjects/IsBanned'
+import { IsOwner } from '@Core/User/domain/ValueObjects/IsOwner'
 import { Name } from '@Core/User/domain/ValueObjects/Name'
 import { TotalMedia } from '@Core/User/domain/ValueObjects/TotalMedia'
 import { TotalPosts } from '@Core/User/domain/ValueObjects/TotalPosts'
@@ -34,6 +36,8 @@ export class UserMother {
       params.hasCompletedRegister ?? new HasCompletedRegister(false),
       params.registerData ?? null,
       params.isBanned ?? new IsBanned(false),
+      params.isAdmin ?? new IsAdmin(false),
+      params.isOwner ?? new IsOwner(false),
       params.totalPosts ?? new TotalPosts(0),
       params.totalMedia ?? new TotalMedia(0),
       params.totalThreads ?? new TotalThreads(0),
