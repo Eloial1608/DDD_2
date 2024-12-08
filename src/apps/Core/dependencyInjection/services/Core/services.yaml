@@ -57,6 +57,16 @@ services:
     tags:
       - { name: "queryHandler" }
 
+  Plan.FindById.FinderById:
+    class: src/Contexts/Core/Plan/application/FindById/FinderById
+    arguments: ['@Plan.Repository']
+  
+  Plan.FindById.FindPlanyByIdQueryHandler:
+    class: src/Contexts/Core/Plan/application/FindById/FindPlanByIdQueryHandler
+    arguments: ['@Plan.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
   CommunityPlan.Repository:
     class: src/Contexts/Core/CommunityPlan/infrastructure/persistence/TypeOrmCommunityPlanRepository
     arguments: ["@Shared.ORM.Connection"]
