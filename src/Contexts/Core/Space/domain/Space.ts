@@ -16,6 +16,7 @@ import { Accessibility } from './ValueObjects/Accessibility'
 import { Type } from './ValueObjects/Type'
 import { SpaceCreatedDomainEvent } from './Events/SpaceCreatedDomainEvent'
 import { CommunityId } from './ValueObjects/CommunityId'
+import { SpaceUpdatedDomainEvent } from './Events/SpaceUpdatedDomainEvent'
 
 export class Space extends AggregateRoot {
   constructor (
@@ -70,6 +71,39 @@ export class Space extends AggregateRoot {
     )
 
     space.record(SpaceCreatedDomainEvent.fromAggregate(space))
+
+    return space
+  }
+
+  update (
+    id: Id,
+    name: Name,
+    slug: Slug,
+    parentId: Nullable<ParentId>,
+    icon: Nullable<Icon>,
+    headerUrl: Nullable<HeaderUrl>,
+    accessibility: Accessibility,
+    price: Nullable<Price>
+  ): Space {
+    const space = new Space(
+      id,
+      name,
+      slug,
+      parentId,
+      this.totalMembers,
+      icon,
+      this.createdBy,
+      accessibility,
+      headerUrl,
+      this.type,
+      price,
+      this.communityId,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      null
+    )
+
+    space.record(SpaceUpdatedDomainEvent.fromAggregate(space))
 
     return space
   }

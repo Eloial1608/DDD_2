@@ -148,3 +148,13 @@ services:
     arguments: ['@Space.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+  
+  Space.Update.Updater:
+    class: src/Contexts/Core/Space/application/Update/Updater
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.Update.UpdateSpaceCommandHandler:
+    class: src/Contexts/Core/Space/application/Update/UpdateSpaceCommandHandler
+    arguments: ["@Space.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
