@@ -158,3 +158,13 @@ services:
     arguments: ["@Space.Update.Updater"]
     tags:
       - { name: "commandHandler" }
+  
+  Space.Delete.Deleter:
+    class: src/Contexts/Core/Space/application/Delete/Deleter
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.Delete.DeleteSpaceCommandHandler:
+    class: src/Contexts/Core/Space/application/Delete/DeleteSpaceCommandHandler
+    arguments: ["@Space.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }

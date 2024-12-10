@@ -17,6 +17,7 @@ import { Type } from './ValueObjects/Type'
 import { SpaceCreatedDomainEvent } from './Events/SpaceCreatedDomainEvent'
 import { CommunityId } from './ValueObjects/CommunityId'
 import { SpaceUpdatedDomainEvent } from './Events/SpaceUpdatedDomainEvent'
+import { SpaceDeletedDomainEvent } from './Events/SpaceDeletedDomainEvent'
 
 export class Space extends AggregateRoot {
   constructor (
@@ -104,6 +105,30 @@ export class Space extends AggregateRoot {
     )
 
     space.record(SpaceUpdatedDomainEvent.fromAggregate(space))
+
+    return space
+  }
+
+  delete (): Space {
+    const space = new Space(
+      this.id,
+      this.name,
+      this.slug,
+      this.parentId,
+      this.totalMembers,
+      this.icon,
+      this.createdBy,
+      this.accessibility,
+      this.headerUrl,
+      this.type,
+      this.price,
+      this.communityId,
+      this.createdAt,
+      this.updatedAt,
+      new DeletedAt(new Date())
+    )
+
+    space.record(SpaceDeletedDomainEvent.fromAggregate(space))
 
     return space
   }
