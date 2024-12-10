@@ -36,7 +36,13 @@ export class CommunityPostController implements Controller {
       req.body.color,
       homeSpaceId,
       expiresAt,
-      [ALLOWED_FEATURES.POST, ALLOWED_FEATURES.FORM, ALLOWED_FEATURES.FORUM, ALLOWED_FEATURES.MEDIA],
+      [
+        ALLOWED_FEATURES.POST,
+        ALLOWED_FEATURES.FORM,
+        ALLOWED_FEATURES.FORUM,
+        ALLOWED_FEATURES.MEDIA,
+        ALLOWED_FEATURES.CHAT
+      ],
       5
     )
 
