@@ -12,6 +12,7 @@ import { AllowedTypes, Type } from '@Core/Space/domain/ValueObjects/Type'
 import { CreatedBy } from '@Core/Space/domain/ValueObjects/CreatedBy'
 import { Accessibility, AllowedAccessibilities } from '@Core/Space/domain/ValueObjects/Accessibility'
 import { Price, PriceCurrency, PriceValue } from '@Core/Space/domain/ValueObjects/Price'
+import { CommunityId } from '@Core/Space/domain/ValueObjects/CommunityId'
 
 export class CreateSpaceCommandHandler implements CommandHandler<CreateSpaceCommand> {
   constructor (private readonly creator: Creator) {}
@@ -36,7 +37,8 @@ export class CreateSpaceCommandHandler implements CommandHandler<CreateSpaceComm
           new PriceValue(command.price.value),
           new PriceCurrency(command.price.currency)
         )
-        : null
+        : null,
+      new CommunityId(command.communityId)
     )
   }
 }

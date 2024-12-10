@@ -128,3 +128,23 @@ services:
     arguments: ["@Space.Create.Creator"]
     tags:
       - { name: "commandHandler" }
+  
+  Space.FindById.FinderById:
+    class: src/Contexts/Core/Space/application/FindById/FinderById
+    arguments: ['@Space.Repository']
+  
+  Space.FindById.FindSpaceByIdQueryHandler:
+    class: src/Contexts/Core/Space/application/FindById/FindSpaceByIdQueryHandler
+    arguments: ['@Space.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+  
+  Space.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/Space/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Space.Repository']
+  
+  Space.FindByCriteria.FindSpacesByCriteriaQueryHandler:
+    class: src/Contexts/Core/Space/application/FindByCriteria/FindSpacesByCriteriaQueryHandler
+    arguments: ['@Space.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }

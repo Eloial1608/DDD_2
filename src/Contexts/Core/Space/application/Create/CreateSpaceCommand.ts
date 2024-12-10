@@ -15,6 +15,7 @@ export class CreateSpaceCommand implements Command {
     readonly price: Nullable<{
         value: number,
         currency: string
-    }>
+    }>,
+    readonly communityId: string
   ) {}
 }

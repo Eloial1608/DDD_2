@@ -15,6 +15,7 @@ import { CreatedBy } from '@Core/Space/domain/ValueObjects/CreatedBy'
 import { Accessibility } from '@Core/Space/domain/ValueObjects/Accessibility'
 import { HeaderUrl } from '@Core/Space/domain/ValueObjects/HeaderUrl'
 import { Type } from '@Core/Space/domain/ValueObjects/Type'
+import { CommunityId } from '@Core/Space/domain/ValueObjects/CommunityId'
 
 const SpacePriceSchema = new EntitySchema<Price>({
   name: 'spacePrice',
@@ -42,6 +43,10 @@ export const SpaceSchema = new EntitySchema<Space>({
       type: String,
       primary: true,
       transformer: ValueObjectTransformer(Id)
+    },
+    communityId: {
+      type: String,
+      transformer: ValueObjectTransformer(CommunityId)
     },
     name: {
       type: String,

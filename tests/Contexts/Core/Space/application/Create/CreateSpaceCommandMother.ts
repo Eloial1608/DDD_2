@@ -16,7 +16,8 @@ export class CreateSpaceCommandMother {
     price: Nullable<{
         value: number,
         currency: string
-    }>
+    }>,
+    communityId: string
   ): CreateSpaceCommand {
     return new CreateSpaceCommand(
       id,
@@ -28,7 +29,8 @@ export class CreateSpaceCommandMother {
       type,
       createdBy,
       accessibility,
-      price
+      price,
+      communityId
     )
   }
 
@@ -48,7 +50,8 @@ export class CreateSpaceCommandMother {
             value: space.price.value.valueOf(),
             currency: space.price.currency.valueOf()
           }
-        : null
+        : null,
+      space.communityId.valueOf()
     )
   }
 }

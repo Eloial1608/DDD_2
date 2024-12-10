@@ -13,6 +13,7 @@ type SpaceCreatedDomainEventBody = {
     readonly type: string
     readonly headerUrl: Nullable<string>
     readonly price: Nullable<{value: number, currency: string}>
+    readonly communityId: string
     readonly createdAt: Date
     readonly updatedAt: Date
 }
@@ -30,6 +31,7 @@ export class SpaceCreatedDomainEvent extends DomainEvent {
   readonly type: string
   readonly headerUrl: Nullable<string>
   readonly price: Nullable<{value: number, currency: string}>
+  readonly communityId: string
   readonly createdAt: Date
   readonly updatedAt: Date
 
@@ -57,6 +59,7 @@ export class SpaceCreatedDomainEvent extends DomainEvent {
           currency: params.price?.currency
         }
       : null
+    this.communityId = params.communityId
   }
 
   static fromAggregate (space: Space): SpaceCreatedDomainEvent {
@@ -77,7 +80,8 @@ export class SpaceCreatedDomainEvent extends DomainEvent {
         : null,
       icon: space.icon?.valueOf(),
       parentId: space.parentId?.valueOf(),
-      headerUrl: space.headerUrl?.valueOf()
+      headerUrl: space.headerUrl?.valueOf(),
+      communityId: space.communityId.valueOf()
 
     })
   }

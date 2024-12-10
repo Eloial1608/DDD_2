@@ -18,6 +18,7 @@ import { Filters } from '@Shared/domain/Criteria/Filters'
 import { Filter } from '@Shared/domain/Criteria/Filter'
 import { SpaceAlreadyExistsBySlug } from '@Core/Space/domain/Errors/SpaceAlreadyExistsBySlug'
 import { InvalidAccessibilityPrice } from '@Core/Space/domain/Errors/InvalidAccessibilityPrice'
+import { CommunityId } from '@Core/Space/domain/ValueObjects/CommunityId'
 
 export class Creator {
   constructor (private readonly repository: SpaceRepository, private readonly eventBus: EventBus) {}
@@ -32,9 +33,10 @@ export class Creator {
     type: Type,
     createdBy: CreatedBy,
     accessibility: Accessibility,
-    price: Nullable<Price>
+    price: Nullable<Price>,
+    communityId: CommunityId
   ) {
-    await this.checkIfExists(id, slug)
+    await this.checkIfExists(id, slug, communityId)
 
     if (accessibility.valueOf() === AllowedAccessibilities.PAYMENT && !price) throw new InvalidAccessibilityPrice(accessibility)
 
@@ -48,29 +50,31 @@ export class Creator {
       type,
       createdBy,
       accessibility,
-      price
+      price,
+      communityId
     )
 
     await this.repository.persist(space)
     await this.eventBus.publish(space.pullDomainEvents())
   }
 
-  private async getSpaceBySlug (slug: Slug): Promise<Nullable<Space>> {
+  private async getSpaceBySlug (slug: Slug, communityId: CommunityId): Promise<Nullable<Space>> {
     return (await this.repository.search(
       new Criteria(
         new Filters([
-          Filter.simple('slug', '=', slug.valueOf())
+          Filter.simple('slug', '=', slug.valueOf()),
+          Filter.simple('communityId', '=', communityId.valueOf())
         ])
       )
     )).pop()
   }
 
-  private async checkIfExists (id: Id, slug: Slug) {
+  private async checkIfExists (id: Id, slug: Slug, communityId: CommunityId) {
     const existingById = await this.repository.find(id)
 
     if (existingById) throw new SpaceAlreadyExistsById(id)
 
-    const existingBySlug = await this.getSpaceBySlug(slug)
+    const existingBySlug = await this.getSpaceBySlug(slug, communityId)
 
     if (existingBySlug) throw new SpaceAlreadyExistsBySlug(slug)
   }

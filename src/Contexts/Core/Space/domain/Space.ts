@@ -15,6 +15,7 @@ import { TotalMembers } from './ValueObjects/TotalMembers'
 import { Accessibility } from './ValueObjects/Accessibility'
 import { Type } from './ValueObjects/Type'
 import { SpaceCreatedDomainEvent } from './Events/SpaceCreatedDomainEvent'
+import { CommunityId } from './ValueObjects/CommunityId'
 
 export class Space extends AggregateRoot {
   constructor (
@@ -29,6 +30,7 @@ export class Space extends AggregateRoot {
         readonly headerUrl: Nullable<HeaderUrl>,
         readonly type: Type,
         readonly price: Nullable<Price>,
+        readonly communityId: CommunityId,
         readonly createdAt: CreatedAt,
         readonly updatedAt: UpdatedAt,
         readonly deletedAt: Nullable<DeletedAt>
@@ -46,7 +48,8 @@ export class Space extends AggregateRoot {
     type: Type,
     createdBy: CreatedBy,
     accessibility: Accessibility,
-    price: Nullable<Price>
+    price: Nullable<Price>,
+    communityId: CommunityId
   ): Space {
     const space = new Space(
       id,
@@ -60,6 +63,7 @@ export class Space extends AggregateRoot {
       headerUrl,
       type,
       price,
+      communityId,
       new CreatedAt(new Date()),
       new UpdatedAt(new Date()),
       null
