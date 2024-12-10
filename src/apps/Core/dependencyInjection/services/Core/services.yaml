@@ -118,3 +118,13 @@ services:
   Space.Repository:
     class: src/Contexts/Core/Space/infrastructure/persistence/TypeOrmSpaceRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  Space.Create.Creator:
+    class: src/Contexts/Core/Space/application/Create/Creator
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.Create.CreateSpaceCommandHandler:
+    class: src/Contexts/Core/Space/application/Create/CreateSpaceCommandHandler
+    arguments: ["@Space.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }

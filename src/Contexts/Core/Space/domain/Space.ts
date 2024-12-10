@@ -14,6 +14,7 @@ import { Slug } from './ValueObjects/Slug'
 import { TotalMembers } from './ValueObjects/TotalMembers'
 import { Accessibility } from './ValueObjects/Accessibility'
 import { Type } from './ValueObjects/Type'
+import { SpaceCreatedDomainEvent } from './Events/SpaceCreatedDomainEvent'
 
 export class Space extends AggregateRoot {
   constructor (
@@ -63,6 +64,8 @@ export class Space extends AggregateRoot {
       new UpdatedAt(new Date()),
       null
     )
+
+    space.record(SpaceCreatedDomainEvent.fromAggregate(space))
 
     return space
   }
