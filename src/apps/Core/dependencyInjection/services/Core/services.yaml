@@ -168,3 +168,47 @@ services:
     arguments: ["@Space.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
+  
+  SpaceMember.Repository:
+    class: src/Contexts/Core/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  SpaceMember.Create.Creator:
+    class: src/Contexts/Core/SpaceMember/application/Create/Creator
+    arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
+  
+  SpaceMember.Create.CreateSpaceMemberCommandHandler:
+    class: src/Contexts/Core/SpaceMember/application/Create/CreateSpaceMemberCommandHandler
+    arguments: ["@SpaceMember.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+  
+  SpaceMember.Find.FinderById:
+    class: src/Contexts/Core/SpaceMember/application/Find/FinderById
+    arguments: ['@SpaceMember.Repository']
+  
+  SpaceMember.Find.FindSpaceMemberQueryHandler:
+    class: src/Contexts/Core/SpaceMember/application/Find/FindSpaceMemberQueryHandler
+    arguments: ['@SpaceMember.Find.FinderById']
+    tags:
+      - { name: "queryHandler" }
+  
+  SpaceMember.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/SpaceMember/application/FindByCriteria/FinderByCriteria
+    arguments: ['@SpaceMember.Repository']
+  
+  SpaceMember.FindByCriteria.FindSpaceMembersByCriteriaQueryHandler:
+    class: src/Contexts/Core/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQueryHandler
+    arguments: ['@SpaceMember.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+  
+  SpaceMember.Delete.Deleter:
+    class: src/Contexts/Core/SpaceMember/application/Delete/Deleter
+    arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
+  
+  SpaceMember.Delete.DeleteSpaceMemberCommandHandler:
+    class: src/Contexts/Core/SpaceMember/application/Delete/DeleteSpaceMemberCommandHandler
+    arguments: ["@SpaceMember.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }

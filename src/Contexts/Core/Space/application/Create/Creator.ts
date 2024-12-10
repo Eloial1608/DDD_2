@@ -1,4 +1,4 @@
-import { Name } from '@Core/Community/domain/ValueObjects/Name'
+import { Name } from '@Core/Space/domain/ValueObjects/Name'
 import { Price } from '@Core/Space/domain/ValueObjects/Price'
 import { SpaceRepository } from '@Core/Space/domain/SpaceRepository'
 import { Accessibility, AllowedAccessibilities } from '@Core/Space/domain/ValueObjects/Accessibility'

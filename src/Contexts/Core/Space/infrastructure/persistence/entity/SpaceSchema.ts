@@ -109,5 +109,11 @@ export const SpaceSchema = new EntitySchema<Space>({
       schema: SpacePriceSchema,
       prefix: 'price'
     }
-  }
+  },
+  indices: [
+    {
+      name: 'IDX_SPACE_COMMUNITY_ID',
+      columns: ['communityId']
+    }
+  ]
 })
