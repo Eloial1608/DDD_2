@@ -104,3 +104,7 @@ services:
     arguments: ["@Community.UpdateTotalMembersOnUserCreated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  Space.Repository:
+    class: src/Contexts/Core/Space/infrastructure/persistence/TypeOrmSpaceRepository
+    arguments: ["@Shared.ORM.Connection"]
