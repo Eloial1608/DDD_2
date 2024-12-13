@@ -12,6 +12,7 @@ import { FindSpacesByCriteriaQuery } from '@Core/Space/application/FindByCriteri
 import { SpaceCollectionResponse } from '@Core/Space/application/SpaceCollectionResponse'
 import { buildCriteriaFromUri } from '@Shared/infrastructure/Criteria/BuildCriteriaFromUri'
 import { combineCriterias } from '@Shared/infrastructure/Criteria/CombineCriterias'
+import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 
 export class SpacesGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
@@ -46,6 +47,7 @@ export class SpacesGetController implements Controller {
       return res.status(200).json(spacesToReturn)
     } catch (e) {
       if (e instanceof SpaceNotFound) return res.status(404).json({ message: e.getMessage() })
+      if (e instanceof CannotDecode) return res.status(401).json({ message: e.getMessage() })
 
       return res.status(500).send()
     }
@@ -79,7 +81,7 @@ export class SpacesGetController implements Controller {
     if (accessibility === AllowedAccessibilities.PUBLIC) return true
 
     if (userId && communityId) {
-      if (await this.isAdmin(userId)) return true
+      if (await this.isAdmin(userId, communityId)) return true
 
       const spaceMember = await this.getSpaceMember(userId, communityId, spaceId)
 
@@ -111,11 +113,11 @@ export class SpacesGetController implements Controller {
     return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response
   }
 
-  private async isAdmin (id: string): Promise<boolean> {
+  private async isAdmin (id: string, communityId: string): Promise<boolean> {
     const userQuery = new FindUserByIdQuery(id)
 
     const user = (await this.queryBus.ask<UserResponse>(userQuery)).response
 
-    return !user.isAdmin || !user.isOwner
+    return user.communityId === communityId && (user.isAdmin || user.isOwner)
   }
 }

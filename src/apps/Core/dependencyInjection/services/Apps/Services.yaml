@@ -29,3 +29,11 @@ services:
   Apps.Core.Controllers.SpaceBySlugGetController:
     class: src/apps/Core/controllers/Space/SpaceBySlugGetController
     arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.SpacesGetController:
+    class: src/apps/Core/controllers/Space/SpacesGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.SpacesPostController:
+    class: src/apps/Core/controllers/Space/SpacesPostController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
