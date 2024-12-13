@@ -41,9 +41,11 @@ export class SpaceBySlugGetController implements Controller {
   }
 
   private async checkAccessibility (userId: string, communityId: string, spaceId: string): Promise<boolean> {
+    if (await this.isAdmin(userId)) return true
+
     const spaceMember = await this.getSpaceMember(userId, communityId, spaceId)
 
-    if (!spaceMember && !this.isAdmin(userId)) return false
+    if (!spaceMember) return false
 
     return true
   }
