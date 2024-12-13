@@ -37,3 +37,7 @@ services:
   Apps.Core.Controllers.SpacesPostController:
     class: src/apps/Core/controllers/Space/SpacesPostController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.SpacesDeleteController:
+    class: src/apps/Core/controllers/Space/SpacesDeleteController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
