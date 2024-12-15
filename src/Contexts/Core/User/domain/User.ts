@@ -84,4 +84,38 @@ export class User extends AggregateRoot {
 
     return user
   }
+
+   updateIsAdmin(
+    id: Id,
+    isAdmin: IsAdmin):User{
+
+      const user = new User(
+        id,
+        this.name,
+        this.username,
+        this.about,
+        this.email,
+        this.hasPayed,
+        this.planId,
+        this.hasCompletedRegister,
+        this.registerData,
+        this.isBanned,
+        isAdmin,
+        this.isOwner,
+        this.totalPosts,
+        this.totalMedia,
+        this.totalThreads,
+        this.totalThreadResponses,
+        this.communityId,
+        this.createdAt,
+        this.updatedAt,
+        this.deletedAt
+      )
+
+
+      return user
+    }
+
+
+  
 }

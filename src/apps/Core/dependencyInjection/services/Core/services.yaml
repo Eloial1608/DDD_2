@@ -212,3 +212,13 @@ services:
     arguments: ["@SpaceMember.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
+
+  User.Update.UpdaterIsAdmin:
+    class: src/Contexts/Core/User/application/UpdateIsAdmin/UpdaterIsAdmin
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.Update.UpdateIsAdminUserCommandHandler:
+    class: src/Contexts/Core/User/application/UpdateIsAdmin/UpdateIsAdminUserCommandHandler
+    arguments: ["@User.Update.UpdaterIsAdmin"]
+    tags:
+      - { name: "commandHandler" }
