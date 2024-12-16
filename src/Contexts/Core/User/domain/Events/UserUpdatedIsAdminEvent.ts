@@ -5,13 +5,15 @@ import { User } from "../User";
 type UserUpdatedIsAdminDomainEventBody = {
     readonly id: string
     readonly isAdmin: boolean
+    readonly communityId:string
 }
 
 export class UserUpdatedIsAdminDomainEvent extends DomainEvent{
-    static readonly EVENT_NAME: string = 'app.quid.space.v1.updatedIsAdmin'
+    static readonly EVENT_NAME: string = 'app.quid.space.v1.admin-updated'
 
     readonly id: string
     readonly isAdmin: boolean
+    readonly communityId: string
 
     static {
         DomainEvent.derived.add(UserUpdatedIsAdminDomainEvent.EVENT_NAME)
@@ -22,13 +24,15 @@ export class UserUpdatedIsAdminDomainEvent extends DomainEvent{
 
         this.id = params.id
         this.isAdmin = params.isAdmin
+        this.communityId = params.communityId
     }
 
 
     static fromAggregate (user:User): UserUpdatedIsAdminDomainEvent{
         return new UserUpdatedIsAdminDomainEvent({
             id: user.id.valueOf(),
-            isAdmin: user.isAdmin.valueOf()
+            isAdmin: user.isAdmin.valueOf(),
+            communityId : user.communityId.valueOf()
         })
     }
 

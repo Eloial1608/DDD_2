@@ -6,6 +6,7 @@ import { UserMother } from "../../domain/UserMother";
 import { UpdateIsAdminUserCommandMother } from "./UpdateIsAdminUserCommandMother";
 import { UserUpdatedIsAdminDomainEvent } from "@Core/User/domain/Events/UserUpdatedIsAdminEvent";
 import { UserNotFound } from "@Core/User/domain/Errors/UserNotFound";
+import { IsAdmin } from "@Core/User/domain/ValueObjects/IsAdmin";
 
 
 let eventBus: EventBusMock
@@ -14,7 +15,7 @@ let handler: UpdateIsAdminCommandHandler
 let updater: UpdaterIsAdmin
 
 
-describe('UpdateSpaceCommandHandler should ', () => {
+describe('UpdateIsAdminUserCommandHandler should ', () => {
   beforeEach(() => {
     eventBus = new EventBusMock()
     repository = new UserRepositoryMock()
@@ -24,10 +25,9 @@ describe('UpdateSpaceCommandHandler should ', () => {
 
   test('update IsAdmin value',async ()=>{
     const user = UserMother.random()
-    const existignUser = UserMother.create({
-        id: user.id,
-        isAdmin: user.isAdmin,
-        communityId: user.communityId
+    const existignUser = UserMother.create({ 
+      ...user,   
+        isAdmin: new IsAdmin(true),
     })
     repository.returnOnFind(existignUser)
 
@@ -48,9 +48,8 @@ describe('UpdateSpaceCommandHandler should ', () => {
   test('update a new UserUpdatedIsAdminDomainEvent', async () =>{
     const user = UserMother.random()
     const existignUser = UserMother.create({
-      id: user.id,
-      isAdmin: user.isAdmin,
-      communityId: user.communityId
+      ...user,   
+        isAdmin: new IsAdmin(true),
     })
 
     repository.returnOnFind(existignUser)

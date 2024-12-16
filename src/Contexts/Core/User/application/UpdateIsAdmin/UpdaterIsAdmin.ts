@@ -18,7 +18,6 @@ export class UpdaterIsAdmin {
     if (!user || user.communityId.valueOf() !== communityId.valueOf()) throw new UserNotFound(id)
 
     const updatedUser = user.updateIsAdmin(
-      id,
       isAdmin
     )
 
