@@ -1,5 +1,5 @@
 import { Command } from '@Shared/domain/CommandBus/Command'
-import { CommunityId } from '@Core/Space/domain/ValueObjects/CommunityId'
+import { CommunityId } from '@Core/User/domain/ValueObjects/CommunityId'
 import { UpdateIsAdminCommand } from './UpdateIsAdminUserCommand'
 import { UpdaterIsAdmin } from './UpdaterIsAdmin'
 import { CommandHandler } from '@Shared/domain/CommandBus/CommandHandler'
