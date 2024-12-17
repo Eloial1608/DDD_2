@@ -29,6 +29,8 @@ export class Deleter {
         await this.repository.persist(deletedSpaceMember)
         await this.eventBus.publish(deletedSpaceMember.pullDomainEvents())
       }
+
+      if (spaceMembers.length !== this.LIMIT) break
     }
   }
 }
