@@ -242,3 +242,13 @@ services:
     arguments: ["@User.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
+  
+  Community.DeleteCommunitiesOnParentCommunityDeleted.Deleter:
+    class: src/Contexts/Core/Community/application/DeleteCommunitiesOnParentCommunityDeleted/Deleter
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.DeleteCommunitiesOnParentCommunityDeleted.DeleteCommunitiesOnParentCommunityDeletedHandler:
+    class: src/Contexts/Core/Community/application/DeleteCommunitiesOnParentCommunityDeleted/DeleteCommunitiesOnParentCommunityDeletedHandler
+    arguments: ["@Community.DeleteCommunitiesOnParentCommunityDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
