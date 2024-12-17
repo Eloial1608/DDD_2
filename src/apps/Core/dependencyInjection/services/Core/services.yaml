@@ -222,3 +222,9 @@ services:
     arguments: ["@User.Update.UpdaterIsAdmin"]
     tags:
       - { name: "commandHandler" }
+
+  User.Update.UpdateAboutAndNameUserCommandHandler:
+    class: src/Contexts/Core/User/application/UpdateIsAdmin/UpdateAboutAndNameUserCommandHandler
+    arguments: ["@User.Update.UpdaterAboutAndName"]
+    tags:
+      - { name: "commandHandler" }

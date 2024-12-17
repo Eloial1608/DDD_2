@@ -1,0 +1,25 @@
+import { Command } from '@Shared/domain/CommandBus/Command'
+import { CommunityId } from '@Core/User/domain/ValueObjects/CommunityId'
+import { UpdateAboutAndNameCommand } from './UpdateAboutAndNameCommand'
+import { UpdaterAboutAndName } from './UpdaterAboutAndName'
+import { CommandHandler } from '@Shared/domain/CommandBus/CommandHandler'
+import { About } from '@Core/User/domain/ValueObjects/About'
+import { Name } from '@Core/User/domain/ValueObjects/Name'
+import { Id } from '@Core/User/domain/ValueObjects/Id'
+
+export class UpdateAboutAndNameCommandHandler implements CommandHandler<UpdateAboutAndNameCommand> {
+  constructor (private readonly updater: UpdaterAboutAndName) {}
+
+  subscribedTo (): Command {
+    return UpdateAboutAndNameCommand
+  }
+
+  async handle (command: UpdateAboutAndNameCommand): Promise<void> {
+    await this.updater.run(
+      new Id(command.id),
+      (command.about != null) ? new About(command.about) : null,
+      new Name(command.name),
+      new CommunityId(command.communityId)
+    )
+  }
+}
