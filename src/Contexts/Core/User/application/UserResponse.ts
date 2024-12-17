@@ -4,6 +4,7 @@ import { QueryResponse } from '@Shared/domain/QueryBus/QueryResponse'
 
 export type UserResponseBody = {
     readonly id: string
+    readonly mainId: string
     readonly name: string
     readonly username: string
     readonly about: Nullable<string>
@@ -30,6 +31,7 @@ export class UserResponse implements QueryResponse<UserResponseBody> {
   constructor (user: User) {
     this.response = {
       id: user.id.valueOf(),
+      mainId: user.mainId.valueOf(),
       name: user.name.valueOf(),
       username: user.username.valueOf(),
       about: user.about?.valueOf(),

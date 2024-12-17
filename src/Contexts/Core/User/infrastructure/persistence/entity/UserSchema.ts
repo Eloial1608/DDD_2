@@ -20,6 +20,7 @@ import { TotalThreadResponses } from '@Core/User/domain/ValueObjects/TotalThread
 import { CommunityId } from '@Core/User/domain/ValueObjects/CommunityId'
 import { IsAdmin } from '@Core/User/domain/ValueObjects/IsAdmin'
 import { IsOwner } from '@Core/User/domain/ValueObjects/IsOwner'
+import { SharedMainUserId } from '@Shared/domain/SharedValueObjects/User/SharedMainUserId'
 
 export const UserSchema = new EntitySchema<User>({
   name: 'User',
@@ -30,6 +31,10 @@ export const UserSchema = new EntitySchema<User>({
       type: String,
       primary: true,
       transformer: ValueObjectTransformer(Id)
+    },
+    mainId: {
+      type: String,
+      transformer: ValueObjectTransformer(SharedMainUserId)
     },
     name: {
       type: String,
@@ -119,6 +124,10 @@ export const UserSchema = new EntitySchema<User>({
     {
       name: 'IDX_USER_USERNAME',
       columns: ['username']
+    },
+    {
+      name: 'IDX_USER_MAIN_ID',
+      columns: ['mainId']
     }
   ]
 })

@@ -22,10 +22,12 @@ import { UserCreatedDomainEvent } from './Events/UserCreatedDomainEvent'
 import { IsOwner } from './ValueObjects/IsOwner'
 import { IsAdmin } from './ValueObjects/IsAdmin'
 import { UserUpdatedIsAdminDomainEvent } from './Events/UserUpdatedIsAdminEvent'
+import { MainId } from './ValueObjects/MainId'
 
 export class User extends AggregateRoot {
   constructor (
     readonly id: Id,
+    readonly mainId: MainId,
     readonly name: Name,
     readonly username: Username,
     readonly about: Nullable<About>,
@@ -51,6 +53,7 @@ export class User extends AggregateRoot {
 
   static create (
     id: Id,
+    mainId: MainId,
     name: Name,
     username: Username,
     email: Email,
@@ -60,6 +63,7 @@ export class User extends AggregateRoot {
   ): User {
     const user = new User(
       id,
+      mainId,
       name,
       username,
       null,
@@ -90,6 +94,7 @@ export class User extends AggregateRoot {
     isAdmin: IsAdmin):User {
     const user = new User(
       this.id,
+      this.mainId,
       this.name,
       this.username,
       this.about,
