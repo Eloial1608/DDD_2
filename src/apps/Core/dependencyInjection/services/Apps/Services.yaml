@@ -22,8 +22,8 @@ services:
     class: src/apps/Core/controllers/Community/CommunityPostController
     arguments: ["@Shared.CommandBus"]
   
-  Apps.Core.Controllers.UserPostController:
-    class: src/apps/Core/controllers/User/UserPostController
+  Apps.Core.Controllers.UniqueUserPostController:
+    class: src/apps/Core/controllers/User/UniqueUserPostController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
   
   Apps.Core.Controllers.SpaceBySlugGetController:
@@ -49,3 +49,7 @@ services:
   Apps.Core.Controllers.CommunityBySlugGetController:
     class: src/apps/Core/controllers/Community/CommunityBySlugGetController
     arguments: ["@Shared.QueryBus"]
+  
+  Apps.Core.Controllers.JoinSubCommunityPostController:
+    class: src/apps/Core/controllers/User/JoinSubCommunityPostController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
