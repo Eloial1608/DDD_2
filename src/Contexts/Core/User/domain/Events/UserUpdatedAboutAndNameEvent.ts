@@ -42,7 +42,7 @@ export class UserUpdatedAboutAndNameDomainEvent extends DomainEvent {
     return { ...this }
   }
 
-  static fromPrimitives (id: string, attributes: UserUpdatedAboutAndNameDomainEventBody, eventId: string, occurredOn: Date): UserUpdatedIsAdminDomainEvent {
+  static fromPrimitives (id: string, attributes: UserUpdatedAboutAndNameDomainEventBody, eventId: string, occurredOn: Date): UserUpdatedAboutAndNameDomainEvent {
     return new UserUpdatedAboutAndNameDomainEvent({
       ...attributes,
       id,
