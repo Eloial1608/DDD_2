@@ -1,0 +1,12 @@
+import { StringValueObject } from '@Shared/domain/ValueObjects/StringValueObject'
+import sanitizeHtml from 'sanitize-html'
+
+export class About extends StringValueObject {
+  constructor (value: string) {
+    super(
+      sanitizeHtml(value, {
+        allowedTags: ['b', 'i', 'p', 'em', 'strong', 'u', 'h2', 'img', 'video', 'ul', 'li', 'ol']
+      })
+    )
+  }
+}

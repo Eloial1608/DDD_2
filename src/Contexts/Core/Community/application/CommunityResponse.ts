@@ -6,6 +6,12 @@ export type CommunityResponseBody = {
     readonly id: string
     readonly name: string
     readonly suffix: string
+    readonly slug: string
+    readonly parentId: Nullable<string>
+    readonly mainId: Nullable<string>
+    readonly logoUrl: Nullable<string>
+    readonly bannerUrl: Nullable<string>
+    readonly about: Nullable<string>
     readonly domain: Nullable<string>
     readonly membersCount: number
     readonly firstPaymentDone: boolean
@@ -33,6 +39,12 @@ export class CommunityResponse implements QueryResponse<CommunityResponseBody> {
       name: community.name.valueOf(),
       suffix: community.suffix.valueOf(),
       domain: community.domain?.valueOf(),
+      slug: community.slug.valueOf(),
+      parentId: community.parentId?.valueOf(),
+      mainId: community.mainId?.valueOf(),
+      logoUrl: community.logoUrl?.valueOf(),
+      bannerUrl: community.bannerUrl?.valueOf(),
+      about: community.about?.valueOf(),
       membersCount: community.membersCount.valueOf(),
       firstPaymentDone: community.firstPaymentDone.valueOf(),
       spacesCount: community.spacesCount.valueOf(),

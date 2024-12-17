@@ -213,12 +213,12 @@ services:
     tags:
       - { name: "commandHandler" }
 
-  User.Update.UpdaterIsAdmin:
+  User.UpdateIsAdmin.UpdaterIsAdmin:
     class: src/Contexts/Core/User/application/UpdateIsAdmin/UpdaterIsAdmin
     arguments: ['@User.Repository', '@Shared.EventBus']
   
-  User.Update.UpdateIsAdminUserCommandHandler:
+  User.UpdateIsAdmin.UpdateIsAdminUserCommandHandler:
     class: src/Contexts/Core/User/application/UpdateIsAdmin/UpdateIsAdminUserCommandHandler
-    arguments: ["@User.Update.UpdaterIsAdmin"]
+    arguments: ["@User.UpdateIsAdmin.UpdaterIsAdmin"]
     tags:
       - { name: "commandHandler" }

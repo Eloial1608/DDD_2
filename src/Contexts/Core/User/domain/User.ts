@@ -86,37 +86,33 @@ export class User extends AggregateRoot {
     return user
   }
 
-   updateIsAdmin(
-    isAdmin: IsAdmin):User{
+  updateIsAdmin (
+    isAdmin: IsAdmin):User {
+    const user = new User(
+      this.id,
+      this.name,
+      this.username,
+      this.about,
+      this.email,
+      this.hasPayed,
+      this.planId,
+      this.hasCompletedRegister,
+      this.registerData,
+      this.isBanned,
+      isAdmin,
+      this.isOwner,
+      this.totalPosts,
+      this.totalMedia,
+      this.totalThreads,
+      this.totalThreadResponses,
+      this.communityId,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt
+    )
 
-      const user = new User(
-        this.id,
-        this.name,
-        this.username,
-        this.about,
-        this.email,
-        this.hasPayed,
-        this.planId,
-        this.hasCompletedRegister,
-        this.registerData,
-        this.isBanned,
-        isAdmin,
-        this.isOwner,
-        this.totalPosts,
-        this.totalMedia,
-        this.totalThreads,
-        this.totalThreadResponses,
-        this.communityId,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt
-      )
+    user.record(UserUpdatedIsAdminDomainEvent.fromAggregate(user))
 
-      user.record(UserUpdatedIsAdminDomainEvent.fromAggregate(user))
-      
-      return user
-    }
-
-
-  
+    return user
+  }
 }

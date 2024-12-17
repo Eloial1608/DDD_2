@@ -22,6 +22,12 @@ import { HomeSpaceId } from '@Core/Community/domain/ValueObjects/HomeSpaceId'
 import { ExpiresAt } from '@Core/Community/domain/ValueObjects/ExpiresAt'
 import { DeletedAt } from '@Core/Community/domain/ValueObjects/DeletedAt'
 import { MethodId } from '@Core/Community/domain/ValueObjects/MethodId'
+import { Slug } from '@Core/Community/domain/ValueObjects/Slug'
+import { ParentId } from '@Core/Community/domain/ValueObjects/ParentId'
+import { MainId } from '@Core/Community/domain/ValueObjects/MainId'
+import { LogoUrl } from '@Core/Community/domain/ValueObjects/LogoUrl'
+import { BannerUrl } from '@Core/Community/domain/ValueObjects/BannerUrl'
+import { About } from '@Core/Community/domain/ValueObjects/About'
 
 export const CommunitySchema = new EntitySchema<Community>({
   name: 'Community',
@@ -40,6 +46,35 @@ export const CommunitySchema = new EntitySchema<Community>({
     suffix: {
       type: String,
       transformer: ValueObjectTransformer(Suffix)
+    },
+    slug: {
+      type: String,
+      transformer: ValueObjectTransformer(Slug)
+    },
+    parentId: {
+      type: String,
+      nullable: true,
+      transformer: ValueObjectTransformer(ParentId)
+    },
+    mainId: {
+      type: String,
+      nullable: true,
+      transformer: ValueObjectTransformer(MainId)
+    },
+    logoUrl: {
+      type: String,
+      nullable: true,
+      transformer: ValueObjectTransformer(LogoUrl)
+    },
+    bannerUrl: {
+      type: String,
+      nullable: true,
+      transformer: ValueObjectTransformer(BannerUrl)
+    },
+    about: {
+      type: String,
+      nullable: true,
+      transformer: ValueObjectTransformer(About)
     },
     methodId: {
       type: String,
@@ -139,6 +174,10 @@ export const CommunitySchema = new EntitySchema<Community>({
     {
       name: 'IDX_COMMUNITY_SUFFIX',
       columns: ['suffix']
+    },
+    {
+      name: 'IDX_COMMUNITY_SLUG',
+      columns: ['slug']
     }
   ]
 })

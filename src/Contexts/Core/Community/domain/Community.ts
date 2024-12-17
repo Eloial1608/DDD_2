@@ -24,6 +24,12 @@ import { CommunityCreatedDomainEvent } from './Events/CommunityCreatedDomainEven
 import { CommunityDeletedDomainEvent } from './Events/CommunityDeletedDomainEvent'
 import { MethodId } from './ValueObjects/MethodId'
 import { CommunityMembersCountUpdatedDomainEvent } from './Events/CommunityMembersCountUpdatedDomainEvent'
+import { Slug } from './ValueObjects/Slug'
+import { ParentId } from './ValueObjects/ParentId'
+import { MainId } from './ValueObjects/MainId'
+import { LogoUrl } from './ValueObjects/LogoUrl'
+import { BannerUrl } from './ValueObjects/BannerUrl'
+import { About } from './ValueObjects/About'
 
 export class Community extends AggregateRoot {
   constructor (
@@ -31,6 +37,12 @@ export class Community extends AggregateRoot {
         readonly name: Name,
         readonly suffix: Suffix,
         readonly domain: Nullable<Domain>,
+        readonly slug: Slug,
+        readonly parentId: Nullable<ParentId>,
+        readonly mainId: Nullable<MainId>,
+        readonly logoUrl: Nullable<LogoUrl>,
+        readonly bannerUrl: Nullable<BannerUrl>,
+        readonly about: Nullable<About>,
         readonly membersCount: MembersCount,
         readonly firstPaymentDone: FirstPaymentDone,
         readonly spacesCount: SpacesCount,
@@ -55,6 +67,11 @@ export class Community extends AggregateRoot {
   static create (
     id: Id,
     name: Name,
+    slug: Slug,
+    parentId: Nullable<ParentId>,
+    mainId: Nullable<MainId>,
+    logoUrl: Nullable<LogoUrl>,
+    bannerUrl: Nullable<BannerUrl>,
     suffix: Suffix,
     color: Color,
     allowedFeatures: AllowedFeatures,
@@ -66,6 +83,12 @@ export class Community extends AggregateRoot {
       id,
       name,
       suffix,
+      null,
+      slug,
+      parentId,
+      mainId,
+      logoUrl,
+      bannerUrl,
       null,
       new MembersCount(0),
       new FirstPaymentDone(false),
@@ -97,6 +120,12 @@ export class Community extends AggregateRoot {
       this.name,
       this.suffix,
       this.domain,
+      this.slug,
+      this.parentId,
+      this.mainId,
+      this.logoUrl,
+      this.bannerUrl,
+      this.about,
       this.membersCount,
       this.firstPaymentDone,
       this.spacesCount,
@@ -127,6 +156,12 @@ export class Community extends AggregateRoot {
       this.name,
       this.suffix,
       this.domain,
+      this.slug,
+      this.parentId,
+      this.mainId,
+      this.logoUrl,
+      this.bannerUrl,
+      this.about,
       membersCount,
       this.firstPaymentDone,
       this.spacesCount,

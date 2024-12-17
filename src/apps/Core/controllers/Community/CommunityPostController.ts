@@ -33,6 +33,10 @@ export class CommunityPostController implements Controller {
     const createCommunityCommand = new CreateCommunityCommand(
       req.params.id,
       req.body.name,
+      req.body.slug,
+      req.body.parentId,
+      req.body.logoUrl,
+      req.body.bannerUrl,
       req.body.suffix,
       req.body.color,
       homeSpaceId,
