@@ -22,15 +22,18 @@ export class SpacesDeleteController implements Controller {
 
       const data = await this.decoder.run(req.headers.authorization)
 
-      if (!await this.isAdmin(data.id, data.communityId)) {
+      const spaceQuery = new FindSpaceByIdQuery(req.params.id)
+      const space = await (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
+
+      if (!await this.isAdmin(data.id, space.communityId)) {
         if (!req.body.parentId) return res.status(401).send()
 
         const parentSpaceQuery = new FindSpaceByIdQuery(req.body.parentId)
         const parent = (await this.queryBus.ask<SpaceResponse>(parentSpaceQuery)).response
 
-        if (parent.communityId !== data.communityId) return res.status(401).send()
+        if (parent.communityId !== space.communityId) return res.status(401).send()
 
-        const spaceMember = (await this.getSpaceMember(data.id, data.communityId, parent.id)).pop()
+        const spaceMember = (await this.getSpaceMember(data.id, parent.communityId, parent.id)).pop()
 
         if (!spaceMember || !spaceMember.isModerator || spaceMember.isBanned) return res.status(401).send()
       }
