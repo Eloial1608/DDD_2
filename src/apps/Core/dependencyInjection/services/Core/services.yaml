@@ -109,7 +109,7 @@ services:
     class: src/Contexts/Core/Community/application/UpdateTotalMembersOnUserCreated/Updater
     arguments: ["@Community.Repository", "@Shared.EventBus"]
 
-  Community.UpdateTotalMembersOnUserCreated.Handler:
+  Community.UpdateTotalMembersOnUserCreated.UpdateTotalMembersOnUserCreatedHandler:
     class: src/Contexts/Core/Community/application/UpdateTotalMembersOnUserCreated/UpdateTotalMembersOnUserCreatedHandler
     arguments: ["@Community.UpdateTotalMembersOnUserCreated.Updater"]
     tags:

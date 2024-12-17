@@ -11,9 +11,9 @@ export class Worker {
     const subscriberDefinitions = DI.getInstance().getContainer().findTaggedServiceIds('domainEventSubscriber') as Map<String, Definition>
     const subscribers: Array<DomainEventSubscriber<DomainEvent>> = []
 
-    subscriberDefinitions.forEach((value: any, key: any) => {
-      console.log('Subscribers' + key)
-      subscribers.push(DI.getInstance().resolve(key))
+    subscriberDefinitions.forEach((value: any) => {
+      console.log('Subscribers ' + subscriberDefinitions.size)
+      subscribers.push(DI.getInstance().resolve(value.id))
     })
     const domainEventMapping = new DomainEventMapping(subscribers)
 
