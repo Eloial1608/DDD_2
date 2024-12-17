@@ -222,3 +222,13 @@ services:
     arguments: ["@User.UpdateIsAdmin.UpdaterIsAdmin"]
     tags:
       - { name: "commandHandler" }
+  
+  User.UpdateChildIsAdminOnUserIsAdminUpdated.Updater:
+    class: src/Contexts/Core/User/application/UpdateChildIsAdminOnUserIsAdminUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  User.UpdateChildIsAdminOnUserIsAdminUpdated.UpdateChildIsAdminOnUserIsAdminUpdatedHandler:
+    class: src/Contexts/Core/User/application/UpdateChildIsAdminOnUserIsAdminUpdated/UpdateChildIsAdminOnUserIsAdminUpdatedHandler
+    arguments: ["@User.UpdateChildIsAdminOnUserIsAdminUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }

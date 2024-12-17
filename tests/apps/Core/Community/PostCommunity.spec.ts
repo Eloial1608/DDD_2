@@ -21,6 +21,7 @@ test('POST Community', async ({ request }) => {
   const r = await request.post(`/v1/communities/${community.id.valueOf()}`, {
     data: {
       name: community.name.valueOf(),
+      slug: community.slug.valueOf(),
       suffix: community.suffix.valueOf(),
       color: community.color.valueOf()
     }
