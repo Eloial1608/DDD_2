@@ -272,3 +272,13 @@ services:
     arguments: ["@Community.DeleteCommunitiesOnParentCommunityDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  Space.DeleteSpaceOnCommunityDeleted.Deleter:
+    class: src/Contexts/Core/Space/application/DeleteSpaceOnCommunityDeleted/Deleter
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.DeleteSpaceOnCommunityDeleted.DeleteSpaceOnCommunityDeletedHandler:
+    class: src/Contexts/Core/Space/application/DeleteSpaceOnCommunityDeleted/DeleteSpaceOnCommunityDeletedHandler
+    arguments: ["@Space.DeleteSpaceOnCommunityDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
