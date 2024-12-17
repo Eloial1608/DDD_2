@@ -18,10 +18,8 @@ export class Deleter {
     mainId: MainId,
     communityId: CommunityId
   ) {
-    let offset = 0
-
     for (;;) {
-      const communities = await this.getCommunitiesByParentId(communityId, this.LIMIT, offset)
+      const communities = await this.getCommunitiesByParentId(communityId, this.LIMIT)
 
       for (const community of communities) {
         const user = await this.getUserByMainIdAndCommunityId(mainId, community.id)
@@ -36,12 +34,10 @@ export class Deleter {
       }
 
       if (communities.length !== this.LIMIT) break
-
-      offset += communities.length
     }
   }
 
-  private async getCommunitiesByParentId (parentId: CommunityId, offset: number, limit: number) {
+  private async getCommunitiesByParentId (parentId: CommunityId, limit: number) {
     const query = new FindCommunitiesByCriteriaQuery(
       [
         new Map<string, string>([
@@ -53,8 +49,7 @@ export class Deleter {
       undefined,
       undefined,
       undefined,
-      limit,
-      offset
+      limit
     )
 
     return (await this.queryBus.ask<CommunityCollectionResponse>(query)).response

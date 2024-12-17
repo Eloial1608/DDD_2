@@ -243,6 +243,26 @@ services:
     tags:
       - { name: "commandHandler" }
   
+  User.DeleteUserOnCommunityDeleted.Deleter:
+    class: src/Contexts/Core/User/application/DeleteUserOnCommunityDeleted/Deleter
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.DeleteUserOnCommunityDeleted.DeleteUserOnCommunityDeletedHandler:
+    class: src/Contexts/Core/User/application/DeleteUserOnCommunityDeleted/DeleteUserOnCommunityDeletedHandler
+    arguments: ["@User.DeleteUserOnCommunityDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  User.DeleteUserOnParentUserDeleted.Deleter:
+    class: src/Contexts/Core/User/application/DeleteUserOnParentUserDeleted/Deleter
+    arguments: ['@User.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  User.DeleteUserOnParentUserDeleted.DeleteUserOnParentUserDeletedHandler:
+    class: src/Contexts/Core/User/application/DeleteUserOnParentUserDeleted/DeleteUserOnParentUserDeletedHandler
+    arguments: ["@User.DeleteUserOnParentUserDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
   Community.DeleteCommunitiesOnParentCommunityDeleted.Deleter:
     class: src/Contexts/Core/Community/application/DeleteCommunitiesOnParentCommunityDeleted/Deleter
     arguments: ['@Community.Repository', '@Shared.EventBus']
