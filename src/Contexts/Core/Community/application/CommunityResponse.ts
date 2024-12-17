@@ -24,7 +24,7 @@ export type CommunityResponseBody = {
     readonly color: string
     readonly isPrivate: boolean
     readonly isRegisterOpen: boolean
-    readonly homeSpaceId: string
+    readonly homeSpaceId: Nullable<string>
     readonly expiresAt: Date
     readonly createdAt: Date
     readonly updatedAt: Date
@@ -56,7 +56,7 @@ export class CommunityResponse implements QueryResponse<CommunityResponseBody> {
       color: community.color.valueOf(),
       isPrivate: community.isPrivate.valueOf(),
       isRegisterOpen: community.isRegisterOpen.valueOf(),
-      homeSpaceId: community.homeSpaceId.valueOf(),
+      homeSpaceId: community.homeSpaceId?.valueOf(),
       expiresAt: community.expiresAt.valueOf(),
       createdAt: community.createdAt.valueOf(),
       updatedAt: community.updatedAt.valueOf()
