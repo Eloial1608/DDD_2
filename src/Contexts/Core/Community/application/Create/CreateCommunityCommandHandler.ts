@@ -7,7 +7,6 @@ import { Name } from '@Core/Community/domain/ValueObjects/Name'
 import { Suffix } from '@Core/Community/domain/ValueObjects/Suffix'
 import { Color } from '@Core/Community/domain/ValueObjects/Color'
 import { AllowedFeatures } from '@Core/Community/domain/ValueObjects/AllowedFeatures'
-import { HomeSpaceId } from '@Core/Community/domain/ValueObjects/HomeSpaceId'
 import { ExpiresAt } from '@Core/Community/domain/ValueObjects/ExpiresAt'
 import { AllowedUsers } from '@Core/Community/domain/ValueObjects/AllowedUsers'
 import { Slug } from '@Core/Community/domain/ValueObjects/Slug'
@@ -33,7 +32,6 @@ export class CreateCommunityCommandHandler implements CommandHandler<CreateCommu
       bannerUrl: command.bannerUrl ? new BannerUrl(command.bannerUrl) : null,
       color: new Color(command.color),
       allowedFeatures: AllowedFeatures.fromPrimitives(command.allowedFeatures),
-      homeSpaceId: new HomeSpaceId(command.homeSpaceId),
       expiresAt: new ExpiresAt(command.expiresAt),
       allowedUsers: new AllowedUsers(command.allowedUsers)
     })

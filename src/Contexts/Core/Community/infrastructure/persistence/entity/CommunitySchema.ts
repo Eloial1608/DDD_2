@@ -143,6 +143,7 @@ export const CommunitySchema = new EntitySchema<Community>({
     },
     homeSpaceId: {
       type: String,
+      nullable: true,
       transformer: ValueObjectTransformer(HomeSpaceId)
     },
     expiresAt: {

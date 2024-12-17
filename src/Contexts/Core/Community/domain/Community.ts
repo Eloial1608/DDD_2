@@ -55,7 +55,7 @@ export class Community extends AggregateRoot {
         readonly color: Color,
         readonly isPrivate: IsPrivate,
         readonly isRegisterOpen: IsRegisterOpen,
-        readonly homeSpaceId: HomeSpaceId,
+        readonly homeSpaceId: Nullable<HomeSpaceId>,
         readonly expiresAt: ExpiresAt,
         readonly createdAt: CreatedAt,
         readonly updatedAt: UpdatedAt,
@@ -76,7 +76,6 @@ export class Community extends AggregateRoot {
     color: Color,
     allowedFeatures: AllowedFeatures,
     allowedUsers: AllowedUsers,
-    homeSpaceId: HomeSpaceId,
     expiresAt: ExpiresAt
   ): Community {
     const community = new Community(
@@ -102,7 +101,7 @@ export class Community extends AggregateRoot {
       color,
       new IsPrivate(false),
       new IsRegisterOpen(true),
-      homeSpaceId,
+      null,
       expiresAt,
       new CreatedAt(new Date()),
       new UpdatedAt(new Date()),

@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { Controller } from '../@types/Controller'
 import { CommandBus } from '@Shared/domain/CommandBus/CommandBus'
-import { v4 } from 'uuid'
 import { CreateCommunityCommand } from '@Core/Community/application/Create/CreateCommunityCommand'
 import { ALLOWED_FEATURES } from '@Core/Shared/domain/Community/CommunityAllowedFeatures'
 import { CommunityAlreadyExistsById } from '@Core/Community/domain/Errors/CommunityAlreadyExistsById'
@@ -12,9 +11,7 @@ export class CommunityPostController implements Controller {
 
   async run (req: Request, res: Response): Promise<Response> {
     try {
-      const homeSpaceId = v4()
-
-      await this.createCommunity(req, homeSpaceId)
+      await this.createCommunity(req)
 
       return res.status(201).send()
     } catch (e) {
@@ -26,7 +23,7 @@ export class CommunityPostController implements Controller {
     }
   }
 
-  async createCommunity (req: Request, homeSpaceId: string): Promise<void> {
+  async createCommunity (req: Request): Promise<void> {
     const expiresAt = new Date()
     expiresAt.setDate(expiresAt.getDate() + 14)
 
@@ -39,7 +36,6 @@ export class CommunityPostController implements Controller {
       req.body.bannerUrl,
       req.body.suffix,
       req.body.color,
-      homeSpaceId,
       expiresAt,
       [
         ALLOWED_FEATURES.POST,

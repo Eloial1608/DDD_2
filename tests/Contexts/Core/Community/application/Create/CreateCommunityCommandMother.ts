@@ -12,7 +12,6 @@ export class CreateCommunityCommandMother {
     logoUrl: Nullable<string>,
     bannerUrl: Nullable<string>,
     color: string,
-    homeSpaceId: string,
     expiresAt: Date,
     allowedFeatures: string[],
     allowedUsers: number
@@ -26,7 +25,6 @@ export class CreateCommunityCommandMother {
       bannerUrl,
       suffix,
       color,
-      homeSpaceId,
       expiresAt,
       allowedFeatures,
       allowedUsers
@@ -43,7 +41,6 @@ export class CreateCommunityCommandMother {
       community.logoUrl?.valueOf(),
       community.bannerUrl?.valueOf(),
       community.color.valueOf(),
-      community.homeSpaceId.valueOf(),
       community.expiresAt.valueOf(),
       community.allowedFeatures.valueOf().map(x => x.valueOf()),
       community.allowedUsers.valueOf()

@@ -34,7 +34,6 @@ type Params = {
     color: Color
     allowedFeatures: AllowedFeatures
     allowedUsers: AllowedUsers
-    homeSpaceId: HomeSpaceId
     expiresAt: ExpiresAt
 }
 
@@ -66,7 +65,6 @@ export class Creator {
       params.color,
       params.allowedFeatures,
       params.allowedUsers,
-      params.homeSpaceId,
       params.expiresAt
     )
 

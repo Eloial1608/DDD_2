@@ -7,7 +7,6 @@ import { ExpiresAt } from '@Core/Community/domain/ValueObjects/ExpiresAt'
 import { FirstPaymentDone } from '@Core/Community/domain/ValueObjects/FirstPaymentDone'
 import { HasPayment } from '@Core/Community/domain/ValueObjects/HasPayment'
 import { HasRegisterForm } from '@Core/Community/domain/ValueObjects/HasRegisterForm'
-import { HomeSpaceId } from '@Core/Community/domain/ValueObjects/HomeSpaceId'
 import { Id } from '@Core/Community/domain/ValueObjects/Id'
 import { IsPrivate } from '@Core/Community/domain/ValueObjects/IsPrivate'
 import { IsRegisterOpen } from '@Core/Community/domain/ValueObjects/IsRegisterOpen'
@@ -47,7 +46,7 @@ export class CommunityMother {
       params.color ?? new Color(MotherCreator.random().internet.color()),
       params.isPrivate ?? new IsPrivate(false),
       params.isRegisterOpen ?? new IsRegisterOpen(true),
-      params.homeSpaceId ?? new HomeSpaceId(UuidMother.random()),
+      params.homeSpaceId ?? null,
       params.expiresAt ?? new ExpiresAt(MotherCreator.random().date.future()),
       params.createdAt ?? new CreatedAt(new Date()),
       params.updatedAt ?? new UpdatedAt(new Date()),

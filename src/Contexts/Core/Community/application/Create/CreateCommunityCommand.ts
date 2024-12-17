@@ -11,7 +11,6 @@ export class CreateCommunityCommand implements Command {
         readonly bannerUrl: Nullable<string>,
         readonly suffix: string,
         readonly color: string,
-        readonly homeSpaceId: string,
         readonly expiresAt: Date,
         readonly allowedFeatures: string[],
         readonly allowedUsers: number
