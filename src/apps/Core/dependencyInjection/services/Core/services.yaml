@@ -232,3 +232,13 @@ services:
     arguments: ["@User.UpdateChildIsAdminOnUserIsAdminUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  User.Delete.Deleter:
+    class: src/Contexts/Core/User/application/Delete/Deleter
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.Delete.DeleteUserCommandHandler:
+    class: src/Contexts/Core/User/application/Delete/DeleteUserCommandHandler
+    arguments: ["@User.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }

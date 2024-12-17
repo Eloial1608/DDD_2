@@ -23,6 +23,7 @@ import { IsOwner } from './ValueObjects/IsOwner'
 import { IsAdmin } from './ValueObjects/IsAdmin'
 import { UserUpdatedIsAdminDomainEvent } from './Events/UserUpdatedIsAdminEvent'
 import { MainId } from './ValueObjects/MainId'
+import { UserDeletedDomainEvent } from './Events/UserDeletedDomainEvent'
 
 export class User extends AggregateRoot {
   constructor (
@@ -117,6 +118,36 @@ export class User extends AggregateRoot {
     )
 
     user.record(UserUpdatedIsAdminDomainEvent.fromAggregate(user))
+
+    return user
+  }
+
+  delete ():User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      this.name,
+      this.username,
+      this.about,
+      this.email,
+      this.hasPayed,
+      this.planId,
+      this.hasCompletedRegister,
+      this.registerData,
+      this.isBanned,
+      this.isAdmin,
+      this.isOwner,
+      this.totalPosts,
+      this.totalMedia,
+      this.totalThreads,
+      this.totalThreadResponses,
+      this.communityId,
+      this.createdAt,
+      this.updatedAt,
+      new DeletedAt(new Date())
+    )
+
+    user.record(UserDeletedDomainEvent.fromAggregate(user))
 
     return user
   }
