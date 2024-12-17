@@ -23,7 +23,7 @@ test('GET Community by Domain should return a community', async ({ request }) =>
   })
   await repository.persist(community)
 
-  const r = await request.get(`/v1/communities/domain/${community.domain}`)
+  const r = await request.get(`/v1/communities/domain/${community.domain?.valueOf()}`)
 
-  expect(r.ok()).toBeTruthy()
+  expect(r.status()).toEqual(200)
 })

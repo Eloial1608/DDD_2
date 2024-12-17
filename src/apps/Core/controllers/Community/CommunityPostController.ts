@@ -18,6 +18,7 @@ export class CommunityPostController implements Controller {
 
       return res.status(201).send()
     } catch (e) {
+      console.log(e)
       if (e instanceof CommunityAlreadyExistsById) return res.status(400).send(e.getMessage())
       if (e instanceof CommunityAlreadyExistsBySuffix) return res.status(400).send(e.getMessage())
 

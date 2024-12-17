@@ -4,5 +4,5 @@ import { UserPostController } from '@Apps/Core/controllers/User/UserPostControll
 
 export const register = (router: Router) => {
   const controller = DI.getInstance().resolve<UserPostController>('Apps.Core.Controllers.UserPostController')
-  router.post('/v1/communities/:id', (req: Request, res: Response) => controller.run(req, res))
+  router.post('/v1/users/:id', (req: Request, res: Response) => controller.run(req, res))
 }

@@ -18,7 +18,7 @@ test.beforeAll(async () => {
 test('POST Community', async ({ request }) => {
   const community = CommunityMother.random()
 
-  const r = await request.post(`/v1/communities/${community.id}`, {
+  const r = await request.post(`/v1/communities/${community.id.valueOf()}`, {
     data: {
       name: community.name.valueOf(),
       suffix: community.suffix.valueOf(),
@@ -26,5 +26,5 @@ test('POST Community', async ({ request }) => {
     }
   })
 
-  expect(r.ok()).toBeTruthy()
+  expect(r.status()).toEqual(201)
 })
