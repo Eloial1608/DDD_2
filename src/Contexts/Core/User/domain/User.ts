@@ -24,6 +24,7 @@ import { IsAdmin } from './ValueObjects/IsAdmin'
 import { UserUpdatedIsAdminDomainEvent } from './Events/UserUpdatedIsAdminEvent'
 import { MainId } from './ValueObjects/MainId'
 import { UserDeletedDomainEvent } from './Events/UserDeletedDomainEvent'
+import { UserUnbannedDomainEvent } from './Events/UserUnbannedDomainEvent'
 
 export class User extends AggregateRoot {
   constructor (
@@ -148,6 +149,36 @@ export class User extends AggregateRoot {
     )
 
     user.record(UserDeletedDomainEvent.fromAggregate(user))
+
+    return user
+  }
+
+  unban ():User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      this.name,
+      this.username,
+      this.about,
+      this.email,
+      this.hasPayed,
+      this.planId,
+      this.hasCompletedRegister,
+      this.registerData,
+      new IsBanned(false),
+      this.isAdmin,
+      this.isOwner,
+      this.totalPosts,
+      this.totalMedia,
+      this.totalThreads,
+      this.totalThreadResponses,
+      this.communityId,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      this.deletedAt
+    )
+
+    user.record(UserUnbannedDomainEvent.fromAggregate(user))
 
     return user
   }

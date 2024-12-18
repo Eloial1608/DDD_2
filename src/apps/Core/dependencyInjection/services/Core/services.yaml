@@ -105,6 +105,16 @@ services:
     tags:
       - { name: "commandHandler" }
   
+  User.Unban.Updater:
+    class: src/Contexts/Core/User/application/Unban/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.Unban.UnbanUserCommandHandler:
+    class: src/Contexts/Core/User/application/Unban/UnbanUserCommandHandler
+    arguments: ["@User.Unban.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
   Community.UpdateTotalMembersOnUserCreated.Updater:
     class: src/Contexts/Core/Community/application/UpdateTotalMembersOnUserCreated/Updater
     arguments: ["@Community.Repository", "@Shared.EventBus"]
@@ -125,23 +135,23 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
   
-  Community.UpdateTotalSpacesOnUserCreated.Updater:
-    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnUserCreated/Updater
+  Community.UpdateTotalSpacesOnSpaceCreated.Updater:
+    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnSpaceCreated/Updater
     arguments: ["@Community.Repository", "@Shared.EventBus"]
 
-  Community.UpdateTotalSpacesOnUserCreated.UpdateTotalSpacesOnUserCreatedHandler:
-    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnUserCreated/UpdateTotalSpacesOnUserCreatedHandler
-    arguments: ["@Community.UpdateTotalSpacesOnUserCreated.Updater"]
+  Community.UpdateTotalSpacesOnSpaceCreated.UpdateTotalSpacesOnSpaceCreatedHandler:
+    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnSpaceCreated/UpdateTotalSpacesOnSpaceCreatedHandler
+    arguments: ["@Community.UpdateTotalSpacesOnSpaceCreated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
   
-  Community.UpdateTotalSpacesOnUserDeleted.Updater:
-    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnUserDeleted/Updater
+  Community.UpdateTotalSpacesOnSpaceDeleted.Updater:
+    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnSpaceDeleted/Updater
     arguments: ["@Community.Repository", "@Shared.EventBus"]
 
-  Community.UpdateTotalSpacesOnUserDeleted.UpdateTotalSpacesOnUserDeletedHandler:
-    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnUserDeleted/UpdateTotalSpacesOnUserDeletedHandler
-    arguments: ["@Community.UpdateTotalSpacesOnUserDeleted.Updater"]
+  Community.UpdateTotalSpacesOnSpaceDeleted.UpdateTotalSpacesOnSpaceDeletedHandler:
+    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnSpaceDeleted/UpdateTotalSpacesOnSpaceDeletedHandler
+    arguments: ["@Community.UpdateTotalSpacesOnSpaceDeleted.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
   
