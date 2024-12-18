@@ -1,5 +1,4 @@
 import { UserNotFound } from "@Core/User/domain/Errors/UserNotFound";
-import { User } from "@Core/User/domain/User";
 import { UserRepository } from "@Core/User/domain/UserRepository";
 import { Id } from "@Core/User/domain/ValueObjects/Id";
 import { EventBus } from "@Shared/domain/EventBus/EventBus";

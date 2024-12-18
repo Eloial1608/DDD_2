@@ -1,6 +1,5 @@
 import { DomainEvent } from "@Shared/domain/EventBus/DomainEvent";
 import { User } from "../User";
-import { UserUnbannedDomainEvent } from "./UserUnbannedDomainEvent";
 
 type UserBannedDomainEventBody ={
     readonly id: string
