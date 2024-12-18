@@ -342,3 +342,13 @@ services:
     arguments: ["@SpaceMember.UpdateSpaceMemberModerator.Updater"]
     tags:
       - { name: "commandHandler" }
+  
+  User.UnbanUserOnParentUserUnbanned.Updater:
+    class: src/Contexts/Core/User/application/UnbanUserOnParentUserUnbanned/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  User.UnbanUserOnParentUserUnbanned.UnbanUserOnParentUserUnbannedHandler:
+    class: src/Contexts/Core/User/application/UnbanUserOnParentUserUnbanned/UnbanUserOnParentUserUnbannedHandler
+    arguments: ["@User.UnbanUserOnParentUserUnbanned.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
