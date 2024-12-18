@@ -2,7 +2,6 @@ import { UserRepository } from '@Core/User/domain/UserRepository'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 import { About } from '@Core/User/domain/ValueObjects/About'
 import { Name } from '@Core/User/domain/ValueObjects/Name'
-import { CommunityId } from '@Shared/domain/SharedValueObjects/Community/CommunityId'
 import { Id } from '@Core/User/domain/ValueObjects/Id'
 import { UserNotFound } from '@Core/User/domain/Errors/UserNotFound'
 import { Nullable } from '@Shared/domain/Nullable'
@@ -16,12 +15,11 @@ export class UpdaterAboutAndName {
   async run (
     id: Id,
     about: Nullable<About>,
-    name: Name,
-    communityId: CommunityId
+    name: Name
   ) {
     const user = await this.repository.find(id)
 
-    if (!user || user.communityId.valueOf() !== communityId.valueOf()) throw new UserNotFound(id)
+    if (!user) throw new UserNotFound(id)
 
     const updatedUser = user.updateAboutAndName(
       about,

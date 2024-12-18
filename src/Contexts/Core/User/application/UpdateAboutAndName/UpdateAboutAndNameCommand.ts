@@ -5,7 +5,6 @@ export class UpdateAboutAndNameCommand implements Command {
   constructor (
       readonly id: string,
       readonly about: Nullable<string>,
-      readonly name: string,
-      readonly communityId: string
+      readonly name: string
   ) {}
 }
