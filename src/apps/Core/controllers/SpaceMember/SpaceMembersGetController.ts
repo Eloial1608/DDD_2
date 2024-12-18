@@ -23,34 +23,74 @@ export class SpaceMembersGetController implements Controller {
       let communityId: string | undefined
       let criteria = buildCriteriaFromUri(req.query.criteria as string)
 
-      if (req.headers.authorization) {
-        const data = this.decoder.run(req.headers.authorization)
+      const spaceId = criteria.filters?.find(x => x.get('field') === 'spaceId')?.get('value')
 
-        userId = data.id
-        communityId = data.communityId
+      if (!spaceId) return res.status(400).send()
 
-        criteria = combineCriterias(this.addCommunityIdCriteria(communityId), criteria)
-      } else {
-        criteria = combineCriterias(this.addPublicCriteria(), criteria)
+      const space = await this.getSpace(spaceId as string)
+
+      if (!space) return res.status(404).send()
+
+      if (space.accessibility !== AllowedAccessibilities.PUBLIC) {
+        if (req.headers.authorization) {
+          const data = this.decoder.run(req.headers.authorization)
+
+          userId = data.id
+          communityId = space.communityId
+
+          const user = await this.getUser(userId, communityId)
+
+          if (!user) return res.status(401).send()
+
+          if (!user.isAdmin && !user.isOwner) {
+            const spaceMember = await this.getSpaceMember(user.id, communityId, space.id)
+            if (!spaceMember) return res.status(401).send()
+          }
+
+          criteria = combineCriterias(this.addCommunityIdCriteria(communityId), criteria)
+        }
       }
 
-      const spacesQuery = new FindSpacesByCriteriaQuery(criteria.filters, criteria.inFilters, criteria.orderBy, criteria.orderType, criteria.limit, criteria.offset)
+      const spaceMemberQuery = new FindSpaceMembersByCriteriaQuery(criteria.filters, criteria.inFilters, criteria.orderBy, criteria.orderType, criteria.limit, criteria.offset)
 
-      const spaces = await (await this.queryBus.ask<SpaceCollectionResponse>(spacesQuery)).response
+      const spacesMembers = await (await this.queryBus.ask<SpaceMemberCollectionResponse>(spaceMemberQuery)).response
 
-      const spacesToReturn = []
-
-      for (const space of spaces) {
-        if (await this.checkAccessibility(space.accessibility as AllowedAccessibilities, space.id, userId, communityId)) spacesToReturn.push(space)
-      }
-
-      return res.status(200).json(spacesToReturn)
+      return res.status(200).json(spacesMembers)
     } catch (e) {
       if (e instanceof SpaceNotFound) return res.status(404).json({ message: e.getMessage() })
       if (e instanceof CannotDecode) return res.status(401).json({ message: e.getMessage() })
 
       return res.status(500).send()
     }
+  }
+
+  private async getSpace (spaceId: string) {
+    const query = new FindSpacesByCriteriaQuery([
+      new Map<string, string>([
+        ['field', 'id'],
+        ['operator', '='],
+        ['value', spaceId]
+      ])
+    ])
+
+    return (await this.queryBus.ask<SpaceCollectionResponse>(query)).response.pop()
+  }
+
+  private async getUser (userId: string, communityId: string) {
+    const query = new FindUsersByCriteriaQuery([
+      new Map<string, string>([
+        ['field', 'mainId'],
+        ['operator', '='],
+        ['value', userId]
+      ]),
+      new Map<string, string>([
+        ['field', 'communityId'],
+        ['operator', '='],
+        ['value', communityId]
+      ])
+    ])
+
+    return (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
   }
 
   private addCommunityIdCriteria (communityId: string) {
@@ -63,32 +103,6 @@ export class SpaceMembersGetController implements Controller {
         ])
       ]
     }
-  }
-
-  private addPublicCriteria () {
-    return {
-      filters: [
-        new Map<string, string>([
-          ['field', 'accessibility'],
-          ['operator', '='],
-          ['value', AllowedAccessibilities.PUBLIC]
-        ])
-      ]
-    }
-  }
-
-  private async checkAccessibility (accessibility: AllowedAccessibilities, spaceId: string, userId?: string, communityId?: string): Promise<boolean> {
-    if (accessibility === AllowedAccessibilities.PUBLIC) return true
-
-    if (userId && communityId) {
-      if (await this.isAdmin(userId, communityId)) return true
-
-      const spaceMember = await this.getSpaceMember(userId, communityId, spaceId)
-
-      if (spaceMember) return true
-    }
-
-    return false
   }
 
   private async getSpaceMember (userId: string, communityId: string, spaceId: string) {
@@ -110,25 +124,6 @@ export class SpaceMembersGetController implements Controller {
       ])
     ])
 
-    return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response
-  }
-
-  private async isAdmin (id: string, communityId: string): Promise<boolean> {
-    const query = new FindUsersByCriteriaQuery([
-      new Map<string, string>([
-        ['field', 'mainId'],
-        ['operator', '='],
-        ['value', id]
-      ]),
-      new Map<string, string>([
-        ['field', 'communityId'],
-        ['operator', '='],
-        ['value', communityId]
-      ])
-    ])
-
-    const user = (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
-
-    return !!user && (user.isAdmin || user.isOwner)
+    return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response.pop()
   }
 }

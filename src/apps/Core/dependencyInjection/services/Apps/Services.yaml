@@ -57,3 +57,15 @@ services:
   Apps.Core.Controllers.UserDeleteController:
     class: src/apps/Core/controllers/User/UserDeleteController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.SpaceMembersGetController:
+    class: src/apps/Core/controllers/SpaceMember/SpaceMembersGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.SpaceMemberPostController:
+    class: src/apps/Core/controllers/SpaceMember/SpaceMemberPostController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.SpaceMemberDeleteController:
+    class: src/apps/Core/controllers/SpaceMember/SpaceMemberDeleteController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
