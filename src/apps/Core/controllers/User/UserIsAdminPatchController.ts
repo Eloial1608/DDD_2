@@ -3,8 +3,6 @@ import { Controller } from '../@types/Controller'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { UserNotFound } from '@Core/User/domain/Errors/UserNotFound'
 import { TokenDecoder } from '@Shared/domain/TokenDecoder/TokenDecoder'
-import { FindUserByIdQuery } from '@Core/User/application/FindById/FindUserByIdQuery'
-import { UserResponse } from '@Core/User/application/UserResponse'
 import { UserCollectionResponse } from '@Core/User/application/UserCollectionResponse'
 import { CommandBus } from '@Shared/domain/CommandBus/CommandBus'
 import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
@@ -20,7 +18,7 @@ export class UserIsAdminPatchController implements Controller{
 
             const data = await this.decoder.run(req.headers.authorization)
 
-            if(!await this.isAdmin(data.id, data.communityId) && !await this.isOwner(req.params.id, data.communityId)) return res.status(401).send()
+            if(!await this.isAdmin(data.id, data.communityId) && await this.isOwner(req.params.id, data.communityId)) return res.status(401).send()
                       
             const command = new UpdateIsAdminCommand(
                 req.params.id,
