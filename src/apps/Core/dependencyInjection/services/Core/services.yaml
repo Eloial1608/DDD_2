@@ -115,6 +115,36 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
   
+  Community.UpdateTotalMembersOnUserDeleted.Updater:
+    class: src/Contexts/Core/Community/application/UpdateTotalMembersOnUserDeleted/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateTotalMembersOnUserDeleted.UpdateTotalMembersOnUserDeletedHandler:
+    class: src/Contexts/Core/Community/application/UpdateTotalMembersOnUserDeleted/UpdateTotalMembersOnUserDeletedHandler
+    arguments: ["@Community.UpdateTotalMembersOnUserDeleted.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.UpdateTotalSpacesOnUserCreated.Updater:
+    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnUserCreated/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateTotalSpacesOnUserCreated.UpdateTotalSpacesOnUserCreatedHandler:
+    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnUserCreated/UpdateTotalSpacesOnUserCreatedHandler
+    arguments: ["@Community.UpdateTotalSpacesOnUserCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.UpdateTotalSpacesOnUserDeleted.Updater:
+    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnUserDeleted/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateTotalSpacesOnUserDeleted.UpdateTotalSpacesOnUserDeletedHandler:
+    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnUserDeleted/UpdateTotalSpacesOnUserDeletedHandler
+    arguments: ["@Community.UpdateTotalSpacesOnUserDeleted.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
   Space.Repository:
     class: src/Contexts/Core/Space/infrastructure/persistence/TypeOrmSpaceRepository
     arguments: ["@Shared.ORM.Connection"]
