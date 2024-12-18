@@ -292,3 +292,13 @@ services:
     arguments: ["@SpaceMember.DeleteSpaceMemberOnSpaceDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  SpaceMember.UpdateSpaceMemberModerator.Updater:
+    class: src/Contexts/Core/SpaceMember/application/UpdateSpaceMemberModerator/Updater
+    arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
+  
+  SpaceMember.UpdateSpaceMemberModerator.UpdateSpaceMemberModeratorCommandHandler:
+    class: src/Contexts/Core/SpaceMember/application/UpdateSpaceMemberModerator/UpdateSpaceMemberModeratorCommandHandler
+    arguments: ["@SpaceMember.UpdateSpaceMemberModerator.Updater"]
+    tags:
+      - { name: "commandHandler" }

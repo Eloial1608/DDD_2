@@ -23,15 +23,15 @@ export class CreateSpaceMemberCommandMother {
     )
   }
 
-  static fromAggregate (spacemember: SpaceMember): CreateSpaceMemberCommand {
+  static fromAggregate (spaceMember: SpaceMember): CreateSpaceMemberCommand {
     return this.create(
-      spacemember.id.valueOf(),
-      spacemember.userId.valueOf(),
-      spacemember.spaceId.valueOf(),
-      spacemember.communityId.valueOf(),
-      spacemember.invitedBy?.valueOf(),
-      spacemember.invitedAt?.valueOf(),
-      spacemember.isModerator.valueOf()
+      spaceMember.id.valueOf(),
+      spaceMember.userId.valueOf(),
+      spaceMember.spaceId.valueOf(),
+      spaceMember.communityId.valueOf(),
+      spaceMember.invitedBy?.valueOf(),
+      spaceMember.invitedAt?.valueOf(),
+      spaceMember.isModerator.valueOf()
     )
   }
 }
