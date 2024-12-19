@@ -16,7 +16,7 @@ export class UpdateAboutAndNameCommandHandler implements CommandHandler<UpdateAb
   async handle (command: UpdateAboutAndNameCommand): Promise<void> {
     await this.updater.run(
       new Id(command.id),
-      (command.about != null) ? new About(command.about) : null,
+      command.about != null ? new About(command.about) : null,
       new Name(command.name)
     )
   }

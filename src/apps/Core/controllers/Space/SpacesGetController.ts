@@ -4,8 +4,6 @@ import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { SpaceNotFound } from '@Core/Space/domain/Errors/SpaceNotFound'
 import { AllowedAccessibilities } from '@Core/Space/domain/ValueObjects/Accessibility'
 import { TokenDecoder } from '@Shared/domain/TokenDecoder/TokenDecoder'
-import { FindUserByIdQuery } from '@Core/User/application/FindById/FindUserByIdQuery'
-import { UserResponse } from '@Core/User/application/UserResponse'
 import { FindSpaceMembersByCriteriaQuery } from '@Core/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQuery'
 import { SpaceMemberCollectionResponse } from '@Core/SpaceMember/application/SpaceMemberCollectionResponse'
 import { FindSpacesByCriteriaQuery } from '@Core/Space/application/FindByCriteria/FindSpacesByCriteriaQuery'
@@ -13,6 +11,8 @@ import { SpaceCollectionResponse } from '@Core/Space/application/SpaceCollection
 import { buildCriteriaFromUri } from '@Shared/infrastructure/Criteria/BuildCriteriaFromUri'
 import { combineCriterias } from '@Shared/infrastructure/Criteria/CombineCriterias'
 import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
+import { FindUsersByCriteriaQuery } from '@Core/User/application/FindByCriteria/FindUsersByCriteriaQuery'
+import { UserCollectionResponse } from '@Core/User/application/UserCollectionResponse'
 
 export class SpacesGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
@@ -114,10 +114,21 @@ export class SpacesGetController implements Controller {
   }
 
   private async isAdmin (id: string, communityId: string): Promise<boolean> {
-    const userQuery = new FindUserByIdQuery(id)
+    const query = new FindUsersByCriteriaQuery([
+      new Map<string, string>([
+        ['field', 'mainId'],
+        ['operator', '='],
+        ['value', id]
+      ]),
+      new Map<string, string>([
+        ['field', 'communityId'],
+        ['operator', '='],
+        ['value', communityId]
+      ])
+    ])
 
-    const user = (await this.queryBus.ask<UserResponse>(userQuery)).response
+    const user = (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
 
-    return user.communityId === communityId && (user.isAdmin || user.isOwner)
+    return !!user && (user.isAdmin || user.isOwner)
   }
 }

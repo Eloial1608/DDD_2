@@ -3,8 +3,6 @@ import { Controller } from '../@types/Controller'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { SpaceNotFound } from '@Core/Space/domain/Errors/SpaceNotFound'
 import { TokenDecoder } from '@Shared/domain/TokenDecoder/TokenDecoder'
-import { FindUserByIdQuery } from '@Core/User/application/FindById/FindUserByIdQuery'
-import { UserResponse } from '@Core/User/application/UserResponse'
 import { FindSpaceMembersByCriteriaQuery } from '@Core/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQuery'
 import { SpaceMemberCollectionResponse } from '@Core/SpaceMember/application/SpaceMemberCollectionResponse'
 import { CommandBus } from '@Shared/domain/CommandBus/CommandBus'
@@ -12,6 +10,8 @@ import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { FindSpaceByIdQuery } from '@Core/Space/application/FindById/FindSpaceByIdQuery'
 import { SpaceResponse } from '@Core/Space/application/SpaceResponse'
 import { DeleteSpaceCommand } from '@Core/Space/application/Delete/DeleteSpaceCommand'
+import { FindUsersByCriteriaQuery } from '@Core/User/application/FindByCriteria/FindUsersByCriteriaQuery'
+import { UserCollectionResponse } from '@Core/User/application/UserCollectionResponse'
 
 export class SpacesDeleteController implements Controller {
   constructor (private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
@@ -22,15 +22,18 @@ export class SpacesDeleteController implements Controller {
 
       const data = await this.decoder.run(req.headers.authorization)
 
-      if (!await this.isAdmin(data.id, data.communityId)) {
+      const spaceQuery = new FindSpaceByIdQuery(req.params.id)
+      const space = await (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
+
+      if (!await this.isAdmin(data.id, space.communityId)) {
         if (!req.body.parentId) return res.status(401).send()
 
         const parentSpaceQuery = new FindSpaceByIdQuery(req.body.parentId)
         const parent = (await this.queryBus.ask<SpaceResponse>(parentSpaceQuery)).response
 
-        if (parent.communityId !== data.communityId) return res.status(401).send()
+        if (parent.communityId !== space.communityId) return res.status(401).send()
 
-        const spaceMember = (await this.getSpaceMember(data.id, data.communityId, parent.id)).pop()
+        const spaceMember = (await this.getSpaceMember(data.id, parent.communityId, parent.id)).pop()
 
         if (!spaceMember || !spaceMember.isModerator || spaceMember.isBanned) return res.status(401).send()
       }
@@ -75,10 +78,21 @@ export class SpacesDeleteController implements Controller {
   }
 
   private async isAdmin (id: string, communityId: string): Promise<boolean> {
-    const userQuery = new FindUserByIdQuery(id)
+    const query = new FindUsersByCriteriaQuery([
+      new Map<string, string>([
+        ['field', 'mainId'],
+        ['operator', '='],
+        ['value', id]
+      ]),
+      new Map<string, string>([
+        ['field', 'communityId'],
+        ['operator', '='],
+        ['value', communityId]
+      ])
+    ])
 
-    const user = (await this.queryBus.ask<UserResponse>(userQuery)).response
+    const user = (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
 
-    return user.communityId === communityId && (user.isAdmin || user.isOwner)
+    return !!user && (user.isAdmin || user.isOwner)
   }
 }

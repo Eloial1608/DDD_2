@@ -105,6 +105,16 @@ services:
     tags:
       - { name: "commandHandler" }
   
+  User.Unban.Updater:
+    class: src/Contexts/Core/User/application/Unban/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.Unban.UnbanUserCommandHandler:
+    class: src/Contexts/Core/User/application/Unban/UnbanUserCommandHandler
+    arguments: ["@User.Unban.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
   Community.UpdateTotalMembersOnUserCreated.Updater:
     class: src/Contexts/Core/Community/application/UpdateTotalMembersOnUserCreated/Updater
     arguments: ["@Community.Repository", "@Shared.EventBus"]
@@ -112,6 +122,36 @@ services:
   Community.UpdateTotalMembersOnUserCreated.UpdateTotalMembersOnUserCreatedHandler:
     class: src/Contexts/Core/Community/application/UpdateTotalMembersOnUserCreated/UpdateTotalMembersOnUserCreatedHandler
     arguments: ["@Community.UpdateTotalMembersOnUserCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.UpdateTotalMembersOnUserDeleted.Updater:
+    class: src/Contexts/Core/Community/application/UpdateTotalMembersOnUserDeleted/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateTotalMembersOnUserDeleted.UpdateTotalMembersOnUserDeletedHandler:
+    class: src/Contexts/Core/Community/application/UpdateTotalMembersOnUserDeleted/UpdateTotalMembersOnUserDeletedHandler
+    arguments: ["@Community.UpdateTotalMembersOnUserDeleted.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.UpdateTotalSpacesOnSpaceCreated.Updater:
+    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnSpaceCreated/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateTotalSpacesOnSpaceCreated.UpdateTotalSpacesOnSpaceCreatedHandler:
+    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnSpaceCreated/UpdateTotalSpacesOnSpaceCreatedHandler
+    arguments: ["@Community.UpdateTotalSpacesOnSpaceCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.UpdateTotalSpacesOnSpaceDeleted.Updater:
+    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnSpaceDeleted/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateTotalSpacesOnSpaceDeleted.UpdateTotalSpacesOnSpaceDeletedHandler:
+    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnSpaceDeleted/UpdateTotalSpacesOnSpaceDeletedHandler
+    arguments: ["@Community.UpdateTotalSpacesOnSpaceDeleted.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
   
@@ -213,13 +253,113 @@ services:
     tags:
       - { name: "commandHandler" }
 
-  User.Update.UpdaterIsAdmin:
+  User.UpdateIsAdmin.UpdaterIsAdmin:
     class: src/Contexts/Core/User/application/UpdateIsAdmin/UpdaterIsAdmin
     arguments: ['@User.Repository', '@Shared.EventBus']
   
-  User.Update.UpdateIsAdminUserCommandHandler:
+  User.UpdateIsAdmin.UpdateIsAdminUserCommandHandler:
     class: src/Contexts/Core/User/application/UpdateIsAdmin/UpdateIsAdminUserCommandHandler
-    arguments: ["@User.Update.UpdaterIsAdmin"]
+    arguments: ["@User.UpdateIsAdmin.UpdaterIsAdmin"]
+    tags:
+      - { name: "commandHandler" }
+  
+  User.UpdateChildIsAdminOnUserIsAdminUpdated.Updater:
+    class: src/Contexts/Core/User/application/UpdateChildIsAdminOnUserIsAdminUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  User.UpdateChildIsAdminOnUserIsAdminUpdated.UpdateChildIsAdminOnUserIsAdminUpdatedHandler:
+    class: src/Contexts/Core/User/application/UpdateChildIsAdminOnUserIsAdminUpdated/UpdateChildIsAdminOnUserIsAdminUpdatedHandler
+    arguments: ["@User.UpdateChildIsAdminOnUserIsAdminUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  User.Delete.Deleter:
+    class: src/Contexts/Core/User/application/Delete/Deleter
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.Delete.DeleteUserCommandHandler:
+    class: src/Contexts/Core/User/application/Delete/DeleteUserCommandHandler
+    arguments: ["@User.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+  
+  User.DeleteUserOnCommunityDeleted.Deleter:
+    class: src/Contexts/Core/User/application/DeleteUserOnCommunityDeleted/Deleter
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.DeleteUserOnCommunityDeleted.DeleteUserOnCommunityDeletedHandler:
+    class: src/Contexts/Core/User/application/DeleteUserOnCommunityDeleted/DeleteUserOnCommunityDeletedHandler
+    arguments: ["@User.DeleteUserOnCommunityDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  User.DeleteUserOnParentUserDeleted.Deleter:
+    class: src/Contexts/Core/User/application/DeleteUserOnParentUserDeleted/Deleter
+    arguments: ['@User.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  User.DeleteUserOnParentUserDeleted.DeleteUserOnParentUserDeletedHandler:
+    class: src/Contexts/Core/User/application/DeleteUserOnParentUserDeleted/DeleteUserOnParentUserDeletedHandler
+    arguments: ["@User.DeleteUserOnParentUserDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.DeleteCommunitiesOnParentCommunityDeleted.Deleter:
+    class: src/Contexts/Core/Community/application/DeleteCommunitiesOnParentCommunityDeleted/Deleter
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.DeleteCommunitiesOnParentCommunityDeleted.DeleteCommunitiesOnParentCommunityDeletedHandler:
+    class: src/Contexts/Core/Community/application/DeleteCommunitiesOnParentCommunityDeleted/DeleteCommunitiesOnParentCommunityDeletedHandler
+    arguments: ["@Community.DeleteCommunitiesOnParentCommunityDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Space.DeleteSpaceOnCommunityDeleted.Deleter:
+    class: src/Contexts/Core/Space/application/DeleteSpaceOnCommunityDeleted/Deleter
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.DeleteSpaceOnCommunityDeleted.DeleteSpaceOnCommunityDeletedHandler:
+    class: src/Contexts/Core/Space/application/DeleteSpaceOnCommunityDeleted/DeleteSpaceOnCommunityDeletedHandler
+    arguments: ["@Space.DeleteSpaceOnCommunityDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  SpaceMember.DeleteSpaceMemberOnSpaceDeleted.Deleter:
+    class: src/Contexts/Core/SpaceMember/application/DeleteSpaceMemberOnSpaceDeleted/Deleter
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  SpaceMember.DeleteSpaceMemberOnSpaceDeleted.DeleteSpaceMemberOnSpaceDeletedHandler:
+    class: src/Contexts/Core/SpaceMember/application/DeleteSpaceMemberOnSpaceDeleted/DeleteSpaceMemberOnSpaceDeletedHandler
+    arguments: ["@SpaceMember.DeleteSpaceMemberOnSpaceDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  SpaceMember.UpdateSpaceMemberModerator.Updater:
+    class: src/Contexts/Core/SpaceMember/application/UpdateSpaceMemberModerator/Updater
+    arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
+  
+  SpaceMember.UpdateSpaceMemberModerator.UpdateSpaceMemberModeratorCommandHandler:
+    class: src/Contexts/Core/SpaceMember/application/UpdateSpaceMemberModerator/UpdateSpaceMemberModeratorCommandHandler
+    arguments: ["@SpaceMember.UpdateSpaceMemberModerator.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
+  User.UnbanUserOnParentUserUnbanned.Updater:
+    class: src/Contexts/Core/User/application/UnbanUserOnParentUserUnbanned/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  User.UnbanUserOnParentUserUnbanned.UnbanUserOnParentUserUnbannedHandler:
+    class: src/Contexts/Core/User/application/UnbanUserOnParentUserUnbanned/UnbanUserOnParentUserUnbannedHandler
+    arguments: ["@User.UnbanUserOnParentUserUnbanned.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  User.Ban.Updater:
+    class: src/Contexts/Core/User/application/Ban/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.Ban.UnbanUserCommandHandler:
+    class: src/Contexts/Core/User/application/Ban/BanUserCommandHandler
+    arguments: ["@User.Ban.Updater"]
     tags:
       - { name: "commandHandler" }
 
@@ -228,3 +368,5 @@ services:
     arguments: ["@User.Update.UpdaterAboutAndName"]
     tags:
       - { name: "commandHandler" }
+  
+  

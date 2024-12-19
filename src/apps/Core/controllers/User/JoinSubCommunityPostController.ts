@@ -11,8 +11,10 @@ import { UserAlreadyExistsById } from '@Core/User/domain/Errors/UserAlreadyExist
 import { UserAlreadyExistsByEmail } from '@Core/User/domain/Errors/UserAlreadyExistsBySuffix'
 import { FindCommunityByIdQuery } from '@Core/Community/application/FindById/FindCommunityByIdQuery'
 import { CommunityResponse } from '@Core/Community/application/CommunityResponse'
+import { CommunityNotFound } from '@Core/Community/domain/Errors/CommunityNotFound'
+import { v4 } from 'uuid'
 
-export class UserPostController implements Controller {
+export class JoinSubCommunityPostController implements Controller {
   constructor (private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
 
   async run (req: Request, res: Response): Promise<Response> {
@@ -21,38 +23,18 @@ export class UserPostController implements Controller {
 
       const tokenData = this.decoder.run(req.headers.authorization)
 
-      const communityQuery = new FindCommunityByIdQuery(tokenData.communityId)
+      const canDo = await this.checkIfCanJoin(req.params.id, tokenData.communityId, tokenData.id)
 
-      const community = (await this.queryBus.ask<CommunityResponse>(communityQuery)).response
-
-      if (community.membersCount >= community.allowedUsers) return res.status(401).send()
-
-      let isOwner = false
-
-      const query = new FindUsersByCriteriaQuery(
-        [
-          new Map<string, string>([
-            ['field', 'communityId'],
-            ['operator', '='],
-            ['value', tokenData.communityId]
-          ])
-        ],
-        undefined,
-        undefined,
-        undefined,
-        1)
-
-      const result = (await this.queryBus.ask<UserCollectionResponse>(query)).response
-
-      if (result.length === 0) isOwner = true
+      if (!canDo.canAccess) return res.status(401).send()
 
       const command = new CreateUserCommand(
+        v4(),
         tokenData.id,
         req.body.name,
         req.body.email,
         tokenData.communityId,
-        isOwner,
-        isOwner
+        !!canDo.admin,
+        !!canDo.owner
       )
 
       await this.commandBus.dispatch(command)
@@ -60,10 +42,50 @@ export class UserPostController implements Controller {
       return res.status(201).send()
     } catch (e) {
       if (e instanceof CannotDecode) return res.status(401).send(e.getMessage())
+      if (e instanceof CommunityNotFound) res.status(401).send(e.getMessage())
       if (e instanceof UserAlreadyExistsById) return res.status(400).send(e.getMessage())
       if (e instanceof UserAlreadyExistsByEmail) return res.status(400).send(e.getMessage())
 
       return res.status(500).send()
     }
+  }
+
+  private async checkIfCanJoin (communityId: string, mainCommunityId: string, userId: string) {
+    const communityQuery = new FindCommunityByIdQuery(communityId)
+
+    const community = (await this.queryBus.ask<CommunityResponse>(communityQuery)).response
+
+    if (community.mainId !== mainCommunityId || community.isPrivate || community.membersCount >= community.allowedUsers) return { canAccess: false }
+
+    const parentUser = await this.getUserFromCommunity(userId, community.parentId!)
+
+    if (!parentUser || parentUser.isBanned) return { canAccess: false }
+
+    const mainUser = parentUser.communityId === mainCommunityId ? parentUser : await this.getUserFromCommunity(userId, mainCommunityId)
+
+    if (!mainUser || mainUser.isBanned) return { canAccess: false }
+
+    return {
+      admin: parentUser.isAdmin || mainUser.isOwner,
+      owner: mainUser.isOwner,
+      canAccess: true
+    }
+  }
+
+  private async getUserFromCommunity (userId: string, communityId: string) {
+    const query = new FindUsersByCriteriaQuery([
+      new Map<string, string>([
+        ['field', 'mainId'],
+        ['operator', '='],
+        ['value', userId]
+      ]),
+      new Map<string, string>([
+        ['field', 'communityId'],
+        ['operator', '='],
+        ['value', communityId]
+      ])
+    ])
+
+    return (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
   }
 }

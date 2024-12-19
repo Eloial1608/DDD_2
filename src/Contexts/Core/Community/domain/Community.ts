@@ -24,6 +24,13 @@ import { CommunityCreatedDomainEvent } from './Events/CommunityCreatedDomainEven
 import { CommunityDeletedDomainEvent } from './Events/CommunityDeletedDomainEvent'
 import { MethodId } from './ValueObjects/MethodId'
 import { CommunityMembersCountUpdatedDomainEvent } from './Events/CommunityMembersCountUpdatedDomainEvent'
+import { Slug } from './ValueObjects/Slug'
+import { ParentId } from './ValueObjects/ParentId'
+import { MainId } from './ValueObjects/MainId'
+import { LogoUrl } from './ValueObjects/LogoUrl'
+import { BannerUrl } from './ValueObjects/BannerUrl'
+import { About } from './ValueObjects/About'
+import { CommunitySpacesCountUpdatedDomainEvent } from './Events/CommunitySpacesCountUpdatedDomainEvent'
 
 export class Community extends AggregateRoot {
   constructor (
@@ -31,6 +38,12 @@ export class Community extends AggregateRoot {
         readonly name: Name,
         readonly suffix: Suffix,
         readonly domain: Nullable<Domain>,
+        readonly slug: Slug,
+        readonly parentId: Nullable<ParentId>,
+        readonly mainId: Nullable<MainId>,
+        readonly logoUrl: Nullable<LogoUrl>,
+        readonly bannerUrl: Nullable<BannerUrl>,
+        readonly about: Nullable<About>,
         readonly membersCount: MembersCount,
         readonly firstPaymentDone: FirstPaymentDone,
         readonly spacesCount: SpacesCount,
@@ -43,7 +56,7 @@ export class Community extends AggregateRoot {
         readonly color: Color,
         readonly isPrivate: IsPrivate,
         readonly isRegisterOpen: IsRegisterOpen,
-        readonly homeSpaceId: HomeSpaceId,
+        readonly homeSpaceId: Nullable<HomeSpaceId>,
         readonly expiresAt: ExpiresAt,
         readonly createdAt: CreatedAt,
         readonly updatedAt: UpdatedAt,
@@ -55,17 +68,27 @@ export class Community extends AggregateRoot {
   static create (
     id: Id,
     name: Name,
+    slug: Slug,
+    parentId: Nullable<ParentId>,
+    mainId: Nullable<MainId>,
+    logoUrl: Nullable<LogoUrl>,
+    bannerUrl: Nullable<BannerUrl>,
     suffix: Suffix,
     color: Color,
     allowedFeatures: AllowedFeatures,
     allowedUsers: AllowedUsers,
-    homeSpaceId: HomeSpaceId,
     expiresAt: ExpiresAt
   ): Community {
     const community = new Community(
       id,
       name,
       suffix,
+      null,
+      slug,
+      parentId,
+      mainId,
+      logoUrl,
+      bannerUrl,
       null,
       new MembersCount(0),
       new FirstPaymentDone(false),
@@ -79,7 +102,7 @@ export class Community extends AggregateRoot {
       color,
       new IsPrivate(false),
       new IsRegisterOpen(true),
-      homeSpaceId,
+      null,
       expiresAt,
       new CreatedAt(new Date()),
       new UpdatedAt(new Date()),
@@ -97,6 +120,12 @@ export class Community extends AggregateRoot {
       this.name,
       this.suffix,
       this.domain,
+      this.slug,
+      this.parentId,
+      this.mainId,
+      this.logoUrl,
+      this.bannerUrl,
+      this.about,
       this.membersCount,
       this.firstPaymentDone,
       this.spacesCount,
@@ -127,6 +156,12 @@ export class Community extends AggregateRoot {
       this.name,
       this.suffix,
       this.domain,
+      this.slug,
+      this.parentId,
+      this.mainId,
+      this.logoUrl,
+      this.bannerUrl,
+      this.about,
       membersCount,
       this.firstPaymentDone,
       this.spacesCount,
@@ -147,6 +182,42 @@ export class Community extends AggregateRoot {
     )
 
     community.record(CommunityMembersCountUpdatedDomainEvent.fromAggregate(community))
+
+    return community
+  }
+
+  updateSpacesCount (spacesCount: SpacesCount): Community {
+    const community = new Community(
+      this.id,
+      this.name,
+      this.suffix,
+      this.domain,
+      this.slug,
+      this.parentId,
+      this.mainId,
+      this.logoUrl,
+      this.bannerUrl,
+      this.about,
+      this.membersCount,
+      this.firstPaymentDone,
+      spacesCount,
+      this.hasPayment,
+      this.methodId,
+      this.allowedFeatures,
+      this.hasRegisterForm,
+      this.registerFormId,
+      this.allowedUsers,
+      this.color,
+      this.isPrivate,
+      this.isRegisterOpen,
+      this.homeSpaceId,
+      this.expiresAt,
+      this.createdAt,
+      this.updatedAt,
+      null
+    )
+
+    community.record(CommunitySpacesCountUpdatedDomainEvent.fromAggregate(community))
 
     return community
   }

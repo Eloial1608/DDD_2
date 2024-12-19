@@ -17,23 +17,23 @@ describe('FindSpaceMemberQueryHandler should', () => {
     handler = new FindSpaceMemberQueryHandler(finder)
   })
 
-  test('Return a spacemember', async () => {
-    const spacemember = SpaceMemberMother.random()
+  test('Return a spaceMember', async () => {
+    const spaceMember = SpaceMemberMother.random()
 
-    repository.returnOnFind(spacemember)
+    repository.returnOnFind(spaceMember)
 
-    const query = new FindSpaceMemberQuery(spacemember.id.valueOf())
+    const query = new FindSpaceMemberQuery(spaceMember.id.valueOf())
 
     const response = await handler.handle(query)
 
-    repository.assertFindHasBeenCalledWith(spacemember.id)
-    expect(response).toEqual(new SpaceMemberResponse(spacemember))
+    repository.assertFindHasBeenCalledWith(spaceMember.id)
+    expect(response).toEqual(new SpaceMemberResponse(spaceMember))
   })
 
-  test('Fail if a spacemember doesnt exists', async () => {
-    const spacemember = SpaceMemberMother.random()
+  test('Fail if a spaceMember doesnt exists', async () => {
+    const spaceMember = SpaceMemberMother.random()
 
-    const query = new FindSpaceMemberQuery(spacemember.id.valueOf())
+    const query = new FindSpaceMemberQuery(spaceMember.id.valueOf())
 
     expect(handler.handle(query)).rejects.toThrowError(SpaceMemberNotFound)
   })

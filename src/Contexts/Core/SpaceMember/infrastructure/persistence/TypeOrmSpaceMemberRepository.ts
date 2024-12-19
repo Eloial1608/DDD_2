@@ -20,7 +20,7 @@ export class TypeOrmSpaceMemberRepository extends TypeOrmRepository<SpaceMember>
     return (await this.criteriaToQueryBuilder(criteria)).getMany()
   }
 
-  async persist (spacemember: SpaceMember): Promise<void> {
-    await (await this.repository()).save(spacemember)
+  async persist (spaceMember: SpaceMember): Promise<void> {
+    await (await this.repository()).save(spaceMember)
   }
 }

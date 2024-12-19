@@ -6,7 +6,7 @@ import { CommandHandler } from '@Shared/domain/CommandBus/CommandHandler'
 import { IsAdmin } from '@Core/User/domain/ValueObjects/IsAdmin'
 import { Id } from '@Core/User/domain/ValueObjects/Id'
 
-export class UpdateIsAdminCommandHandler implements CommandHandler<UpdateIsAdminCommand> {
+export class UpdateIsAdminUserCommandHandler implements CommandHandler<UpdateIsAdminCommand> {
   constructor (private readonly updater: UpdaterIsAdmin) {}
 
   subscribedTo (): Command {

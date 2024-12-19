@@ -4,6 +4,7 @@ import { User } from '@Core/User/domain/User'
 export class CreateUserCommandMother {
   static create (
     id: string,
+    mainId: string,
     name: string,
     email: string,
     communityId: string,
@@ -12,6 +13,7 @@ export class CreateUserCommandMother {
   ): CreateUserCommand {
     return new CreateUserCommand(
       id,
+      mainId,
       name,
       email,
       communityId,
@@ -23,6 +25,7 @@ export class CreateUserCommandMother {
   static fromAggregate (user: User): CreateUserCommand {
     return this.create(
       user.id.valueOf(),
+      user.mainId.valueOf(),
       user.name.valueOf(),
       user.email.valueOf(),
       user.communityId.valueOf(),

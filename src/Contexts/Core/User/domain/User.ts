@@ -23,10 +23,15 @@ import { IsOwner } from './ValueObjects/IsOwner'
 import { IsAdmin } from './ValueObjects/IsAdmin'
 import { UserUpdatedIsAdminDomainEvent } from './Events/UserUpdatedIsAdminEvent'
 import { UserUpdatedAboutAndNameDomainEvent } from './Events/UserUpdatedAboutAndNameEvent'
+import { MainId } from './ValueObjects/MainId'
+import { UserDeletedDomainEvent } from './Events/UserDeletedDomainEvent'
+import { UserUnbannedDomainEvent } from './Events/UserUnbannedDomainEvent'
+import { UserBannedDomainEvent } from './Events/UserBannedDoaminEvent'
 
 export class User extends AggregateRoot {
   constructor (
     readonly id: Id,
+    readonly mainId: MainId,
     readonly name: Name,
     readonly username: Username,
     readonly about: Nullable<About>,
@@ -52,6 +57,7 @@ export class User extends AggregateRoot {
 
   static create (
     id: Id,
+    mainId: MainId,
     name: Name,
     username: Username,
     email: Email,
@@ -61,6 +67,7 @@ export class User extends AggregateRoot {
   ): User {
     const user = new User(
       id,
+      mainId,
       name,
       username,
       null,
@@ -87,9 +94,11 @@ export class User extends AggregateRoot {
     return user
   }
 
-  updateIsAdmin(isAdmin: IsAdmin):User {
+  updateIsAdmin (
+    isAdmin: IsAdmin):User {
     const user = new User(
       this.id,
+      this.mainId,
       this.name,
       this.username,
       this.about,
@@ -141,6 +150,95 @@ export class User extends AggregateRoot {
     )
 
     user.record(UserUpdatedAboutAndNameDomainEvent.fromAggregate(user))
+
+    return user
+  }
+  delete ():User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      this.name,
+      this.username,
+      this.about,
+      this.email,
+      this.hasPayed,
+      this.planId,
+      this.hasCompletedRegister,
+      this.registerData,
+      this.isBanned,
+      this.isAdmin,
+      this.isOwner,
+      this.totalPosts,
+      this.totalMedia,
+      this.totalThreads,
+      this.totalThreadResponses,
+      this.communityId,
+      this.createdAt,
+      this.updatedAt,
+      new DeletedAt(new Date())
+    )
+
+    user.record(UserDeletedDomainEvent.fromAggregate(user))
+
+    return user
+  }
+
+  unban ():User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      this.name,
+      this.username,
+      this.about,
+      this.email,
+      this.hasPayed,
+      this.planId,
+      this.hasCompletedRegister,
+      this.registerData,
+      new IsBanned(false),
+      this.isAdmin,
+      this.isOwner,
+      this.totalPosts,
+      this.totalMedia,
+      this.totalThreads,
+      this.totalThreadResponses,
+      this.communityId,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      this.deletedAt
+    )
+
+    user.record(UserUnbannedDomainEvent.fromAggregate(user))
+
+    return user
+  }
+
+  ban ():User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      this.name,
+      this.username,
+      this.about,
+      this.email,
+      this.hasPayed,
+      this.planId,
+      this.hasCompletedRegister,
+      this.registerData,
+      new IsBanned(true),
+      this.isAdmin,
+      this.isOwner,
+      this.totalPosts,
+      this.totalMedia,
+      this.totalThreads,
+      this.totalThreadResponses,
+      this.communityId,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      this.deletedAt
+    )
+
+    user.record(UserBannedDomainEvent.fromAggregate(user))
 
     return user
   }

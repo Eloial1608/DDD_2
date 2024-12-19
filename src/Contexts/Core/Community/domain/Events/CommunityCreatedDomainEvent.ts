@@ -18,7 +18,6 @@ type CommunityCreatedDomainEventBody = {
     readonly color: string
     readonly isPrivate: boolean
     readonly isRegisterOpen: boolean
-    readonly homeSpaceId: string
     readonly expiresAt: Date
     readonly createdAt: Date
     readonly updatedAt: Date
@@ -42,7 +41,6 @@ export class CommunityCreatedDomainEvent extends DomainEvent {
   readonly color: string
   readonly isPrivate: boolean
   readonly isRegisterOpen: boolean
-  readonly homeSpaceId: string
   readonly expiresAt: Date
   readonly createdAt: Date
   readonly updatedAt: Date
@@ -71,7 +69,6 @@ export class CommunityCreatedDomainEvent extends DomainEvent {
     this.color = params.color
     this.isPrivate = params.isPrivate
     this.isRegisterOpen = params.isRegisterOpen
-    this.homeSpaceId = params.homeSpaceId
     this.expiresAt = params.expiresAt
   }
 
@@ -90,7 +87,6 @@ export class CommunityCreatedDomainEvent extends DomainEvent {
       color: community.color.valueOf(),
       isPrivate: community.isPrivate.valueOf(),
       isRegisterOpen: community.isRegisterOpen.valueOf(),
-      homeSpaceId: community.homeSpaceId.valueOf(),
       expiresAt: community.expiresAt.valueOf(),
       domain: community.domain?.valueOf(),
       registerFormId: community.registerFormId?.valueOf(),

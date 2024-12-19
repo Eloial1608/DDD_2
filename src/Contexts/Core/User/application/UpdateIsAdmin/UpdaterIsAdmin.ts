@@ -1,9 +1,9 @@
-import { UserRepository } from "@Core/User/domain/UserRepository"
-import { EventBus } from "@Shared/domain/EventBus/EventBus"
-import { IsAdmin } from "@Core/User/domain/ValueObjects/IsAdmin"
-import { CommunityId } from "@Shared/domain/SharedValueObjects/Community/CommunityId"
-import { Id } from "@Core/User/domain/ValueObjects/Id"
-import { UserNotFound } from "@Core/User/domain/Errors/UserNotFound"
+import { UserRepository } from '@Core/User/domain/UserRepository'
+import { EventBus } from '@Shared/domain/EventBus/EventBus'
+import { IsAdmin } from '@Core/User/domain/ValueObjects/IsAdmin'
+import { CommunityId } from '@Shared/domain/SharedValueObjects/Community/CommunityId'
+import { Id } from '@Core/User/domain/ValueObjects/Id'
+import { UserNotFound } from '@Core/User/domain/Errors/UserNotFound'
 
 export class UpdaterIsAdmin {
   constructor (private readonly repository: UserRepository, private readonly eventBus: EventBus) {}

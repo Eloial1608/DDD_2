@@ -6,10 +6,10 @@ export class DeleteSpaceMemberCommandMother {
     return new DeleteSpaceMemberCommand(id, communityId)
   }
 
-  static fromAggregate (spacemember: SpaceMember): DeleteSpaceMemberCommand {
+  static fromAggregate (spaceMember: SpaceMember): DeleteSpaceMemberCommand {
     return this.delete(
-      spacemember.id.valueOf(),
-      spacemember.communityId.valueOf()
+      spaceMember.id.valueOf(),
+      spaceMember.communityId.valueOf()
     )
   }
 }

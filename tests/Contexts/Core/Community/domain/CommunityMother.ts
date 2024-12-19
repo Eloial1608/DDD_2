@@ -7,16 +7,17 @@ import { ExpiresAt } from '@Core/Community/domain/ValueObjects/ExpiresAt'
 import { FirstPaymentDone } from '@Core/Community/domain/ValueObjects/FirstPaymentDone'
 import { HasPayment } from '@Core/Community/domain/ValueObjects/HasPayment'
 import { HasRegisterForm } from '@Core/Community/domain/ValueObjects/HasRegisterForm'
-import { HomeSpaceId } from '@Core/Community/domain/ValueObjects/HomeSpaceId'
 import { Id } from '@Core/Community/domain/ValueObjects/Id'
 import { IsPrivate } from '@Core/Community/domain/ValueObjects/IsPrivate'
 import { IsRegisterOpen } from '@Core/Community/domain/ValueObjects/IsRegisterOpen'
 import { MembersCount } from '@Core/Community/domain/ValueObjects/MembersCount'
 import { Name } from '@Core/Community/domain/ValueObjects/Name'
+import { Slug } from '@Core/Community/domain/ValueObjects/Slug'
 import { SpacesCount } from '@Core/Community/domain/ValueObjects/SpacesCount'
 import { Suffix } from '@Core/Community/domain/ValueObjects/Suffix'
 import { UpdatedAt } from '@Core/Community/domain/ValueObjects/UpdatedAt'
 import { MotherCreator } from '@Tests/Contexts/Shared/domain/MotherCreator'
+import { SlugMother } from '@Tests/Contexts/Shared/domain/SlugMother'
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
 import { WordMother } from '@Tests/Contexts/Shared/domain/WordMother'
 
@@ -27,6 +28,12 @@ export class CommunityMother {
       params.name ?? new Name(WordMother.random()),
       params.suffix ?? new Suffix(WordMother.random()),
       params.domain ?? null,
+      params.slug ?? new Slug(SlugMother.random()),
+      params.parentId ?? null,
+      params.mainId ?? null,
+      params.logoUrl ?? null,
+      params.bannerUrl ?? null,
+      params.about ?? null,
       params.membersCount ?? new MembersCount(0),
       params.firstPaymentDone ?? new FirstPaymentDone(false),
       params.spacesCount ?? new SpacesCount(1),
@@ -39,7 +46,7 @@ export class CommunityMother {
       params.color ?? new Color(MotherCreator.random().internet.color()),
       params.isPrivate ?? new IsPrivate(false),
       params.isRegisterOpen ?? new IsRegisterOpen(true),
-      params.homeSpaceId ?? new HomeSpaceId(UuidMother.random()),
+      params.homeSpaceId ?? null,
       params.expiresAt ?? new ExpiresAt(MotherCreator.random().date.future()),
       params.createdAt ?? new CreatedAt(new Date()),
       params.updatedAt ?? new UpdatedAt(new Date()),

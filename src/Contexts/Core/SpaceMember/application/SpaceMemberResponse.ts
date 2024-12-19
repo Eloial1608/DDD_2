@@ -18,18 +18,18 @@ export type SpaceMemberResponseBody = {
 export class SpaceMemberResponse implements QueryResponse<SpaceMemberResponseBody> {
   response: SpaceMemberResponseBody
 
-  constructor (spacemember: SpaceMember) {
+  constructor (spaceMember: SpaceMember) {
     this.response = {
-      id: spacemember.id.valueOf(),
-      userId: spacemember.userId.valueOf(),
-      spaceId: spacemember.spaceId.valueOf(),
-      isModerator: spacemember.isModerator.valueOf(),
-      isBanned: spacemember.isBanned.valueOf(),
-      invitedBy: spacemember.invitedBy?.valueOf(),
-      invitedAt: spacemember.invitedAt?.valueOf(),
-      communityId: spacemember.communityId.valueOf(),
-      createdAt: spacemember.createdAt.valueOf(),
-      updatedAt: spacemember.updatedAt.valueOf()
+      id: spaceMember.id.valueOf(),
+      userId: spaceMember.userId.valueOf(),
+      spaceId: spaceMember.spaceId.valueOf(),
+      isModerator: spaceMember.isModerator.valueOf(),
+      isBanned: spaceMember.isBanned.valueOf(),
+      invitedBy: spaceMember.invitedBy?.valueOf(),
+      invitedAt: spaceMember.invitedAt?.valueOf(),
+      communityId: spaceMember.communityId.valueOf(),
+      createdAt: spaceMember.createdAt.valueOf(),
+      updatedAt: spaceMember.updatedAt.valueOf()
     }
   }
 }

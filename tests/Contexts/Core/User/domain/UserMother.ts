@@ -25,6 +25,7 @@ export class UserMother {
     const id = params.id ?? new Id(UuidMother.random())
     return new User(
       id,
+      id,
       name,
       params.username ?? Username.createFromNonSlug(
         `${name.valueOf()}-${id.valueOf().substring(0, id.valueOf().indexOf('-') - 1)}`
