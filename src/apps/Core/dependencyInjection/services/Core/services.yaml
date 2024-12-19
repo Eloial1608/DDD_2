@@ -352,3 +352,15 @@ services:
     arguments: ["@User.UnbanUserOnParentUserUnbanned.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  User.Ban.Updater:
+    class: src/Contexts/Core/User/application/Ban/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.Ban.UnbanUserCommandHandler:
+    class: src/Contexts/Core/User/application/Ban/BanUserCommandHandler
+    arguments: ["@User.Ban.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
+  
