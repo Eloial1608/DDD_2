@@ -18,7 +18,7 @@ export class UserIsAdminPatchController implements Controller{
 
             const data = await this.decoder.run(req.headers.authorization)
 
-            if(!await this.isAdmin(data.id, data.communityId) && await this.isOwner(req.params.id, req.body.communityId)) return res.status(401).send()
+            if(!await this.isAdmin(data.id,  req.body.communityId) && await this.isOwner(req.params.id, req.body.communityId)) return res.status(401).send()
                       
             const command = new UpdateIsAdminCommand(
                 req.params.id,
