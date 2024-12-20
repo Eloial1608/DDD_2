@@ -1,11 +1,5 @@
-export type StProduct = {
-    name: string
-    apiKey: string
-    price: string
-    renovationType: string
-    renovationInterval: number
-}
+import { StripeProduct } from './StripeProduct'
 
 export interface StripeHttpProductRepository {
-    create (product: StProduct): Promise<string>
+    create (apiKey: string, product: StripeProduct): Promise<string>
 }
