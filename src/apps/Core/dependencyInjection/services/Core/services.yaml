@@ -365,7 +365,7 @@ services:
 
   User.Update.UpdateAboutAndNameUserCommandHandler:
     class: src/Contexts/Core/User/application/UpdateIsAdmin/UpdateAboutAndNameUserCommandHandler
-    arguments: ["@User.Update.UpdaterAboutAndName"]
+    arguments: ["@User.UpdateAboutAndName.UpdaterAboutAndName"]
     tags:
       - { name: "commandHandler" }
   
