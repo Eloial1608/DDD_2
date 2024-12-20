@@ -60,3 +60,13 @@ services:
   
   StripeSession.HttpStripeRepository:
     class: src/Contexts/Stripe/StripeSession/infrastructure/HttpStripeSessionRepository
+  
+  StripeSession.Create.Creator:
+    class: src/Contexts/Stripe/StripeSession/application/Create/Creator
+    arguments: ['@StripeAccount.Repository', '@StripeSession.HttpStripeRepository', '@Shared.QueryBus', '@Shared.EventBus']
+  
+  StripeAccount.Create.CreateStripeSessionCommandHandler:
+    class: src/Contexts/Stripe/StripeSession/application/Create/CreateStripeSessionCommandHandler
+    arguments: ["@StripeSession.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
