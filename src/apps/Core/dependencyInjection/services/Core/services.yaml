@@ -367,4 +367,7 @@ services:
     class: src/Contexts/Core/UserPlan/infrastructure/persistence/TypeOrmUserPlanRepository
     arguments: ["@Shared.ORM.Connection"]
   
+  PlanForUsers.Repository:
+    class: src/Contexts/Core/PlanForUsers/infrastructure/persistence/TypeOrmPlanForUsersRepository
+    arguments: ["@Shared.ORM.Connection"]
   

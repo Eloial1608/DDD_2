@@ -12,7 +12,7 @@ import { UpdatedAt } from "@Core/UserPlan/domain/ValueObjects/UpdatedAt";
 import { UserPlan } from "@Core/UserPlan/domain/UserPlan";
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
 import { WordMother } from '@Tests/Contexts/Shared/domain/WordMother'
-import { PlanRenovationTypeValues } from "@Core/Shared/domain/Plan/PlanRenovationType";
+import { RenovationTypeValues } from '@Shared/domain/SharedValueObjects/SharedRenovationType'
 
 
 export class UserPlanMother{
@@ -28,7 +28,7 @@ export class UserPlanMother{
                 new PriceCurrency('EUR')
             ),
             params.renovationInterval ?? new RenovationInterval(1),
-            params.renovationType ?? new RenovationType(PlanRenovationTypeValues.MONTH),
+            params.renovationType ?? new RenovationType(RenovationTypeValues.MONTH),
             params.expiresAt ?? new ExpiresAt(new Date()),
             params.createdAt ?? new CreatedAt(new Date()),
             params.updatedAt ?? new UpdatedAt(new Date())
