@@ -363,10 +363,13 @@ services:
     tags:
       - { name: "commandHandler" }
 
+  User.Ban.UpdaterAboutAndName:
+    class: src/Contexts/Core/User/application/UpdateAboutAndName/UpdaterAboutAndName
+    arguments: ['@User.Repository', '@Shared.EventBus']
+
   User.Update.UpdateAboutAndNameUserCommandHandler:
     class: src/Contexts/Core/User/application/UpdateIsAdmin/UpdateAboutAndNameUserCommandHandler
     arguments: ["@User.UpdateAboutAndName.UpdaterAboutAndName"]
     tags:
       - { name: "commandHandler" }
-  
   
