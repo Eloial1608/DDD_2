@@ -2,6 +2,7 @@ import { ValueObjectTransformer } from '@Shared/domain/ValueObjects/ValueObjectT
 import { StripeProduct } from '@Stripe/StripeProduct/domain/StripeProduct'
 import { AccountId } from '@Stripe/StripeProduct/domain/ValueObjects/AccountId'
 import { Id } from '@Stripe/StripeProduct/domain/ValueObjects/Id'
+import { Name } from '@Stripe/StripeProduct/domain/ValueObjects/Name'
 import { Price } from '@Stripe/StripeProduct/domain/ValueObjects/Price'
 import { ProductId } from '@Stripe/StripeProduct/domain/ValueObjects/ProductId'
 import { ProductType } from '@Stripe/StripeProduct/domain/ValueObjects/ProductType'
@@ -18,6 +19,10 @@ export const StripeProductSchema = new EntitySchema<StripeProduct>({
       type: String,
       primary: true,
       transformer: ValueObjectTransformer(Id)
+    },
+    name: {
+      type: String,
+      transformer: ValueObjectTransformer(Name)
     },
     accountId: {
       type: String,

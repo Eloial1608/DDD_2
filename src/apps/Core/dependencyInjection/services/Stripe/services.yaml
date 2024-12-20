@@ -43,3 +43,13 @@ services:
   
   StripeProduct.HttpStripeRepository:
     class: src/Contexts/Stripe/StripeProduct/infrastructure/HttpStripeProductRepository
+  
+  StripeProduct.FindById.FinderById:
+    class: src/Contexts/Stripe/StripeProduct/application/FindById/FinderById
+    arguments: ['@StripeProduct.Repository']
+  
+  StripeProduct.FindById.FindStripeProductByIdQueryHandler:
+    class: src/Contexts/Stripe/StripeProduct/application/FindById/FindStripeProductByIdQueryHandler
+    arguments: ['@StripeProduct.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
