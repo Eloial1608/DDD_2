@@ -4,6 +4,7 @@ import { AccountId } from '@Stripe/StripeProduct/domain/ValueObjects/AccountId'
 import { Id } from '@Stripe/StripeProduct/domain/ValueObjects/Id'
 import { Name } from '@Stripe/StripeProduct/domain/ValueObjects/Name'
 import { Price } from '@Stripe/StripeProduct/domain/ValueObjects/Price'
+import { PriceId } from '@Stripe/StripeProduct/domain/ValueObjects/PriceId'
 import { ProductId } from '@Stripe/StripeProduct/domain/ValueObjects/ProductId'
 import { ProductType } from '@Stripe/StripeProduct/domain/ValueObjects/ProductType'
 import { RenovationInterval } from '@Stripe/StripeProduct/domain/ValueObjects/RenovationInterval'
@@ -27,6 +28,10 @@ export const StripeProductSchema = new EntitySchema<StripeProduct>({
     accountId: {
       type: String,
       transformer: ValueObjectTransformer(AccountId)
+    },
+    priceId: {
+      type: String,
+      transformer: ValueObjectTransformer(PriceId)
     },
     productId: {
       type: String,
