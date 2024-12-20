@@ -28,6 +28,9 @@
     "@Core/*": [
       "src/Contexts/Core/*"
     ],
+    "@Stripe/*": [
+      "src/Contexts/Stripe/*"
+    ],
     "@Auth/*": [
       "src/Contexts/Auth/*"
     ],
