@@ -5,6 +5,7 @@ import { PlanForUsers } from '../../domain/PlanForUsers'
 import { Id } from '../../domain/ValueObjects/Id'
 import { Nullable } from '@Shared/domain/Nullable'
 import { Criteria } from '@Shared/domain/Criteria/Criteria'
+import { PlanForUsersSchema } from './entity/PlanForUsersSchema'
 
 export class TypeOrmSpaceMemberRepository extends TypeOrmRepository<PlanForUsers> implements PlanForUsersRepository {
   protected get entitySchema (): EntitySchema {
