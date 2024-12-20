@@ -128,6 +128,7 @@ export class User extends AggregateRoot {
   updateAboutAndName(about: Nullable<About>, name: Name):User {
     const user = new User(
       this.id,
+      this.mainId,
       name,
       this.username,
       about,
@@ -146,7 +147,6 @@ export class User extends AggregateRoot {
       this.communityId,
       this.createdAt,
       this.updatedAt,
-      this.deletedAt,
       this.deletedAt
     )
 
