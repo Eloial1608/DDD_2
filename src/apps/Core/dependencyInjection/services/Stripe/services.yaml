@@ -3,6 +3,10 @@ services:
     class: src/Contexts/Stripe/StripeAccount/infrastructure/persistence/TypeOrmStripeAccountRepository
     arguments: ["@Shared.ORM.Connection"]
   
+  StripeAccount.HttpStripeRepository:
+    class: src/Contexts/Stripe/StripeAccount/infrastructure/HttpStripeAccountRepository
+    arguments: []
+  
   StripeAccount.Create.Creator:
     class: src/Contexts/Stripe/StripeAccount/application/Create/Creator
     arguments: ['@StripeAccount.Repository', '@Shared.EventBus']
@@ -32,3 +36,10 @@ services:
     arguments: ['@StripeAccount.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+  
+  StripeProduct.Repository:
+    class: src/Contexts/Stripe/StripeProduct/infrastructure/persistence/TypeOrmStripeProductRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
+  StripeProduct.HttpStripeRepository:
+    class: src/Contexts/Stripe/StripeProduct/infrastructure/HttpStripeProductRepository
