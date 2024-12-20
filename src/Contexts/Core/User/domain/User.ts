@@ -146,6 +146,7 @@ export class User extends AggregateRoot {
       this.communityId,
       this.createdAt,
       this.updatedAt,
+      this.deletedAt,
       this.deletedAt
     )
 
@@ -153,6 +154,7 @@ export class User extends AggregateRoot {
 
     return user
   }
+
   delete ():User {
     const user = new User(
       this.id,
