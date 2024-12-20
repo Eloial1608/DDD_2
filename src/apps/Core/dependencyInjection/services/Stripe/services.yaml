@@ -22,3 +22,13 @@ services:
     arguments: ["@StripeAccount.Update.Updater"]
     tags:
       - { name: "commandHandler" }
+  
+  StripeAccount.FindById.FinderById:
+    class: src/Contexts/Stripe/StripeAccount/application/FindById/FinderById
+    arguments: ['@StripeAccount.Repository']
+  
+  StripeAccount.FindById.FindStripeAccountByIdQueryHandler:
+    class: src/Contexts/Stripe/StripeAccount/application/FindById/FindStripeAccountByIdQueryHandler
+    arguments: ['@StripeAccount.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
