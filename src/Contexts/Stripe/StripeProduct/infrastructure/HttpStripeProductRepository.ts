@@ -3,14 +3,14 @@ import { StripeHttpProductRepository } from '../domain/StripeHttpProductReposito
 import { StripeProduct } from '../domain/StripeProduct'
 
 export class HttpStripeProductRepository implements StripeHttpProductRepository {
-  async create (apiKey: string, product: StripeProduct): Promise<void> {
+  async create (apiKey: string, product: Partial<StripeProduct>): Promise<string> {
     const client = new Stripe(apiKey)
 
-    await client.products.create({
-      id: product.id.valueOf(),
-      name: product.name.valueOf(),
+    const p = await client.products.create({
+      id: product.id!.valueOf(),
+      name: product.name!.valueOf(),
       default_price_data: {
-        unit_amount: Number(product.price.valueOf()),
+        unit_amount: Number(product.price!.valueOf()),
         currency: 'EUR',
         recurring: product.renovationInterval?.valueOf() && product.renovationType?.valueOf()
           ? {
@@ -20,5 +20,7 @@ export class HttpStripeProductRepository implements StripeHttpProductRepository 
           : undefined
       }
     })
+
+    return p.default_price as string
   }
 }

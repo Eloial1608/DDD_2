@@ -4,8 +4,10 @@ import { QueryResponse } from '@Shared/domain/QueryBus/QueryResponse'
 
 export type StripeProductResponseBody = {
     readonly id: string
-    readonly name: string,
+    readonly name: string
     readonly price: string
+    readonly priceId: string
+    readonly productType: string
     readonly renovationType: Nullable<string>
     readonly renovationInterval: Nullable<number>
 }
@@ -18,6 +20,8 @@ export class StripeProductResponse implements QueryResponse<StripeProductRespons
       id: stripeproduct.id.valueOf(),
       name: stripeproduct.name.valueOf(),
       price: stripeproduct.price.valueOf(),
+      productType: stripeproduct.productType.valueOf(),
+      priceId: stripeproduct.priceId.valueOf(),
       renovationInterval: stripeproduct.renovationInterval?.valueOf(),
       renovationType: stripeproduct.renovationType?.valueOf()
     }

@@ -3,6 +3,7 @@ import { AccountId } from '@Stripe/StripeProduct/domain/ValueObjects/AccountId'
 import { Id } from '@Stripe/StripeProduct/domain/ValueObjects/Id'
 import { Name } from '@Stripe/StripeProduct/domain/ValueObjects/Name'
 import { Price } from '@Stripe/StripeProduct/domain/ValueObjects/Price'
+import { PriceId } from '@Stripe/StripeProduct/domain/ValueObjects/PriceId'
 import { ProductId } from '@Stripe/StripeProduct/domain/ValueObjects/ProductId'
 import { ProductType, ProductTypes } from '@Stripe/StripeProduct/domain/ValueObjects/ProductType'
 import { MotherCreator } from '@Tests/Contexts/Shared/domain/MotherCreator'
@@ -17,6 +18,7 @@ export class StripeProductMother {
       params.productType ?? new ProductType(ProductTypes.COMMUNITY_PLANS),
       params.productId ?? new ProductId(UuidMother.random()),
       params.price ?? new Price('0'),
+      params.priceId ?? new PriceId(UuidMother.random()),
       params.renovationInterval ?? null,
       params.renovationType ?? null
     )

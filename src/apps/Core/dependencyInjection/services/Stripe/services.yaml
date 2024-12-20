@@ -53,3 +53,10 @@ services:
     arguments: ['@StripeProduct.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+  
+  StripeSession.Repository:
+    class: src/Contexts/Stripe/StripeSession/infrastructure/persistence/TypeOrmStripeSessionRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
+  StripeSession.HttpStripeRepository:
+    class: src/Contexts/Stripe/StripeSession/infrastructure/HttpStripeSessionRepository
