@@ -1,0 +1,55 @@
+services:
+  StripeAccount.Repository:
+    class: src/Contexts/Stripe/StripeAccount/infrastructure/persistence/TypeOrmStripeAccountRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
+  StripeAccount.HttpStripeRepository:
+    class: src/Contexts/Stripe/StripeAccount/infrastructure/HttpStripeAccountRepository
+    arguments: []
+  
+  StripeAccount.Create.Creator:
+    class: src/Contexts/Stripe/StripeAccount/application/Create/Creator
+    arguments: ['@StripeAccount.Repository', '@Shared.EventBus']
+  
+  StripeAccount.Create.CreateStripeAccountCommandHandler:
+    class: src/Contexts/Stripe/StripeAccount/application/Create/CreateStripeAccountCommandHandler
+    arguments: ["@StripeAccount.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+  
+  StripeAccount.Update.Updater:
+    class: src/Contexts/Stripe/StripeAccount/application/Update/Updater
+    arguments: ['@StripeAccount.Repository', '@Shared.EventBus']
+  
+  StripeAccount.Update.UpdateStripeAccountCommandHandler:
+    class: src/Contexts/Stripe/StripeAccount/application/Update/UpdateStripeAccountCommandHandler
+    arguments: ["@StripeAccount.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
+  StripeAccount.FindById.FinderById:
+    class: src/Contexts/Stripe/StripeAccount/application/FindById/FinderById
+    arguments: ['@StripeAccount.Repository']
+  
+  StripeAccount.FindById.FindStripeAccountByIdQueryHandler:
+    class: src/Contexts/Stripe/StripeAccount/application/FindById/FindStripeAccountByIdQueryHandler
+    arguments: ['@StripeAccount.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+  
+  StripeProduct.Repository:
+    class: src/Contexts/Stripe/StripeProduct/infrastructure/persistence/TypeOrmStripeProductRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
+  StripeProduct.HttpStripeRepository:
+    class: src/Contexts/Stripe/StripeProduct/infrastructure/HttpStripeProductRepository
+  
+  StripeProduct.FindById.FinderById:
+    class: src/Contexts/Stripe/StripeProduct/application/FindById/FinderById
+    arguments: ['@StripeProduct.Repository']
+  
+  StripeProduct.FindById.FindStripeProductByIdQueryHandler:
+    class: src/Contexts/Stripe/StripeProduct/application/FindById/FindStripeProductByIdQueryHandler
+    arguments: ['@StripeProduct.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
