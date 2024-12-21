@@ -22,6 +22,7 @@ import { UserCreatedDomainEvent } from './Events/UserCreatedDomainEvent'
 import { IsOwner } from './ValueObjects/IsOwner'
 import { IsAdmin } from './ValueObjects/IsAdmin'
 import { UserUpdatedIsAdminDomainEvent } from './Events/UserUpdatedIsAdminEvent'
+import { UserUpdatedAboutAndNameDomainEvent } from './Events/UserUpdatedAboutAndNameEvent'
 import { MainId } from './ValueObjects/MainId'
 import { UserDeletedDomainEvent } from './Events/UserDeletedDomainEvent'
 import { UserUnbannedDomainEvent } from './Events/UserUnbannedDomainEvent'
@@ -120,6 +121,36 @@ export class User extends AggregateRoot {
     )
 
     user.record(UserUpdatedIsAdminDomainEvent.fromAggregate(user))
+
+    return user
+  }
+
+  updateAboutAndName(about: Nullable<About>, name: Name):User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      name,
+      this.username,
+      about,
+      this.email,
+      this.hasPayed,
+      this.planId,
+      this.hasCompletedRegister,
+      this.registerData,
+      this.isBanned,
+      this.isAdmin,
+      this.isOwner,
+      this.totalPosts,
+      this.totalMedia,
+      this.totalThreads,
+      this.totalThreadResponses,
+      this.communityId,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt
+    )
+
+    user.record(UserUpdatedAboutAndNameDomainEvent.fromAggregate(user))
 
     return user
   }
