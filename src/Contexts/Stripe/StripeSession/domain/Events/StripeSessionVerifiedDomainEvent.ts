@@ -7,6 +7,7 @@ type StripeSessionVerifiedDomainEventBody = {
   readonly accountId: string
   readonly stripeId: string
   readonly url: string
+  readonly customerId: string
   readonly product: {
     readonly id: string
     readonly type: string
@@ -27,6 +28,7 @@ export class StripeSessionVerifiedDomainEvent extends DomainEvent {
   readonly id: string
   readonly accountId: string
   readonly stripeId: string
+  readonly customerId: string
   readonly url: string
   readonly product: {
     readonly id: string
@@ -52,6 +54,7 @@ export class StripeSessionVerifiedDomainEvent extends DomainEvent {
     this.accountId = params.accountId
     this.stripeId = params.stripeId
     this.url = params.url
+    this.customerId = params.customerId
     this.product = params.product
     this.price = params.price
     this.completed = params.completed
@@ -65,6 +68,7 @@ export class StripeSessionVerifiedDomainEvent extends DomainEvent {
       accountId: stripeSession.accountId.valueOf(),
       stripeId: stripeSession.stripeId.valueOf(),
       url: stripeSession.url.valueOf(),
+      customerId: stripeSession.customerId.valueOf(),
       product: stripeSession.product.toPrimitives(),
       price: stripeSession.price.valueOf(),
       completed: stripeSession.completed.valueOf(),

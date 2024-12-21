@@ -1,3 +1,3 @@
-import { Uuid } from '@Shared/domain/ValueObjects/Uuid'
+import { SharedUserId } from '@Shared/domain/SharedValueObjects/User/SharedUserId'
 
-export class Id extends Uuid {}
+export class Id extends SharedUserId {}

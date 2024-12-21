@@ -6,6 +6,7 @@ export class CreateStripeSessionCommandMother {
     id: string,
     accountId: string,
     productId: string,
+    customerId: string,
     successUrl: string,
     failUrl: string
   ): CreateStripeSessionCommand {
@@ -13,6 +14,7 @@ export class CreateStripeSessionCommandMother {
       id,
       accountId,
       productId,
+      customerId,
       successUrl,
       failUrl
     )
@@ -23,6 +25,7 @@ export class CreateStripeSessionCommandMother {
       stripeSession.id.valueOf(),
       stripeSession.accountId.valueOf(),
       stripeSession.product.id,
+      stripeSession.customerId.valueOf(),
       stripeSession.successUrl.valueOf(),
       stripeSession.failUrl.valueOf()
     )

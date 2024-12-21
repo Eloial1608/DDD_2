@@ -2,6 +2,7 @@ import { ProductTypes } from '@Stripe/StripeProduct/domain/ValueObjects/ProductT
 import { StripeSession } from '@Stripe/StripeSession/domain/StripeSession'
 import { AccountId } from '@Stripe/StripeSession/domain/ValueObjects/AccountId'
 import { Completed } from '@Stripe/StripeSession/domain/ValueObjects/Completed'
+import { CustomerId } from '@Stripe/StripeSession/domain/ValueObjects/CustomerId'
 import { FailUrl } from '@Stripe/StripeSession/domain/ValueObjects/FailUrl'
 import { Id } from '@Stripe/StripeSession/domain/ValueObjects/Id'
 import { Price } from '@Stripe/StripeSession/domain/ValueObjects/Price'
@@ -25,6 +26,7 @@ export class StripeSessionMother {
         UuidMother.random()
       ),
       params.price ?? new Price('100'),
+      params.customerId ?? new CustomerId(UuidMother.random()),
       params.completed ?? new Completed(false),
       params.successUrl ?? new SuccessUrl(UrlMother.random()),
       params.failUrl ?? new FailUrl(UrlMother.random())

@@ -2,7 +2,6 @@ import { Id } from '@Core/UserPlan/domain/ValueObjects/Id'
 import { Name } from '@Core/UserPlan/domain/ValueObjects/Name'
 import { Description } from '@Core/UserPlan/domain/ValueObjects/Description'
 import { PlanId } from '@Core/UserPlan/domain/ValueObjects/PlanId'
-import { UserId } from '@Core/UserPlan/domain/ValueObjects/UserId'
 import { Price, PriceCurrency, PriceValue } from '@Core/UserPlan/domain/ValueObjects/Price'
 import { RenovationInterval } from '@Core/Plan/domain/ValueObjects/RenovationInterval'
 import { RenovationType } from '@Core/UserPlan/domain/ValueObjects/RenovationType'
@@ -50,10 +49,6 @@ export const UserPlanSchema = new EntitySchema<UserPlan>({
       type: String,
       transformer: ValueObjectTransformer(PlanId)
     },
-    userId: {
-      type: String,
-      transformer: ValueObjectTransformer(UserId)
-    },
     renovationInterval: {
       type: 'int',
       transformer: ValueObjectTransformer(RenovationInterval)
@@ -78,12 +73,6 @@ export const UserPlanSchema = new EntitySchema<UserPlan>({
       transformer: ValueObjectTransformer(UpdatedAt)
     }
   },
-  indices: [
-    {
-      name: 'IDX_USER_PLAN_USER_ID',
-      columns: ['userId']
-    }
-  ],
   embeddeds: {
     price: {
       schema: UserPlanPriceSchema,

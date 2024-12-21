@@ -5,6 +5,7 @@ export class CreateStripeSessionCommand implements Command {
     readonly id: string,
     readonly accountId: string,
     readonly productId: string,
+    readonly customerId: string,
     readonly successUrl: string,
     readonly failUrl: string
   ) {}
