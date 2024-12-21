@@ -1,3 +1,3 @@
-import { PlanId as SharedPlanId} from "@Core/Shared/domain/Plan/PlanId"
+import { PlanId as SharedPlanId } from '@Core/Shared/domain/Plan/PlanId'
 
-export class PlanId extends SharedPlanId{}
+export class PlanId extends SharedPlanId {}

@@ -3,7 +3,7 @@ import { User } from '@Core/User/domain/User'
 import { Nullable } from '@Shared/domain/Nullable'
 
 export class UpdateAboutAndNameUserCommandMother {
-  static updateAboutAndName(
+  static updateAboutAndName (
     id: string,
     about: Nullable<string>,
     name: string,
@@ -17,7 +17,7 @@ export class UpdateAboutAndNameUserCommandMother {
     )
   }
 
-  static fromAggregate(user: User): UpdateAboutAndNameCommand {
+  static fromAggregate (user: User): UpdateAboutAndNameCommand {
     return this.updateAboutAndName(
       user.id.valueOf(),
       user.about?.valueOf(),

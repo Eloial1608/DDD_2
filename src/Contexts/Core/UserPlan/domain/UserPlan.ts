@@ -1,18 +1,18 @@
 import { AggregateRoot } from '@Shared/domain/AggregateRoot'
-import { Id } from "@Core/UserPlan/domain/ValueObjects/Id";
-import { Name } from "@Core/UserPlan/domain/ValueObjects/Name";
-import { Description } from "@Core/UserPlan/domain/ValueObjects/Description";
-import { PlanId } from "@Core/UserPlan/domain/ValueObjects/PlanId";
-import { UserId } from "@Core/UserPlan/domain/ValueObjects/UserId";
-import { Price } from "@Core/UserPlan/domain/ValueObjects/Price";
-import { RenovationInterval } from "@Core/Plan/domain/ValueObjects/RenovationInterval";
-import { RenovationType } from "@Core/UserPlan/domain/ValueObjects/RenovationType";
-import { ExpiresAt } from "@Core/UserPlan/domain/ValueObjects/ExpiresAt";
-import { CreatedAt } from "@Core/UserPlan/domain/ValueObjects/CreatedAt";
-import { UpdatedAt } from "@Core/UserPlan/domain/ValueObjects/UpdatedAt";
+import { Id } from '@Core/UserPlan/domain/ValueObjects/Id'
+import { Name } from '@Core/UserPlan/domain/ValueObjects/Name'
+import { Description } from '@Core/UserPlan/domain/ValueObjects/Description'
+import { PlanId } from '@Core/UserPlan/domain/ValueObjects/PlanId'
+import { UserId } from '@Core/UserPlan/domain/ValueObjects/UserId'
+import { Price } from '@Core/UserPlan/domain/ValueObjects/Price'
+import { RenovationInterval } from '@Core/Plan/domain/ValueObjects/RenovationInterval'
+import { RenovationType } from '@Core/UserPlan/domain/ValueObjects/RenovationType'
+import { ExpiresAt } from '@Core/UserPlan/domain/ValueObjects/ExpiresAt'
+import { CreatedAt } from '@Core/UserPlan/domain/ValueObjects/CreatedAt'
+import { UpdatedAt } from '@Core/UserPlan/domain/ValueObjects/UpdatedAt'
 
-export class UserPlan extends AggregateRoot{
-    constructor(
+export class UserPlan extends AggregateRoot {
+  constructor (
         readonly id: Id,
         readonly name: Name,
         readonly description: Description,
@@ -24,8 +24,8 @@ export class UserPlan extends AggregateRoot{
         readonly expiresAt: ExpiresAt,
         readonly createdAt: CreatedAt,
         readonly updatedAt: UpdatedAt
-        
-    ){
-        super()
-    }
+
+  ) {
+    super()
+  }
 }
