@@ -12,6 +12,9 @@ import { Description } from '@Core/Plan/domain/ValueObjects/Description'
 import { Price, PriceCurrency, PriceValue } from '@Core/Plan/domain/ValueObjects/Price'
 import { RenovationInterval } from '@Core/Plan/domain/ValueObjects/RenovationInterval'
 import { RenovationType } from '@Core/Plan/domain/ValueObjects/RenovationType'
+import { AllowedSubcommunities } from '@Core/Plan/domain/ValueObjects/AllowedSubcommunities'
+import { IsPrivate } from '@Core/Plan/domain/ValueObjects/IsPrivate'
+import { StripeId } from '@Core/Plan/domain/ValueObjects/StripeId'
 
 const PlanPriceSchema = new EntitySchema<Price>({
   name: 'planPrice',
@@ -37,6 +40,18 @@ export const PlanSchema = new EntitySchema<Plan>({
       type: String,
       primary: true,
       transformer: ValueObjectTransformer(Id)
+    },
+    stripeId: {
+      type: String,
+      transformer: ValueObjectTransformer(StripeId)
+    },
+    isPrivate: {
+      type: Boolean,
+      transformer: ValueObjectTransformer(IsPrivate)
+    },
+    allowedSubcommunities: {
+      type: 'int',
+      transformer: ValueObjectTransformer(AllowedSubcommunities)
     },
     name: {
       type: String,

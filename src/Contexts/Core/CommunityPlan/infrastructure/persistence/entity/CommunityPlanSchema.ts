@@ -11,6 +11,7 @@ import { Description } from '@Core/CommunityPlan/domain/ValueObjects/Description
 import { Price, PriceCurrency, PriceValue } from '@Core/CommunityPlan/domain/ValueObjects/Price'
 import { RenovationInterval } from '@Core/CommunityPlan/domain/ValueObjects/RenovationInterval'
 import { RenovationType } from '@Core/CommunityPlan/domain/ValueObjects/RenovationType'
+import { IsActive } from '@Core/CommunityPlan/domain/ValueObjects/IsActive'
 
 const CommunityPlanPriceSchema = new EntitySchema<Price>({
   name: 'communityPlanPrice',
@@ -44,6 +45,10 @@ export const CommunityPlanSchema = new EntitySchema<CommunityPlan>({
     description: {
       type: String,
       transformer: ValueObjectTransformer(Description)
+    },
+    isActive: {
+      type: Boolean,
+      transformer: ValueObjectTransformer(IsActive)
     },
     allowedFeatures: {
       type: 'jsonb',

@@ -1,13 +1,16 @@
 import { Plan } from '@Core/Plan/domain/Plan'
 import { AllowedFeatures } from '@Core/Plan/domain/ValueObjects/AllowedFeatures'
+import { AllowedSubcommunities } from '@Core/Plan/domain/ValueObjects/AllowedSubcommunities'
 import { AllowedUsers } from '@Core/Plan/domain/ValueObjects/AllowedUsers'
 import { CreatedAt } from '@Core/Plan/domain/ValueObjects/CreatedAt'
 import { Description } from '@Core/Plan/domain/ValueObjects/Description'
 import { Id } from '@Core/Plan/domain/ValueObjects/Id'
+import { IsPrivate } from '@Core/Plan/domain/ValueObjects/IsPrivate'
 import { Name } from '@Core/Plan/domain/ValueObjects/Name'
 import { Price, PriceCurrency, PriceValue } from '@Core/Plan/domain/ValueObjects/Price'
 import { RenovationInterval } from '@Core/Plan/domain/ValueObjects/RenovationInterval'
 import { RenovationType } from '@Core/Plan/domain/ValueObjects/RenovationType'
+import { StripeId } from '@Core/Plan/domain/ValueObjects/StripeId'
 import { UpdatedAt } from '@Core/Plan/domain/ValueObjects/UpdatedAt'
 import { RenovationTypeValues } from '@Shared/domain/SharedValueObjects/SharedRenovationType'
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
@@ -18,6 +21,9 @@ export class PlanMother {
     return new Plan(
       params.id ?? new Id(UuidMother.random()),
       params.name ?? new Name(WordMother.random()),
+      params.allowedSubcommunities ?? new AllowedSubcommunities(10),
+      params.isPrivate ?? new IsPrivate(false),
+      params.stripeId ?? new StripeId(UuidMother.random()),
       params.description ?? new Description(WordMother.random()),
       params.price ?? new Price(
         new PriceValue(0),

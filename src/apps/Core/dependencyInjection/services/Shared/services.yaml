@@ -19,6 +19,15 @@ services:
     factory:
       class: src/Contexts/Core/Shared/infrastructure/persistence/typeorm/TypeOrmConfigFactory
       method: "create"
+  
+  Shared.Stripe.ClientFactory:
+    factory:
+      class: src/Contexts/Core/Shared/infrastructure/Stripe/StripeClientFactory
+      method: "create"
+  
+  Shared.Stripe.HttpSessionRepository:
+    class: src/Contexts/Core/Shared/infrastructure/Stripe/HttpSessionRepository
+    arguments: ['@Shared.Stripe.ClientFactory']
 
   Shared.SyncEventBus:
     class: src/Contexts/Shared/infrastructure/EventBus/InMemory/InMemoryAsyncEventBus
