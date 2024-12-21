@@ -1,6 +1,5 @@
 import { Id } from '@Core/UserPlan/domain/ValueObjects/Id'
 import { Name } from '@Core/UserPlan/domain/ValueObjects/Name'
-import { Description } from '@Core/UserPlan/domain/ValueObjects/Description'
 import { PlanId } from '@Core/UserPlan/domain/ValueObjects/PlanId'
 import { Price, PriceCurrency, PriceValue } from '@Core/UserPlan/domain/ValueObjects/Price'
 import { RenovationInterval } from '@Core/Plan/domain/ValueObjects/RenovationInterval'
@@ -18,7 +17,6 @@ export class UserPlanMother {
     return new UserPlan(
       params.id ?? new Id(UuidMother.random()),
       params.name ?? new Name(WordMother.random()),
-      params.description ?? new Description(WordMother.random()),
       params.planId ?? new PlanId(UuidMother.random()),
       params.price ?? new Price(
         new PriceValue(0),

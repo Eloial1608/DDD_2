@@ -7,6 +7,6 @@ export class InvalidRenovationTypeValue extends DomainError {
 
   constructor (renovationType: RenovationTypeValues) {
     super()
-    this.message = `The renovationType ${renovationType.valueOf()} isn't valid`
+    this.message = `The renovationType ${renovationType} isn't valid`
   }
 }

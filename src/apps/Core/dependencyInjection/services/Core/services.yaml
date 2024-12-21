@@ -325,7 +325,7 @@ services:
   
   SpaceMember.DeleteSpaceMemberOnSpaceDeleted.Deleter:
     class: src/Contexts/Core/SpaceMember/application/DeleteSpaceMemberOnSpaceDeleted/Deleter
-    arguments: ['@Space.Repository', '@Shared.EventBus']
+    arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
   
   SpaceMember.DeleteSpaceMemberOnSpaceDeleted.DeleteSpaceMemberOnSpaceDeletedHandler:
     class: src/Contexts/Core/SpaceMember/application/DeleteSpaceMemberOnSpaceDeleted/DeleteSpaceMemberOnSpaceDeletedHandler
@@ -396,3 +396,13 @@ services:
     arguments: ['@UserPlan.Find.FinderById']
     tags:
       - { name: "queryHandler" }
+  
+  UserPlan.CreateUserPlanOnStripeSessionVerified.Creator:
+    class: src/Contexts/Core/UserPlan/application/CreateUserPlanOnStripeSessionVerified/Creator
+    arguments: ['@UserPlan.Repository', '@Shared.EventBus']
+  
+  UserPlan.CreateUserPlanOnStripeSessionVerified.CreateUserPlanOnStripeSessionVerifiedHandler:
+    class: src/Contexts/Core/UserPlan/application/CreateUserPlanOnStripeSessionVerified/CreateUserPlanOnStripeSessionVerifiedHandler
+    arguments: ["@UserPlan.CreateUserPlanOnStripeSessionVerified.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }

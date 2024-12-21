@@ -60,6 +60,7 @@ export class Creator {
         product.id.valueOf(),
         product.productType.valueOf(),
         product.priceId.valueOf(),
+        product.name.valueOf(),
         product.renovationInterval?.valueOf(),
         product.renovationType?.valueOf()
       ),

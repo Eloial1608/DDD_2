@@ -1,3 +1,3 @@
-import { PlanRenovationType as UserPlanRenovationType } from '@Core/Shared/domain/Plan/PlanRenovationType'
+import { SharedRenovationType } from '@Shared/domain/SharedValueObjects/SharedRenovationType'
 
-export class RenovationType extends UserPlanRenovationType {}
+export class RenovationType extends SharedRenovationType {}

@@ -1,6 +1,5 @@
 import { Id } from '@Core/UserPlan/domain/ValueObjects/Id'
 import { Name } from '@Core/UserPlan/domain/ValueObjects/Name'
-import { Description } from '@Core/UserPlan/domain/ValueObjects/Description'
 import { PlanId } from '@Core/UserPlan/domain/ValueObjects/PlanId'
 import { Price, PriceCurrency, PriceValue } from '@Core/UserPlan/domain/ValueObjects/Price'
 import { RenovationInterval } from '@Core/Plan/domain/ValueObjects/RenovationInterval'
@@ -40,10 +39,6 @@ export const UserPlanSchema = new EntitySchema<UserPlan>({
     name: {
       type: String,
       transformer: ValueObjectTransformer(Name)
-    },
-    description: {
-      type: String,
-      transformer: ValueObjectTransformer(Description)
     },
     planId: {
       type: String,

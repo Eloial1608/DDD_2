@@ -23,11 +23,16 @@ const ProductSchema = new EntitySchema<Product>({
     priceId: {
       type: String
     },
+    name: {
+      type: String
+    },
     renovationInterval: {
-      type: Number
+      type: Number,
+      nullable: true
     },
     renovationType: {
-      type: String
+      type: String,
+      nullable: true
     }
   }
 })
