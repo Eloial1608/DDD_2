@@ -1,9 +1,9 @@
-import { UserPlan } from '../domain/UserPlan'
-import { UserPlanRepository } from '../domain/UserPlanRepository'
+import { UserPlan } from '../../domain/UserPlan'
+import { UserPlanRepository } from '../../domain/UserPlanRepository'
 import { TypeOrmRepository } from '@Shared/infrastructure/persistence/typeorm/TypeOrmRepository'
 import { EntitySchema, Equal } from 'typeorm'
 import { UserPlanSchema } from './enitity/UserPlanSchema'
-import { Id } from '../domain/ValueObjects/Id'
+import { Id } from '../../domain/ValueObjects/Id'
 import { Nullable } from '@Shared/domain/Nullable'
 import { Criteria } from '@Shared/domain/Criteria/Criteria'
 
