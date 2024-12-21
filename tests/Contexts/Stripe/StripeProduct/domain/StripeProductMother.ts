@@ -15,7 +15,7 @@ export class StripeProductMother {
       params.id ?? new Id(UuidMother.random()),
       params.name ?? new Name(MotherCreator.random().internet.displayName()),
       params.accountId ?? new AccountId(UuidMother.random()),
-      params.productType ?? new ProductType(ProductTypes.COMMUNITY_PLANS),
+      params.productType ?? new ProductType(ProductTypes.USER_PLANS),
       params.productId ?? new ProductId(UuidMother.random()),
       params.price ?? new Price('0'),
       params.priceId ?? new PriceId(UuidMother.random()),

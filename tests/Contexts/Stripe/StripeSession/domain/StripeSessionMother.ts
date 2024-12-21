@@ -21,7 +21,7 @@ export class StripeSessionMother {
       params.url ?? new Url(UrlMother.random()),
       params.product ?? new Product(
         UuidMother.random(),
-        ProductTypes.COMMUNITY_PLANS,
+        ProductTypes.USER_PLANS,
         UuidMother.random()
       ),
       params.price ?? new Price('100'),
