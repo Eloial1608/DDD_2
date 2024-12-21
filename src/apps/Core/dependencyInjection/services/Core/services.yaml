@@ -357,11 +357,15 @@ services:
     class: src/Contexts/Core/User/application/Ban/Updater
     arguments: ['@User.Repository', '@Shared.EventBus']
   
-  User.Ban.UnbanUserCommandHandler:
+  User.Ban.BanUserCommandHandler:
     class: src/Contexts/Core/User/application/Ban/BanUserCommandHandler
     arguments: ["@User.Ban.Updater"]
     tags:
       - { name: "commandHandler" }
+  
+  UserPlan.Repository:
+    class: src/Contexts/Core/UserPlan/infrastructure/persistence/TypeOrmUserPlanRepository
+    arguments: ["@Shared.ORM.Connection"]
 
   User.Ban.UpdaterAboutAndName:
     class: src/Contexts/Core/User/application/UpdateAboutAndName/UpdaterAboutAndName
