@@ -1,31 +1,36 @@
 import { CommandHandler } from '@Shared/domain/CommandBus/CommandHandler'
-import { CreateUserCommand } from './CreateUserCommand'
+import { CreatePlanForUsersCommand } from './CreatePlanForUsersCommand'
 import { Command } from '@Shared/domain/CommandBus/Command'
-import { Creator } from './Creator'
-import { Id } from '@Core/User/domain/ValueObjects/Id'
-import { Name } from '@Core/User/domain/ValueObjects/Name'
-import { Email } from '@Core/User/domain/ValueObjects/Email'
-import { CommunityId } from '@Core/User/domain/ValueObjects/CommunityId'
-import { IsAdmin } from '@Core/User/domain/ValueObjects/IsAdmin'
-import { IsOwner } from '@Core/User/domain/ValueObjects/IsOwner'
-import { MainId } from '@Core/User/domain/ValueObjects/MainId'
+import { Creator } from '@Core/PlanForUsers/application/Create/Creator'
+import { Id } from '@Core/PlanForUsers/domain/ValueObjects/Id'
+import { Name } from '@Core/PlanForUsers/domain/ValueObjects/Name'
+import { Description } from '@Core/PlanForUsers/domain/ValueObjects/Description'
+import { CommunityId } from '@Core/PlanForUsers/domain/ValueObjects/CommunityId'
+import { Price } from '@Core/PlanForUsers/domain/ValueObjects/Price'
+import { RenovationInterval } from '@Core/PlanForUsers/domain/ValueObjects/RenovatioInterval'
+import { MoneyValueObjectCurrency, MoneyValueObjectValue } from '@Shared/domain/ValueObjects/MoneyValueObject'
+import { RenovationType } from '@Core/PlanForUsers/domain/ValueObjects/RenovationType'
+import { RenovationTypeValues } from '@Shared/domain/SharedValueObjects/SharedRenovationType'
 
-export class CreateUserCommandHandler implements CommandHandler<CreateUserCommand> {
+export class CreatePlanForUsersCommandHandler implements CommandHandler<CreatePlanForUsersCommand> {
   constructor (private readonly creator: Creator) {}
 
   subscribedTo (): Command {
-    return CreateUserCommand
+    return CreatePlanForUsersCommand
   }
 
-  async handle (command: CreateUserCommand): Promise<void> {
+  async handle (command: CreatePlanForUsersCommand): Promise<void> {
     await this.creator.run(
       new Id(command.id),
-      new MainId(command.mainId),
       new Name(command.name),
-      new Email(command.email),
+      command.description == null ? command.description : new Description(command.description),
       new CommunityId(command.communityId),
-      new IsAdmin(command.isAdmin),
-      new IsOwner(command.isOwner)
+      new Price(
+        new MoneyValueObjectValue(command.priceValue),
+        new MoneyValueObjectCurrency(command.priceCurrency)
+      ),
+      new RenovationInterval(command.renovationInterval),
+      new RenovationType(command.renovationType as RenovationTypeValues)
     )
   }
 }

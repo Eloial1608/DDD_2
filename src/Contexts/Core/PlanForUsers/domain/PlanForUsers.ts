@@ -9,6 +9,7 @@ import { RenovationType } from '@Core/PlanForUsers/domain/ValueObjects/Renovatio
 import { CreatedAt } from '@Core/PlanForUsers/domain/ValueObjects/CreatedAt'
 import { UpdatedAt } from '@Core/PlanForUsers/domain/ValueObjects/UpdatedAt'
 import { Nullable } from '@Shared/domain/Nullable'
+import { PlanForUsersCreatedDomainEvent } from './events/PlanForUsersCreatedDomainEvent'
 
 export class PlanForUsers extends AggregateRoot {
   constructor (
@@ -46,7 +47,7 @@ export class PlanForUsers extends AggregateRoot {
       new UpdatedAt(new Date())
     )
 
-    planForUsers.record(PlanForUsersCreated.fromAggregate(planForUsers))
+    planForUsers.record(PlanForUsersCreatedDomainEvent.fromAggregate(planForUsers))
 
     return planForUsers
   }
