@@ -19,7 +19,7 @@ export class UserUpdatedAboutAndNameDomainEvent extends DomainEvent {
     DomainEvent.derived.add(UserUpdatedAboutAndNameDomainEvent.EVENT_NAME)
   }
 
-  constructor(params: UserUpdatedAboutAndNameDomainEventBody & {eventId?: string, occurredOn?: Date}) {
+  constructor (params: UserUpdatedAboutAndNameDomainEventBody & {eventId?: string, occurredOn?: Date}) {
     super(UserUpdatedAboutAndNameDomainEvent.EVENT_NAME, params.id, params.eventId, params.occurredOn)
     this.id = params.id
     this.about = params.about

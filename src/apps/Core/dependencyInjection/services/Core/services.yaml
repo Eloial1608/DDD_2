@@ -367,12 +367,16 @@ services:
     class: src/Contexts/Core/PlanForUsers/infrastructure/persistence/TypeOrmPlanForUsersRepository
     arguments: ["@Shared.ORM.Connection"]
 
-  User.Ban.UpdaterAboutAndName:
+  UserPlan.Repository:
+    class: src/Contexts/Core/UserPlan/infrastructure/persistence/TypeOrmUserPlanRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  User.UpdateAboutAndName.UpdaterAboutAndName:
     class: src/Contexts/Core/User/application/UpdateAboutAndName/UpdaterAboutAndName
     arguments: ['@User.Repository', '@Shared.EventBus']
 
-  User.Update.UpdateAboutAndNameUserCommandHandler:
-    class: src/Contexts/Core/User/application/UpdateIsAdmin/UpdateAboutAndNameUserCommandHandler
+  User.Update.UpdateAboutAndNameCommandHandler:
+    class: src/Contexts/Core/User/application/UpdateAboutAndName/UpdateAboutAndNameCommandHandler
     arguments: ["@User.UpdateAboutAndName.UpdaterAboutAndName"]
     tags:
       - { name: "commandHandler" }

@@ -9,6 +9,7 @@ import { FailUrl } from './ValueObjects/FailUrl'
 import { StripeId } from './ValueObjects/StripeId'
 import { Url } from './ValueObjects/Url'
 import { StripeSessionCreatedDomainEvent } from './Events/StripeSessionCreatedDomainEvent'
+import { StripeSessionVerifiedDomainEvent } from './Events/StripeSessionVerifiedDomainEvent'
 
 export class StripeSession extends AggregateRoot {
   constructor (
@@ -48,6 +49,24 @@ export class StripeSession extends AggregateRoot {
     )
 
     session.record(StripeSessionCreatedDomainEvent.fromAggregate(session))
+
+    return session
+  }
+
+  verify (): StripeSession {
+    const session = new StripeSession(
+      this.id,
+      this.accountId,
+      this.stripeId,
+      this.url,
+      this.product,
+      this.price,
+      new Completed(true),
+      this.successUrl,
+      this.failUrl
+    )
+
+    session.record(StripeSessionVerifiedDomainEvent.fromAggregate(session))
 
     return session
   }

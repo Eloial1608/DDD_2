@@ -125,7 +125,7 @@ export class User extends AggregateRoot {
     return user
   }
 
-  updateAboutAndName(about: Nullable<About>, name: Name):User {
+  updateAboutAndName (about: Nullable<About>, name: Name):User {
     const user = new User(
       this.id,
       this.mainId,
