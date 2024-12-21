@@ -12,6 +12,7 @@ import { Price, PriceCurrency, PriceValue } from '@Core/CommunityPlan/domain/Val
 import { RenovationInterval } from '@Core/CommunityPlan/domain/ValueObjects/RenovationInterval'
 import { RenovationType } from '@Core/CommunityPlan/domain/ValueObjects/RenovationType'
 import { IsActive } from '@Core/CommunityPlan/domain/ValueObjects/IsActive'
+import { StripeId } from '@Core/CommunityPlan/domain/ValueObjects/StripeId'
 
 const CommunityPlanPriceSchema = new EntitySchema<Price>({
   name: 'communityPlanPrice',
@@ -37,6 +38,10 @@ export const CommunityPlanSchema = new EntitySchema<CommunityPlan>({
       type: String,
       primary: true,
       transformer: ValueObjectTransformer(Id)
+    },
+    stripeId: {
+      type: String,
+      transformer: ValueObjectTransformer(StripeId)
     },
     name: {
       type: String,

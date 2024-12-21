@@ -10,10 +10,12 @@ import { RenovationInterval } from './ValueObjects/RenovationInterval'
 import { RenovationType } from './ValueObjects/RenovationType'
 import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { IsActive } from './ValueObjects/IsActive'
+import { StripeId } from './ValueObjects/StripeId'
 
 export class CommunityPlan extends AggregateRoot {
   constructor (
         readonly id: Id,
+        readonly stripeId: StripeId,
         readonly name: Name,
         readonly description: Description,
         readonly allowedFeatures: AllowedFeatures,
@@ -30,6 +32,7 @@ export class CommunityPlan extends AggregateRoot {
 
   static create (
     id: Id,
+    stripeId: StripeId,
     name: Name,
     description: Description,
     allowedFeatures: AllowedFeatures,
@@ -40,6 +43,7 @@ export class CommunityPlan extends AggregateRoot {
   ): CommunityPlan {
     const communityPlan = new CommunityPlan(
       id,
+      stripeId,
       name,
       description,
       allowedFeatures,
