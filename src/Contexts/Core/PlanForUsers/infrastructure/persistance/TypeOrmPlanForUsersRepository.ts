@@ -7,7 +7,7 @@ import { Nullable } from '@Shared/domain/Nullable'
 import { Criteria } from '@Shared/domain/Criteria/Criteria'
 import { PlanForUsersSchema } from './entity/PlanForUsersSchema'
 
-export class TypeOrmSpaceMemberRepository extends TypeOrmRepository<PlanForUsers> implements PlanForUsersRepository {
+export class TypeOrmPlanForUsersRepository extends TypeOrmRepository<PlanForUsers> implements PlanForUsersRepository {
   protected get entitySchema (): EntitySchema {
     return PlanForUsersSchema
   }
