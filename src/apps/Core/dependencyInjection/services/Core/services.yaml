@@ -386,3 +386,13 @@ services:
     arguments: ["@Community.UpdateAllowsPaymentsOnStripeAccountCreated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  UserPlan.Find.FinderById:
+    class: src/Contexts/Core/UserPlan/application/Find/FinderById
+    arguments: ['@UserPlan.Repository']
+  
+  UserPlan.Find.FindUserPlanQueryHandler:
+    class: src/Contexts/Core/UserPlan/application/Find/FindUserPlanQueryHandler
+    arguments: ['@UserPlan.Find.FinderById']
+    tags:
+      - { name: "queryHandler" }
