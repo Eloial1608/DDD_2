@@ -20,7 +20,6 @@ import { Url } from '@Stripe/StripeSession/domain/ValueObjects/Url'
 type Params = {
     id: Id
     accountId: AccountId
-    url: Url
     productId: string
     successUrl: SuccessUrl
     failUrl: FailUrl

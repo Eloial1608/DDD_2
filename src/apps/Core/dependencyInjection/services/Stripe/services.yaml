@@ -80,3 +80,13 @@ services:
     arguments: ["@StripeSession.Verify.Verificator"]
     tags:
       - { name: "commandHandler" }
+  
+  StripeSession.FindById.FinderById:
+    class: src/Contexts/Stripe/StripeSession/application/FindById/FinderById
+    arguments: ['@StripeSession.Repository']
+  
+  StripeSession.FindById.FindStripeSessionByIdQueryHandler:
+    class: src/Contexts/Stripe/StripeSession/application/FindById/FindStripeSessionByIdQueryHandler
+    arguments: ['@StripeSession.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }

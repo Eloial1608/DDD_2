@@ -85,3 +85,15 @@ services:
   Apps.Core.Controllers.StripeAccountPostController:
     class: src/apps/Core/controllers/StripeAccount/StripeAccountPostController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.StripeSessionPostController:
+    class: src/apps/Core/controllers/StripeSession/StripeSessionPostController
+    arguments: ["@Shared.CommandBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.VerifyStripeSessionPostController:
+    class: src/apps/Core/controllers/StripeSession/VerifyStripeSessionPostController
+    arguments: ["@Shared.CommandBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.StripeSessionGetController:
+    class: src/apps/Core/controllers/StripeSession/StripeSessionGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
