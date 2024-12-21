@@ -24,4 +24,30 @@ export class PlanForUsers extends AggregateRoot {
   ) {
     super()
   }
+
+  static create (
+    id: Id,
+    name: Name,
+    description: Nullable<Description>,
+    communityId: CommunityId,
+    price: Price,
+    renovationInterval: RenovationInterval,
+    renovationType: RenovationType
+  ): PlanForUsers {
+    const planForUsers = new PlanForUsers(
+      id,
+      name,
+      description,
+      communityId,
+      price,
+      renovationInterval,
+      renovationType,
+      new CreatedAt(new Date()),
+      new UpdatedAt(new Date())
+    )
+
+    planForUsers.record(PlanForUsersCreated.fromAggregate(planForUsers))
+
+    return planForUsers
+  }
 }
