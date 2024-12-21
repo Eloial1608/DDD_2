@@ -9,10 +9,10 @@ export class Deleter {
     const existingSpaceMember = await this.repository.find(id)
     if (!existingSpaceMember || existingSpaceMember.communityId.valueOf() !== communityId.valueOf()) return
 
-    const spacemember = existingSpaceMember.delete()
+    const spaceMember = existingSpaceMember.delete()
 
-    await this.repository.persist(spacemember)
+    await this.repository.persist(spaceMember)
 
-    await this.eventBus.publish(spacemember.pullDomainEvents())
+    await this.eventBus.publish(spaceMember.pullDomainEvents())
   }
 }

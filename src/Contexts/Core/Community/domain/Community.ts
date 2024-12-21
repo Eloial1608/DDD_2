@@ -30,6 +30,7 @@ import { MainId } from './ValueObjects/MainId'
 import { LogoUrl } from './ValueObjects/LogoUrl'
 import { BannerUrl } from './ValueObjects/BannerUrl'
 import { About } from './ValueObjects/About'
+import { CommunitySpacesCountUpdatedDomainEvent } from './Events/CommunitySpacesCountUpdatedDomainEvent'
 
 export class Community extends AggregateRoot {
   constructor (
@@ -181,6 +182,42 @@ export class Community extends AggregateRoot {
     )
 
     community.record(CommunityMembersCountUpdatedDomainEvent.fromAggregate(community))
+
+    return community
+  }
+
+  updateSpacesCount (spacesCount: SpacesCount): Community {
+    const community = new Community(
+      this.id,
+      this.name,
+      this.suffix,
+      this.domain,
+      this.slug,
+      this.parentId,
+      this.mainId,
+      this.logoUrl,
+      this.bannerUrl,
+      this.about,
+      this.membersCount,
+      this.firstPaymentDone,
+      spacesCount,
+      this.hasPayment,
+      this.methodId,
+      this.allowedFeatures,
+      this.hasRegisterForm,
+      this.registerFormId,
+      this.allowedUsers,
+      this.color,
+      this.isPrivate,
+      this.isRegisterOpen,
+      this.homeSpaceId,
+      this.expiresAt,
+      this.createdAt,
+      this.updatedAt,
+      null
+    )
+
+    community.record(CommunitySpacesCountUpdatedDomainEvent.fromAggregate(community))
 
     return community
   }

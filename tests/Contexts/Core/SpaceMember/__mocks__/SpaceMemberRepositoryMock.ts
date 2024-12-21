@@ -18,12 +18,12 @@ export class SpaceMemberRepositoryMock implements SpaceMemberRepository {
     return this.expectedFind
   }
 
-  returnOnFind (spacemember: Nullable<SpaceMember>): void {
-    this.expectedFind = spacemember
+  returnOnFind (spaceMember: Nullable<SpaceMember>): void {
+    this.expectedFind = spaceMember
   }
 
-  returnOnSearch (spacemember: Array<SpaceMember>): void {
-    this.expectedSearch = spacemember
+  returnOnSearch (spaceMember: Array<SpaceMember>): void {
+    this.expectedSearch = spaceMember
   }
 
   async search (criteria: Criteria): Promise<Array<SpaceMember>> {
@@ -31,12 +31,12 @@ export class SpaceMemberRepositoryMock implements SpaceMemberRepository {
     return this.expectedSearch
   }
 
-  async persist (spacemember: SpaceMember): Promise<void> {
-    this.mockPersist(spacemember)
+  async persist (spaceMember: SpaceMember): Promise<void> {
+    this.mockPersist(spaceMember)
   }
 
-  assertPersistHasBeenCalledWith (spacemember: SpaceMember) {
-    expect(this.mockPersist).toHaveBeenCalledWith(spacemember)
+  assertPersistHasBeenCalledWith (spaceMember: SpaceMember) {
+    expect(this.mockPersist).toHaveBeenCalledWith(spaceMember)
   }
 
   assertFindHasBeenCalledWith (id: Id) {

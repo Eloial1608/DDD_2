@@ -9,7 +9,7 @@ import { Price, PriceCurrency, PriceValue } from '@Core/Plan/domain/ValueObjects
 import { RenovationInterval } from '@Core/Plan/domain/ValueObjects/RenovationInterval'
 import { RenovationType } from '@Core/Plan/domain/ValueObjects/RenovationType'
 import { UpdatedAt } from '@Core/Plan/domain/ValueObjects/UpdatedAt'
-import { PlanRenovationTypeValues } from '@Core/Shared/domain/Plan/PlanRenovationType'
+import { RenovationTypeValues } from '@Shared/domain/SharedValueObjects/SharedRenovationType'
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
 import { WordMother } from '@Tests/Contexts/Shared/domain/WordMother'
 
@@ -26,7 +26,7 @@ export class PlanMother {
       params.allowedFeatures ?? new AllowedFeatures([]),
       params.allowedUsers ?? new AllowedUsers(1),
       params.renovationInterval ?? new RenovationInterval(1),
-      params.renovationType ?? new RenovationType(PlanRenovationTypeValues.MONTH),
+      params.renovationType ?? new RenovationType(RenovationTypeValues.MONTH),
       params.createdAt ?? new CreatedAt(new Date()),
       params.updatedAt ?? new UpdatedAt(new Date()),
       params.deletedAt ?? null

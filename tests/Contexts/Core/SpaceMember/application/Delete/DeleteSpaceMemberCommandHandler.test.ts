@@ -20,32 +20,32 @@ describe('DeleteSpaceMemberCommandHandler should ', () => {
     handler = new DeleteSpaceMemberCommandHandler(deleter)
   })
 
-  test('Delete a new spacemember', async () => {
-    const spacemember = SpaceMemberMother.create({ deletedAt: new DeletedAt(new Date()) })
+  test('Delete a new spaceMember', async () => {
+    const spaceMember = SpaceMemberMother.create({ deletedAt: new DeletedAt(new Date()) })
 
-    const existing = SpaceMemberMother.create({ ...spacemember, deletedAt: undefined })
+    const existing = SpaceMemberMother.create({ ...spaceMember, deletedAt: undefined })
 
     repository.returnOnFind(existing)
 
-    const command = DeleteSpaceMemberCommandMother.fromAggregate(spacemember)
+    const command = DeleteSpaceMemberCommandMother.fromAggregate(spaceMember)
 
     await handler.handle(command)
 
-    repository.assertPersistHasBeenCalledWith(spacemember)
+    repository.assertPersistHasBeenCalledWith(spaceMember)
   })
 
   test('Delete a new SpaceMemberDeletedDomainEvent', async () => {
-    const spacemember = SpaceMemberMother.create({ deletedAt: new DeletedAt(new Date()) })
+    const spaceMember = SpaceMemberMother.create({ deletedAt: new DeletedAt(new Date()) })
 
-    const existing = SpaceMemberMother.create({ ...spacemember, deletedAt: undefined })
+    const existing = SpaceMemberMother.create({ ...spaceMember, deletedAt: undefined })
 
     repository.returnOnFind(existing)
 
-    const command = DeleteSpaceMemberCommandMother.fromAggregate(spacemember)
+    const command = DeleteSpaceMemberCommandMother.fromAggregate(spaceMember)
 
     await handler.handle(command)
 
-    const expectedEvent = SpaceMemberDeletedDomainEvent.fromAggregate(spacemember)
+    const expectedEvent = SpaceMemberDeletedDomainEvent.fromAggregate(spaceMember)
 
     eventBus.assertEventHasBeenPublished(expectedEvent)
   })

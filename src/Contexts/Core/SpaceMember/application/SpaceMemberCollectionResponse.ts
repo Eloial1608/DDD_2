@@ -5,7 +5,7 @@ import { SpaceMemberResponse, SpaceMemberResponseBody } from './SpaceMemberRespo
 export class SpaceMemberCollectionResponse implements QueryResponse<Array<SpaceMemberResponseBody>> {
   response: Array<SpaceMemberResponseBody>
 
-  constructor (spacemember: Array<SpaceMember>) {
-    this.response = spacemember.map(x => new SpaceMemberResponse(x).response)
+  constructor (spaceMember: Array<SpaceMember>) {
+    this.response = spaceMember.map(x => new SpaceMemberResponse(x).response)
   }
 }

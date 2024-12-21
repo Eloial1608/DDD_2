@@ -17,16 +17,16 @@ describe('FindSpaceMembersByCriteriaQueryHandler should', () => {
     handler = new FindSpaceMembersByCriteriaQueryHandler(finder)
   })
 
-  test('Return a spacemember collection', async () => {
-    const spacemember = SpaceMemberMother.random()
+  test('Return a spaceMember collection', async () => {
+    const spaceMember = SpaceMemberMother.random()
 
-    repository.returnOnSearch([spacemember])
+    repository.returnOnSearch([spaceMember])
 
     const query = new FindSpaceMembersByCriteriaQuery()
 
     const response = await handler.handle(query)
 
     repository.assertSearchHasBeenCalledWith(new Criteria())
-    expect(response).toEqual(new SpaceMemberCollectionResponse([spacemember]))
+    expect(response).toEqual(new SpaceMemberCollectionResponse([spaceMember]))
   })
 })
