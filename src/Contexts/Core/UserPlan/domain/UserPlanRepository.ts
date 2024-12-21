@@ -6,5 +6,5 @@ import { Criteria } from '@Shared/domain/Criteria/Criteria'
 export interface UserPlanRepository {
     find (id: Id): Promise<Nullable<UserPlan>>
     search (criteria: Criteria): Promise<Array<UserPlan>>
-    persist (spaceMember: UserPlan): Promise<void>
+    persist (UserPlan: UserPlan): Promise<void>
 }

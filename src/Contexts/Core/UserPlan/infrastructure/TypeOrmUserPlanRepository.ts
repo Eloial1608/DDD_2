@@ -3,11 +3,11 @@ import { UserPlanRepository } from '../domain/UserPlanRepository'
 import { TypeOrmRepository } from '@Shared/infrastructure/persistence/typeorm/TypeOrmRepository'
 import { EntitySchema, Equal } from 'typeorm'
 import { UserPlanSchema } from './enitity/UserPlanSchema'
-import { Id } from '@Core/SpaceMember/domain/ValueObjects/Id'
+import { Id } from '../domain/ValueObjects/Id'
 import { Nullable } from '@Shared/domain/Nullable'
 import { Criteria } from '@Shared/domain/Criteria/Criteria'
 
-export class TypeOrmSpaceMemberRepository extends TypeOrmRepository<UserPlan> implements UserPlanRepository {
+export class TypeOrmUserPlanRepository extends TypeOrmRepository<UserPlan> implements UserPlanRepository {
   protected get entitySchema (): EntitySchema {
     return UserPlanSchema
   }

@@ -18,12 +18,12 @@ export class UserPlanRepositoryMock implements UserPlanRepository {
     return this.expectedFind
   }
 
-  returnOnFind (spaceMember: Nullable<UserPlan>): void {
-    this.expectedFind = spaceMember
+  returnOnFind (userPlan: Nullable<UserPlan>): void {
+    this.expectedFind = userPlan
   }
 
-  returnOnSearch (spaceMember: Array<UserPlan>): void {
-    this.expectedSearch = spaceMember
+  returnOnSearch (userPlan: Array<UserPlan>): void {
+    this.expectedSearch = userPlan
   }
 
   async search (criteria: Criteria): Promise<Array<UserPlan>> {
@@ -31,12 +31,12 @@ export class UserPlanRepositoryMock implements UserPlanRepository {
     return this.expectedSearch
   }
 
-  async persist (spaceMember: UserPlan): Promise<void> {
-    this.mockPersist(spaceMember)
+  async persist (userPlan: UserPlan): Promise<void> {
+    this.mockPersist(userPlan)
   }
 
-  assertPersistHasBeenCalledWith (spaceMember: UserPlan) {
-    expect(this.mockPersist).toHaveBeenCalledWith(spaceMember)
+  assertPersistHasBeenCalledWith (userPlan: UserPlan) {
+    expect(this.mockPersist).toHaveBeenCalledWith(userPlan)
   }
 
   assertFindHasBeenCalledWith (id: Id) {
