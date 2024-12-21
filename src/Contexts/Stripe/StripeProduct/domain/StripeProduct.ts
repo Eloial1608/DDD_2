@@ -8,6 +8,7 @@ import { Nullable } from '@Shared/domain/Nullable'
 import { RenovationInterval } from './ValueObjects/RenovationInterval'
 import { RenovationType } from './ValueObjects/RenovationType'
 import { Name } from './ValueObjects/Name'
+import { PriceId } from './ValueObjects/PriceId'
 
 export class StripeProduct extends AggregateRoot {
   constructor (
@@ -17,6 +18,7 @@ export class StripeProduct extends AggregateRoot {
         readonly productType: ProductType,
         readonly productId: ProductId,
         readonly price: Price,
+        readonly priceId: PriceId,
         readonly renovationInterval: Nullable<RenovationInterval>,
         readonly renovationType: Nullable<RenovationType>
   ) {

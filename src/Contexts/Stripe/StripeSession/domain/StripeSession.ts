@@ -1,0 +1,54 @@
+import { AggregateRoot } from '@Shared/domain/AggregateRoot'
+import { Id } from './ValueObjects/Id'
+import { AccountId } from './ValueObjects/AccountId'
+import { Product } from './ValueObjects/Product'
+import { Price } from './ValueObjects/Price'
+import { Completed } from './ValueObjects/Completed'
+import { SuccessUrl } from './ValueObjects/SuccessUrl'
+import { FailUrl } from './ValueObjects/FailUrl'
+import { StripeId } from './ValueObjects/StripeId'
+import { Url } from './ValueObjects/Url'
+import { StripeSessionCreatedDomainEvent } from './Events/StripeSessionCreatedDomainEvent'
+
+export class StripeSession extends AggregateRoot {
+  constructor (
+    readonly id: Id,
+    readonly accountId: AccountId,
+    readonly stripeId: StripeId,
+    readonly url: Url,
+    readonly product: Product,
+    readonly price: Price,
+    readonly completed: Completed,
+    readonly successUrl: SuccessUrl,
+    readonly failUrl: FailUrl
+  ) {
+    super()
+  }
+
+  static create (
+    id: Id,
+    accountId: AccountId,
+    stripeId: StripeId,
+    url: Url,
+    product: Product,
+    price: Price,
+    successUrl: SuccessUrl,
+    failUrl: FailUrl
+  ): StripeSession {
+    const session = new StripeSession(
+      id,
+      accountId,
+      stripeId,
+      url,
+      product,
+      price,
+      new Completed(false),
+      successUrl,
+      failUrl
+    )
+
+    session.record(StripeSessionCreatedDomainEvent.fromAggregate(session))
+
+    return session
+  }
+}
