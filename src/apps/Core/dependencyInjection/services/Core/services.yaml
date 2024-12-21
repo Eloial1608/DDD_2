@@ -377,3 +377,12 @@ services:
     tags:
       - { name: "commandHandler" }
   
+  Community.UpdateAllowsPaymentsOnStripeAccountCreated.Updater:
+    class: src/Contexts/Core/Community/application/UpdateAllowsPaymentsOnStripeAccountCreated/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateAllowsPaymentsOnStripeAccountCreated.UpdateAllowsPaymentsOnStripeAccountCreatedHandler:
+    class: src/Contexts/Core/Community/application/UpdateAllowsPaymentsOnStripeAccountCreated/UpdateAllowsPaymentsOnStripeAccountCreatedHandler
+    arguments: ["@Community.UpdateAllowsPaymentsOnStripeAccountCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }

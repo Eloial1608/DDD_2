@@ -28,6 +28,7 @@ import { MainId } from '@Core/Community/domain/ValueObjects/MainId'
 import { LogoUrl } from '@Core/Community/domain/ValueObjects/LogoUrl'
 import { BannerUrl } from '@Core/Community/domain/ValueObjects/BannerUrl'
 import { About } from '@Core/Community/domain/ValueObjects/About'
+import { AllowsPayments } from '@Core/Community/domain/ValueObjects/AllowsPayments'
 
 export const CommunitySchema = new EntitySchema<Community>({
   name: 'Community',
@@ -70,6 +71,10 @@ export const CommunitySchema = new EntitySchema<Community>({
       type: String,
       nullable: true,
       transformer: ValueObjectTransformer(BannerUrl)
+    },
+    allowsPayments: {
+      type: Boolean,
+      transformer: ValueObjectTransformer(AllowsPayments)
     },
     about: {
       type: String,
