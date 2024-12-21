@@ -79,6 +79,12 @@ export const UserPlanSchema = new EntitySchema<UserPlan>({
             transformer: ValueObjectTransformer(UpdatedAt)
         }
     },
+    indices: [
+    {
+          name: 'IDX_USER_PLAN_USER_ID',
+          columns: ['userId']
+        }     
+      ],
     embeddeds:{
         price:{
             schema: UserPlanPriceSchema,
