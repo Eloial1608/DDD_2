@@ -444,3 +444,13 @@ services:
     arguments: ['@Calendar.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+  
+  Calendar.Create.Creator:
+    class: src/Contexts/Core/Calendar/application/Create/Creator
+    arguments: ['@Calendar.Repository', '@Shared.EventBus']
+  
+  Calendar.Create.CreateCalendarCommandHandler:
+    class: src/Contexts/Core/Calendar/application/Create/CreateCalendarCommandHandler
+    arguments: ["@Calendar.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }

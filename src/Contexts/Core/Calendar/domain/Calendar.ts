@@ -9,6 +9,7 @@ import { EntityType } from './ValueObjects/EntityType'
 import { CreatedAt } from './ValueObjects/CreatedAt'
 import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { CommunityId } from './ValueObjects/CommunityId'
+import { CalendarCreatedDomainEvent } from './Events/CalendarCreatedDomainEvent'
 
 export class Calendar extends AggregateRoot {
   constructor (
@@ -23,5 +24,31 @@ export class Calendar extends AggregateRoot {
         readonly updatedAt: UpdatedAt
   ) {
     super()
+  }
+
+  static create (
+    id: Id,
+    dateAt: DateAt,
+    userIds: UserIds,
+    communityId: CommunityId,
+    content: Content,
+    entityId: Nullable<EntityId>,
+    entityType: Nullable<EntityType>
+  ): Calendar {
+    const calendar = new Calendar(
+      id,
+      dateAt,
+      userIds,
+      communityId,
+      content,
+      entityId,
+      entityType,
+      new CreatedAt(new Date()),
+      new UpdatedAt(new Date())
+    )
+
+    calendar.record(CalendarCreatedDomainEvent.fromAggregate(calendar))
+
+    return calendar
   }
 }
