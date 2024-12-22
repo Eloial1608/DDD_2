@@ -454,3 +454,13 @@ services:
     arguments: ["@Calendar.Create.Creator"]
     tags:
       - { name: "commandHandler" }
+  
+  Calendar.Update.Updater:
+    class: src/Contexts/Core/Calendar/application/Update/Updater
+    arguments: ['@Calendar.Repository', '@Shared.EventBus']
+  
+  Calendar.Update.UpdateCalendarCommandHandler:
+    class: src/Contexts/Core/Calendar/application/Update/UpdateCalendarCommandHandler
+    arguments: ["@Calendar.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
