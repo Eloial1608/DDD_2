@@ -504,3 +504,13 @@ services:
     arguments: ['@PlanForUsers.Find.FinderById']
     tags:
       - { name: "queryHandler" }
+  
+  PlanForUsers.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/PlanForUsers/application/FindByCriteria/FinderByCriteria
+    arguments: ['@PlanForUsers.Repository']
+  
+  PlanForUsers.FindByCriteria.FindPlanForUsersByCriteriaQueryHandler:
+    class: src/Contexts/Core/PlanForUsers/application/FindByCriteria/FindPlanForUsersByCriteriaQueryHandler
+    arguments: ['@PlanForUsers.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
