@@ -434,3 +434,13 @@ services:
     arguments: ['@Calendar.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+  
+  Calendar.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/Calendar/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Calendar.Repository']
+  
+  Calendar.FindByCriteria.FindCalendarsByCriteriaQueryHandler:
+    class: src/Contexts/Core/Calendar/application/FindByCriteria/FindCalendarsByCriteriaQueryHandler
+    arguments: ['@Calendar.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
