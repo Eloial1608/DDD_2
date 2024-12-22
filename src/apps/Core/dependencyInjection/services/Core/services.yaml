@@ -303,6 +303,16 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
   
+  User.BanUserOnParentUserBanned.Updater:
+    class: src/Contexts/Core/User/application/BanUserOnParentUserBanned/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  User.BanUserOnParentUserBanned.BanUserOnParentUserBannedHandler:
+    class: src/Contexts/Core/User/application/BanUserOnParentUserBanned/BanUserOnParentUserBannedHandler
+    arguments: ["@User.BanUserOnParentUserBanned.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
   Community.DeleteCommunitiesOnParentCommunityDeleted.Deleter:
     class: src/Contexts/Core/Community/application/DeleteCommunitiesOnParentCommunityDeleted/Deleter
     arguments: ['@Community.Repository', '@Shared.EventBus']
