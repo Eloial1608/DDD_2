@@ -21,7 +21,7 @@ export class UserPatchController implements Controller {
       const userQuery = new FindUserByIdQuery(req.params.id)
       const user = await (await this.queryBus.ask<UserResponse>(userQuery)).response
 
-      if (user.mainId !== data.id) return res.status(401).send()
+      if ((!user.isAdmin || !user.isOwner) && user.mainId !== data.id) return res.status(401).send()
 
       const command = new UpdateAboutAndNameCommand(
         req.params.id,
