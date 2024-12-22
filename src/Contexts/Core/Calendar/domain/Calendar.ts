@@ -11,6 +11,7 @@ import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { CommunityId } from './ValueObjects/CommunityId'
 import { CalendarCreatedDomainEvent } from './Events/CalendarCreatedDomainEvent'
 import { CalendarUpdatedDomainEvent } from './Events/CalendarUpdatedDomainEvent'
+import { CalendarDeletedDomainEvent } from './Events/CalendarDeletedDomainEvent'
 
 export class Calendar extends AggregateRoot {
   constructor (
@@ -73,6 +74,24 @@ export class Calendar extends AggregateRoot {
     )
 
     calendar.record(CalendarUpdatedDomainEvent.fromAggregate(calendar))
+
+    return calendar
+  }
+
+  delete (): Calendar {
+    const calendar = new Calendar(
+      this.id,
+      this.dateAt,
+      this.userIds,
+      this.communityId,
+      this.content,
+      this.entityId,
+      this.entityType,
+      this.createdAt,
+      this.updatedAt
+    )
+
+    calendar.record(CalendarDeletedDomainEvent.fromAggregate(calendar))
 
     return calendar
   }
