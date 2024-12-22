@@ -484,3 +484,13 @@ services:
     arguments: ["@Calendar.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
+  
+  UserPlan.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/UserPlan/application/FindByCriteria/FinderByCriteria
+    arguments: ['@UserPlan.Repository']
+  
+  UserPlan.FindByCriteria.FindUserPlansByCriteriaQueryHandler:
+    class: src/Contexts/Core/UserPlan/application/FindByCriteria/FindUserPlansByCriteriaQueryHandler
+    arguments: ['@UserPlan.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
