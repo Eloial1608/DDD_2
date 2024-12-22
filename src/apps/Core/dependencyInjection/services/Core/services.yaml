@@ -377,6 +377,17 @@ services:
     class: src/Contexts/Core/PlanForUsers/infrastructure/persistence/TypeOrmPlanForUsersRepository
     arguments: ["@Shared.ORM.Connection"]
 
+  PlanForUsers.Create.Creator:
+    class: src/Contexts/Core/PlanForUsers/application/Create/Creator
+    arguments: ['@PlanForUsers.Repository', '@Shared.EventBus']
+  
+  PlanForUsers.Create.CreatePlanForUsersCommandHandler:
+    class: src/Contexts/Core/PlanForUsers/application/Create/CreatePlanForUsersCommandHandler
+    arguments: ["@PlanForUsers.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+  
+
   UserPlan.Repository:
     class: src/Contexts/Core/UserPlan/infrastructure/persistence/TypeOrmUserPlanRepository
     arguments: ["@Shared.ORM.Connection"]
