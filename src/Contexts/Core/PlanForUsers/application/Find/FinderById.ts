@@ -1,7 +1,7 @@
 import { PlanForUsersRepository } from '@Core/PlanForUsers/domain/PlanForUsersRepository'
 import { Id } from '@Core/PlanForUsers/domain/ValueObjects/Id'
 import { PlanForUsers } from '@Core/PlanForUsers/domain/PlanForUsers'
-import { PlanForUsersNotFound } from '@Core/PlanForUsers/domain/errors/PlanForUsersNotFound'
+import { PlanForUsersNotFound } from '@Core/PlanForUsers/domain/Errors/PlanForUsersNotFound'
 
 export class FinderById {
   constructor (private readonly repository: PlanForUsersRepository) {}

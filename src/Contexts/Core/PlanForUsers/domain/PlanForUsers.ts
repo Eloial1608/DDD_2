@@ -9,7 +9,7 @@ import { RenovationType } from '@Core/PlanForUsers/domain/ValueObjects/Renovatio
 import { CreatedAt } from '@Core/PlanForUsers/domain/ValueObjects/CreatedAt'
 import { UpdatedAt } from '@Core/PlanForUsers/domain/ValueObjects/UpdatedAt'
 import { Nullable } from '@Shared/domain/Nullable'
-import { PlanForUsersCreatedDomainEvent } from './events/PlanForUsersCreatedDomainEvent'
+import { PlanForUsersCreatedDomainEvent } from './Event/PlanForUsersCreatedDomainEvent'
 
 export class PlanForUsers extends AggregateRoot {
   constructor (
