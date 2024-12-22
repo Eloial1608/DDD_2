@@ -1,6 +1,7 @@
 import { Community } from '@Core/Community/domain/Community'
 import { AllowedFeatures } from '@Core/Community/domain/ValueObjects/AllowedFeatures'
 import { AllowedUsers } from '@Core/Community/domain/ValueObjects/AllowedUsers'
+import { AllowsPayments } from '@Core/Community/domain/ValueObjects/AllowsPayments'
 import { Color } from '@Core/Community/domain/ValueObjects/Color'
 import { CreatedAt } from '@Core/Community/domain/ValueObjects/CreatedAt'
 import { ExpiresAt } from '@Core/Community/domain/ValueObjects/ExpiresAt'
@@ -35,6 +36,7 @@ export class CommunityMother {
       params.bannerUrl ?? null,
       params.about ?? null,
       params.membersCount ?? new MembersCount(0),
+      params.allowsPayments ?? new AllowsPayments(false),
       params.firstPaymentDone ?? new FirstPaymentDone(false),
       params.spacesCount ?? new SpacesCount(1),
       params.hasPayment ?? new HasPayment(false),

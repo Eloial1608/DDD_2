@@ -4,9 +4,8 @@ export class CreateStripeSessionCommand implements Command {
   constructor (
     readonly id: string,
     readonly accountId: string,
-    readonly url: string,
     readonly productId: string,
-    readonly price: string,
+    readonly customerId: string,
     readonly successUrl: string,
     readonly failUrl: string
   ) {}

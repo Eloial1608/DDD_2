@@ -59,6 +59,7 @@ describe('CreateStripeSessionCommandHandler should ', () => {
         stripeProduct.id.valueOf(),
         stripeProduct.productType.valueOf(),
         stripeProduct.priceId.valueOf(),
+        stripeProduct.name.valueOf(),
         stripeProduct.renovationInterval?.valueOf(),
         stripeProduct.renovationType?.valueOf()
       ),
@@ -113,6 +114,7 @@ describe('CreateStripeSessionCommandHandler should ', () => {
         stripeProduct.id.valueOf(),
         stripeProduct.productType.valueOf(),
         stripeProduct.priceId.valueOf(),
+        stripeProduct.name.valueOf(),
         stripeProduct.renovationInterval?.valueOf(),
         stripeProduct.renovationType?.valueOf()
       ),

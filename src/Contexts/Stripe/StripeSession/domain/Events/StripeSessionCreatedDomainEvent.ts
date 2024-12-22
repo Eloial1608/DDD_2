@@ -11,6 +11,7 @@ type StripeSessionCreatedDomainEventBody = {
     readonly id: string
     readonly type: string
     readonly priceId: string
+    readonly name: string
     readonly renovationInterval?: Nullable<number>
     readonly renovationType?: Nullable<string>
   }
@@ -32,6 +33,7 @@ export class StripeSessionCreatedDomainEvent extends DomainEvent {
     readonly id: string
     readonly type: string
     readonly priceId: string
+    readonly name: string
     readonly renovationInterval?: Nullable<number>
     readonly renovationType?: Nullable<string>
   }

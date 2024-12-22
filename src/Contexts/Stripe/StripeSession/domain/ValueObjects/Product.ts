@@ -5,6 +5,7 @@ export class Product {
         readonly id: string,
         readonly type: string,
         readonly priceId: string,
+        readonly name: string,
         readonly renovationInterval?: Nullable<number>,
         readonly renovationType?: Nullable<string>
   ) {}
@@ -14,6 +15,7 @@ export class Product {
       id: this.id,
       type: this.type,
       priceId: this.priceId,
+      name: this.name,
       renovationInterval: this.renovationInterval,
       renovationType: this.renovationType
     }

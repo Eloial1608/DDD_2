@@ -57,7 +57,11 @@ services:
   Apps.Core.Controllers.UserDeleteController:
     class: src/apps/Core/controllers/User/UserDeleteController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
+  Apps.Core.Controllers.UserIsAdminPatchController:
+    class: src/apps/Core/controllers/User/UserIsAdminPatchController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+
   Apps.Core.Controllers.SpaceMembersGetController:
     class: src/apps/Core/controllers/SpaceMember/SpaceMembersGetController
     arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
@@ -76,4 +80,44 @@ services:
 
   Apps.Core.Controllers.MyselfGetController:
     class: src/apps/Core/controllers/User/MyselfGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.StripeAccountPostController:
+    class: src/apps/Core/controllers/StripeAccount/StripeAccountPostController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.StripeSessionPostController:
+    class: src/apps/Core/controllers/StripeSession/StripeSessionPostController
+    arguments: ["@Shared.CommandBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.VerifyStripeSessionPostController:
+    class: src/apps/Core/controllers/StripeSession/VerifyStripeSessionPostController
+    arguments: ["@Shared.CommandBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.StripeSessionGetController:
+    class: src/apps/Core/controllers/StripeSession/StripeSessionGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.CalendarGetController:
+    class: src/apps/Core/controllers/Calendar/CalendarGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.CalendarDeleteController:
+    class: src/apps/Core/controllers/Calendar/CalendarDeleteController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.CalendarPutController:
+    class: src/apps/Core/controllers/Calendar/CalendarPutController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.CalendarsGetController:
+    class: src/apps/Core/controllers/Calendar/CalendarsGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.CalendarPostController:
+    class: src/apps/Core/controllers/Calendar/CalendarPostController
+    arguments: ["@Shared.CommandBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.UserPlanGetController:
+    class: src/apps/Core/controllers/UserPlan/UserPlanGetController
     arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]

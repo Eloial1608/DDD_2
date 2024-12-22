@@ -31,7 +31,7 @@ export class PlanForUsersMother {
     )
   }
 
-  static random(): PlanForUsers {
+  static random (): PlanForUsers {
     return this.create({})
   }
 }

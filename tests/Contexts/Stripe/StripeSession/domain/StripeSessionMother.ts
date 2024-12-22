@@ -1,7 +1,9 @@
+import { RenovationTypeValues } from '@Shared/domain/SharedValueObjects/SharedRenovationType'
 import { ProductTypes } from '@Stripe/StripeProduct/domain/ValueObjects/ProductType'
 import { StripeSession } from '@Stripe/StripeSession/domain/StripeSession'
 import { AccountId } from '@Stripe/StripeSession/domain/ValueObjects/AccountId'
 import { Completed } from '@Stripe/StripeSession/domain/ValueObjects/Completed'
+import { CustomerId } from '@Stripe/StripeSession/domain/ValueObjects/CustomerId'
 import { FailUrl } from '@Stripe/StripeSession/domain/ValueObjects/FailUrl'
 import { Id } from '@Stripe/StripeSession/domain/ValueObjects/Id'
 import { Price } from '@Stripe/StripeSession/domain/ValueObjects/Price'
@@ -21,10 +23,12 @@ export class StripeSessionMother {
       params.url ?? new Url(UrlMother.random()),
       params.product ?? new Product(
         UuidMother.random(),
-        ProductTypes.COMMUNITY_PLANS,
+        ProductTypes.USER_PLANS,
+        UuidMother.random(),
         UuidMother.random()
       ),
       params.price ?? new Price('100'),
+      params.customerId ?? new CustomerId(UuidMother.random()),
       params.completed ?? new Completed(false),
       params.successUrl ?? new SuccessUrl(UrlMother.random()),
       params.failUrl ?? new FailUrl(UrlMother.random())
@@ -33,5 +37,18 @@ export class StripeSessionMother {
 
   static random (): StripeSession {
     return this.create({})
+  }
+
+  static noNullProduct (): StripeSession {
+    return this.create({
+      product: new Product(
+        UuidMother.random(),
+        ProductTypes.USER_PLANS,
+        UuidMother.random(),
+        UuidMother.random(),
+        1,
+        RenovationTypeValues.MONTH
+      )
+    })
   }
 }

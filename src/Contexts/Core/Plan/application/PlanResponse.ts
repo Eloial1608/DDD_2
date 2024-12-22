@@ -13,6 +13,9 @@ export type PlanResponseBody = {
     readonly allowedUsers: number
     readonly renovationInterval: number
     readonly renovationType: string
+    readonly isPrivate: boolean
+    readonly stripeId: string
+    readonly allowedSubcommunities: number
     readonly createdAt: Date
     readonly updatedAt: Date
 }
@@ -24,6 +27,9 @@ export class PlanResponse implements QueryResponse<PlanResponseBody> {
     this.response = {
       id: plan.id.valueOf(),
       name: plan.name.valueOf(),
+      isPrivate: plan.isPrivate.valueOf(),
+      stripeId: plan.stripeId.valueOf(),
+      allowedSubcommunities: plan.allowedSubcommunities.valueOf(),
       description: plan.description.valueOf(),
       price: {
         value: plan.price.value.valueOf(),

@@ -9,6 +9,7 @@ import { StripeHttpSessionRepository } from '@Stripe/StripeSession/domain/Stripe
 import { StripeSession } from '@Stripe/StripeSession/domain/StripeSession'
 import { StripeSessionRepository } from '@Stripe/StripeSession/domain/StripeSessionRepository'
 import { AccountId } from '@Stripe/StripeSession/domain/ValueObjects/AccountId'
+import { CustomerId } from '@Stripe/StripeSession/domain/ValueObjects/CustomerId'
 import { FailUrl } from '@Stripe/StripeSession/domain/ValueObjects/FailUrl'
 import { Id } from '@Stripe/StripeSession/domain/ValueObjects/Id'
 import { Price } from '@Stripe/StripeSession/domain/ValueObjects/Price'
@@ -20,8 +21,8 @@ import { Url } from '@Stripe/StripeSession/domain/ValueObjects/Url'
 type Params = {
     id: Id
     accountId: AccountId
-    url: Url
     productId: string
+    customerId: CustomerId
     successUrl: SuccessUrl
     failUrl: FailUrl
 }
@@ -59,10 +60,12 @@ export class Creator {
         product.id.valueOf(),
         product.productType.valueOf(),
         product.priceId.valueOf(),
+        product.name.valueOf(),
         product.renovationInterval?.valueOf(),
         product.renovationType?.valueOf()
       ),
       new Price(product.price.valueOf()),
+      params.customerId,
       params.successUrl,
       params.failUrl
     )

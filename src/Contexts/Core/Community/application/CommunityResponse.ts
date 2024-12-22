@@ -14,6 +14,7 @@ export type CommunityResponseBody = {
     readonly about: Nullable<string>
     readonly domain: Nullable<string>
     readonly membersCount: number
+    readonly allowsPayments: boolean
     readonly firstPaymentDone: boolean
     readonly spacesCount: number
     readonly hasPayment: boolean
@@ -46,6 +47,7 @@ export class CommunityResponse implements QueryResponse<CommunityResponseBody> {
       bannerUrl: community.bannerUrl?.valueOf(),
       about: community.about?.valueOf(),
       membersCount: community.membersCount.valueOf(),
+      allowsPayments: community.allowsPayments.valueOf(),
       firstPaymentDone: community.firstPaymentDone.valueOf(),
       spacesCount: community.spacesCount.valueOf(),
       hasPayment: community.hasPayment.valueOf(),
