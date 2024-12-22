@@ -117,3 +117,7 @@ services:
   Apps.Core.Controllers.CalendarPostController:
     class: src/apps/Core/controllers/Calendar/CalendarPostController
     arguments: ["@Shared.CommandBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.UserPlanGetController:
+    class: src/apps/Core/controllers/UserPlan/UserPlanGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
