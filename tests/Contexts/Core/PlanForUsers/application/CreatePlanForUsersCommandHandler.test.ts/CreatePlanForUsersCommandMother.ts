@@ -34,7 +34,7 @@ export class CreatePlanForUsersCommandMother {
       PlanForUsers.price.value.valueOf(),
       PlanForUsers.price.currency.valueOf(),
       PlanForUsers.renovationInterval.valueOf(),
-      PlanForUsers.renovationType.valueOf(),
+      PlanForUsers.renovationType.valueOf()
     )
   }
 }

@@ -377,13 +377,13 @@ services:
     class: src/Contexts/Core/PlanForUsers/infrastructure/persistence/TypeOrmPlanForUsersRepository
     arguments: ["@Shared.ORM.Connection"]
 
-  PlanForUsers.CreatePlanForUsers.Updater:
-    class: src/Contexts/Core/PlanForUsers/application/CreatePlanForUsers/Creator
+  PlanForUsers.Create.Creator:
+    class: src/Contexts/Core/PlanForUsers/application/Create/Creator
     arguments: ['@PlanForUsers.Repository', '@Shared.EventBus']
   
-  PlanForUsers.CreatePlanForUsers.CreatePlanForUsersCommandHandler:
-    class: src/Contexts/Core/PlanForUsers/application/CreatePlanForUsers/CreatePlanForUsersCommandHandler
-    arguments: ["@PlanForUsers.CreatePlanForUsers.Creator"]
+  PlanForUsers.Create.CreatePlanForUsersCommandHandler:
+    class: src/Contexts/Core/PlanForUsers/application/Create/CreatePlanForUsersCommandHandler
+    arguments: ["@PlanForUsers.Create.Creator"]
     tags:
       - { name: "commandHandler" }
   

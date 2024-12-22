@@ -59,7 +59,7 @@ export class PlanForUsersCreatedDomainEvent extends DomainEvent {
       renovationInterval: planForUsers.renovationInterval.valueOf(),
       renovationType: planForUsers.renovationType.valueOf(),
       createdAt: planForUsers.createdAt.valueOf(),
-      updatedAt: planForUsers.updatedAt.valueOf(),
+      updatedAt: planForUsers.updatedAt.valueOf()
     })
   }
 
