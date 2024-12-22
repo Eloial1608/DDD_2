@@ -22,6 +22,8 @@ describe('UpdateCalendarCommandHandler should ', () => {
   test('Update a calendar', async () => {
     const calendar = CalendarMother.random()
 
+    repository.returnOnFind(CalendarMother.create({ id: calendar.id, communityId: calendar.communityId }))
+
     const command = UpdateCalendarCommandMother.fromAggregate(calendar)
 
     await handler.handle(command)
@@ -31,6 +33,8 @@ describe('UpdateCalendarCommandHandler should ', () => {
 
   test('Update a new CalendarUpdatedDomainEvent', async () => {
     const calendar = CalendarMother.random()
+
+    repository.returnOnFind(CalendarMother.create({ id: calendar.id, communityId: calendar.communityId }))
 
     const command = UpdateCalendarCommandMother.fromAggregate(calendar)
 
