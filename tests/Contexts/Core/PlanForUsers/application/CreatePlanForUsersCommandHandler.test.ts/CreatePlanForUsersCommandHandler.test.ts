@@ -1,11 +1,11 @@
 import { Creator } from '@Core/PlanForUsers/application/Create/Creator'
 import EventBusMock from '@Tests/Contexts/Shared/infrastructure/EventBus/EventBusMock'
-import { PlanForUsersRepositoryMock } from '../../_mocks_/PlanForUsersRepositoryMock'
 import { PlanForUsersMother } from '../../domain/PlanForUsersMother'
 import { CreatePlanForUsersCommandMother } from './CreatePlanForUsersCommandMother'
 import { PlanForUsersAlreadyExists } from '@Core/PlanForUsers/domain/errors/PlanForUsersAlreadyExistsById'
 import { PlanForUsersCreatedDomainEvent } from '@Core/PlanForUsers/domain/events/PlanForUsersCreatedDomainEvent'
 import { CreatePlanForUsersCommandHandler } from '@Core/PlanForUsers/application/Create/CreatePlanForUsersCommandHandler'
+import { PlanForUsersRepositoryMock } from '../../__mocks__/PlanForUsersRepositoryMock'
 
 let eventBus: EventBusMock
 let repository: PlanForUsersRepositoryMock
