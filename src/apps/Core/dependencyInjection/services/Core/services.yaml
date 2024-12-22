@@ -406,3 +406,13 @@ services:
     arguments: ["@UserPlan.CreateUserPlanOnStripeSessionVerified.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  User.UpdateUserOnUserPlanCreated.Updater:
+    class: src/Contexts/Core/User/application/UpdateUserOnUserPlanCreated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.UpdateUserOnUserPlanCreated.UpdateUserOnUserPlanCreatedHandler:
+    class: src/Contexts/Core/User/application/UpdateUserOnUserPlanCreated/UpdateUserOnUserPlanCreatedHandler
+    arguments: ["@User.UpdateUserOnUserPlanCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
