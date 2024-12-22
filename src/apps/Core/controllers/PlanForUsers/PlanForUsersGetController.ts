@@ -2,7 +2,6 @@ import { Request, Response } from 'express'
 import { Controller } from '../@types/Controller'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { PlanForUsersNotFound } from '@Core/PlanForUsers/domain/Errors/PlanForUsersNotFound'
-import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { FindPlanForUsersQuery } from '@Core/PlanForUsers/application/Find/FindPlanForUsersQuery'
 import { PlanForUsersResponse } from '@Core/PlanForUsers/application/PlanForUsersResponse'
 
@@ -18,7 +17,6 @@ export class PlanForUsersGetController implements Controller {
       return res.status(200).json(planForUsers)
     } catch (e) {
       if (e instanceof PlanForUsersNotFound) return res.status(404).json({ message: e.getMessage() })
-      if (e instanceof CannotDecode) return res.status(401).json({ message: e.getMessage() })
 
       return res.status(500).send()
     }
