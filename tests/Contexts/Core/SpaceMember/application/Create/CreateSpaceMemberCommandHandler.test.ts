@@ -19,24 +19,24 @@ describe('CreateSpaceMemberCommandHandler should ', () => {
     handler = new CreateSpaceMemberCommandHandler(creator)
   })
 
-  test('Create a new spacemember', async () => {
-    const spacemember = SpaceMemberMother.random()
+  test('Create a new spaceMember', async () => {
+    const spaceMember = SpaceMemberMother.random()
 
-    const command = CreateSpaceMemberCommandMother.fromAggregate(spacemember)
+    const command = CreateSpaceMemberCommandMother.fromAggregate(spaceMember)
 
     await handler.handle(command)
 
-    repository.assertPersistHasBeenCalledWith(spacemember)
+    repository.assertPersistHasBeenCalledWith(spaceMember)
   })
 
   test('Create a new SpaceMemberCreatedDomainEvent', async () => {
-    const spacemember = SpaceMemberMother.random()
+    const spaceMember = SpaceMemberMother.random()
 
-    const command = CreateSpaceMemberCommandMother.fromAggregate(spacemember)
+    const command = CreateSpaceMemberCommandMother.fromAggregate(spaceMember)
 
     await handler.handle(command)
 
-    const expectedEvent = SpaceMemberCreatedDomainEvent.fromAggregate(spacemember)
+    const expectedEvent = SpaceMemberCreatedDomainEvent.fromAggregate(spaceMember)
 
     eventBus.assertEventHasBeenPublished(expectedEvent)
   })

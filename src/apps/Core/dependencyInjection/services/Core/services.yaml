@@ -105,6 +105,16 @@ services:
     tags:
       - { name: "commandHandler" }
   
+  User.Unban.Updater:
+    class: src/Contexts/Core/User/application/Unban/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.Unban.UnbanUserCommandHandler:
+    class: src/Contexts/Core/User/application/Unban/UnbanUserCommandHandler
+    arguments: ["@User.Unban.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
   Community.UpdateTotalMembersOnUserCreated.Updater:
     class: src/Contexts/Core/Community/application/UpdateTotalMembersOnUserCreated/Updater
     arguments: ["@Community.Repository", "@Shared.EventBus"]
@@ -112,6 +122,36 @@ services:
   Community.UpdateTotalMembersOnUserCreated.UpdateTotalMembersOnUserCreatedHandler:
     class: src/Contexts/Core/Community/application/UpdateTotalMembersOnUserCreated/UpdateTotalMembersOnUserCreatedHandler
     arguments: ["@Community.UpdateTotalMembersOnUserCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.UpdateTotalMembersOnUserDeleted.Updater:
+    class: src/Contexts/Core/Community/application/UpdateTotalMembersOnUserDeleted/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateTotalMembersOnUserDeleted.UpdateTotalMembersOnUserDeletedHandler:
+    class: src/Contexts/Core/Community/application/UpdateTotalMembersOnUserDeleted/UpdateTotalMembersOnUserDeletedHandler
+    arguments: ["@Community.UpdateTotalMembersOnUserDeleted.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.UpdateTotalSpacesOnSpaceCreated.Updater:
+    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnSpaceCreated/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateTotalSpacesOnSpaceCreated.UpdateTotalSpacesOnSpaceCreatedHandler:
+    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnSpaceCreated/UpdateTotalSpacesOnSpaceCreatedHandler
+    arguments: ["@Community.UpdateTotalSpacesOnSpaceCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.UpdateTotalSpacesOnSpaceDeleted.Updater:
+    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnSpaceDeleted/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateTotalSpacesOnSpaceDeleted.UpdateTotalSpacesOnSpaceDeletedHandler:
+    class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnSpaceDeleted/UpdateTotalSpacesOnSpaceDeletedHandler
+    arguments: ["@Community.UpdateTotalSpacesOnSpaceDeleted.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
   
@@ -263,6 +303,16 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
   
+  User.BanUserOnParentUserBanned.Updater:
+    class: src/Contexts/Core/User/application/BanUserOnParentUserBanned/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  User.BanUserOnParentUserBanned.BanUserOnParentUserBannedHandler:
+    class: src/Contexts/Core/User/application/BanUserOnParentUserBanned/BanUserOnParentUserBannedHandler
+    arguments: ["@User.BanUserOnParentUserBanned.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
   Community.DeleteCommunitiesOnParentCommunityDeleted.Deleter:
     class: src/Contexts/Core/Community/application/DeleteCommunitiesOnParentCommunityDeleted/Deleter
     arguments: ['@Community.Repository', '@Shared.EventBus']
@@ -285,10 +335,182 @@ services:
   
   SpaceMember.DeleteSpaceMemberOnSpaceDeleted.Deleter:
     class: src/Contexts/Core/SpaceMember/application/DeleteSpaceMemberOnSpaceDeleted/Deleter
-    arguments: ['@Space.Repository', '@Shared.EventBus']
+    arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
   
   SpaceMember.DeleteSpaceMemberOnSpaceDeleted.DeleteSpaceMemberOnSpaceDeletedHandler:
     class: src/Contexts/Core/SpaceMember/application/DeleteSpaceMemberOnSpaceDeleted/DeleteSpaceMemberOnSpaceDeletedHandler
     arguments: ["@SpaceMember.DeleteSpaceMemberOnSpaceDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  SpaceMember.UpdateSpaceMemberModerator.Updater:
+    class: src/Contexts/Core/SpaceMember/application/UpdateSpaceMemberModerator/Updater
+    arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
+  
+  SpaceMember.UpdateSpaceMemberModerator.UpdateSpaceMemberModeratorCommandHandler:
+    class: src/Contexts/Core/SpaceMember/application/UpdateSpaceMemberModerator/UpdateSpaceMemberModeratorCommandHandler
+    arguments: ["@SpaceMember.UpdateSpaceMemberModerator.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
+  User.UnbanUserOnParentUserUnbanned.Updater:
+    class: src/Contexts/Core/User/application/UnbanUserOnParentUserUnbanned/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  User.UnbanUserOnParentUserUnbanned.UnbanUserOnParentUserUnbannedHandler:
+    class: src/Contexts/Core/User/application/UnbanUserOnParentUserUnbanned/UnbanUserOnParentUserUnbannedHandler
+    arguments: ["@User.UnbanUserOnParentUserUnbanned.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  User.Ban.Updater:
+    class: src/Contexts/Core/User/application/Ban/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.Ban.BanUserCommandHandler:
+    class: src/Contexts/Core/User/application/Ban/BanUserCommandHandler
+    arguments: ["@User.Ban.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
+  PlanForUsers.Repository:
+    class: src/Contexts/Core/PlanForUsers/infrastructure/persistence/TypeOrmPlanForUsersRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  UserPlan.Repository:
+    class: src/Contexts/Core/UserPlan/infrastructure/persistence/TypeOrmUserPlanRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  User.UpdateAboutAndName.UpdaterAboutAndName:
+    class: src/Contexts/Core/User/application/UpdateAboutAndName/UpdaterAboutAndName
+    arguments: ['@User.Repository', '@Shared.EventBus']
+
+  User.Update.UpdateAboutAndNameCommandHandler:
+    class: src/Contexts/Core/User/application/UpdateAboutAndName/UpdateAboutAndNameCommandHandler
+    arguments: ["@User.UpdateAboutAndName.UpdaterAboutAndName"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Community.UpdateAllowsPaymentsOnStripeAccountCreated.Updater:
+    class: src/Contexts/Core/Community/application/UpdateAllowsPaymentsOnStripeAccountCreated/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateAllowsPaymentsOnStripeAccountCreated.UpdateAllowsPaymentsOnStripeAccountCreatedHandler:
+    class: src/Contexts/Core/Community/application/UpdateAllowsPaymentsOnStripeAccountCreated/UpdateAllowsPaymentsOnStripeAccountCreatedHandler
+    arguments: ["@Community.UpdateAllowsPaymentsOnStripeAccountCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  UserPlan.Find.FinderById:
+    class: src/Contexts/Core/UserPlan/application/Find/FinderById
+    arguments: ['@UserPlan.Repository']
+  
+  UserPlan.Find.FindUserPlanQueryHandler:
+    class: src/Contexts/Core/UserPlan/application/Find/FindUserPlanQueryHandler
+    arguments: ['@UserPlan.Find.FinderById']
+    tags:
+      - { name: "queryHandler" }
+  
+  UserPlan.CreateUserPlanOnStripeSessionVerified.Creator:
+    class: src/Contexts/Core/UserPlan/application/CreateUserPlanOnStripeSessionVerified/Creator
+    arguments: ['@UserPlan.Repository', '@Shared.EventBus']
+  
+  UserPlan.CreateUserPlanOnStripeSessionVerified.CreateUserPlanOnStripeSessionVerifiedHandler:
+    class: src/Contexts/Core/UserPlan/application/CreateUserPlanOnStripeSessionVerified/CreateUserPlanOnStripeSessionVerifiedHandler
+    arguments: ["@UserPlan.CreateUserPlanOnStripeSessionVerified.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  User.UpdateUserOnUserPlanCreated.Updater:
+    class: src/Contexts/Core/User/application/UpdateUserOnUserPlanCreated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.UpdateUserOnUserPlanCreated.UpdateUserOnUserPlanCreatedHandler:
+    class: src/Contexts/Core/User/application/UpdateUserOnUserPlanCreated/UpdateUserOnUserPlanCreatedHandler
+    arguments: ["@User.UpdateUserOnUserPlanCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Calendar.Repository:
+    class: src/Contexts/Core/Calendar/infrastructure/persistence/TypeOrmCalendarRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Calendar.FindById.FinderById:
+    class: src/Contexts/Core/Calendar/application/FindById/FinderById
+    arguments: ['@Calendar.Repository']
+  
+  Calendar.FindById.FindCalendarByIdQueryHandler:
+    class: src/Contexts/Core/Calendar/application/FindById/FindCalendarByIdQueryHandler
+    arguments: ['@Calendar.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+  
+  Calendar.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/Calendar/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Calendar.Repository']
+  
+  Calendar.FindByCriteria.FindCalendarsByCriteriaQueryHandler:
+    class: src/Contexts/Core/Calendar/application/FindByCriteria/FindCalendarsByCriteriaQueryHandler
+    arguments: ['@Calendar.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+  
+  Calendar.Create.Creator:
+    class: src/Contexts/Core/Calendar/application/Create/Creator
+    arguments: ['@Calendar.Repository', '@Shared.EventBus']
+  
+  Calendar.Create.CreateCalendarCommandHandler:
+    class: src/Contexts/Core/Calendar/application/Create/CreateCalendarCommandHandler
+    arguments: ["@Calendar.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Calendar.Update.Updater:
+    class: src/Contexts/Core/Calendar/application/Update/Updater
+    arguments: ['@Calendar.Repository', '@Shared.EventBus']
+  
+  Calendar.Update.UpdateCalendarCommandHandler:
+    class: src/Contexts/Core/Calendar/application/Update/UpdateCalendarCommandHandler
+    arguments: ["@Calendar.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Calendar.Delete.Deleter:
+    class: src/Contexts/Core/Calendar/application/Delete/Deleter
+    arguments: ['@Calendar.Repository', '@Shared.EventBus']
+  
+  Calendar.Delete.DeleteCalendarCommandHandler:
+    class: src/Contexts/Core/Calendar/application/Delete/DeleteCalendarCommandHandler
+    arguments: ["@Calendar.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+  
+  UserPlan.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/UserPlan/application/FindByCriteria/FinderByCriteria
+    arguments: ['@UserPlan.Repository']
+  
+  UserPlan.FindByCriteria.FindUserPlansByCriteriaQueryHandler:
+    class: src/Contexts/Core/UserPlan/application/FindByCriteria/FindUserPlansByCriteriaQueryHandler
+    arguments: ['@UserPlan.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+  
+  PlanForUsers.Find.FinderById:
+    class: src/Contexts/Core/PlanForUsers/application/Find/FinderById
+    arguments: ['@PlanForUsers.Repository']
+  
+  PlanForUsers.Find.FindPlanForUsersQueryHandler:
+    class: src/Contexts/Core/PlanForUsers/application/Find/FindPlanForUsersQueryHandler
+    arguments: ['@PlanForUsers.Find.FinderById']
+    tags:
+      - { name: "queryHandler" }
+  
+  PlanForUsers.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/PlanForUsers/application/FindByCriteria/FinderByCriteria
+    arguments: ['@PlanForUsers.Repository']
+  
+  PlanForUsers.FindByCriteria.FindPlanForUsersByCriteriaQueryHandler:
+    class: src/Contexts/Core/PlanForUsers/application/FindByCriteria/FindPlanForUsersByCriteriaQueryHandler
+    arguments: ['@PlanForUsers.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }

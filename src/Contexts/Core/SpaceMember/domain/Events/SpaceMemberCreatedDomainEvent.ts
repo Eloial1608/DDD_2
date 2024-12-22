@@ -48,18 +48,18 @@ export class SpaceMemberCreatedDomainEvent extends DomainEvent {
     this.invitedBy = params.invitedBy
   }
 
-  static fromAggregate (spacemember: SpaceMember): SpaceMemberCreatedDomainEvent {
+  static fromAggregate (spaceMember: SpaceMember): SpaceMemberCreatedDomainEvent {
     return new SpaceMemberCreatedDomainEvent({
-      id: spacemember.id.valueOf(),
-      createdAt: spacemember.createdAt.valueOf(),
-      updatedAt: spacemember.updatedAt.valueOf(),
-      userId: spacemember.userId.valueOf(),
-      spaceId: spacemember.spaceId.valueOf(),
-      isModerator: spacemember.isModerator.valueOf(),
-      isBanned: spacemember.isBanned.valueOf(),
-      invitedBy: spacemember.invitedBy?.valueOf(),
-      invitedAt: spacemember.invitedAt?.valueOf(),
-      communityId: spacemember.communityId.valueOf()
+      id: spaceMember.id.valueOf(),
+      createdAt: spaceMember.createdAt.valueOf(),
+      updatedAt: spaceMember.updatedAt.valueOf(),
+      userId: spaceMember.userId.valueOf(),
+      spaceId: spaceMember.spaceId.valueOf(),
+      isModerator: spaceMember.isModerator.valueOf(),
+      isBanned: spaceMember.isBanned.valueOf(),
+      invitedBy: spaceMember.invitedBy?.valueOf(),
+      invitedAt: spaceMember.invitedAt?.valueOf(),
+      communityId: spaceMember.communityId.valueOf()
 
     })
   }

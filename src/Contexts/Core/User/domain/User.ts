@@ -22,8 +22,12 @@ import { UserCreatedDomainEvent } from './Events/UserCreatedDomainEvent'
 import { IsOwner } from './ValueObjects/IsOwner'
 import { IsAdmin } from './ValueObjects/IsAdmin'
 import { UserUpdatedIsAdminDomainEvent } from './Events/UserUpdatedIsAdminEvent'
+import { UserUpdatedAboutAndNameDomainEvent } from './Events/UserUpdatedAboutAndNameEvent'
 import { MainId } from './ValueObjects/MainId'
 import { UserDeletedDomainEvent } from './Events/UserDeletedDomainEvent'
+import { UserUnbannedDomainEvent } from './Events/UserUnbannedDomainEvent'
+import { UserBannedDomainEvent } from './Events/UserBannedDoaminEvent'
+import { UserHasPayedUpdatedDomainEvent } from './Events/UserHasPayedUpdatedDomainEvent'
 
 export class User extends AggregateRoot {
   constructor (
@@ -122,6 +126,66 @@ export class User extends AggregateRoot {
     return user
   }
 
+  updateAboutAndName (about: Nullable<About>, name: Name):User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      name,
+      this.username,
+      about,
+      this.email,
+      this.hasPayed,
+      this.planId,
+      this.hasCompletedRegister,
+      this.registerData,
+      this.isBanned,
+      this.isAdmin,
+      this.isOwner,
+      this.totalPosts,
+      this.totalMedia,
+      this.totalThreads,
+      this.totalThreadResponses,
+      this.communityId,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt
+    )
+
+    user.record(UserUpdatedAboutAndNameDomainEvent.fromAggregate(user))
+
+    return user
+  }
+
+  updateHasPayed (hasPayed: HasPayed):User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      this.name,
+      this.username,
+      this.about,
+      this.email,
+      hasPayed,
+      this.planId,
+      this.hasCompletedRegister,
+      this.registerData,
+      this.isBanned,
+      this.isAdmin,
+      this.isOwner,
+      this.totalPosts,
+      this.totalMedia,
+      this.totalThreads,
+      this.totalThreadResponses,
+      this.communityId,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt
+    )
+
+    user.record(UserHasPayedUpdatedDomainEvent.fromAggregate(user))
+
+    return user
+  }
+
   delete ():User {
     const user = new User(
       this.id,
@@ -148,6 +212,66 @@ export class User extends AggregateRoot {
     )
 
     user.record(UserDeletedDomainEvent.fromAggregate(user))
+
+    return user
+  }
+
+  unban ():User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      this.name,
+      this.username,
+      this.about,
+      this.email,
+      this.hasPayed,
+      this.planId,
+      this.hasCompletedRegister,
+      this.registerData,
+      new IsBanned(false),
+      this.isAdmin,
+      this.isOwner,
+      this.totalPosts,
+      this.totalMedia,
+      this.totalThreads,
+      this.totalThreadResponses,
+      this.communityId,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      this.deletedAt
+    )
+
+    user.record(UserUnbannedDomainEvent.fromAggregate(user))
+
+    return user
+  }
+
+  ban ():User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      this.name,
+      this.username,
+      this.about,
+      this.email,
+      this.hasPayed,
+      this.planId,
+      this.hasCompletedRegister,
+      this.registerData,
+      new IsBanned(true),
+      this.isAdmin,
+      this.isOwner,
+      this.totalPosts,
+      this.totalMedia,
+      this.totalThreads,
+      this.totalThreadResponses,
+      this.communityId,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      this.deletedAt
+    )
+
+    user.record(UserBannedDomainEvent.fromAggregate(user))
 
     return user
   }

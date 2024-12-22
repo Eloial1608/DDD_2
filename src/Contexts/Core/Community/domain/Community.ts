@@ -30,6 +30,9 @@ import { MainId } from './ValueObjects/MainId'
 import { LogoUrl } from './ValueObjects/LogoUrl'
 import { BannerUrl } from './ValueObjects/BannerUrl'
 import { About } from './ValueObjects/About'
+import { CommunitySpacesCountUpdatedDomainEvent } from './Events/CommunitySpacesCountUpdatedDomainEvent'
+import { AllowsPayments } from './ValueObjects/AllowsPayments'
+import { CommunityAllowsPaymentsUpdatedDomainEvent } from './Events/CommunityAllowsPaymentsUpdatedDomainEvent'
 
 export class Community extends AggregateRoot {
   constructor (
@@ -44,6 +47,7 @@ export class Community extends AggregateRoot {
         readonly bannerUrl: Nullable<BannerUrl>,
         readonly about: Nullable<About>,
         readonly membersCount: MembersCount,
+        readonly allowsPayments: AllowsPayments,
         readonly firstPaymentDone: FirstPaymentDone,
         readonly spacesCount: SpacesCount,
         readonly hasPayment: HasPayment,
@@ -90,6 +94,7 @@ export class Community extends AggregateRoot {
       bannerUrl,
       null,
       new MembersCount(0),
+      new AllowsPayments(false),
       new FirstPaymentDone(false),
       new SpacesCount(1),
       new HasPayment(false),
@@ -126,6 +131,7 @@ export class Community extends AggregateRoot {
       this.bannerUrl,
       this.about,
       this.membersCount,
+      this.allowsPayments,
       this.firstPaymentDone,
       this.spacesCount,
       this.hasPayment,
@@ -162,6 +168,7 @@ export class Community extends AggregateRoot {
       this.bannerUrl,
       this.about,
       membersCount,
+      this.allowsPayments,
       this.firstPaymentDone,
       this.spacesCount,
       this.hasPayment,
@@ -181,6 +188,80 @@ export class Community extends AggregateRoot {
     )
 
     community.record(CommunityMembersCountUpdatedDomainEvent.fromAggregate(community))
+
+    return community
+  }
+
+  updateAllowsPayments (allowsPayments: AllowsPayments): Community {
+    const community = new Community(
+      this.id,
+      this.name,
+      this.suffix,
+      this.domain,
+      this.slug,
+      this.parentId,
+      this.mainId,
+      this.logoUrl,
+      this.bannerUrl,
+      this.about,
+      this.membersCount,
+      allowsPayments,
+      this.firstPaymentDone,
+      this.spacesCount,
+      this.hasPayment,
+      this.methodId,
+      this.allowedFeatures,
+      this.hasRegisterForm,
+      this.registerFormId,
+      this.allowedUsers,
+      this.color,
+      this.isPrivate,
+      this.isRegisterOpen,
+      this.homeSpaceId,
+      this.expiresAt,
+      this.createdAt,
+      this.updatedAt,
+      null
+    )
+
+    community.record(CommunityAllowsPaymentsUpdatedDomainEvent.fromAggregate(community))
+
+    return community
+  }
+
+  updateSpacesCount (spacesCount: SpacesCount): Community {
+    const community = new Community(
+      this.id,
+      this.name,
+      this.suffix,
+      this.domain,
+      this.slug,
+      this.parentId,
+      this.mainId,
+      this.logoUrl,
+      this.bannerUrl,
+      this.about,
+      this.membersCount,
+      this.allowsPayments,
+      this.firstPaymentDone,
+      spacesCount,
+      this.hasPayment,
+      this.methodId,
+      this.allowedFeatures,
+      this.hasRegisterForm,
+      this.registerFormId,
+      this.allowedUsers,
+      this.color,
+      this.isPrivate,
+      this.isRegisterOpen,
+      this.homeSpaceId,
+      this.expiresAt,
+      this.createdAt,
+      this.updatedAt,
+      null
+    )
+
+    community.record(CommunitySpacesCountUpdatedDomainEvent.fromAggregate(community))
 
     return community
   }

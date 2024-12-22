@@ -27,7 +27,7 @@ export class Creator {
   ) {
     await this.getSpaceMember(userId, spaceId, communityId)
 
-    const spacemember = SpaceMember.create(
+    const spaceMember = SpaceMember.create(
       id,
       userId,
       spaceId,
@@ -37,8 +37,8 @@ export class Creator {
       isModerator
     )
 
-    await this.repository.persist(spacemember)
-    await this.eventBus.publish(spacemember.pullDomainEvents())
+    await this.repository.persist(spaceMember)
+    await this.eventBus.publish(spaceMember.pullDomainEvents())
   }
 
   private async getSpaceMember (userId: UserId, spaceId: SpaceId, communityId: CommunityId): Promise<Nullable<SpaceMember>> {

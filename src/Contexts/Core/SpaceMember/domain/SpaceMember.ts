@@ -13,6 +13,7 @@ import { UserId } from './ValueObjects/UserId'
 import { InvitedAt } from './ValueObjects/InvitedAt'
 import { IsModerator } from './ValueObjects/IsModerator'
 import { IsBanned } from './ValueObjects/IsBanned'
+import { SpaceMemberModeratorUpdatedDomainEvent } from './Events/SpaceMemberModeratorUpdatedDomainEvent'
 
 export class SpaceMember extends AggregateRoot {
   constructor (
@@ -41,7 +42,7 @@ export class SpaceMember extends AggregateRoot {
     invitedAt: Nullable<InvitedAt>,
     isModerator: IsModerator
   ): SpaceMember {
-    const spacemember = new SpaceMember(
+    const spaceMember = new SpaceMember(
       id,
       userId,
       spaceId,
@@ -55,13 +56,13 @@ export class SpaceMember extends AggregateRoot {
       null
     )
 
-    spacemember.record(SpaceMemberCreatedDomainEvent.fromAggregate(spacemember))
+    spaceMember.record(SpaceMemberCreatedDomainEvent.fromAggregate(spaceMember))
 
-    return spacemember
+    return spaceMember
   }
 
   delete (): SpaceMember {
-    const spacemember = new SpaceMember(
+    const spaceMember = new SpaceMember(
       this.id,
       this.userId,
       this.spaceId,
@@ -75,8 +76,28 @@ export class SpaceMember extends AggregateRoot {
       new DeletedAt(new Date())
     )
 
-    spacemember.record(SpaceMemberDeletedDomainEvent.fromAggregate(spacemember))
+    spaceMember.record(SpaceMemberDeletedDomainEvent.fromAggregate(spaceMember))
 
-    return spacemember
+    return spaceMember
+  }
+
+  updateModerator (isModerator: IsModerator): SpaceMember {
+    const spaceMember = new SpaceMember(
+      this.id,
+      this.userId,
+      this.spaceId,
+      this.communityId,
+      this.invitedBy,
+      this.invitedAt,
+      isModerator,
+      this.isBanned,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      this.deletedAt
+    )
+
+    spaceMember.record(SpaceMemberModeratorUpdatedDomainEvent.fromAggregate(spaceMember))
+
+    return spaceMember
   }
 }

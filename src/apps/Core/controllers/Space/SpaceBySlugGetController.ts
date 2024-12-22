@@ -30,7 +30,7 @@ export class SpaceBySlugGetController implements Controller {
 
         if (tokenData.communityId !== space.communityId) return res.status(404).send()
 
-        if (!this.checkAccessibility(tokenData.id, tokenData.communityId, space.id)) return res.status(401).send()
+        if (!this.checkAccessibility(tokenData.id, space.communityId, space.id)) return res.status(401).send()
       }
 
       return res.status(200).json(space)
@@ -43,9 +43,13 @@ export class SpaceBySlugGetController implements Controller {
   }
 
   private async checkAccessibility (userId: string, communityId: string, spaceId: string): Promise<boolean> {
-    if (await this.isAdmin(userId, communityId)) return true
+    const user = await this.getUser(userId, communityId)
 
-    const spaceMember = await this.getSpaceMember(userId, communityId, spaceId)
+    if (!user) return false
+
+    if (user.isAdmin || user.isOwner) return true
+
+    const spaceMember = await this.getSpaceMember(user.id, communityId, spaceId)
 
     if (!spaceMember) return false
 
@@ -86,7 +90,7 @@ export class SpaceBySlugGetController implements Controller {
     return (await this.queryBus.ask<SpaceCollectionResponse>(query)).response.pop()
   }
 
-  private async isAdmin (id: string, communityId: string): Promise<boolean> {
+  private async getUser (id: string, communityId: string) {
     const query = new FindUsersByCriteriaQuery([
       new Map<string, string>([
         ['field', 'mainId'],
@@ -102,6 +106,6 @@ export class SpaceBySlugGetController implements Controller {
 
     const user = (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
 
-    return !!user && (user.isAdmin || user.isOwner)
+    return user
   }
 }
