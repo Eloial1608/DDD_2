@@ -7,7 +7,7 @@ import { PlanForUsersAlreadyExists } from '@Core/PlanForUsers/domain/Errors/Plan
 import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { FindUsersByCriteriaQuery } from '@Core/User/application/FindByCriteria/FindUsersByCriteriaQuery'
 import { UserCollectionResponse } from '@Core/User/application/UserCollectionResponse'
-import { CreatePlanForUsersCommand } from '@Core/PlanForUsers/application/Create/CreatePlanForUsersCommand'
+import { UpdatePlanForUsersCommand } from '@Core/PlanForUsers/application/Update/UpdatePlanForUsersCommand'
 
 export class PlanForUsersPutController implements Controller {
   constructor (private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
@@ -22,7 +22,7 @@ export class PlanForUsersPutController implements Controller {
 
       if (!user || (!user.isAdmin && !user.isAdmin)) return res.status(401).send()
 
-      const command = new CreatePlanForUsersCommand(
+      const command = new UpdatePlanForUsersCommand(
         req.params.id,
         req.body.name,
         req.body.description,
