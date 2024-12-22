@@ -7,4 +7,5 @@ export interface PlanForUsersRepository {
     find (id: Id): Promise<Nullable<PlanForUsers>>
     search (criteria: Criteria): Promise<Array<PlanForUsers>>
     persist (planFOrUsers: PlanForUsers): Promise<void>
+    delete (planForUsers: PlanForUsers): Promise<void>
 }

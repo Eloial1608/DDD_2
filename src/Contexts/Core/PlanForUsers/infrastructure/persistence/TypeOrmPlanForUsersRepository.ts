@@ -23,4 +23,8 @@ export class TypeOrmPlanForUsersRepository extends TypeOrmRepository<PlanForUser
   async persist (planForUsers: PlanForUsers): Promise<void> {
     await (await this.repository()).save(planForUsers)
   }
+
+  async delete (planForUsers: PlanForUsers): Promise<void> {
+    await (await this.repository()).remove(planForUsers)
+  }
 }

@@ -396,7 +396,16 @@ services:
     arguments: ["@PlanForUsers.Update.Updater"]
     tags:
       - { name: "commandHandler" }
+
+  PlanForUsers.Delete.Deleter:
+    class: src/Contexts/Core/PlanForUsers/application/Delete/Deleter
+    arguments: ['@PlanForUsers.Repository', '@Shared.EventBus']
   
+  PlanForUsers.Delete.DeletePlanForUsersCommandHandler:
+    class: src/Contexts/Core/PlanForUsers/application/Delete/DeletePlanForUsersCommandHandler
+    arguments: ["@PlanForUsers.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
 
   UserPlan.Repository:
     class: src/Contexts/Core/UserPlan/infrastructure/persistence/TypeOrmUserPlanRepository

@@ -9,6 +9,7 @@ export class PlanForUsersRepositoryMock implements PlanForUsersRepository {
   private mockFind = mockFn()
   private mockSearch = mockFn()
   private mockPersist = mockFn()
+  private mockDelete = mockFn()
 
   private expectedFind: Nullable<PlanForUsers>
   private expectedSearch: Array<PlanForUsers> = []
@@ -35,8 +36,16 @@ export class PlanForUsersRepositoryMock implements PlanForUsersRepository {
     this.mockPersist(planForUsers)
   }
 
+  async delete (planForUsers: PlanForUsers): Promise<void> {
+    this.mockDelete(planForUsers)
+  }
+
   assertPersistHasBeenCalledWith (planForUsers: PlanForUsers) {
     expect(this.mockPersist).toHaveBeenCalledWith(planForUsers)
+  }
+
+  assertDeleteHasBeenCalledWith (planForUsers: PlanForUsers) {
+    expect(this.mockDelete).toHaveBeenCalledWith(planForUsers)
   }
 
   assertFindHasBeenCalledWith (id: Id) {
