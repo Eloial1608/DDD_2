@@ -363,6 +363,10 @@ services:
     tags:
       - { name: "commandHandler" }
   
+  PlanForUsers.Repository:
+    class: src/Contexts/Core/PlanForUsers/infrastructure/persistence/TypeOrmPlanForUsersRepository
+    arguments: ["@Shared.ORM.Connection"]
+
   UserPlan.Repository:
     class: src/Contexts/Core/UserPlan/infrastructure/persistence/TypeOrmUserPlanRepository
     arguments: ["@Shared.ORM.Connection"]
