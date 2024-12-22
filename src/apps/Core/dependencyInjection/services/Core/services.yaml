@@ -420,3 +420,7 @@ services:
     arguments: ["@User.UpdateUserOnUserPlanCreated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  Calendar.Repository:
+    class: src/Contexts/Core/Calendar/infrastructure/persistence/TypeOrmCalendarRepository
+    arguments: ["@Shared.ORM.Connection"]
