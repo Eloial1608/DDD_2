@@ -39,7 +39,7 @@
   "include": [
     "src/**/**.ts",
     "tests/**/**.ts"
-  ],
+, "tests/Contexts/Core/PlanForUsers/application/Create"  ],
   "exclude": [
     "node_modules"
   ]

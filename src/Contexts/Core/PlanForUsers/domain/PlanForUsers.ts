@@ -10,6 +10,7 @@ import { CreatedAt } from '@Core/PlanForUsers/domain/ValueObjects/CreatedAt'
 import { UpdatedAt } from '@Core/PlanForUsers/domain/ValueObjects/UpdatedAt'
 import { Nullable } from '@Shared/domain/Nullable'
 import { PlanForUsersCreatedDomainEvent } from './Event/PlanForUsersCreatedDomainEvent'
+import { PlanForUsersUpdatedDomainEvent } from './Event/PlanForUsersUpdatedDomainEvent'
 
 export class PlanForUsers extends AggregateRoot {
   constructor (
@@ -48,6 +49,30 @@ export class PlanForUsers extends AggregateRoot {
     )
 
     planForUsers.record(PlanForUsersCreatedDomainEvent.fromAggregate(planForUsers))
+
+    return planForUsers
+  }
+
+  update (
+    name: Name,
+    description: Nullable<Description>,
+    price: Price,
+    renovationInterval: RenovationInterval,
+    renovationType: RenovationType
+  ): PlanForUsers {
+    const planForUsers = new PlanForUsers(
+      this.id,
+      name,
+      description,
+      this.communityId,
+      price,
+      renovationInterval,
+      renovationType,
+      this.createdAt,
+      new UpdatedAt(new Date())
+    )
+
+    planForUsers.record(PlanForUsersUpdatedDomainEvent.fromAggregate(planForUsers))
 
     return planForUsers
   }

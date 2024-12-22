@@ -21,20 +21,20 @@ describe('CreatePlanForUsersCommandHandler should ', () => {
   })
 
   test('Create a new PlanForUsers', async () => {
-    const PlanForUsers = PlanForUsersMother.random()
+    const planForUsers = PlanForUsersMother.random()
 
-    const command = CreatePlanForUsersCommandMother.fromAggregate(PlanForUsers)
+    const command = CreatePlanForUsersCommandMother.fromAggregate(planForUsers)
 
     await handler.handle(command)
 
-    repository.assertPersistHasBeenCalledWith(PlanForUsers)
+    repository.assertPersistHasBeenCalledWith(planForUsers)
   })
 
   test('Fail if a PlanForUsers with the same id already exists', async () => {
-    const PlanForUsers = PlanForUsersMother.random()
-    const existingPlanForUsers = PlanForUsersMother.create({ id: PlanForUsers.id })
+    const planForUsers = PlanForUsersMother.random()
+    const existingPlanForUsers = PlanForUsersMother.create({ id: planForUsers.id })
 
-    const command = CreatePlanForUsersCommandMother.fromAggregate(PlanForUsers)
+    const command = CreatePlanForUsersCommandMother.fromAggregate(planForUsers)
 
     repository.returnOnFind(existingPlanForUsers)
 
@@ -42,13 +42,13 @@ describe('CreatePlanForUsersCommandHandler should ', () => {
   })
 
   test('Create a new PlanForUsersCreatedDomainEvent', async () => {
-    const PlanForUsers = PlanForUsersMother.random()
+    const planForUsers = PlanForUsersMother.random()
 
-    const command = CreatePlanForUsersCommandMother.fromAggregate(PlanForUsers)
+    const command = CreatePlanForUsersCommandMother.fromAggregate(planForUsers)
 
     await handler.handle(command)
 
-    const expectedEvent = PlanForUsersCreatedDomainEvent.fromAggregate(PlanForUsers)
+    const expectedEvent = PlanForUsersCreatedDomainEvent.fromAggregate(planForUsers)
 
     eventBus.assertEventHasBeenPublished(expectedEvent)
   })
