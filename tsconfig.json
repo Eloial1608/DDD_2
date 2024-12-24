@@ -28,6 +28,9 @@
     "@Core/*": [
       "src/Contexts/Core/*"
     ],
+    "@Posts/*": [
+      "src/Contexts/Posts/*"
+    ],
     "@Stripe/*": [
       "src/Contexts/Stripe/*"
     ],
@@ -39,7 +42,7 @@
   "include": [
     "src/**/**.ts",
     "tests/**/**.ts"
-, "tests/Contexts/Core/PlanForUsers/application/Create"  ],
+    ],
   "exclude": [
     "node_modules"
   ]

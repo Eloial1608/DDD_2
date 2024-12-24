@@ -7,10 +7,13 @@
     "lint": "eslint src/* tests/* --ext .ts,.tsx",
     "lint:fix": "npm run lint -- --fix --no-error-on-unmatched-pattern",
     "start:core:server:dev": "NODE_ENV=development nodemon --config nodemon.config.json -r tsconfig-paths/register src/apps/Core/index.ts",
+    "start:posts:server:dev": "NODE_ENV=development nodemon --config nodemon.config.json -r tsconfig-paths/register src/apps/Posts/index.ts",
     "start:auth:server:dev": "NODE_ENV=development nodemon --config nodemon.config.json -r tsconfig-paths/register src/apps/Auth/index.ts",
     "test:core": "npm run test:unit && npm run test:core:features",
+    "test:posts": "npm run test:unit && npm run test:posts:features",
     "test:unit": "vitest run",
     "test:core:features": "ts-node ./etc/test/runCoreFeatureTest",
+    "test:posts:features": "ts-node ./etc/test/runPostsFeatureTest",
     "test:auth": "npm run test:unit && npm run test:auth:features",
     "test:auth:features": "ts-node ./etc/test/runAuthFeatureTest",
     "build": "node ./etc/build/build.js",
@@ -19,7 +22,11 @@
     "migrations:core:revert": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:revert -d src/apps/Core/dataSource",
     "migrations:auth:generate": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:generate persistence/migrations/auth/auth -d src/apps/Auth/dataSource -o",
     "migrations:auth:run": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:run -d src/apps/Auth/dataSource",
-    "migrations:auth:revert": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:revert -d src/apps/Auth/dataSource"
+    "migrations:auth:revert": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:revert -d src/apps/Auth/dataSource",
+    "migrations:posts:generate": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:generate persistence/migrations/posts/posts -d src/apps/Posts/dataSource -o",
+    "migrations:posts:run": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:run -d src/apps/Posts/dataSource",
+    "migrations:posts:revert": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:revert -d src/apps/Posts/dataSource"
+    
   },
   "author": "Quid",
   "license": "ISC",

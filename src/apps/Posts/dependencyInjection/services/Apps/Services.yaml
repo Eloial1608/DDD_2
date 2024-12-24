@@ -1,0 +1,3 @@
+services:
+  Apps.Posts.Controllers.HealthGetController:
+    class: src/apps/Posts/controllers/HealthGetController
