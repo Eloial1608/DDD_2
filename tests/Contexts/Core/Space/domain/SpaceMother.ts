@@ -1,5 +1,5 @@
 import { Space } from '@Core/Space/domain/Space'
-import { Accessibility, AllowedAccessibilities } from '@Core/Space/domain/ValueObjects/Accessibility'
+import { Accessibility } from '@Core/Space/domain/ValueObjects/Accessibility'
 import { CommunityId } from '@Core/Space/domain/ValueObjects/CommunityId'
 import { CreatedAt } from '@Core/Space/domain/ValueObjects/CreatedAt'
 import { CreatedBy } from '@Core/Space/domain/ValueObjects/CreatedBy'
@@ -7,8 +7,11 @@ import { Id } from '@Core/Space/domain/ValueObjects/Id'
 import { Name } from '@Core/Space/domain/ValueObjects/Name'
 import { Slug } from '@Core/Space/domain/ValueObjects/Slug'
 import { TotalMembers } from '@Core/Space/domain/ValueObjects/TotalMembers'
-import { AllowedTypes, Type } from '@Core/Space/domain/ValueObjects/Type'
+import { Type } from '@Core/Space/domain/ValueObjects/Type'
 import { UpdatedAt } from '@Core/Space/domain/ValueObjects/UpdatedAt'
+import { AllowedTypes } from '@Shared/domain/SharedValueObjects/Space/AllowedTypes'
+import { ConfigurationFactory } from '@Shared/domain/SharedValueObjects/Space/Configuration/ConfigurationFactory'
+import { AllowedAccessibilities } from '@Shared/domain/SharedValueObjects/Space/SharedAccessibility'
 import { SlugMother } from '@Tests/Contexts/Shared/domain/SlugMother'
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
 import { WordMother } from '@Tests/Contexts/Shared/domain/WordMother'
@@ -23,6 +26,7 @@ export class SpaceMother {
       params.totalMembers ?? new TotalMembers(0),
       params.icon ?? null,
       params.createdBy ?? new CreatedBy(UuidMother.random()),
+      params.configuration ?? ConfigurationFactory.create(AllowedTypes.POST, {}),
       params.accessibility ?? new Accessibility(AllowedAccessibilities.PUBLIC),
       params.headerUrl ?? null,
       params.type ?? new Type(AllowedTypes.POST),

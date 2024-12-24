@@ -1,7 +1,7 @@
 import { Name } from '@Core/Community/domain/ValueObjects/Name'
 import { Price } from '@Core/Space/domain/ValueObjects/Price'
 import { SpaceRepository } from '@Core/Space/domain/SpaceRepository'
-import { Accessibility, AllowedAccessibilities } from '@Core/Space/domain/ValueObjects/Accessibility'
+import { Accessibility } from '@Core/Space/domain/ValueObjects/Accessibility'
 import { HeaderUrl } from '@Core/Space/domain/ValueObjects/HeaderUrl'
 import { Icon } from '@Core/Space/domain/ValueObjects/Icon'
 import { Id } from '@Core/Space/domain/ValueObjects/Id'
@@ -12,6 +12,9 @@ import { Nullable } from '@Shared/domain/Nullable'
 import { InvalidAccessibilityPrice } from '@Core/Space/domain/Errors/InvalidAccessibilityPrice'
 import { CommunityId } from '@Core/Space/domain/ValueObjects/CommunityId'
 import { SpaceNotFound } from '@Core/Space/domain/Errors/SpaceNotFound'
+import { Configuration } from '@Core/Space/domain/ValueObjects/Configuration'
+import { ConfigurationFactory } from '@Shared/domain/SharedValueObjects/Space/Configuration/ConfigurationFactory'
+import { AllowedAccessibilities } from '@Shared/domain/SharedValueObjects/Space/SharedAccessibility'
 
 export class Updater {
   constructor (private readonly repository: SpaceRepository, private readonly eventBus: EventBus) {}
@@ -20,6 +23,7 @@ export class Updater {
     id: Id,
     name: Name,
     slug: Slug,
+    configuration: Configuration,
     parentId: Nullable<ParentId>,
     icon: Nullable<Icon>,
     headerUrl: Nullable<HeaderUrl>,
@@ -38,6 +42,7 @@ export class Updater {
       name,
       slug,
       parentId,
+      ConfigurationFactory.create(space.type.valueOf(), configuration.configuration),
       icon,
       headerUrl,
       accessibility,

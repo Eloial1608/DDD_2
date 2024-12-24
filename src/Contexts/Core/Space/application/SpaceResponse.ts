@@ -9,6 +9,7 @@ export type SpaceResponseBody = {
     readonly parentId: Nullable<string>
     readonly icon: Nullable<string>
     readonly createdBy: string
+    readonly configuration: object
     readonly accessibility: string
     readonly type: string
     readonly headerUrl: Nullable<string>
@@ -27,6 +28,7 @@ export class SpaceResponse implements QueryResponse<SpaceResponseBody> {
       id: space.id.valueOf(),
       name: space.name.valueOf(),
       slug: space.slug.valueOf(),
+      configuration: space.configuration.configuration,
       createdBy: space.createdBy.valueOf(),
       accessibility: space.accessibility.valueOf(),
       type: space.type.valueOf(),

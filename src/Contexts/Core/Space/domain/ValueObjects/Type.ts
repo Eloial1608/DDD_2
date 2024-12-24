@@ -1,15 +1,6 @@
 import { EnumValueObject } from '@Shared/domain/ValueObjects/EnumValueObject'
 import { InvalidType } from '../Errors/InvalidType'
-
-export enum AllowedTypes {
-    POST = 'post',
-    GROUP = 'group',
-    EVENT = 'event',
-    FORUM = 'forum',
-    CHAT = 'chat',
-    MEDIA = 'media',
-    COURSES = 'courses',
-}
+import { AllowedTypes } from '@Shared/domain/SharedValueObjects/Space/AllowedTypes'
 
 export class Type extends EnumValueObject<AllowedTypes> {
   constructor (value: AllowedTypes) {

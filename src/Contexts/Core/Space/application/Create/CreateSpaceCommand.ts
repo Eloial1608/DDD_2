@@ -6,6 +6,7 @@ export class CreateSpaceCommand implements Command {
     readonly id: string,
     readonly name: string,
     readonly slug: string,
+    readonly configuration: object,
     readonly parentId: Nullable<string>,
     readonly icon: Nullable<string>,
     readonly headerUrl: Nullable<string>,

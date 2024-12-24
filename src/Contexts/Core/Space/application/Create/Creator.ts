@@ -1,7 +1,7 @@
 import { Name } from '@Core/Space/domain/ValueObjects/Name'
 import { Price } from '@Core/Space/domain/ValueObjects/Price'
 import { SpaceRepository } from '@Core/Space/domain/SpaceRepository'
-import { Accessibility, AllowedAccessibilities } from '@Core/Space/domain/ValueObjects/Accessibility'
+import { Accessibility } from '@Core/Space/domain/ValueObjects/Accessibility'
 import { CreatedBy } from '@Core/Space/domain/ValueObjects/CreatedBy'
 import { HeaderUrl } from '@Core/Space/domain/ValueObjects/HeaderUrl'
 import { Icon } from '@Core/Space/domain/ValueObjects/Icon'
@@ -19,6 +19,8 @@ import { Filter } from '@Shared/domain/Criteria/Filter'
 import { SpaceAlreadyExistsBySlug } from '@Core/Space/domain/Errors/SpaceAlreadyExistsBySlug'
 import { InvalidAccessibilityPrice } from '@Core/Space/domain/Errors/InvalidAccessibilityPrice'
 import { CommunityId } from '@Core/Space/domain/ValueObjects/CommunityId'
+import { Configuration } from '@Core/Space/domain/ValueObjects/Configuration'
+import { AllowedAccessibilities } from '@Shared/domain/SharedValueObjects/Space/SharedAccessibility'
 
 export class Creator {
   constructor (private readonly repository: SpaceRepository, private readonly eventBus: EventBus) {}
@@ -27,6 +29,7 @@ export class Creator {
     id: Id,
     name: Name,
     slug: Slug,
+    configuration: Configuration,
     parentId: Nullable<ParentId>,
     icon: Nullable<Icon>,
     headerUrl: Nullable<HeaderUrl>,
@@ -47,6 +50,7 @@ export class Creator {
       parentId,
       icon,
       headerUrl,
+      configuration,
       type,
       createdBy,
       accessibility,

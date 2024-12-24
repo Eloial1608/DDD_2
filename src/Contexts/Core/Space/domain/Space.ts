@@ -18,7 +18,7 @@ import { SpaceCreatedDomainEvent } from './Events/SpaceCreatedDomainEvent'
 import { CommunityId } from './ValueObjects/CommunityId'
 import { SpaceUpdatedDomainEvent } from './Events/SpaceUpdatedDomainEvent'
 import { SpaceDeletedDomainEvent } from './Events/SpaceDeletedDomainEvent'
-
+import { Configuration } from './ValueObjects/Configuration'
 export class Space extends AggregateRoot {
   constructor (
         readonly id: Id,
@@ -28,6 +28,7 @@ export class Space extends AggregateRoot {
         readonly totalMembers: TotalMembers,
         readonly icon: Nullable<Icon>,
         readonly createdBy: CreatedBy,
+        readonly configuration: Configuration,
         readonly accessibility: Accessibility,
         readonly headerUrl: Nullable<HeaderUrl>,
         readonly type: Type,
@@ -47,6 +48,7 @@ export class Space extends AggregateRoot {
     parentId: Nullable<ParentId>,
     icon: Nullable<Icon>,
     headerUrl: Nullable<HeaderUrl>,
+    configuration: Configuration,
     type: Type,
     createdBy: CreatedBy,
     accessibility: Accessibility,
@@ -61,6 +63,7 @@ export class Space extends AggregateRoot {
       new TotalMembers(0),
       icon,
       createdBy,
+      configuration,
       accessibility,
       headerUrl,
       type,
@@ -81,6 +84,7 @@ export class Space extends AggregateRoot {
     name: Name,
     slug: Slug,
     parentId: Nullable<ParentId>,
+    configuration: Configuration,
     icon: Nullable<Icon>,
     headerUrl: Nullable<HeaderUrl>,
     accessibility: Accessibility,
@@ -94,6 +98,7 @@ export class Space extends AggregateRoot {
       this.totalMembers,
       icon,
       this.createdBy,
+      configuration,
       accessibility,
       headerUrl,
       this.type,
@@ -118,6 +123,7 @@ export class Space extends AggregateRoot {
       this.totalMembers,
       this.icon,
       this.createdBy,
+      this.configuration,
       this.accessibility,
       this.headerUrl,
       this.type,

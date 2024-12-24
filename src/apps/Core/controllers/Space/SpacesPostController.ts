@@ -39,6 +39,7 @@ export class SpacesPostController implements Controller {
         req.params.id,
         req.body.name,
         req.body.slug,
+        req.body.configuration,
         req.body.parentId,
         req.body.icon,
         req.body.headerUrl,

@@ -8,11 +8,14 @@ import { Slug } from '@Core/Space/domain/ValueObjects/Slug'
 import { ParentId } from '@Core/Space/domain/ValueObjects/ParentId'
 import { Icon } from '@Core/Space/domain/ValueObjects/Icon'
 import { HeaderUrl } from '@Core/Space/domain/ValueObjects/HeaderUrl'
-import { AllowedTypes, Type } from '@Core/Space/domain/ValueObjects/Type'
+import { Type } from '@Core/Space/domain/ValueObjects/Type'
 import { CreatedBy } from '@Core/Space/domain/ValueObjects/CreatedBy'
-import { Accessibility, AllowedAccessibilities } from '@Core/Space/domain/ValueObjects/Accessibility'
+import { Accessibility } from '@Core/Space/domain/ValueObjects/Accessibility'
 import { Price, PriceCurrency, PriceValue } from '@Core/Space/domain/ValueObjects/Price'
 import { CommunityId } from '@Core/Space/domain/ValueObjects/CommunityId'
+import { ConfigurationFactory } from '@Shared/domain/SharedValueObjects/Space/Configuration/ConfigurationFactory'
+import { AllowedTypes } from '@Shared/domain/SharedValueObjects/Space/AllowedTypes'
+import { AllowedAccessibilities } from '@Shared/domain/SharedValueObjects/Space/SharedAccessibility'
 
 export class CreateSpaceCommandHandler implements CommandHandler<CreateSpaceCommand> {
   constructor (private readonly creator: Creator) {}
@@ -26,6 +29,7 @@ export class CreateSpaceCommandHandler implements CommandHandler<CreateSpaceComm
       new Id(command.id),
       new Name(command.name),
       new Slug(command.slug),
+      ConfigurationFactory.create(command.type as AllowedTypes, command.configuration),
       command.parentId ? new ParentId(command.parentId) : null,
       command.icon ? new Icon(command.icon) : null,
       command.headerUrl ? new HeaderUrl(command.headerUrl) : null,

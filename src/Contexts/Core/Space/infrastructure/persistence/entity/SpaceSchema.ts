@@ -16,6 +16,7 @@ import { Accessibility } from '@Core/Space/domain/ValueObjects/Accessibility'
 import { HeaderUrl } from '@Core/Space/domain/ValueObjects/HeaderUrl'
 import { Type } from '@Core/Space/domain/ValueObjects/Type'
 import { CommunityId } from '@Core/Space/domain/ValueObjects/CommunityId'
+import { Configuration } from '@Core/Space/domain/ValueObjects/Configuration'
 
 const SpacePriceSchema = new EntitySchema<Price>({
   name: 'spacePrice',
@@ -47,6 +48,13 @@ export const SpaceSchema = new EntitySchema<Space>({
     communityId: {
       type: String,
       transformer: ValueObjectTransformer(CommunityId)
+    },
+    configuration: {
+      type: String,
+      transformer: {
+        from: (value: string): Configuration => new Configuration(JSON.parse(value)),
+        to: (configuration: Configuration): string => JSON.stringify(configuration.configuration)
+      }
     },
     name: {
       type: String,

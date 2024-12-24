@@ -10,9 +10,9 @@ import { FindSpaceMembersByCriteriaQuery } from '@Core/SpaceMember/application/F
 import { SpaceMemberCollectionResponse } from '@Core/SpaceMember/application/SpaceMemberCollectionResponse'
 import { FindSpacesByCriteriaQuery } from '@Core/Space/application/FindByCriteria/FindSpacesByCriteriaQuery'
 import { SpaceCollectionResponse } from '@Core/Space/application/SpaceCollectionResponse'
-import { AllowedAccessibilities } from '@Core/Space/domain/ValueObjects/Accessibility'
 import { CreateSpaceMemberCommand } from '@Core/SpaceMember/application/Create/CreateSpaceMemberCommand'
 import { UserResponseBody } from '@Core/User/application/UserResponse'
+import { AllowedAccessibilities } from '@Shared/domain/SharedValueObjects/Space/SharedAccessibility'
 
 export class SpaceMemberPostController implements Controller {
   constructor (private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}

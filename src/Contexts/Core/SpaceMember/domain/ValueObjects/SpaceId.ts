@@ -1,3 +1,3 @@
-import { SharedSpaceId } from '@Core/Shared/domain/Space/SharedSpaceId'
+import { SharedSpaceId } from '@Shared/domain/SharedValueObjects/Space/SharedSpaceId'
 
 export class SpaceId extends SharedSpaceId {}

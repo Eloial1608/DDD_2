@@ -2,7 +2,6 @@ import { Request, Response } from 'express'
 import { Controller } from '../@types/Controller'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { SpaceNotFound } from '@Core/Space/domain/Errors/SpaceNotFound'
-import { AllowedAccessibilities } from '@Core/Space/domain/ValueObjects/Accessibility'
 import { TokenDecoder } from '@Shared/domain/TokenDecoder/TokenDecoder'
 import { FindSpaceMembersByCriteriaQuery } from '@Core/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQuery'
 import { SpaceMemberCollectionResponse } from '@Core/SpaceMember/application/SpaceMemberCollectionResponse'
@@ -11,6 +10,7 @@ import { SpaceCollectionResponse } from '@Core/Space/application/SpaceCollection
 import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { UserCollectionResponse } from '@Core/User/application/UserCollectionResponse'
 import { FindUsersByCriteriaQuery } from '@Core/User/application/FindByCriteria/FindUsersByCriteriaQuery'
+import { AllowedAccessibilities } from '@Shared/domain/SharedValueObjects/Space/SharedAccessibility'
 
 export class SpaceBySlugGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
