@@ -11,6 +11,7 @@ type SpaceUpdatedDomainEventBody = {
     readonly createdBy: string
     readonly accessibility: string
     readonly type: string
+    readonly configuration: object
     readonly headerUrl: Nullable<string>
     readonly price: Nullable<{value: number, currency: string}>
     readonly communityId: string
@@ -27,6 +28,7 @@ export class SpaceUpdatedDomainEvent extends DomainEvent {
   readonly parentId: Nullable<string>
   readonly icon: Nullable<string>
   readonly createdBy: string
+  readonly configuration: object
   readonly accessibility: string
   readonly type: string
   readonly headerUrl: Nullable<string>
@@ -49,6 +51,7 @@ export class SpaceUpdatedDomainEvent extends DomainEvent {
     this.parentId = params.parentId
     this.icon = params.icon
     this.slug = params.slug
+    this.configuration = params.configuration
     this.headerUrl = params.headerUrl
     this.createdBy = params.createdBy
     this.accessibility = params.accessibility
@@ -68,6 +71,7 @@ export class SpaceUpdatedDomainEvent extends DomainEvent {
       createdAt: space.createdAt.valueOf(),
       updatedAt: space.updatedAt.valueOf(),
       name: space.name.valueOf(),
+      configuration: space.configuration.configuration,
       slug: space.slug.valueOf(),
       createdBy: space.createdBy.valueOf(),
       accessibility: space.accessibility.valueOf(),
