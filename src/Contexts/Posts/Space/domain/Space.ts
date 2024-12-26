@@ -4,6 +4,7 @@ import { CommunityId } from './ValueObjects/CommunityId'
 import { Configuration } from './ValueObjects/Configuration'
 import { Id } from './ValueObjects/Id'
 import { Type } from './ValueObjects/Type'
+import { SpaceCreatedDomainEvent } from './Events/SpaceCreatedDomainEvent'
 
 export class Space extends AggregateRoot {
   constructor (
@@ -14,5 +15,25 @@ export class Space extends AggregateRoot {
         readonly type: Type
   ) {
     super()
+  }
+
+  static create (
+    id: Id,
+    communityId: CommunityId,
+    accessibility: Accessibility,
+    configuration: Configuration,
+    type: Type
+  ): Space {
+    const space = new Space(
+      id,
+      communityId,
+      accessibility,
+      configuration,
+      type
+    )
+
+    space.record(SpaceCreatedDomainEvent.fromAggregate(space))
+
+    return space
   }
 }

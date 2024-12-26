@@ -39,6 +39,10 @@ export class SpaceRepositoryMock implements SpaceRepository {
     expect(this.mockPersist).toHaveBeenCalledWith(space)
   }
 
+  assertPersistHasNotBeenCalled () {
+    expect(this.mockPersist).not.toHaveBeenCalled()
+  }
+
   assertFindHasBeenCalledWith (id: Id) {
     expect(this.mockFind).toHaveBeenCalledWith(id)
   }
