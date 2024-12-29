@@ -1,1 +1,48 @@
 services:
+  Space.Repository:
+    class: src/Contexts/Posts/Space/infrastructure/persistence/TypeOrmSpaceRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Space.CreateSpaceOnSpaceCreated.Creator:
+    class: src/Contexts/Posts/Space/application/CreateSpaceOnSpaceCreated/Creator
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.CreateSpaceOnSpaceCreated.CreateSpaceOnSpaceCreatedHandler:
+    class: src/Contexts/Posts/Space/application/CreateSpaceOnSpaceCreated/CreateSpaceOnSpaceCreatedHandler
+    arguments: ["@Space.CreateSpaceOnSpaceCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Space.DeleteSpaceOnSpaceDeleted.Deleter:
+    class: src/Contexts/Posts/Space/application/DeleteSpaceOnSpaceDeleted/Deleter
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.DeleteSpaceOnSpaceDeleted.DeleteSpaceOnSpaceDeletedHandler:
+    class: src/Contexts/Posts/Space/application/DeleteSpaceOnSpaceDeleted/DeleteSpaceOnSpaceDeletedHandler
+    arguments: ["@Space.DeleteSpaceOnSpaceDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Space.UpdateSpaceOnSpaceUpdated.Updater:
+    class: src/Contexts/Posts/Space/application/UpdateSpaceOnSpaceUpdated/Updater
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.UpdateSpaceOnSpaceUpdated.UpdateSpaceOnSpaceUpdatedHandler:
+    class: src/Contexts/Posts/Space/application/UpdateSpaceOnSpaceUpdated/UpdateSpaceOnSpaceUpdatedHandler
+    arguments: ["@Space.UpdateSpaceOnSpaceUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Space.FindById.FinderById:
+    class: src/Contexts/Posts/Space/application/FindById/FinderById
+    arguments: ['@Space.Repository']
+  
+  Space.FindById.FindSpaceByIdQueryHandler:
+    class: src/Contexts/Posts/Space/application/FindById/FindSpaceByIdQueryHandler
+    arguments: ['@Space.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+  
+  Community.Repository:
+    class: src/Contexts/Posts/Community/infrastructure/persistence/TypeOrmCommunityRepository
+    arguments: ["@Shared.ORM.Connection"]

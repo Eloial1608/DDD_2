@@ -1,20 +1,24 @@
 import { SharedConfiguration } from './SharedConfiguration'
 
+const defaultConfiguration = {
+  allowsCreation: true,
+  allowsHideMetadata: false,
+  allowBanner: true,
+  mustHaveBanner: false,
+  mustHideMetadata: false,
+  allowsComments: true,
+  allowsLikes: true,
+  allowsImages: true,
+  allowsVideos: true,
+  allowsPaid: false
+}
 export class PostsConfiguration extends SharedConfiguration {
   constructor (
-    readonly configuration = {
-      allowsCreation: true,
-      allowsHideMetadata: false,
-      allowBanner: true,
-      mustHaveBanner: false,
-      mustHideMetadata: false,
-      allowsComments: true,
-      allowsLikes: true,
-      allowsImages: true,
-      allowsVideos: true,
-      allowsPaid: false
-    }
+    readonly configuration = defaultConfiguration
   ) {
-    super(configuration)
+    super({
+      ...defaultConfiguration,
+      ...configuration
+    })
   }
 }

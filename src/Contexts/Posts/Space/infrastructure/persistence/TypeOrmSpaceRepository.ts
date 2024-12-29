@@ -23,4 +23,8 @@ export class TypeOrmSpaceRepository extends TypeOrmRepository<Space> implements 
   async persist (space: Space): Promise<void> {
     await (await this.repository()).save(space)
   }
+
+  async delete (space: Space): Promise<void> {
+    await (await this.repository()).remove(space)
+  }
 }

@@ -9,6 +9,10 @@ export default defineConfig({
     {
       name: 'auth',
       testDir: 'tests/apps/Auth'
+    },
+    {
+      name: 'posts',
+      testDir: 'tests/apps/Posts'
     }
   ],
   use: {

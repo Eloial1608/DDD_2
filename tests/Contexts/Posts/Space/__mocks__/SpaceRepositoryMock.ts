@@ -9,6 +9,7 @@ export class SpaceRepositoryMock implements SpaceRepository {
   private mockFind = mockFn()
   private mockSearch = mockFn()
   private mockPersist = mockFn()
+  private mockDelete = mockFn()
 
   private expectedFind: Nullable<Space>
   private expectedSearch: Array<Space> = []
@@ -37,6 +38,22 @@ export class SpaceRepositoryMock implements SpaceRepository {
 
   assertPersistHasBeenCalledWith (space: Space) {
     expect(this.mockPersist).toHaveBeenCalledWith(space)
+  }
+
+  async delete (space: Space): Promise<void> {
+    this.mockDelete(space)
+  }
+
+  assertDeleteHasBeenCalledWith (space: Space) {
+    expect(this.mockDelete).toHaveBeenCalledWith(space)
+  }
+
+  assertDeleteHasNotBeenCalled () {
+    expect(this.mockDelete).not.toHaveBeenCalled()
+  }
+
+  assertPersistHasNotBeenCalled () {
+    expect(this.mockPersist).not.toHaveBeenCalled()
   }
 
   assertFindHasBeenCalledWith (id: Id) {
