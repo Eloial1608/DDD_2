@@ -76,3 +76,7 @@ services:
     arguments: ['@Community.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+    
+  User.Repository:
+    class: src/Contexts/Posts/User/infrastructure/persistence/TypeOrmUserRepository
+    arguments: ["@Shared.ORM.Connection"]
