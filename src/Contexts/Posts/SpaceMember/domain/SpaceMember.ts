@@ -4,6 +4,7 @@ import { SpaceId } from './ValueObjects/SpaceId'
 import { UserId } from './ValueObjects/UserId'
 import { IsModerator } from './ValueObjects/IsModerator'
 import { SpaceMemberCreatedDomainEvent } from './Events/SpaceMemberCreatedDomainEvent'
+import { SpaceMemberDeletedDomainEvent } from './Events/SpaceMemberDeletedDomainEvent'
 
 export class SpaceMember extends AggregateRoot {
   constructor (
@@ -29,6 +30,19 @@ export class SpaceMember extends AggregateRoot {
     )
 
     spaceMember.record(SpaceMemberCreatedDomainEvent.fromAggregate(spaceMember))
+
+    return spaceMember
+  }
+
+  delete (): SpaceMember {
+    const spaceMember = new SpaceMember(
+      this.id,
+      this.spaceId,
+      this.userId,
+      this.isModerator
+    )
+
+    spaceMember.record(SpaceMemberDeletedDomainEvent.fromAggregate(spaceMember))
 
     return spaceMember
   }
