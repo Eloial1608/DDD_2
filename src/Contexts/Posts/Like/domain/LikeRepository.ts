@@ -1,7 +1,7 @@
-import { Nullable } from "@Shared/domain/Nullable";
-import { Id } from "./ValueObjects/Id";
-import { Like } from "./Like";
-import { Criteria } from "@Shared/domain/Criteria/Criteria";
+import { Nullable } from '@Shared/domain/Nullable'
+import { Id } from './ValueObjects/Id'
+import { Like } from './Like'
+import { Criteria } from '@Shared/domain/Criteria/Criteria'
 
 export interface LikeRepository{
         find (id: Id): Promise<Nullable<Like>>

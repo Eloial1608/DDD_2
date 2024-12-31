@@ -1,4 +1,3 @@
-
 import { Like } from '@Posts/Like/domain/Like'
 import { LikeRepository } from '@Posts/Like/domain/LikeRepository'
 import { Id } from '@Posts/Like/domain/ValueObjects/Id'
