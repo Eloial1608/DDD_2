@@ -138,3 +138,13 @@ services:
     arguments: ["@SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  SpaceMember.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Posts/SpaceMember/application/FindByCriteria/FinderByCriteria
+    arguments: ['@SpaceMember.Repository']
+  
+  SpaceMember.FindByCriteria.FindSpaceMembersByCriteriaQueryHandler:
+    class: src/Contexts/Posts/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQueryHandler
+    arguments: ['@SpaceMember.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
