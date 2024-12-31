@@ -100,3 +100,13 @@ services:
     arguments: ["@User.DeleteUserOnUserDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  User.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Posts/User/application/FindByCriteria/FinderByCriteria
+    arguments: ['@User.Repository']
+  
+  User.FindByCriteria.FindUsersByCriteriaQueryHandler:
+    class: src/Contexts/Posts/User/application/FindByCriteria/FindUsersByCriteriaQueryHandler
+    arguments: ['@User.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
