@@ -21,6 +21,8 @@ import { CommunityId } from '@Core/User/domain/ValueObjects/CommunityId'
 import { IsAdmin } from '@Core/User/domain/ValueObjects/IsAdmin'
 import { IsOwner } from '@Core/User/domain/ValueObjects/IsOwner'
 import { SharedMainUserId } from '@Shared/domain/SharedValueObjects/User/SharedMainUserId'
+import { PictureUrl } from '@Core/User/domain/ValueObjects/PictureUrl'
+import { BannerUrl } from '@Core/User/domain/ValueObjects/BannerUrl'
 
 export const UserSchema = new EntitySchema<User>({
   name: 'User',
@@ -47,6 +49,16 @@ export const UserSchema = new EntitySchema<User>({
     isAdmin: {
       type: Boolean,
       transformer: ValueObjectTransformer(IsAdmin)
+    },
+    pictureUrl: {
+      type: String,
+      nullable: true,
+      transformer: ValueObjectTransformer(PictureUrl)
+    },
+    bannerUrl: {
+      type: String,
+      nullable: true,
+      transformer: ValueObjectTransformer(BannerUrl)
     },
     isOwner: {
       type: Boolean,

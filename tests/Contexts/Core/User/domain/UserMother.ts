@@ -34,6 +34,8 @@ export class UserMother {
       params.email ?? new Email(MotherCreator.random().internet.email()),
       params.hasPayed ?? new HasPayed(false),
       params.planId ?? null,
+      params.pictureUrl ?? null,
+      params.bannerUrl ?? null,
       params.hasCompletedRegister ?? new HasCompletedRegister(false),
       params.registerData ?? null,
       params.isBanned ?? new IsBanned(false),

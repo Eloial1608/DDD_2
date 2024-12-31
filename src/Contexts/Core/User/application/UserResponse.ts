@@ -16,6 +16,8 @@ export type UserResponseBody = {
     readonly isBanned: boolean
     readonly totalPosts: number
     readonly totalMedia: number
+    readonly pictureUrl: Nullable<string>
+    readonly bannerUrl: Nullable<string>
     readonly totalThreads: number
     readonly totalThreadResponses: number
     readonly communityId: string
@@ -36,6 +38,8 @@ export class UserResponse implements QueryResponse<UserResponseBody> {
       username: user.username.valueOf(),
       about: user.about?.valueOf(),
       email: user.email.valueOf(),
+      pictureUrl: user.pictureUrl?.valueOf(),
+      bannerUrl: user.bannerUrl?.valueOf(),
       hasPayed: user.hasPayed.valueOf(),
       planId: user.planId?.valueOf(),
       hasCompletedRegister: user.hasCompletedRegister.valueOf(),
