@@ -28,5 +28,15 @@ export const LikeSchema = new EntitySchema<Like>({
             type: Date,
             transformer: ValueObjectTransformer(CreatedAt)
         }
-    }
+    },
+    indices: [
+        {
+          name: 'IDX_LIKE_USER_ID',
+          columns: ['userId']
+        },
+        {
+            name: 'IDX_LIKE_POST_ID',
+            columns: ['postId']
+        }
+      ]
 })

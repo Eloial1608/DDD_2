@@ -24,5 +24,8 @@ export class TypeOrmLikeRepository extends TypeOrmRepository<Like> implements Li
         async persist (like: Like): Promise<void> {
           await (await this.repository()).save(like)
         }
+          async delete (like: Like): Promise<void> {
+            await (await this.repository()).remove(like)
+          }
 
     }
