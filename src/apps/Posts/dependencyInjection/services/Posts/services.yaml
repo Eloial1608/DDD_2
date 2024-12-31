@@ -110,3 +110,7 @@ services:
     arguments: ['@User.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+  
+  SpaceMember.Repository:
+    class: src/Contexts/Posts/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
+    arguments: ["@Shared.ORM.Connection"]
