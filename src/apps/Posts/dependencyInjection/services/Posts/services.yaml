@@ -50,3 +50,67 @@ services:
    Like.Repository:
     class: src/Contexts/Posts/Like/infrastructure/persistence/TypeOrmLikeRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  Community.CreateCommunityOnCommunityCreated.Creator:
+    class: src/Contexts/Posts/Community/application/CreateCommunityOnCommunityCreated/Creator
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.CreateCommunityOnCommunityCreated.CreateCommunityOnCommunityCreatedHandler:
+    class: src/Contexts/Posts/Community/application/CreateCommunityOnCommunityCreated/CreateCommunityOnCommunityCreatedHandler
+    arguments: ["@Community.CreateCommunityOnCommunityCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.DeleteCommunityOnCommunityDeleted.Deleter:
+    class: src/Contexts/Posts/Community/application/DeleteCommunityOnCommunityDeleted/Deleter
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.DeleteCommunityOnCommunityDeleted.DeleteCommunityOnCommunityDeletedHandler:
+    class: src/Contexts/Posts/Community/application/DeleteCommunityOnCommunityDeleted/DeleteCommunityOnCommunityDeletedHandler
+    arguments: ["@Community.DeleteCommunityOnCommunityDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.FindById.FinderById:
+    class: src/Contexts/Posts/Community/application/FindById/FinderById
+    arguments: ['@Community.Repository']
+  
+  Community.FindById.FindCommunityByIdQueryHandler:
+    class: src/Contexts/Posts/Community/application/FindById/FindCommunityByIdQueryHandler
+    arguments: ['@Community.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+    
+  User.Repository:
+    class: src/Contexts/Posts/User/infrastructure/persistence/TypeOrmUserRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
+  User.CreateUserOnUserCreated.Creator:
+    class: src/Contexts/Posts/User/application/CreateUserOnUserCreated/Creator
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.CreateUserOnUserCreated.CreateUserOnUserCreatedHandler:
+    class: src/Contexts/Posts/User/application/CreateUserOnUserCreated/CreateUserOnUserCreatedHandler
+    arguments: ["@User.CreateUserOnUserCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  User.DeleteUserOnUserDeleted.Deleter:
+    class: src/Contexts/Posts/User/application/DeleteUserOnUserDeleted/Deleter
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.DeleteUserOnUserDeleted.DeleteUserOnUserDeletedHandler:
+    class: src/Contexts/Posts/User/application/DeleteUserOnUserDeleted/DeleteUserOnUserDeletedHandler
+    arguments: ["@User.DeleteUserOnUserDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  User.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Posts/User/application/FindByCriteria/FinderByCriteria
+    arguments: ['@User.Repository']
+  
+  User.FindByCriteria.FindUsersByCriteriaQueryHandler:
+    class: src/Contexts/Posts/User/application/FindByCriteria/FindUsersByCriteriaQueryHandler
+    arguments: ['@User.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }

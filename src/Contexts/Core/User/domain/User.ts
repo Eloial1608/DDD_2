@@ -28,6 +28,8 @@ import { UserDeletedDomainEvent } from './Events/UserDeletedDomainEvent'
 import { UserUnbannedDomainEvent } from './Events/UserUnbannedDomainEvent'
 import { UserBannedDomainEvent } from './Events/UserBannedDoaminEvent'
 import { UserHasPayedUpdatedDomainEvent } from './Events/UserHasPayedUpdatedDomainEvent'
+import { PictureUrl } from './ValueObjects/PictureUrl'
+import { BannerUrl } from './ValueObjects/BannerUrl'
 
 export class User extends AggregateRoot {
   constructor (
@@ -39,6 +41,8 @@ export class User extends AggregateRoot {
     readonly email: Email,
     readonly hasPayed: HasPayed,
     readonly planId: Nullable<PlanId>,
+    readonly pictureUrl: Nullable<PictureUrl>,
+    readonly bannerUrl: Nullable<BannerUrl>,
     readonly hasCompletedRegister: HasCompletedRegister,
     readonly registerData: Nullable<RegisterData>,
     readonly isBanned: IsBanned,
@@ -75,6 +79,8 @@ export class User extends AggregateRoot {
       email,
       new HasPayed(false),
       null,
+      null,
+      null,
       new HasCompletedRegister(false),
       null,
       new IsBanned(false),
@@ -106,6 +112,8 @@ export class User extends AggregateRoot {
       this.email,
       this.hasPayed,
       this.planId,
+      this.pictureUrl,
+      this.bannerUrl,
       this.hasCompletedRegister,
       this.registerData,
       this.isBanned,
@@ -136,6 +144,8 @@ export class User extends AggregateRoot {
       this.email,
       this.hasPayed,
       this.planId,
+      this.pictureUrl,
+      this.bannerUrl,
       this.hasCompletedRegister,
       this.registerData,
       this.isBanned,
@@ -166,6 +176,8 @@ export class User extends AggregateRoot {
       this.email,
       hasPayed,
       this.planId,
+      this.pictureUrl,
+      this.bannerUrl,
       this.hasCompletedRegister,
       this.registerData,
       this.isBanned,
@@ -196,6 +208,8 @@ export class User extends AggregateRoot {
       this.email,
       this.hasPayed,
       this.planId,
+      this.pictureUrl,
+      this.bannerUrl,
       this.hasCompletedRegister,
       this.registerData,
       this.isBanned,
@@ -226,6 +240,8 @@ export class User extends AggregateRoot {
       this.email,
       this.hasPayed,
       this.planId,
+      this.pictureUrl,
+      this.bannerUrl,
       this.hasCompletedRegister,
       this.registerData,
       new IsBanned(false),
@@ -256,6 +272,8 @@ export class User extends AggregateRoot {
       this.email,
       this.hasPayed,
       this.planId,
+      this.pictureUrl,
+      this.bannerUrl,
       this.hasCompletedRegister,
       this.registerData,
       new IsBanned(true),
