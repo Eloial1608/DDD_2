@@ -43,7 +43,7 @@ export class PostPutController implements Controller {
 
       await this.commandBus.dispatch(command)
 
-      return res.status(201).send()
+      return res.status(204).send()
     } catch (e) {
       if (e instanceof CannotDecode) return res.status(401).send()
 
