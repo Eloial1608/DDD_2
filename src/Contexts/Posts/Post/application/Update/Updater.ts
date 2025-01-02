@@ -17,6 +17,7 @@ import { UserCollectionResponse } from '@Posts/User/application/UserCollectionRe
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 import { Nullable } from '@Shared/domain/Nullable'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
+import { PostsConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/PostsConfiguration'
 
 export class Updater {
   constructor (private readonly repository: PostRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
@@ -47,6 +48,9 @@ export class Updater {
     const space = await this.findSpaceById(spaceId)
 
     if (space.communityId.valueOf() !== communityId.valueOf()) throw new NotAllowedToPersistPost(post.id)
+
+    if (!(space.configuration as PostsConfiguration['configuration']).allowsPaid && isPaid.valueOf()) return
+    if ((space.configuration as PostsConfiguration['configuration']).mustHaveBanner && !bannerUrl?.valueOf()) return
 
     const updatedPost = post.update(
       id,

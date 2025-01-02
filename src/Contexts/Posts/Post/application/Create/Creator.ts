@@ -17,6 +17,7 @@ import { UserCollectionResponse } from '@Posts/User/application/UserCollectionRe
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 import { Nullable } from '@Shared/domain/Nullable'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
+import { PostsConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/PostsConfiguration'
 
 export class Creator {
   constructor (private readonly repository: PostRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
@@ -45,6 +46,9 @@ export class Creator {
     const space = await this.findSpaceById(spaceId)
 
     if (space.communityId.valueOf() !== communityId.valueOf()) return
+
+    if (!(space.configuration as PostsConfiguration['configuration']).allowsPaid && isPaid.valueOf()) return
+    if ((space.configuration as PostsConfiguration['configuration']).mustHaveBanner && !bannerUrl?.valueOf()) return
 
     const post = Post.create(
       id,
