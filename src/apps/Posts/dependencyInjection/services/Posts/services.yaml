@@ -148,3 +148,27 @@ services:
     arguments: ['@SpaceMember.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+  
+  Post.Repository:
+    class: src/Contexts/Posts/Post/infrastructure/persistence/TypeOrmPostRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
+  Post.Create.Creator:
+    class: src/Contexts/Posts/Post/application/Create/Creator
+    arguments: ['@Post.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Post.Create.CreatePostCommandHandler:
+    class: src/Contexts/Posts/Post/application/Create/CreatePostCommandHandler
+    arguments: ["@Post.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Post.Update.Updater:
+    class: src/Contexts/Posts/Post/application/Update/Updater
+    arguments: ['@Post.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Post.Update.UpdatePostCommandHandler:
+    class: src/Contexts/Posts/Post/application/Update/UpdatePostCommandHandler
+    arguments: ["@Post.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
