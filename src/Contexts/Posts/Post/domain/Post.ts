@@ -16,6 +16,7 @@ import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { DeletedAt } from './ValueObjects/DeletedAt'
 import { PostCreatedDomainEvent } from './Events/PostCreatedDomainEvent'
 import { PostUpdatedDomainEvent } from './Events/PostUpdatedDomainEvent'
+import { PostDeletedDomainEvent } from './Events/PostDeletedDomainEvent'
 
 export class Post extends AggregateRoot {
   constructor (
@@ -88,14 +89,37 @@ export class Post extends AggregateRoot {
       this.author,
       isPaid,
       price,
-      new TotalLikes(0),
-      new TotalComments(0),
-      new CreatedAt(new Date()),
+      this.totalLikes,
+      this.totalComments,
+      this.createdAt,
       new UpdatedAt(new Date()),
       null
     )
 
     post.record(PostUpdatedDomainEvent.fromAggregate(post))
+
+    return post
+  }
+
+  delete (): Post {
+    const post = new Post(
+      this.id,
+      this.communityId,
+      this.userId,
+      this.title,
+      this.content,
+      this.bannerUrl,
+      this.author,
+      this.isPaid,
+      this.price,
+      this.totalLikes,
+      this.totalComments,
+      this.createdAt,
+      this.updatedAt,
+      new DeletedAt(new Date())
+    )
+
+    post.record(PostDeletedDomainEvent.fromAggregate(post))
 
     return post
   }

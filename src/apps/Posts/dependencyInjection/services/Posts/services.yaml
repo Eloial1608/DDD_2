@@ -172,3 +172,13 @@ services:
     arguments: ["@Post.Update.Updater"]
     tags:
       - { name: "commandHandler" }
+  
+  Post.Delete.Deleter:
+    class: src/Contexts/Posts/Post/application/Delete/Deleter
+    arguments: ['@Post.Repository', '@Shared.EventBus']
+  
+  Post.Delete.DeletePostCommandHandler:
+    class: src/Contexts/Posts/Post/application/Delete/DeletePostCommandHandler
+    arguments: ["@Post.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
