@@ -10,6 +10,7 @@ import { Content } from '@Posts/Post/domain/ValueObjects/Content'
 import { BannerUrl } from '@Posts/Post/domain/ValueObjects/BannerUrl'
 import { IsPaid } from '@Posts/Post/domain/ValueObjects/IsPaid'
 import { Price, PriceCurrency, PriceValue } from '@Posts/Post/domain/ValueObjects/Price'
+import { SpaceId } from '@Posts/Post/domain/ValueObjects/SpaceId'
 
 export class UpdatePostCommandHandler implements CommandHandler<UpdatePostCommand> {
   constructor (private readonly updater: Updater) {}
@@ -23,6 +24,7 @@ export class UpdatePostCommandHandler implements CommandHandler<UpdatePostComman
       new Id(command.id),
       new CommunityId(command.communityId),
       new UserId(command.userId),
+      new SpaceId(command.spaceId),
       new Title(command.title),
       new Content(command.content),
       command.bannerUrl ? new BannerUrl(command.bannerUrl) : null,

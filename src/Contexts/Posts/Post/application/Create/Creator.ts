@@ -10,6 +10,8 @@ import { Price } from '@Posts/Post/domain/ValueObjects/Price'
 import { SpaceId } from '@Posts/Post/domain/ValueObjects/SpaceId'
 import { Title } from '@Posts/Post/domain/ValueObjects/Title'
 import { UserId } from '@Posts/Post/domain/ValueObjects/UserId'
+import { FindSpaceByIdQuery } from '@Posts/Space/application/FindById/FindSpaceByIdQuery'
+import { SpaceResponse } from '@Posts/Space/application/SpaceResponse'
 import { FindUsersByCriteriaQuery } from '@Posts/User/application/FindByCriteria/FindUsersByCriteriaQuery'
 import { UserCollectionResponse } from '@Posts/User/application/UserCollectionResponse'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
@@ -39,6 +41,10 @@ export class Creator {
     const user = await this.findUserByIdAndCommunityId(userId, communityId)
 
     if (!user) return
+
+    const space = await this.findSpaceById(spaceId)
+
+    if (space.communityId.valueOf() !== communityId.valueOf()) return
 
     const post = Post.create(
       id,
@@ -79,5 +85,11 @@ export class Creator {
     ])
 
     return (await this.queryBus.ask<UserCollectionResponse>(userQuery)).response.pop()
+  }
+
+  private async findSpaceById (id: SpaceId) {
+    const spaceQuery = new FindSpaceByIdQuery(id.valueOf())
+
+    return (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
   }
 }

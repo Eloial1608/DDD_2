@@ -7,8 +7,11 @@ import { Content } from '@Posts/Post/domain/ValueObjects/Content'
 import { Id } from '@Posts/Post/domain/ValueObjects/Id'
 import { IsPaid } from '@Posts/Post/domain/ValueObjects/IsPaid'
 import { Price } from '@Posts/Post/domain/ValueObjects/Price'
+import { SpaceId } from '@Posts/Post/domain/ValueObjects/SpaceId'
 import { Title } from '@Posts/Post/domain/ValueObjects/Title'
 import { UserId } from '@Posts/Post/domain/ValueObjects/UserId'
+import { FindSpaceByIdQuery } from '@Posts/Space/application/FindById/FindSpaceByIdQuery'
+import { SpaceResponse } from '@Posts/Space/application/SpaceResponse'
 import { FindUsersByCriteriaQuery } from '@Posts/User/application/FindByCriteria/FindUsersByCriteriaQuery'
 import { UserCollectionResponse } from '@Posts/User/application/UserCollectionResponse'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
@@ -22,6 +25,7 @@ export class Updater {
     id: Id,
     communityId: CommunityId,
     userId: UserId,
+    spaceId: SpaceId,
     title: Title,
     content: Content,
     bannerUrl: Nullable<BannerUrl>,
@@ -39,6 +43,10 @@ export class Updater {
     const user = await this.findUserByIdAndCommunityId(userId, communityId)
 
     if (!user) throw new NotAllowedToPersistPost(post.id)
+
+    const space = await this.findSpaceById(spaceId)
+
+    if (space.communityId.valueOf() !== communityId.valueOf()) throw new NotAllowedToPersistPost(post.id)
 
     const updatedPost = post.update(
       id,
@@ -68,5 +76,11 @@ export class Updater {
     ])
 
     return (await this.queryBus.ask<UserCollectionResponse>(userQuery)).response.pop()
+  }
+
+  private async findSpaceById (id: SpaceId) {
+    const spaceQuery = new FindSpaceByIdQuery(id.valueOf())
+
+    return (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
   }
 }

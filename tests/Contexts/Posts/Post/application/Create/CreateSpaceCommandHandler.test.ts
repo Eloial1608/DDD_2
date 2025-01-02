@@ -8,6 +8,10 @@ import { PostCreatedDomainEvent } from '@Posts/Post/domain/Events/PostCreatedDom
 import { QueryBusMock } from '@Tests/Contexts/Shared/infrastructure/QueryBus/QueryBusMock'
 import { UserMother } from '@Tests/Contexts/Posts/User/domain/UserMother'
 import { UserCollectionResponse } from '@Posts/User/application/UserCollectionResponse'
+import { SpaceMother } from '@Tests/Contexts/Posts/Space/domain/SpaceMother'
+import { FindUsersByCriteriaQuery } from '@Posts/User/application/FindByCriteria/FindUsersByCriteriaQuery'
+import { FindSpaceByIdQuery } from '@Posts/Space/application/FindById/FindSpaceByIdQuery'
+import { SpaceResponse } from '@Posts/Space/application/SpaceResponse'
 
 let eventBus: EventBusMock
 let repository: PostRepositoryMock
@@ -29,7 +33,10 @@ describe('CreatePostCommandHandler should ', () => {
 
     const post = PostMother.forAuthor(user)
 
-    queryBus.returnOnAsk(new UserCollectionResponse([user]))
+    const space = SpaceMother.create({ communityId: post.communityId })
+
+    queryBus.returnOnQuery(new FindUsersByCriteriaQuery(), new UserCollectionResponse([user]))
+    queryBus.returnOnQuery(new FindSpaceByIdQuery(space.id.valueOf()), new SpaceResponse(space))
 
     const command = CreatePostCommandMother.fromAggregate(post)
 
@@ -45,7 +52,10 @@ describe('CreatePostCommandHandler should ', () => {
 
     const existingPost = PostMother.create({ id: post.id })
 
-    queryBus.returnOnAsk(new UserCollectionResponse([user]))
+    const space = SpaceMother.create({ communityId: post.communityId })
+
+    queryBus.returnOnQuery(new FindUsersByCriteriaQuery(), new UserCollectionResponse([user]))
+    queryBus.returnOnQuery(new FindSpaceByIdQuery(space.id.valueOf()), new SpaceResponse(space))
 
     const command = CreatePostCommandMother.fromAggregate(post)
 
@@ -61,7 +71,10 @@ describe('CreatePostCommandHandler should ', () => {
 
     const post = PostMother.forAuthor(user)
 
-    queryBus.returnOnAsk(new UserCollectionResponse([user]))
+    const space = SpaceMother.create({ communityId: post.communityId })
+
+    queryBus.returnOnQuery(new FindUsersByCriteriaQuery(), new UserCollectionResponse([user]))
+    queryBus.returnOnQuery(new FindSpaceByIdQuery(space.id.valueOf()), new SpaceResponse(space))
 
     const command = CreatePostCommandMother.fromAggregate(post)
 
