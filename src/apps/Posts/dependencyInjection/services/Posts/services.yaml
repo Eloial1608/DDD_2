@@ -192,3 +192,13 @@ services:
     arguments: ['@Post.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+  
+  Post.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Posts/Post/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Post.Repository']
+  
+  Post.FindByCriteria.FindPostsByCriteriaQueryHandler:
+    class: src/Contexts/Posts/Post/application/FindByCriteria/FindPostsByCriteriaQueryHandler
+    arguments: ['@Post.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
