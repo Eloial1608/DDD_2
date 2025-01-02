@@ -9,4 +9,15 @@ export class Author {
         readonly pictureUrl: Nullable<string>,
         readonly bannerUrl: Nullable<string>
   ) {}
+
+  toPrimitives () {
+    return {
+      id: this.id,
+      mainId: this.mainId,
+      name: this.name,
+      username: this.username,
+      pictureUrl: this.pictureUrl,
+      bannerUrl: this.bannerUrl
+    }
+  }
 }

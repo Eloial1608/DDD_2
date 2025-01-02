@@ -182,3 +182,13 @@ services:
     arguments: ["@Post.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
+  
+  Post.FindById.FinderById:
+    class: src/Contexts/Posts/Post/application/FindById/FinderById
+    arguments: ['@Post.Repository']
+  
+  Post.FindById.FindPostByIdQueryHandler:
+    class: src/Contexts/Posts/Post/application/FindById/FindPostByIdQueryHandler
+    arguments: ['@Post.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
