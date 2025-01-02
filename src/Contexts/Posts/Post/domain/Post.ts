@@ -17,12 +17,14 @@ import { DeletedAt } from './ValueObjects/DeletedAt'
 import { PostCreatedDomainEvent } from './Events/PostCreatedDomainEvent'
 import { PostUpdatedDomainEvent } from './Events/PostUpdatedDomainEvent'
 import { PostDeletedDomainEvent } from './Events/PostDeletedDomainEvent'
+import { SpaceId } from './ValueObjects/SpaceId'
 
 export class Post extends AggregateRoot {
   constructor (
         readonly id: Id,
         readonly communityId: CommunityId,
         readonly userId: UserId,
+        readonly spaceId: SpaceId,
         readonly title: Title,
         readonly content: Content,
         readonly bannerUrl: Nullable<BannerUrl>,
@@ -42,6 +44,7 @@ export class Post extends AggregateRoot {
     id: Id,
     communityId: CommunityId,
     userId: UserId,
+    spaceId: SpaceId,
     title: Title,
     content: Content,
     bannerUrl: Nullable<BannerUrl>,
@@ -53,6 +56,7 @@ export class Post extends AggregateRoot {
       id,
       communityId,
       userId,
+      spaceId,
       title,
       content,
       bannerUrl,
@@ -83,6 +87,7 @@ export class Post extends AggregateRoot {
       id,
       this.communityId,
       this.userId,
+      this.spaceId,
       title,
       content,
       bannerUrl,
@@ -106,6 +111,7 @@ export class Post extends AggregateRoot {
       this.id,
       this.communityId,
       this.userId,
+      this.spaceId,
       this.title,
       this.content,
       this.bannerUrl,

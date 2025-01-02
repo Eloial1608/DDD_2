@@ -6,6 +6,7 @@ export class CreatePostCommand implements Command {
         readonly id: string,
         readonly communityId: string,
         readonly userId: string,
+        readonly spaceId: string,
         readonly title: string,
         readonly content: string,
         readonly bannerUrl: Nullable<string>,

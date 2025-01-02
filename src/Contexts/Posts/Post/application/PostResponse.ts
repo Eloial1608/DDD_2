@@ -9,6 +9,7 @@ export type PostResponseBody = {
     readonly title: string
     readonly content: string
     readonly bannerUrl: Nullable<string>
+    readonly spaceId: string
     readonly author: {
       id: string
       mainId: string
@@ -34,6 +35,7 @@ export class PostResponse implements QueryResponse<PostResponseBody> {
       communityId: post.communityId.valueOf(),
       userId: post.userId.valueOf(),
       title: post.title.valueOf(),
+      spaceId: post.spaceId.valueOf(),
       content: post.content.valueOf(),
       bannerUrl: post.bannerUrl?.valueOf(),
       author: post.author.toPrimitives(),

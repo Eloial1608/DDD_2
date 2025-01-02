@@ -5,6 +5,7 @@ import { Content } from '@Posts/Post/domain/ValueObjects/Content'
 import { CreatedAt } from '@Posts/Post/domain/ValueObjects/CreatedAt'
 import { Id } from '@Posts/Post/domain/ValueObjects/Id'
 import { IsPaid } from '@Posts/Post/domain/ValueObjects/IsPaid'
+import { SpaceId } from '@Posts/Post/domain/ValueObjects/SpaceId'
 import { Title } from '@Posts/Post/domain/ValueObjects/Title'
 import { TotalComments } from '@Posts/Post/domain/ValueObjects/TotalComments'
 import { TotalLikes } from '@Posts/Post/domain/ValueObjects/TotalLikes'
@@ -21,6 +22,7 @@ export class PostMother {
       params.id ?? new Id(UuidMother.random()),
       params.communityId ?? new CommunityId(UuidMother.random()),
       params.userId ?? new UserId(UuidMother.random()),
+      params.spaceId ?? new SpaceId(UuidMother.random()),
       params.title ?? new Title(UuidMother.random()),
       params.content ?? new Content(WordMother.random()),
       params.bannerUrl ?? null,

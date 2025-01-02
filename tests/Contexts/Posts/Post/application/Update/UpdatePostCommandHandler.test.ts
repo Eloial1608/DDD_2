@@ -34,6 +34,7 @@ describe('UpdatePostCommandHandler should ', () => {
       id: post.id,
       author: post.author,
       userId: post.userId,
+      spaceId: post.spaceId,
       communityId: post.communityId
     })
 
@@ -69,6 +70,7 @@ describe('UpdatePostCommandHandler should ', () => {
       id: post.id,
       author: post.author,
       userId: post.userId,
+      spaceId: post.spaceId,
       communityId: post.communityId
     })
 

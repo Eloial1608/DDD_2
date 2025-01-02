@@ -7,6 +7,7 @@ import { Content } from '@Posts/Post/domain/ValueObjects/Content'
 import { Id } from '@Posts/Post/domain/ValueObjects/Id'
 import { IsPaid } from '@Posts/Post/domain/ValueObjects/IsPaid'
 import { Price } from '@Posts/Post/domain/ValueObjects/Price'
+import { SpaceId } from '@Posts/Post/domain/ValueObjects/SpaceId'
 import { Title } from '@Posts/Post/domain/ValueObjects/Title'
 import { UserId } from '@Posts/Post/domain/ValueObjects/UserId'
 import { FindUsersByCriteriaQuery } from '@Posts/User/application/FindByCriteria/FindUsersByCriteriaQuery'
@@ -22,6 +23,7 @@ export class Creator {
     id: Id,
     communityId: CommunityId,
     userId: UserId,
+    spaceId: SpaceId,
     title: Title,
     content: Content,
     bannerUrl: Nullable<BannerUrl>,
@@ -42,6 +44,7 @@ export class Creator {
       id,
       communityId,
       userId,
+      spaceId,
       title,
       content,
       bannerUrl,

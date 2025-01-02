@@ -15,6 +15,7 @@ import { UpdatedAt } from '@Posts/Post/domain/ValueObjects/UpdatedAt'
 import { DeletedAt } from '@Posts/Post/domain/ValueObjects/DeletedAt'
 import { Price, PriceCurrency, PriceValue } from '@Posts/Post/domain/ValueObjects/Price'
 import { Author } from '@Posts/Post/domain/ValueObjects/Author'
+import { SpaceId } from '@Posts/Post/domain/ValueObjects/SpaceId'
 
 const PostPriceSchema = new EntitySchema<Price>({
   name: 'postPrice',
@@ -78,6 +79,10 @@ export const PostSchema = new EntitySchema<Post>({
       type: String,
       transformer: ValueObjectTransformer(UserId)
     },
+    spaceId: {
+      type: String,
+      transformer: ValueObjectTransformer(SpaceId)
+    },
     title: {
       type: String,
       transformer: ValueObjectTransformer(Title)
@@ -127,6 +132,10 @@ export const PostSchema = new EntitySchema<Post>({
     {
       name: 'IDX_POST_USER_ID',
       columns: ['userId']
+    },
+    {
+      name: 'IDX_POST_SPACE_ID',
+      columns: ['spaceId']
     }
   ],
   embeddeds: {

@@ -1,3 +1,7 @@
 services:
   Apps.Posts.Controllers.HealthGetController:
     class: src/apps/Posts/controllers/HealthGetController
+  
+  Apps.Posts.Controllers.PostPostController:
+    class: src/apps/Posts/controllers/Post/PostPostController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
