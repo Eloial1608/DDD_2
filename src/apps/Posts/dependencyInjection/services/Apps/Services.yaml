@@ -9,3 +9,7 @@ services:
   Apps.Posts.Controllers.PostPutController:
     class: src/apps/Posts/controllers/Post/PostPutController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Posts.Controllers.PostGetController:
+    class: src/apps/Posts/controllers/Post/PostGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
