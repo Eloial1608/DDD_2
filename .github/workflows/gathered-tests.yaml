@@ -1,4 +1,4 @@
-name: 🧪 Unit-tests
+name: 🧪 Tests
 
 
 on:
@@ -15,12 +15,12 @@ on:
         type: string
 
 jobs:
-  unit-tests:
+  tests:
     name: tests ${{inputs.SERVICE}}
     runs-on: ubuntu-latest
     concurrency:
       # Cancel old runs if there is a new commit in the same branch
-      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-unit-tests
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-${{ inputs.SERVICE }}-tests
       cancel-in-progress: true
     timeout-minutes: 10
 
@@ -35,14 +35,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install docker-compose
 
-      # Running unit tests
-      - name: Run unit tests
+      # Running tests
+      - name: Run tests
         shell: sh
         run: |
-          echo "*** Starting CI unit tests ***"
+          echo "*** Starting CI tests ***"
           docker-compose -f docker-compose.yml up -d db
           docker-compose -f docker-compose.yml run --rm --name ${{inputs.SERVICE}} -e DB_HOST=db --entrypoint="npm run test:${{inputs.SERVICE}}" ${{inputs.SERVICE}}
           docker ps -a
           docker-compose down ${{inputs.SERVICE}}
           docker compose ps
-          echo "*** CI unit tests has passed SUCCESSFULLY ***"
+          echo "*** CI tests has passed SUCCESSFULLY ***"

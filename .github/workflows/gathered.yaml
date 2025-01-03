@@ -72,8 +72,8 @@ jobs:
         run: |
           echo ${{ fromJSON(steps.paths.outputs.changes) }}
 
-  unit-tests:
-    name: 🧪 Unit Tests
+  tests:
+    name: 🧪 Tests
     strategy:
       matrix:
         service: ${{ fromJSON(needs.initial.outputs.SERVICES) }}
