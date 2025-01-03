@@ -1,3 +1,7 @@
 import { NumberValueObject } from '@Shared/domain/ValueObjects/IntValueObject'
 
-export class TotalLikes extends NumberValueObject {}
+export class TotalLikes extends NumberValueObject {
+  constructor (num: number) {
+    super(num < 0 ? 0 : num)
+  }
+}

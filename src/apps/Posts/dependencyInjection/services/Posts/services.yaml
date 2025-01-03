@@ -300,3 +300,13 @@ services:
     arguments: ["@Comment.Update.Updater"]
     tags:
       - { name: "commandHandler" }
+  
+  Post.UpdatePostOnLikeDeleted.Updater:
+    class: src/Contexts/Posts/Post/application/UpdatePostOnLikeDeleted/Updater
+    arguments: ['@Post.Repository', '@Shared.EventBus']
+  
+  Post.UpdatePostOnLikeDeleted.UpdatePostOnLikeDeletedHandler:
+    class: src/Contexts/Posts/Post/application/UpdatePostOnLikeDeleted/UpdatePostOnLikeDeletedHandler
+    arguments: ["@Post.UpdatePostOnLikeDeleted.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
