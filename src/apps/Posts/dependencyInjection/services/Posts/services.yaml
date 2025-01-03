@@ -320,3 +320,13 @@ services:
     arguments: ["@Post.UpdatePostOnCommentDeleted.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  Like.Create.Creator:
+    class: src/Contexts/Posts/Like/application/Create/Creator
+    arguments: ['@Like.Repository', '@Shared.QueryBus', '@Shared.EventBus']
+  
+  Like.Create.CreateLikeCommandHandler:
+    class: src/Contexts/Posts/Like/application/Create/CreateLikeCommandHandler
+    arguments: ["@Like.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }

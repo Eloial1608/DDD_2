@@ -14,7 +14,7 @@ const defaultConfiguration = {
 }
 export class PostsConfiguration extends SharedConfiguration {
   constructor (
-    readonly configuration = defaultConfiguration
+    readonly configuration: Partial<typeof defaultConfiguration> = defaultConfiguration
   ) {
     super({
       ...defaultConfiguration,
