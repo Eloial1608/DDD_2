@@ -9,6 +9,7 @@ export class LikeRepositoryMock implements LikeRepository {
   private mockFind = mockFn()
   private mockSearch = mockFn()
   private mockPersist = mockFn()
+  private mockDelete = mockFn()
 
   private expectedFind: Nullable<Like>
   private expectedSearch: Array<Like> = []
@@ -37,6 +38,14 @@ export class LikeRepositoryMock implements LikeRepository {
 
   assertPersistHasBeenCalledWith (like: Like) {
     expect(this.mockPersist).toHaveBeenCalledWith(like)
+  }
+
+  async delete (like: Like): Promise<void> {
+    this.mockDelete(like)
+  }
+
+  assertDeleteHasBeenCalledWith (like: Like) {
+    expect(this.mockDelete).toHaveBeenCalledWith(like)
   }
 
   assertFindHasBeenCalledWith (id: Id) {

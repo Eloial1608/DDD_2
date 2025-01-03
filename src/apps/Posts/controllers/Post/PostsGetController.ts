@@ -20,7 +20,33 @@ import { Nullable } from '@Shared/domain/Nullable'
 import { SpaceMemberResponseBody } from '@Posts/SpaceMember/application/SpaceMemberResponse'
 import { FindPostUsersByCriteriaQuery } from '@Posts/PostUser/application/FindByCriteria/FindPostUsersByCriteriaQuery'
 import { PostUserCollectionResponse } from '@Posts/PostUser/application/PostUserCollectionResponse'
+import { FindLikesByCriteriaQuery } from '@Posts/Like/application/FindByCriteria/FindLikesByCriteriaQuery'
+import { LikeCollectionResponse } from '@Posts/Like/application/LikeCollectionResponse'
 
+type PostsGetControllerResponseBody = {
+  readonly id: string
+  readonly communityId: string
+  readonly userId: string
+  readonly title: string
+  readonly content: Nullable<string>
+  readonly likeId: Nullable<string>
+  readonly bannerUrl: Nullable<string>
+  readonly spaceId: string
+  readonly author: {
+    id: string
+    mainId: string
+    name: string
+    username: string
+    bannerUrl: Nullable<string>
+    pictureUrl: Nullable<string>
+  }
+  readonly isPaid: boolean
+  totalLikes: number
+  totalComments: number
+  readonly price: Nullable<{value: number, currency: string}>
+  readonly createdAt: Date
+  readonly updatedAt: Date
+}
 export class PostsGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
 
@@ -45,7 +71,7 @@ export class PostsGetController implements Controller {
 
       for (const post of posts) {
         const p = await this.filterPost(post, req.headers.authorization as string)
-        if (p) postsToSend.push(p)
+        if (p) postsToSend.push(await this.buildResponse(post, this.user?.id))
       }
 
       return res.status(200).json({ posts: postsToSend })
@@ -96,6 +122,32 @@ export class PostsGetController implements Controller {
     const { content, ...data } = post
 
     return data
+  }
+
+  private async buildResponse (post: Partial<PostsGetControllerResponseBody>, userId?: string) : Promise<PostsGetControllerResponseBody> {
+    return {
+      ...post as PostsGetControllerResponseBody,
+      likeId: userId ? (await this.getLikeId(userId, post.id!))?.id : undefined
+    }
+  }
+
+  private async getLikeId (userId: string, postId: string) {
+    const query = new FindLikesByCriteriaQuery([
+      new Map<string, string>([
+        ['field', 'userId'],
+        ['operator', '='],
+        ['value', userId]
+      ]),
+      new Map<string, string>([
+        ['field', 'postId'],
+        ['operator', '='],
+        ['value', postId]
+      ])
+    ])
+
+    const user = (await this.queryBus.ask<LikeCollectionResponse>(query)).response.pop()
+
+    return user
   }
 
   private async getSpaceMember (userId: string, communityId: string, spaceId: string) {

@@ -17,7 +17,34 @@ import { FindPostUsersByCriteriaQuery } from '@Posts/PostUser/application/FindBy
 import { PostUserCollectionResponse } from '@Posts/PostUser/application/PostUserCollectionResponse'
 import { SpaceMemberResponseBody } from '@Posts/SpaceMember/application/SpaceMemberResponse'
 import { UserResponseBody } from '@Posts/User/application/UserResponse'
+import { Nullable } from '@Shared/domain/Nullable'
+import { FindLikesByCriteriaQuery } from '@Posts/Like/application/FindByCriteria/FindLikesByCriteriaQuery'
+import { LikeCollectionResponse } from '@Posts/Like/application/LikeCollectionResponse'
 
+type PostsGetControllerResponseBody = {
+  readonly id: string
+  readonly communityId: string
+  readonly userId: string
+  readonly title: string
+  readonly content: Nullable<string>
+  readonly likeId: Nullable<string>
+  readonly bannerUrl: Nullable<string>
+  readonly spaceId: string
+  readonly author: {
+    id: string
+    mainId: string
+    name: string
+    username: string
+    bannerUrl: Nullable<string>
+    pictureUrl: Nullable<string>
+  }
+  readonly isPaid: boolean
+  totalLikes: number
+  totalComments: number
+  readonly price: Nullable<{value: number, currency: string}>
+  readonly createdAt: Date
+  readonly updatedAt: Date
+}
 export class PostGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
 
@@ -52,18 +79,18 @@ export class PostGetController implements Controller {
       if (post.isPaid && (!user?.isAdmin && !user?.isOwner && !spaceMember?.isModerator)) {
         if (!spaceMember) {
           return res.status(200).json({
-            post: this.getPostWithoutContent(post)
+            post: await this.buildResponse(this.getPostWithoutContent(post), user?.id)
           })
         }
         const postUser = await this.getPostUser(spaceMember.userId, post.id)
         if (!postUser) {
           return res.status(200).json({
-            post: this.getPostWithoutContent(post)
+            post: await this.buildResponse(this.getPostWithoutContent(post), user?.id)
           })
         }
       }
 
-      return res.status(200).json(post)
+      return res.status(200).json(await this.buildResponse(post, user?.id))
     } catch (e) {
       if (e instanceof CannotDecode) return res.status(401).send()
       if (e instanceof PostNotFound) return res.status(404).send(e.getMessage())
@@ -76,6 +103,13 @@ export class PostGetController implements Controller {
     const { content, ...data } = post
 
     return data
+  }
+
+  private async buildResponse (post: Partial<PostsGetControllerResponseBody>, userId?: string) : Promise<PostsGetControllerResponseBody> {
+    return {
+      ...post as PostsGetControllerResponseBody,
+      likeId: userId ? (await this.getLikeId(userId, post.id!))?.id : undefined
+    }
   }
 
   private async getPostUser (userId: string, postId: string) {
@@ -93,6 +127,25 @@ export class PostGetController implements Controller {
     ])
 
     const user = (await this.queryBus.ask<PostUserCollectionResponse>(query)).response.pop()
+
+    return user
+  }
+
+  private async getLikeId (userId: string, postId: string) {
+    const query = new FindLikesByCriteriaQuery([
+      new Map<string, string>([
+        ['field', 'userId'],
+        ['operator', '='],
+        ['value', userId]
+      ]),
+      new Map<string, string>([
+        ['field', 'postId'],
+        ['operator', '='],
+        ['value', postId]
+      ])
+    ])
+
+    const user = (await this.queryBus.ask<LikeCollectionResponse>(query)).response.pop()
 
     return user
   }

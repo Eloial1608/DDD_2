@@ -230,3 +230,33 @@ services:
   Comment.Repository:
     class: src/Contexts/Posts/Comment/infrastructure/persistence/TypeOrmCommentRepository
     arguments: ["@Shared.ORM.Connection"]
+  
+  Like.FindById.FinderById:
+    class: src/Contexts/Posts/Like/application/FindById/FinderById
+    arguments: ['@Like.Repository']
+  
+  Like.FindById.FindLikeByIdQueryHandler:
+    class: src/Contexts/Posts/Like/application/FindById/FindLikeByIdQueryHandler
+    arguments: ['@Like.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+  
+  Like.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Posts/Like/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Like.Repository']
+  
+  Like.FindByCriteria.FindLikesByCriteriaQueryHandler:
+    class: src/Contexts/Posts/Like/application/FindByCriteria/FindLikesByCriteriaQueryHandler
+    arguments: ['@Like.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+  
+  Like.Delete.Deleter:
+    class: src/Contexts/Posts/Like/application/Delete/Deleter
+    arguments: ['@Like.Repository', '@Shared.EventBus']
+  
+  Like.Delete.DeleteLikeCommandHandler:
+    class: src/Contexts/Posts/Like/application/Delete/DeleteLikeCommandHandler
+    arguments: ["@Like.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }

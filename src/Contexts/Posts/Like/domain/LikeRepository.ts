@@ -7,4 +7,5 @@ export interface LikeRepository{
         find (id: Id): Promise<Nullable<Like>>
         search (criteria: Criteria): Promise<Array<Like>>
         persist (like: Like): Promise<void>
+        delete (like: Like): Promise<void>
 }
