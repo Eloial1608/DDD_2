@@ -74,7 +74,7 @@ jobs:
 
   build:
     name: 🏭 Build
-    uses: ./.github/workflows/gathered-build.yml
+    uses: ./.github/workflows/gathered-build.yaml
     with:
       ENV: ${{ needs.initial.outputs.ENV }}
       TAG: ${{ needs.initial.outputs.TAG }}
@@ -86,7 +86,7 @@ jobs:
 
   unit-tests:
     name: 🧪 Unit Tests
-    uses: ./.github/workflows/gathered-unit-tests.yml
+    uses: ./.github/workflows/gathered-unit-tests.yaml
     with:
       BRANCH: ${{ needs.initial.outputs.BRANCH }}
       TAG: ${{ needs.initial.outputs.TAG }}
@@ -105,7 +105,7 @@ jobs:
         exclude:
           - service: shared
       fail-fast: false
-    uses: ./.github/workflows/gathered-feature-tests.yml
+    uses: ./.github/workflows/gathered-feature-tests.yaml
     with:
       SERVICE: ${{ matrix.service }}
       BRANCH: ${{ needs.initial.outputs.BRANCH }}
