@@ -4,9 +4,6 @@ name: 🧪 Unit-tests
 on:
   workflow_call:
     inputs:
-      SERVICE:
-        required: true
-        type: string
       BRANCH:
         required: true
         type: string
@@ -16,11 +13,11 @@ on:
 
 jobs:
   unit-tests:
-    name: ${{inputs.SERVICE}}
+    name: Unit tests
     runs-on: ubuntu-latest
     concurrency:
       # Cancel old runs if there is a new commit in the same branch
-      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-unit-tests-${{inputs.SERVICE}}
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-unit-tests
       cancel-in-progress: true
     timeout-minutes: 10
 
@@ -32,16 +29,10 @@ jobs:
       # Running unit tests
       - name: Run unit tests
         shell: sh
-        env:
-          SERVICE: ${{ inputs.SERVICE }}
         run: |
-          if [ -z $SERVICE ]; then
-            echo "*** Skiping CI unit tests ***"
-          else
-            echo "*** Starting CI unit tests ***"
-            docker-compose up ${{inputs.SERVICE}}
-            docker-compose exec docker-compose.yml ${{inputs.SERVICE}} npm run test:unit
-            docker-compose down ${{inputs.SERVICE}}
-            docker compose ps
-            echo "*** CI unit tests has passed SUCCESSFULLY ***"
-          fi
+          echo "*** Starting CI unit tests ***"
+          docker-compose up core-service-server
+          docker-compose exec docker-compose.yml core-service-server npm run test:unit
+          docker-compose down core-service-server
+          docker compose ps
+          echo "*** CI unit tests has passed SUCCESSFULLY ***"
