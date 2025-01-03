@@ -8,6 +8,10 @@ import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { PostNotFound } from '@Posts/Post/domain/Errors/PostNotFound'
 import { CommandBus } from '@Shared/domain/CommandBus/CommandBus'
 import { DeleteCommentCommand } from '@Posts/Comment/application/Delete/DeleteCommentCommand'
+import { CommentResponse } from '@Posts/Comment/application/CommentResponse'
+import { FindCommentByIdQuery } from '@Posts/Comment/application/FindById/FindCommentByIdQuery'
+import { FindPostByIdQuery } from '@Posts/Post/application/FindById/FindPostByIdQuery'
+import { PostResponse } from '@Posts/Post/application/PostResponse'
 
 export class CommentDeleteController implements Controller {
   constructor (private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
@@ -18,7 +22,11 @@ export class CommentDeleteController implements Controller {
 
       const data = await this.decoder.run(req.headers.authorization)
 
-      const user = await this.getUser(data.id, req.body.communityId)
+      const comment = await this.getComment(req.params.id)
+
+      const post = await this.getPost(comment.postId)
+
+      const user = await this.getUser(data.id, post.communityId)
 
       if (!user) return res.status(401).send()
 
@@ -52,5 +60,21 @@ export class CommentDeleteController implements Controller {
     const user = (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
 
     return user
+  }
+
+  private async getComment (commentId: string) {
+    const query = new FindCommentByIdQuery(commentId)
+
+    const comment = (await this.queryBus.ask<CommentResponse>(query)).response
+
+    return comment
+  }
+
+  private async getPost (postId: string) {
+    const query = new FindPostByIdQuery(postId)
+
+    const post = (await this.queryBus.ask<PostResponse>(query)).response
+
+    return post
   }
 }

@@ -8,6 +8,11 @@ import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { PostNotFound } from '@Posts/Post/domain/Errors/PostNotFound'
 import { CommandBus } from '@Shared/domain/CommandBus/CommandBus'
 import { DeleteLikeCommand } from '@Posts/Like/application/Delete/DeleteLikeCommand'
+import { FindLikeByIdQuery } from '@Posts/Like/application/FindById/FindLikeByIdQuery'
+import { LikeResponse } from '@Posts/Like/application/LikeResponse'
+import { FindPostByIdQuery } from '@Posts/Post/application/FindById/FindPostByIdQuery'
+import { PostResponse } from '@Posts/Post/application/PostResponse'
+import { LikeNotFound } from '@Posts/Like/domain/Errors/LikeNotFound'
 
 export class LikeDeleteController implements Controller {
   constructor (private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
@@ -18,7 +23,11 @@ export class LikeDeleteController implements Controller {
 
       const data = await this.decoder.run(req.headers.authorization)
 
-      const user = await this.getUser(data.id, req.body.communityId)
+      const like = await this.getLike(req.params.id)
+
+      const post = await this.getPost(like.postId)
+
+      const user = await this.getUser(data.id, post.communityId)
 
       if (!user) return res.status(401).send()
 
@@ -30,6 +39,7 @@ export class LikeDeleteController implements Controller {
     } catch (e) {
       if (e instanceof CannotDecode) return res.status(401).send()
       if (e instanceof PostNotFound) return res.status(404).send(e.getMessage())
+      if (e instanceof LikeNotFound) return res.status(404).send(e.getMessage())
 
       return res.status(500).send()
     }
@@ -52,5 +62,21 @@ export class LikeDeleteController implements Controller {
     const user = (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
 
     return user
+  }
+
+  private async getLike (likeId: string) {
+    const query = new FindLikeByIdQuery(likeId)
+
+    const like = (await this.queryBus.ask<LikeResponse>(query)).response
+
+    return like
+  }
+
+  private async getPost (postId: string) {
+    const query = new FindPostByIdQuery(postId)
+
+    const post = (await this.queryBus.ask<PostResponse>(query)).response
+
+    return post
   }
 }
