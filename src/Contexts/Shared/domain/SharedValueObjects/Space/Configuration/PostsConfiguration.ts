@@ -13,12 +13,19 @@ const defaultConfiguration = {
   allowsPaid: false
 }
 export class PostsConfiguration extends SharedConfiguration {
+  configuration: typeof defaultConfiguration
+
   constructor (
-    readonly configuration: Partial<typeof defaultConfiguration> = defaultConfiguration
+    configuration: Partial<typeof defaultConfiguration> = defaultConfiguration
   ) {
     super({
       ...defaultConfiguration,
       ...configuration
     })
+
+    this.configuration = {
+      ...defaultConfiguration,
+      ...configuration
+    }
   }
 }
