@@ -206,3 +206,13 @@ services:
   PostUser.Repository:
     class: src/Contexts/Posts/PostUser/infrastructure/persistence/TypeOrmPostUserRepository
     arguments: ["@Shared.ORM.Connection"]
+  
+  PostUser.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Posts/PostUser/application/FindByCriteria/FinderByCriteria
+    arguments: ['@PostUser.Repository']
+  
+  PostUser.FindByCriteria.FindPostUsersByCriteriaQueryHandler:
+    class: src/Contexts/Posts/PostUser/application/FindByCriteria/FindPostUsersByCriteriaQueryHandler
+    arguments: ['@PostUser.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
