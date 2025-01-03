@@ -1,0 +1,30 @@
+import { TypeOrmRepository } from '@Shared/infrastructure/persistence/typeorm/TypeOrmRepository'
+import { EntitySchema, Equal } from 'typeorm'
+import { CommunitySchema } from './entity/CommunitySchema'
+import { Id } from '@Posts/Comment/domain/ValueObjects/Id'
+import { Nullable } from '@Shared/domain/Nullable'
+import { Criteria } from '@Shared/domain/Criteria/Criteria'
+import { CommentRepository } from '@Posts/Comment/domain/CommentRepository'
+import { Comment } from '@Posts/Comment/domain/Comment'
+
+export class TypeOrmCommentRepository extends TypeOrmRepository<Comment> implements CommentRepository {
+  protected get entitySchema (): EntitySchema {
+    return CommunitySchema
+  }
+
+  async find (id: Id): Promise<Nullable<Comment>> {
+    return await (await this.repository()).findOneBy({ id: Equal(id) })
+  }
+
+  async search (criteria: Criteria): Promise<Comment[]> {
+    return (await this.criteriaToQueryBuilder(criteria)).getMany()
+  }
+
+  async persist (comment: Comment): Promise<void> {
+    await (await this.repository()).save(comment)
+  }
+
+  async delete (comment: Comment): Promise<void> {
+    await (await this.repository()).remove(comment)
+  }
+}

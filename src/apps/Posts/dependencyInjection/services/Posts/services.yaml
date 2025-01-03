@@ -226,3 +226,7 @@ services:
     arguments: ["@PostUser.CreatePostUserOnStripeSessionVerified.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  Comment.Repository:
+    class: src/Contexts/Posts/Comment/infrastructure/persistence/TypeOrmCommentRepository
+    arguments: ["@Shared.ORM.Connection"]
