@@ -9,7 +9,7 @@ import { UserMetadata } from '@Posts/Comment/domain/ValueObjects/UserMetadata'
 import { ValueObjectTransformer } from '@Shared/domain/ValueObjects/ValueObjectTransformer'
 import { EntitySchema } from 'typeorm'
 
-export const CommunitySchema = new EntitySchema<Comment>({
+export const CommentSchema = new EntitySchema<Comment>({
   name: 'Comment',
   target: Comment,
   tableName: 'comment',
