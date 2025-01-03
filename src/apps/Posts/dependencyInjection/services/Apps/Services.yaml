@@ -29,3 +29,11 @@ services:
   Apps.Posts.Controllers.LikeDeleteController:
     class: src/apps/Posts/controllers/Like/LikeDeleteController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Posts.Controllers.CommentsGetController:
+    class: src/apps/Posts/controllers/Comment/CommentsGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Posts.Controllers.CommentDeleteController:
+    class: src/apps/Posts/controllers/Comment/CommentDeleteController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
