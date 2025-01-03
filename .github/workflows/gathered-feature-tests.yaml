@@ -17,6 +17,8 @@ jobs:
   feature-tests:
     name: ${{inputs.SERVICE}}
     runs-on: ubuntu-latest
+    container:
+      image: docker/compose:latest
     concurrency:
       # Cancel old runs if there is a new commit in the same branch
       group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-feature-tests-${{inputs.SERVICE}}
