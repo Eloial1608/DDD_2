@@ -236,3 +236,13 @@ services:
     arguments: ['@Like.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+  
+  Like.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Posts/Like/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Like.Repository']
+  
+  Like.FindByCriteria.FindLikesByCriteriaQueryHandler:
+    class: src/Contexts/Posts/Like/application/FindByCriteria/FindLikesByCriteriaQueryHandler
+    arguments: ['@Like.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
