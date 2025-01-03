@@ -8,11 +8,15 @@ import { UserCollectionResponse } from '@Posts/User/application/UserCollectionRe
 import { TokenDecoder } from '@Shared/domain/TokenDecoder/TokenDecoder'
 import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { FindPostByIdQuery } from '@Posts/Post/application/FindById/FindPostByIdQuery'
-import { PostResponse } from '@Posts/Post/application/PostResponse'
+import { PostResponse, PostResponseBody } from '@Posts/Post/application/PostResponse'
 import { FindSpaceByIdQuery } from '@Posts/Space/application/FindById/FindSpaceByIdQuery'
 import { SpaceResponse } from '@Posts/Space/application/SpaceResponse'
 import { AllowedAccessibilities } from '@Shared/domain/SharedValueObjects/Space/SharedAccessibility'
 import { PostNotFound } from '@Posts/Post/domain/Errors/PostNotFound'
+import { FindPostUsersByCriteriaQuery } from '@Posts/PostUser/application/FindByCriteria/FindPostUsersByCriteriaQuery'
+import { PostUserCollectionResponse } from '@Posts/PostUser/application/PostUserCollectionResponse'
+import { SpaceMemberResponseBody } from '@Posts/SpaceMember/application/SpaceMemberResponse'
+import { UserResponseBody } from '@Posts/User/application/UserResponse'
 
 export class PostGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
@@ -26,20 +30,36 @@ export class PostGetController implements Controller {
       const spaceQuery = new FindSpaceByIdQuery(post.spaceId)
 
       const space = await (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
+      let spaceMember: SpaceMemberResponseBody | undefined
+      let user: UserResponseBody | undefined
 
       if (space.accessibility !== AllowedAccessibilities.PUBLIC) {
         if (!req.headers.authorization) return res.status(401).send()
 
         const data = await this.decoder.run(req.headers.authorization)
 
-        const user = await this.getUser(data.id, req.body.communityId)
+        user = await this.getUser(data.id, req.body.communityId)
 
         if (!user) return res.status(401).send()
 
         if (!user.isAdmin && !user.isOwner) {
-          const spaceMember = await this.getSpaceMember(user.id, user.communityId, space.id)
+          spaceMember = await this.getSpaceMember(user.id, user.communityId, space.id)
 
           if (!spaceMember) return res.status(401).send()
+        }
+      }
+
+      if (post.isPaid && (!user?.isAdmin && !user?.isOwner && !spaceMember?.isModerator)) {
+        if (!spaceMember) {
+          return res.status(200).json({
+            post: this.getPostWithoutContent(post)
+          })
+        }
+        const postUser = await this.getPostUser(spaceMember.userId, post.id)
+        if (!postUser) {
+          return res.status(200).json({
+            post: this.getPostWithoutContent(post)
+          })
         }
       }
 
@@ -50,6 +70,31 @@ export class PostGetController implements Controller {
 
       return res.status(500).send()
     }
+  }
+
+  private getPostWithoutContent (post: PostResponseBody) {
+    const { content, ...data } = post
+
+    return data
+  }
+
+  private async getPostUser (userId: string, postId: string) {
+    const query = new FindPostUsersByCriteriaQuery([
+      new Map<string, string>([
+        ['field', 'userId'],
+        ['operator', '='],
+        ['value', userId]
+      ]),
+      new Map<string, string>([
+        ['field', 'postId'],
+        ['operator', '='],
+        ['value', postId]
+      ])
+    ])
+
+    const user = (await this.queryBus.ask<PostUserCollectionResponse>(query)).response.pop()
+
+    return user
   }
 
   private async getSpaceMember (userId: string, communityId: string, spaceId: string) {
@@ -71,7 +116,7 @@ export class PostGetController implements Controller {
       ])
     ])
 
-    return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response
+    return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response.pop()
   }
 
   private async getUser (id: string, communityId: string) {

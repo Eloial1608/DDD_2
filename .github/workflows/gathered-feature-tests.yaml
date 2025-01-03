@@ -1,0 +1,58 @@
+name: 🧪 Feature-tests
+
+on:
+  workflow_call:
+    inputs:
+      SERVICE:
+        required: true
+        type: string
+      BRANCH:
+        required: true
+        type: string
+      TAG:
+        required: true
+        type: string
+
+jobs:
+  feature-tests:
+    name: ${{inputs.SERVICE}}
+    runs-on: ubuntu-latest
+    concurrency:
+      # Cancel old runs if there is a new commit in the same branch
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-feature-tests-${{inputs.SERVICE}}
+      cancel-in-progress: true
+    timeout-minutes: 10
+
+    steps:
+      # Checkout repository under $GITHUB_WORKSPACE path
+      - name: Repository checkout
+        uses: actions/checkout@v4
+      
+      # Instalación de Docker Compose si no está disponible
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install docker-compose
+
+      - name: Run docker-compose needed stack before tests
+        shell: sh
+        run: |
+          echo "Starting docker compose DB"
+          docker-compose -f docker-compose.yml up -d db
+
+      # Running feature tests
+      - name: Run feature tests
+        shell: sh
+        env:
+          SERVICE: ${{ inputs.SERVICE }}
+        run: |
+          if [ -z $SERVICE ]; then
+            echo "*** Skiping CI feature tests ***"
+          else
+            echo "*** Starting CI migrations & tests ***"
+            docker-compose -f docker-compose.yml run --rm --name ${{ inputs.SERVICE }} -e DB_HOST=db --entrypoint="npm run test:${{ inputs.SERVICE }}:features" ${{ inputs.SERVICE }}
+            docker ps -a
+            docker-compose -f docker-compose.yml down
+            echo "*** CI migrations & tests has passed SUCCESSFULLY ***"
+            echo "*** CI feature tests has passed SUCCESSFULLY ***"
+          fi

@@ -6,7 +6,26 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
-    command: start:core:server
+    ports:
+      - 5004:5004
+  
+  auth-service-server:
+    depends_on:
+      - db
+      - rabbitmq
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - 5000:5000
+  
+  posts-service-server:
+    depends_on:
+      - db
+      - rabbitmq
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
     ports:
       - 5000:5000
 

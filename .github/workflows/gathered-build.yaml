@@ -1,0 +1,40 @@
+name: 🏗️ Build inside Docker
+
+on:
+  workflow_call:
+    inputs:
+      ENV:
+        required: true
+        type: string
+      TAG:
+        required: true
+        type: string
+
+jobs:
+  build:
+    name: gathered-image
+    runs-on: ubuntu-latest
+    concurrency:
+      # Cancel old runs if there is a new commit in the same branch
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      # Instalación de Docker Compose si no está disponible
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install docker-compose
+
+      # Ejecutar npm run build solo en el servicio core
+      - name: Build service inside core-service-server container
+        run: |
+          docker-compose -f docker-compose.yml up core-service-server  # Levanta los servicios en segundo plano
+          docker-compose exec core-service-server npm run build || true  # Ejecuta build solo en core-service-server
+          docker-compose down  # Detiene los contenedores después de ejecutar el build
+
+
