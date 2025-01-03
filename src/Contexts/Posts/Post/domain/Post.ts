@@ -19,6 +19,7 @@ import { PostUpdatedDomainEvent } from './Events/PostUpdatedDomainEvent'
 import { PostDeletedDomainEvent } from './Events/PostDeletedDomainEvent'
 import { SpaceId } from './ValueObjects/SpaceId'
 import { PostTotalLikesUpdatedDomainEvent } from './Events/PostTotalLikesUpdatedDomainEvent'
+import { PostTotalCommentsUpdatedDomainEvent } from './Events/PostTotalCommentsUpdatedDomainEvent'
 
 export class Post extends AggregateRoot {
   constructor (
@@ -129,6 +130,32 @@ export class Post extends AggregateRoot {
     )
 
     post.record(PostTotalLikesUpdatedDomainEvent.fromAggregate(post))
+
+    return post
+  }
+
+  updateTotalComments (
+    totalComments: TotalComments
+  ): Post {
+    const post = new Post(
+      this.id,
+      this.communityId,
+      this.userId,
+      this.spaceId,
+      this.title,
+      this.content,
+      this.bannerUrl,
+      this.author,
+      this.isPaid,
+      this.price,
+      this.totalLikes,
+      totalComments,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      null
+    )
+
+    post.record(PostTotalCommentsUpdatedDomainEvent.fromAggregate(post))
 
     return post
   }
