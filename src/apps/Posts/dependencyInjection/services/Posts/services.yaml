@@ -216,3 +216,13 @@ services:
     arguments: ['@PostUser.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+  
+  PostUser.CreatePostUserOnStripeSessionVerified.Creator:
+    class: src/Contexts/Posts/PostUser/application/CreatePostUserOnStripeSessionVerified/Creator
+    arguments: ['@PostUser.Repository', '@Shared.EventBus']
+  
+  PostUser.CreatePostUserOnStripeSessionVerified.CreatePostUserOnStripeSessionVerifiedHandler:
+    class: src/Contexts/Posts/PostUser/application/CreatePostUserOnStripeSessionVerified/CreatePostUserOnStripeSessionVerifiedHandler
+    arguments: ["@PostUser.CreatePostUserOnStripeSessionVerified.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }

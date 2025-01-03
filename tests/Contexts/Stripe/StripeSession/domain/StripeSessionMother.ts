@@ -39,11 +39,11 @@ export class StripeSessionMother {
     return this.create({})
   }
 
-  static noNullProduct (): StripeSession {
+  static noNullProduct (type?: ProductTypes): StripeSession {
     return this.create({
       product: new Product(
         UuidMother.random(),
-        ProductTypes.USER_PLANS,
+        type ?? ProductTypes.USER_PLANS,
         UuidMother.random(),
         UuidMother.random(),
         1,

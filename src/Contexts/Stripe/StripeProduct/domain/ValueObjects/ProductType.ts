@@ -2,7 +2,8 @@ import { EnumValueObject } from '@Shared/domain/ValueObjects/EnumValueObject'
 import { InvalidProductType } from '../Errors/InvalidProductType'
 
 export enum ProductTypes {
-    USER_PLANS = 'user-plans'
+    USER_PLANS = 'user-plans',
+    POSTS = 'posts'
 }
 
 export class ProductType extends EnumValueObject<ProductTypes> {
