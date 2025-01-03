@@ -9,6 +9,7 @@ import { Author } from '@Posts/Comment/domain/ValueObjects/Author'
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
 import { WordMother } from '@Tests/Contexts/Shared/domain/WordMother'
 import { SlugMother } from '@Tests/Contexts/Shared/domain/SlugMother'
+import { User } from '@Posts/User/domain/User'
 
 export class CommentMother {
   static create (params: Partial<Comment>): Comment {
@@ -32,5 +33,19 @@ export class CommentMother {
 
   static random (): Comment {
     return this.create({})
+  }
+
+  static forAuthor (user: User): Comment {
+    return this.create({
+      userId: new UserId(user.id.valueOf()),
+      author: new Author(
+        user.id.valueOf(),
+        user.mainId.valueOf(),
+        user.name.valueOf(),
+        user.username.valueOf(),
+        user.pictureUrl?.valueOf(),
+        user.bannerUrl?.valueOf()
+      )
+    })
   }
 }
