@@ -202,3 +202,7 @@ services:
     arguments: ['@Post.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+  
+  PostUser.Repository:
+    class: src/Contexts/Posts/PostUser/infrastructure/persistence/TypeOrmPostUserRepository
+    arguments: ["@Shared.ORM.Connection"]
