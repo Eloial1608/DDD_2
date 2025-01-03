@@ -15,8 +15,6 @@ jobs:
   unit-tests:
     name: Unit tests
     runs-on: ubuntu-latest
-    container:
-      image: docker/compose:latest
     concurrency:
       # Cancel old runs if there is a new commit in the same branch
       group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-unit-tests
@@ -27,6 +25,12 @@ jobs:
       # Checkout repository under $GITHUB_WORKSPACE path
       - name: Repository checkout
         uses: actions/checkout@v4
+      
+      # Instalación de Docker Compose si no está disponible
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install docker-compose
 
       # Running unit tests
       - name: Run unit tests
