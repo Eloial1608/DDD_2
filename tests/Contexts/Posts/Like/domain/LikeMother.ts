@@ -5,7 +5,7 @@ import { UserId } from '@Posts/Like/domain/ValueObjects/UserId'
 import { Id } from '@Posts/Like/domain/ValueObjects/Id'
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
 
-export class UserMother {
+export class LikeMother {
   static create (params: Partial<Like>): Like {
     return new Like(
       params.id ?? new Id(UuidMother.random()),

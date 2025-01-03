@@ -226,3 +226,13 @@ services:
     arguments: ["@PostUser.CreatePostUserOnStripeSessionVerified.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  Like.FindById.FinderById:
+    class: src/Contexts/Posts/Like/application/FindById/FinderById
+    arguments: ['@Like.Repository']
+  
+  Like.FindById.FindLikeByIdQueryHandler:
+    class: src/Contexts/Posts/Like/application/FindById/FindLikeByIdQueryHandler
+    arguments: ['@Like.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
