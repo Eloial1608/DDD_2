@@ -6,6 +6,7 @@ import { PostMother } from '../../domain/PostMother'
 import { LikeMother } from '@Tests/Contexts/Posts/Like/domain/LikeMother'
 import { LikeCreatedDomainEvent } from '@Posts/Like/domain/Events/LikeCreatedDomainEvent'
 import { PostTotalLikesUpdatedDomainEvent } from '@Posts/Post/domain/Events/PostTotalLikesUpdatedDomainEvent'
+import { TotalLikes } from '@Posts/Post/domain/ValueObjects/TotalLikes'
 
 let eventBus: EventBusMock
 let repository: PostRepositoryMock
@@ -25,13 +26,18 @@ describe('UpdatePostOnLikeCreatedHandler should ', () => {
 
     const like = LikeMother.random()
 
+    const expectedPost = PostMother.create({
+      ...post,
+      totalLikes: new TotalLikes(post.totalLikes.valueOf() + 1)
+    })
+
     repository.returnOnFind(post)
 
     const event = LikeCreatedDomainEvent.fromAggregate(like)
 
     await handler.on(event)
 
-    repository.assertPersistHasBeenCalledWith(post)
+    repository.assertPersistHasBeenCalledWith(expectedPost)
   })
 
   test('Create a new PostTotalLikesUpdatedDomainEvent', async () => {
@@ -45,7 +51,12 @@ describe('UpdatePostOnLikeCreatedHandler should ', () => {
 
     await handler.on(event)
 
-    const expectedEvent = PostTotalLikesUpdatedDomainEvent.fromAggregate(post)
+    const expectedPost = PostMother.create({
+      ...post,
+      totalLikes: new TotalLikes(post.totalLikes.valueOf() + 1)
+    })
+
+    const expectedEvent = PostTotalLikesUpdatedDomainEvent.fromAggregate(expectedPost)
 
     eventBus.assertEventHasBeenPublished(expectedEvent)
   })
