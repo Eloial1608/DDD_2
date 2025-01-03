@@ -1,0 +1,31 @@
+shared: &shared
+- package.json
+- Dockerfile
+- docker-compose.yml
+- .github/workflows/**
+- deploy/tools/**
+- src/Contexts/Shared/**
+- tests/Contexts/Shared/**
+
+core-service-server:
+- *shared
+- src/apps/Core/**
+- src/Contexts/Core/**
+- src/Contexts/Stripe/**
+- tests/apps/Core/**
+- tests/Contexts/Core/**
+- tests/Contexts/Stripe/**
+
+auth-service-server:
+- *shared
+- src/apps/Auth/**
+- src/Contexts/Auth/**
+- tests/apps/Auth/**
+- tests/Contexts/Auth/**
+
+posts-service-server:
+- *shared
+- src/apps/Posts/**
+- src/Contexts/Posts/**
+- tests/apps/Posts/**
+- tests/Contexts/Posts/**

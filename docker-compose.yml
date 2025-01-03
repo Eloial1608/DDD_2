@@ -9,6 +9,28 @@ services:
     command: start:core:server
     ports:
       - 5000:5000
+  
+  auth-service-server:
+    depends_on:
+      - db
+      - rabbitmq
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    command: start:auth:server
+    ports:
+      - 5000:5000
+  
+  posts-service-server:
+    depends_on:
+      - db
+      - rabbitmq
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    command: start:posts:server
+    ports:
+      - 5000:5000
 
   rabbitmq:
     image: rabbitmq:3-management-alpine

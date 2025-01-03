@@ -1,0 +1,119 @@
+name: 📖 Gathered
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**/*'  # Se activa para cualquier cambio en el repositorio
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**/*'
+
+jobs:
+  initial:
+    name: 🎬 Initial
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    outputs:
+      ENV: ${{ steps.env-vars.outputs.ENV }}
+      TAG: ${{ steps.env-vars.outputs.TAG }}
+      NOW: ${{ steps.env-vars.outputs.NOW }}
+      BRANCH: ${{ steps.env-vars.outputs.BRANCH }}
+      ROLLBACK: ${{ steps.env-vars.outputs.ROLLBACK }}
+      SERVICES: ${{ steps.paths.outputs.changes }}
+
+    steps:
+      # Define ENV global vars according to branch that will be used through the pipeline
+      - name: Defining env global vars
+        shell: bash
+        id: env-vars
+        run: |
+          GITHUB_SHA_ROLLBACK=${{ github.event.inputs.rollback }}
+          if [ -z ${GITHUB_SHA_ROLLBACK} ]; then
+            echo "TAG=${GITHUB_SHA:0:8}" >> $GITHUB_OUTPUT
+            echo "ROLLBACK=false" >> $GITHUB_OUTPUT
+          else
+            echo "TAG=${GITHUB_SHA_ROLLBACK}" >> $GITHUB_OUTPUT
+            echo "ROLLBACK=true" >> $GITHUB_OUTPUT
+          fi
+          echo "NOW=$(TZ=':Europe/Madrid' date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_OUTPUT
+          case ${GITHUB_REF##*/} in
+            master)
+              echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+              echo "ENV=prod" >> $GITHUB_OUTPUT
+              ;;
+            staging)
+              echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+              echo "ENV=staging" >> $GITHUB_OUTPUT
+              ;;
+            *)
+              echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+              echo "ENV=feature" >> $GITHUB_OUTPUT
+              ;;
+          esac
+
+      # Checkout repository under $GITHUB_WORKSPACE path
+      - name: Repository checkout
+        uses: actions/checkout@v4
+
+      # Build and deploy services depending on files change
+      - name: Path service filter
+        uses: dorny/paths-filter@v3
+        id: paths
+        with:
+          base: ${{ github.ref }}
+          filters: .github/workflows/filters/filters.yaml
+          list-files: "csv"
+
+      # Print services changed
+      - name: Print services changed
+        run: |
+          echo ${{ fromJSON(steps.paths.outputs.changes) }}
+
+  build:
+    name: 🏭 Build
+    uses: ./.github/workflows/gathered-build.yml
+    with:
+      ENV: ${{ needs.initial.outputs.ENV }}
+      TAG: ${{ needs.initial.outputs.TAG }}
+    needs: initial
+    if: |
+      success() &&
+      needs.initial.outputs.ROLLBACK == 'false' &&
+      needs.initial.result == 'success'
+
+  unit-tests:
+    name: 🧪 Unit Tests
+    uses: ./.github/workflows/gathered-unit-tests.yml
+    with:
+      BRANCH: ${{ needs.initial.outputs.BRANCH }}
+      TAG: ${{ needs.initial.outputs.TAG }}
+    needs: [initial, build]
+    if: |
+      success() &&
+      needs.initial.outputs.ROLLBACK == 'false' &&
+      !contains(join(needs.*.result, ','), 'failure')
+    
+
+  feature-tests:
+    name: 🧪 Feature Tests
+    strategy:
+      matrix:
+        service: ${{ fromJSON(needs.initial.outputs.SERVICES) }}
+        exclude:
+          - service: shared
+      fail-fast: false
+    uses: ./.github/workflows/gathered-feature-tests.yml
+    with:
+      SERVICE: ${{ matrix.service }}
+      BRANCH: ${{ needs.initial.outputs.BRANCH }}
+      TAG: ${{ needs.initial.outputs.TAG }}
+    needs: [initial, build, unit-tests]
+    if: |
+      success() &&
+      needs.initial.outputs.SERVICES != '[]' &&
+      needs.initial.outputs.SERVICES != '' &&
+      needs.initial.outputs.ROLLBACK == 'false' &&
+      !contains(join(needs.*.result, ','), 'failure')
