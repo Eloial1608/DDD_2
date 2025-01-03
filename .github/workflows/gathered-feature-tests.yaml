@@ -40,9 +40,9 @@ jobs:
             echo "*** Skiping CI feature tests ***"
           else
             echo "*** Starting CI feature tests ***"
-            docker compose up ${{inputs.SERVICE}}
-            docker compose exec docker-compose.yml ${{inputs.SERVICE}} npm run test:${{inputs.SERVICE}}:features
-            docker compose down ${{inputs.SERVICE}}
+            docker-compose up ${{inputs.SERVICE}}
+            docker-compose exec docker-compose.yml ${{inputs.SERVICE}} npm run test:${{inputs.SERVICE}}:features
+            docker-compose down ${{inputs.SERVICE}}
             docker compose ps
             echo "*** CI feature tests has passed SUCCESSFULLY ***"
           fi
