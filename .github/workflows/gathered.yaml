@@ -57,11 +57,6 @@ jobs:
       # Checkout repository under $GITHUB_WORKSPACE path
       - name: Repository checkout
         uses: actions/checkout@v4
-      
-      - name: Set up GITHUB_TOKEN
-        uses: actions/setup-token@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       # Build and deploy services depending on files change
       - name: Path service filter
