@@ -1,15 +1,6 @@
 name: 📖 Gathered
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - '**/*'  # Se activa para cualquier cambio en el repositorio
-  pull_request:
-    branches:
-      - main
-    paths:
-      - '**/*'
+
+on: [push]
 
 jobs:
   initial:
