@@ -256,3 +256,23 @@ services:
     arguments: ["@Like.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
+
+  Comment.FindById.FinderById:
+    class: src/Contexts/Posts/Comment/application/FindById/FinderById
+    arguments: ['@Comment.Repository']
+  
+  Comment.FindById.FindCommentByIdQueryHandler:
+    class: src/Contexts/Posts/Comment/application/FindById/FindCommentByIdQueryHandler
+    arguments: ['@Comment.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+  
+  Comment.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Posts/Comment/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Comment.Repository']
+  
+  Comment.FindByCriteria.FindCommentsByCriteriaQueryHandler:
+    class: src/Contexts/Posts/Comment/application/FindByCriteria/FindCommentsByCriteriaQueryHandler
+    arguments: ['@Comment.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
