@@ -25,3 +25,7 @@ services:
   Apps.Posts.Controllers.LikesGetController:
     class: src/apps/Posts/controllers/Like/LikesGetController
     arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Posts.Controllers.LikeDeleteController:
+    class: src/apps/Posts/controllers/Like/LikeDeleteController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
