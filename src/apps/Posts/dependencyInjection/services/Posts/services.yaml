@@ -280,3 +280,13 @@ services:
     arguments: ['@Comment.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+
+  Comment.Delete.Deleter:
+    class: src/Contexts/Posts/Comment/application/Delete/Deleter
+    arguments: ['@Comment.Repository', '@Shared.EventBus']
+  
+  Comment.Delete.DeleteCommentCommandHandler:
+    class: src/Contexts/Posts/Comment/application/Delete/DeleteCommentCommandHandler
+    arguments: ["@Comment.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
