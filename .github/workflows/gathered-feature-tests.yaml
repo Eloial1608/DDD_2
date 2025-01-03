@@ -34,6 +34,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install docker-compose
 
+      - name: Run docker-compose needed stack before tests
+        shell: sh
+        run: |
+          echo "Starting docker compose DB"
+          docker-compose -f docker-compose.yml up -d db
+
       # Running feature tests
       - name: Run feature tests
         shell: sh
@@ -43,10 +49,10 @@ jobs:
           if [ -z $SERVICE ]; then
             echo "*** Skiping CI feature tests ***"
           else
-            echo "*** Starting CI feature tests ***"
-            docker-compose -f docker-compose.yml up ${{inputs.SERVICE}}
-            docker-compose exec docker-compose.yml ${{inputs.SERVICE}} npm run test:${{inputs.SERVICE}}:features
-            docker-compose down ${{inputs.SERVICE}}
-            docker compose ps
+            echo "*** Starting CI migrations & tests ***"
+            docker-compose -f docker-compose.yml run --rm --name ${{ inputs.SERVICE }} -e DB_HOST=db --entrypoint="npm run test:${{ inputs.SERVICE }}:features" ${{ inputs.SERVICE }}
+            docker ps -a
+            docker-compose -f docker-compose.yml down
+            echo "*** CI migrations & tests has passed SUCCESSFULLY ***"
             echo "*** CI feature tests has passed SUCCESSFULLY ***"
           fi

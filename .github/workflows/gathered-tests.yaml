@@ -4,6 +4,9 @@ name: 🧪 Unit-tests
 on:
   workflow_call:
     inputs:
+      SERVICE:
+        required: true
+        type: string
       BRANCH:
         required: true
         type: string
@@ -13,7 +16,7 @@ on:
 
 jobs:
   unit-tests:
-    name: Unit tests
+    name: tests ${{inputs.SERVICE}}
     runs-on: ubuntu-latest
     concurrency:
       # Cancel old runs if there is a new commit in the same branch
@@ -37,8 +40,9 @@ jobs:
         shell: sh
         run: |
           echo "*** Starting CI unit tests ***"
-          docker-compose -f docker-compose.yml up core-service-server
-          docker-compose exec docker-compose.yml core-service-server npm run test:unit
-          docker-compose down core-service-server
+          docker-compose -f docker-compose.yml up -d db
+          docker-compose -f docker-compose.yml up ${{inputs.SERVICE}}
+          docker-compose exec ${{inputs.SERVICE}} npm run test:${{inputs.SERVICE}}
+          docker-compose down ${{inputs.SERVICE}}
           docker compose ps
           echo "*** CI unit tests has passed SUCCESSFULLY ***"
