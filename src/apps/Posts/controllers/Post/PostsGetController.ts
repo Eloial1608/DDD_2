@@ -17,6 +17,9 @@ import { buildCriteriaFromUri } from '@Shared/infrastructure/Criteria/BuildCrite
 import { PostCollectionResponse } from '@Posts/Post/application/PostCollectionResponse'
 import { UserResponseBody } from '@Posts/User/application/UserResponse'
 import { Nullable } from '@Shared/domain/Nullable'
+import { SpaceMemberResponseBody } from '@Posts/SpaceMember/application/SpaceMemberResponse'
+import { FindPostUsersByCriteriaQuery } from '@Posts/PostUser/application/FindByCriteria/FindPostUsersByCriteriaQuery'
+import { PostUserCollectionResponse } from '@Posts/PostUser/application/PostUserCollectionResponse'
 
 export class PostsGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
@@ -58,6 +61,7 @@ export class PostsGetController implements Controller {
     const spaceQuery = new FindSpaceByIdQuery(post.spaceId)
 
     const space = await (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
+    let spaceMember: SpaceMemberResponseBody | undefined
 
     if (space.accessibility !== AllowedAccessibilities.PUBLIC) {
       if (this.user === undefined) {
@@ -73,13 +77,25 @@ export class PostsGetController implements Controller {
       if (!this.user) return null
 
       if (!this.user.isAdmin && !this.user.isOwner) {
-        const spaceMember = await this.getSpaceMember(this.user.id, this.user.communityId, space.id)
+        spaceMember = await this.getSpaceMember(this.user.id, this.user.communityId, space.id)
 
         if (!spaceMember) return null
       }
     }
 
-    return space
+    if (post.isPaid && (!this.user?.isAdmin && !this.user?.isOwner && !spaceMember?.isModerator)) {
+      if (!spaceMember) return this.getPostWithoutContent(post)
+      const postUser = await this.getPostUser(spaceMember.userId, post.id)
+      if (!postUser) return this.getPostWithoutContent(post)
+    }
+
+    return post
+  }
+
+  private getPostWithoutContent (post: PostResponseBody) {
+    const { content, ...data } = post
+
+    return data
   }
 
   private async getSpaceMember (userId: string, communityId: string, spaceId: string) {
@@ -101,7 +117,7 @@ export class PostsGetController implements Controller {
       ])
     ])
 
-    return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response
+    return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response.pop()
   }
 
   private async getUser (id: string, communityId: string) {
@@ -119,6 +135,25 @@ export class PostsGetController implements Controller {
     ])
 
     const user = (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
+
+    return user
+  }
+
+  private async getPostUser (userId: string, postId: string) {
+    const query = new FindPostUsersByCriteriaQuery([
+      new Map<string, string>([
+        ['field', 'userId'],
+        ['operator', '='],
+        ['value', userId]
+      ]),
+      new Map<string, string>([
+        ['field', 'postId'],
+        ['operator', '='],
+        ['value', postId]
+      ])
+    ])
+
+    const user = (await this.queryBus.ask<PostUserCollectionResponse>(query)).response.pop()
 
     return user
   }
