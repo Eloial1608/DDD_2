@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    name: tacter-image
+    name: gathered-image
     runs-on: ubuntu-latest
     concurrency:
       # Cancel old runs if there is a new commit in the same branch
