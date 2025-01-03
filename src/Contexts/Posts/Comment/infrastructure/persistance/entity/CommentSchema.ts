@@ -5,9 +5,36 @@ import { Id } from '@Posts/Comment/domain/ValueObjects/Id'
 import { PostId } from '@Posts/Comment/domain/ValueObjects/PostId'
 import { UpdatedAt } from '@Posts/Comment/domain/ValueObjects/UpdatedAt'
 import { UserId } from '@Posts/Comment/domain/ValueObjects/UserId'
-import { UserMetadata } from '@Posts/Comment/domain/ValueObjects/UserMetadata'
+import { Author } from '@Posts/Comment/domain/ValueObjects/Author'
 import { ValueObjectTransformer } from '@Shared/domain/ValueObjects/ValueObjectTransformer'
 import { EntitySchema } from 'typeorm'
+
+const CommentAuthorSchema = new EntitySchema<Author>({
+  name: 'CommentAuthor',
+  target: Author,
+  columns: {
+    id: {
+      type: String
+    },
+    mainId: {
+      type: String
+    },
+    name: {
+      type: String
+    },
+    username: {
+      type: String
+    },
+    pictureUrl: {
+      type: String,
+      nullable: true
+    },
+    bannerUrl: {
+      type: String,
+      nullable: true
+    }
+  }
+})
 
 export const CommentSchema = new EntitySchema<Comment>({
   name: 'Comment',
@@ -27,10 +54,6 @@ export const CommentSchema = new EntitySchema<Comment>({
       type: String,
       transformer: ValueObjectTransformer(UserId)
     },
-    userMetadata: {
-      type: String,
-      transformer: ValueObjectTransformer(UserMetadata)
-    },
     content: {
       type: String,
       transformer: ValueObjectTransformer(Content)
@@ -42,6 +65,22 @@ export const CommentSchema = new EntitySchema<Comment>({
     updatedAt: {
       type: Date,
       transformer: ValueObjectTransformer(UpdatedAt)
+    }
+  },
+  indices: [
+    {
+      name: 'IDX_COMMENT_POST_ID',
+      columns: ['postId']
+    },
+    {
+      name: 'IDX_COMMENT_USER_ID',
+      columns: ['userId']
+    }
+  ],
+  embeddeds: {
+    author: {
+      schema: CommentAuthorSchema,
+      prefix: 'author'
     }
   }
 })
