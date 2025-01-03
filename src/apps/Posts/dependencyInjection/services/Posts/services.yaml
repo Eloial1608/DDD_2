@@ -246,3 +246,13 @@ services:
     arguments: ['@Like.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+  
+  Like.Delete.Deleter:
+    class: src/Contexts/Posts/Like/application/Delete/Deleter
+    arguments: ['@Like.Repository', '@Shared.EventBus']
+  
+  Like.Delete.DeleteLikeCommandHandler:
+    class: src/Contexts/Posts/Like/application/Delete/DeleteLikeCommandHandler
+    arguments: ["@Like.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
