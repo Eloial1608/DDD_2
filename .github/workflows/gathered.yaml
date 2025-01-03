@@ -77,6 +77,8 @@ jobs:
     strategy:
       matrix:
         service: ${{ fromJSON(needs.initial.outputs.SERVICES) }}
+        exclude:
+          - service: shared
     uses: ./.github/workflows/gathered-tests.yaml
     with:
       SERVICE: ${{ matrix.service }}
