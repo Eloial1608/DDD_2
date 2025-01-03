@@ -29,8 +29,8 @@ jobs:
       # Ejecutar npm run build solo en el servicio core
       - name: Build service inside core-service-server container
         run: |
-          docker-compose -f docker-compose.yml up core-service-server  # Levanta los servicios en segundo plano
-          docker-compose exec core-service-server npm run build || true  # Ejecuta build solo en core-service-server
-          docker-compose down  # Detiene los contenedores después de ejecutar el build
+          docker compose -f docker-compose.yml up core-service-server  # Levanta los servicios en segundo plano
+          docker compose exec core-service-server npm run build || true  # Ejecuta build solo en core-service-server
+          docker compose down  # Detiene los contenedores después de ejecutar el build
 
 
