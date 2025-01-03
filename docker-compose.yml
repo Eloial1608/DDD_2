@@ -6,9 +6,9 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
-    command: start:core:server
+    command: start:core:server:dev
     ports:
-      - 5000:5000
+      - 5004:5004
   
   auth-service-server:
     depends_on:
@@ -17,7 +17,7 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
-    command: start:auth:server
+    command: start:auth:server:dev
     ports:
       - 5000:5000
   
@@ -28,7 +28,7 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
-    command: start:posts:server
+    command: start:posts:server:dev
     ports:
       - 5000:5000
 
