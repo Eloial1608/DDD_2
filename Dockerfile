@@ -11,4 +11,3 @@ RUN npm run build
 EXPOSE 5000
 
 ENTRYPOINT ["npm", "run"]
-CMD [ "start:core:server:dev" ]
