@@ -1,5 +1,5 @@
 import { RenovationType } from '@Core/CommunityPlan/domain/ValueObjects/RenovationType'
-import { PlanForUsersAlreadyExists } from '@Core/PlanForUsers/domain/Event/PlanForUsersAlreadyExistsById'
+import { PlanForUsersAlreadyExists } from '@Core/PlanForUsers/domain/Errors/PlanForUsersAlreadyExistsById'
 import { PlanForUsers } from '@Core/PlanForUsers/domain/PlanForUsers'
 import { PlanForUsersRepository } from '@Core/PlanForUsers/domain/PlanForUsersRepository'
 import { CommunityId } from '@Core/PlanForUsers/domain/ValueObjects/CommunityId'
