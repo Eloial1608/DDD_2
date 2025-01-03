@@ -14,7 +14,7 @@ import { FindPostByIdQuery } from '@Posts/Post/application/FindById/FindPostById
 import { PostResponse } from '@Posts/Post/application/PostResponse'
 import { CommentNotFound } from '@Posts/Comment/domain/Errors/CommentNotFound'
 
-export class CommentUpdateController implements Controller {
+export class CommentPutController implements Controller {
   constructor (private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
 
   async run (req: Request, res: Response): Promise<Response> {
