@@ -37,7 +37,7 @@ jobs:
         shell: sh
         run: |
           echo "*** Starting CI unit tests ***"
-          docker-compose up core-service-server
+          docker-compose -f docker-compose.yml up core-service-server
           docker-compose exec docker-compose.yml core-service-server npm run test:unit
           docker-compose down core-service-server
           docker compose ps
