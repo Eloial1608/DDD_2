@@ -330,3 +330,13 @@ services:
     arguments: ["@Like.Create.Creator"]
     tags:
       - { name: "commandHandler" }
+  
+  Post.UpdatePostOnLikeCreated.Updater:
+    class: src/Contexts/Posts/Post/application/UpdatePostOnLikeCreated/Updater
+    arguments: ['@Post.Repository', '@Shared.EventBus']
+  
+  Post.UpdatePostOnLikeCreated.UpdatePostOnLikeCreatedHandler:
+    class: src/Contexts/Posts/Post/application/UpdatePostOnLikeCreated/UpdatePostOnLikeCreatedHandler
+    arguments: ["@Post.UpdatePostOnLikeCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
