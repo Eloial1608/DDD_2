@@ -20,9 +20,7 @@ export class Creator {
     postId: PostId,
     userId: UserId,
     author: Author,
-    content: Content,
-    createdAt: CreatedAt,
-    updatedAt: UpdatedAt
+    content: Content
   ) {
     const existing = await this.repository.find(id)
 
