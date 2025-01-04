@@ -1,10 +1,8 @@
 import { CommentRepository } from '@Posts/Comment/domain/CommentRepository'
 import { Author } from '@Posts/Comment/domain/ValueObjects/Author'
 import { Content } from '@Posts/Comment/domain/ValueObjects/Content'
-import { CreatedAt } from '@Posts/Comment/domain/ValueObjects/CreatedAt'
 import { Id } from '@Posts/Comment/domain/ValueObjects/Id'
 import { PostId } from '@Posts/Comment/domain/ValueObjects/PostId'
-import { UpdatedAt } from '@Posts/Comment/domain/ValueObjects/UpdatedAt'
 import { UserId } from '@Posts/Comment/domain/ValueObjects/UserId'
 import { FindUsersByCriteriaQuery } from '@Posts/User/application/FindByCriteria/FindUsersByCriteriaQuery'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
@@ -20,9 +18,7 @@ export class Creator {
     postId: PostId,
     userId: UserId,
     author: Author,
-    content: Content,
-    createdAt: CreatedAt,
-    updatedAt: UpdatedAt
+    content: Content
   ) {
     const existing = await this.repository.find(id)
 
@@ -44,9 +40,7 @@ export class Creator {
         author.pictureUrl,
         author.bannerUrl
       ),
-      content,
-      createdAt,
-      updatedAt
+      content
     )
 
     await this.repository.persist(comment)

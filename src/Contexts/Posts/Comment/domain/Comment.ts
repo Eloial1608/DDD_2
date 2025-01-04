@@ -28,9 +28,7 @@ export class Comment extends AggregateRoot {
     postId: PostId,
     userId: UserId,
     author: Author,
-    content: Content,
-    createdAt: CreatedAt,
-    updatedAt: UpdatedAt
+    content: Content
   ): Comment {
     const post = new Comment(
       id,
@@ -38,8 +36,8 @@ export class Comment extends AggregateRoot {
       userId,
       author,
       content,
-      createdAt,
-      updatedAt
+      new CreatedAt(new Date()),
+      new UpdatedAt(new Date())
     )
 
     post.record(CommentCreatedDomainEvent.fromAggregate(post))

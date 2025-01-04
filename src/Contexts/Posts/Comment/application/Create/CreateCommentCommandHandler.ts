@@ -7,8 +7,6 @@ import { PostId } from '@Posts/Comment/domain/ValueObjects/PostId'
 import { UserId } from '@Posts/Comment/domain/ValueObjects/UserId'
 import { Author } from '@Posts/Comment/domain/ValueObjects/Author'
 import { Content } from '@Posts/Comment/domain/ValueObjects/Content'
-import { CreatedAt } from '@Posts/Comment/domain/ValueObjects/CreatedAt'
-import { UpdatedAt } from '@Posts/Comment/domain/ValueObjects/UpdatedAt'
 
 export class CreateCommentCommandHandler implements CommandHandler <CreateCommentCommand> {
   constructor (private readonly creator: Creator) {}
@@ -30,9 +28,7 @@ export class CreateCommentCommandHandler implements CommandHandler <CreateCommen
         command.author.pictureUrl,
         command.author.bannerUrl
       ),
-      new Content(command.content),
-      new CreatedAt(command.createdAt),
-      new UpdatedAt(command.updatedAt),
+      new Content(command.content)
     )
   }
 }
