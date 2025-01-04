@@ -300,6 +300,46 @@ services:
     arguments: ["@Comment.Update.Updater"]
     tags:
       - { name: "commandHandler" }
+  
+  Post.UpdatePostOnLikeDeleted.Updater:
+    class: src/Contexts/Posts/Post/application/UpdatePostOnLikeDeleted/Updater
+    arguments: ['@Post.Repository', '@Shared.EventBus']
+  
+  Post.UpdatePostOnLikeDeleted.UpdatePostOnLikeDeletedHandler:
+    class: src/Contexts/Posts/Post/application/UpdatePostOnLikeDeleted/UpdatePostOnLikeDeletedHandler
+    arguments: ["@Post.UpdatePostOnLikeDeleted.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Post.UpdatePostOnCommentDeleted.Updater:
+    class: src/Contexts/Posts/Post/application/UpdatePostOnCommentDeleted/Updater
+    arguments: ['@Post.Repository', '@Shared.EventBus']
+  
+  Post.UpdatePostOnCommentDeleted.UpdatePostOnCommentDeletedHandler:
+    class: src/Contexts/Posts/Post/application/UpdatePostOnCommentDeleted/UpdatePostOnCommentDeletedHandler
+    arguments: ["@Post.UpdatePostOnCommentDeleted.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Like.Create.Creator:
+    class: src/Contexts/Posts/Like/application/Create/Creator
+    arguments: ['@Like.Repository', '@Shared.QueryBus', '@Shared.EventBus']
+  
+  Like.Create.CreateLikeCommandHandler:
+    class: src/Contexts/Posts/Like/application/Create/CreateLikeCommandHandler
+    arguments: ["@Like.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Post.UpdatePostOnLikeCreated.Updater:
+    class: src/Contexts/Posts/Post/application/UpdatePostOnLikeCreated/Updater
+    arguments: ['@Post.Repository', '@Shared.EventBus']
+  
+  Post.UpdatePostOnLikeCreated.UpdatePostOnLikeCreatedHandler:
+    class: src/Contexts/Posts/Post/application/UpdatePostOnLikeCreated/UpdatePostOnLikeCreatedHandler
+    arguments: ["@Post.UpdatePostOnLikeCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
 
   Comment.Create.Creator:
     class: src/Contexts/Posts/Comment/application/Create/Creator
