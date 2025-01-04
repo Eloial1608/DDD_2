@@ -1,0 +1,80 @@
+import { DomainEvent } from '@Shared/domain/EventBus/DomainEvent'
+import { Comment } from '../Comment'
+import { Nullable } from '@Shared/domain/Nullable'
+
+type CommentCreatedDomainEventBody = {
+    readonly id: string,
+    readonly postId: string,
+    readonly author: {
+        id: string,
+        mainId: string,
+        name: string,
+        username: string,
+        pictureUrl: Nullable<string>,
+        bannerUrl: Nullable<string>
+    },
+    readonly userId: string,
+    readonly content: string,
+    readonly createdAt: Date,
+    readonly updatedAt: Date
+}
+
+export class CommentCreatedDomainEvent extends DomainEvent {
+    static readonly EVENT_NAME: string = 'app.quid.comments.comment.v1.created'
+
+    readonly id: string
+    readonly postId: string
+    readonly author: {
+        id: string,
+        mainId: string,
+        name: string,
+        username: string,
+        pictureUrl: Nullable<string>,
+        bannerUrl: Nullable<string>
+    }
+    readonly userId: string
+    readonly content: string
+    readonly createdAt: Date
+    readonly updatedAt: Date
+
+    static {
+        DomainEvent.derived.add(CommentCreatedDomainEvent.EVENT_NAME)
+    }
+
+    constructor(params: CommentCreatedDomainEventBody & { eventId?: string, occurredOn?: Date }) {
+        super(CommentCreatedDomainEvent.EVENT_NAME, params.id, params.eventId, params.occurredOn)
+
+        this.id = params.id
+        this.postId = params.postId
+        this.author = params.author
+        this.userId = params.userId
+        this.content = params.content
+        this.createdAt = params.createdAt
+        this.updatedAt = params.updatedAt
+    }
+
+    static fromAggregate(comment: Comment): CommentCreatedDomainEvent {
+        return new CommentCreatedDomainEvent({
+            id: comment.id.valueOf(),
+            postId: comment.postId.valueOf(),
+            author: comment.author.toPrimitives(),
+            userId: comment.userId.valueOf(),
+            content: comment.content.valueOf(),
+            createdAt: comment.createdAt.valueOf(),
+            updatedAt: comment.updatedAt.valueOf()
+        })
+    }
+
+    toPrimitive(): CommentCreatedDomainEventBody {
+        return { ...this }
+    }
+
+    static fromPrimitives(id: string, attributes: CommentCreatedDomainEventBody, eventId: string, occurredOn: Date): CommentCreatedDomainEvent {
+        return new CommentCreatedDomainEvent({
+            ...attributes,
+            id,
+            eventId,
+            occurredOn
+        })
+    }
+}

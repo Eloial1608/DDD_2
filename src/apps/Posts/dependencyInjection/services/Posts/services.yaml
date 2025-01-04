@@ -300,3 +300,13 @@ services:
     arguments: ["@Comment.Update.Updater"]
     tags:
       - { name: "commandHandler" }
+
+  Comment.Create.Creator:
+    class: src/Contexts/Posts/Comment/application/Create/Creator
+    arguments: ['@Comment.Repository', '@Shared.QueryBus', '@Shared.EventBus']
+  
+  Comment.Update.CreateCommentCommandHandler:
+    class: src/Contexts/Posts/Comment/application/Update/CreateCommentCommandHandler
+    arguments: ["@Comment.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
