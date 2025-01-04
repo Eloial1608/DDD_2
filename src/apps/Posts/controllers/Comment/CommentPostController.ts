@@ -35,6 +35,7 @@ export class CommentPostController implements Controller {
         req.params.id,
         post.id,
         user.id,
+        req.body.author,
         req.body.content
       )
 

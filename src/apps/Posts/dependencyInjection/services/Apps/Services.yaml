@@ -45,3 +45,7 @@ services:
   Apps.Posts.Controllers.LikePostController:
     class: src/apps/Posts/controllers/Like/LikePostController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Posts.Controllers.CommentPostController:
+    class: src/apps/Posts/controllers/Comment/CommentPostController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
