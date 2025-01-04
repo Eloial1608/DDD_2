@@ -14,9 +14,7 @@ type CommentCreatedDomainEventBody = {
         bannerUrl: Nullable<string>
     },
     readonly userId: string,
-    readonly content: string,
-    readonly createdAt: Date,
-    readonly updatedAt: Date
+    readonly content: string
 }
 
 export class CommentCreatedDomainEvent extends DomainEvent {
@@ -35,8 +33,6 @@ export class CommentCreatedDomainEvent extends DomainEvent {
 
   readonly userId: string
   readonly content: string
-  readonly createdAt: Date
-  readonly updatedAt: Date
 
   static {
     DomainEvent.derived.add(CommentCreatedDomainEvent.EVENT_NAME)
@@ -50,8 +46,6 @@ export class CommentCreatedDomainEvent extends DomainEvent {
     this.author = params.author
     this.userId = params.userId
     this.content = params.content
-    this.createdAt = params.createdAt
-    this.updatedAt = params.updatedAt
   }
 
   static fromAggregate(comment: Comment): CommentCreatedDomainEvent {
@@ -60,9 +54,7 @@ export class CommentCreatedDomainEvent extends DomainEvent {
       postId: comment.postId.valueOf(),
       author: comment.author.toPrimitives(),
       userId: comment.userId.valueOf(),
-      content: comment.content.valueOf(),
-      createdAt: comment.createdAt.valueOf(),
-      updatedAt: comment.updatedAt.valueOf()
+      content: comment.content.valueOf()
     })
   }
 

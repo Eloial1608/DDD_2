@@ -38,8 +38,8 @@ export class Comment extends AggregateRoot {
       userId,
       author,
       content,
-      createdAt,
-      updatedAt
+      new CreatedAt(new Date()),
+      new UpdatedAt(new Date())
     )
 
     post.record(CommentCreatedDomainEvent.fromAggregate(post))

@@ -14,8 +14,6 @@ export class CreateCommentCommand implements Command {
       pictureUrl: Nullable<string>,
       bannerUrl: Nullable<string>
     },
-    readonly content: string,
-    readonly createdAt: Date,
-    readonly updatedAt: Date
+    readonly content: string
   ) {}
 }

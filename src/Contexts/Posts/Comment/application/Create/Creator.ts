@@ -44,9 +44,7 @@ export class Creator {
         author.pictureUrl,
         author.bannerUrl
       ),
-      content,
-      createdAt,
-      updatedAt
+      content
     )
 
     await this.repository.persist(comment)

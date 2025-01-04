@@ -15,18 +15,14 @@ export class CreateCommentCommandMother {
       pictureUrl: Nullable<string>,
       bannerUrl: Nullable<string>
     },
-    content: string,
-    createdAt: Date,
-    updatedAt: Date
+    content: string
   ): CreateCommentCommand {
     return new CreateCommentCommand(
       id,
       postId,
       userId,
       author,
-      content,
-      createdAt,
-      updatedAt
+      content
     )
   }
 
@@ -36,9 +32,7 @@ export class CreateCommentCommandMother {
       comment.postId.valueOf(),
       comment.userId.valueOf(),
       comment.author.toPrimitives(),
-      comment.content.valueOf(),
-      comment.createdAt.valueOf(),
-      comment.updatedAt.valueOf()
+      comment.content.valueOf()
     )
   }
 }
