@@ -8,12 +8,12 @@ export class CreateCommentCommandMother {
     postId: string,
     userId: string,
     author: {
-        id: string,
-        mainId: string,
-        name: string,
-        username: string,
-        pictureUrl: Nullable<string>,
-        bannerUrl: Nullable<string>
+      id: string,
+      mainId: string,
+      name: string,
+      username: string,
+      pictureUrl: Nullable<string>,
+      bannerUrl: Nullable<string>
     },
     content: string,
     createdAt: Date,
@@ -21,12 +21,12 @@ export class CreateCommentCommandMother {
   ): CreateCommentCommand {
     return new CreateCommentCommand(
       id,
-        postId,
-        userId,
-        author,
-        content,
-        createdAt,
-        updatedAt
+      postId,
+      userId,
+      author,
+      content,
+      createdAt,
+      updatedAt
     )
   }
 
@@ -39,5 +39,6 @@ export class CreateCommentCommandMother {
       comment.content.valueOf(),
       comment.createdAt.valueOf(),
       comment.updatedAt.valueOf()
+    )
   }
 }

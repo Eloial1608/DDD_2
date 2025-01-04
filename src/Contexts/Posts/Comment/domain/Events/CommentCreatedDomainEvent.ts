@@ -20,11 +20,11 @@ type CommentCreatedDomainEventBody = {
 }
 
 export class CommentCreatedDomainEvent extends DomainEvent {
-    static readonly EVENT_NAME: string = 'app.quid.comments.comment.v1.created'
+  static readonly EVENT_NAME: string = 'app.quid.comments.comment.v1.created'
 
-    readonly id: string
-    readonly postId: string
-    readonly author: {
+  readonly id: string
+  readonly postId: string
+  readonly author: {
         id: string,
         mainId: string,
         name: string,
@@ -32,49 +32,50 @@ export class CommentCreatedDomainEvent extends DomainEvent {
         pictureUrl: Nullable<string>,
         bannerUrl: Nullable<string>
     }
-    readonly userId: string
-    readonly content: string
-    readonly createdAt: Date
-    readonly updatedAt: Date
 
-    static {
-        DomainEvent.derived.add(CommentCreatedDomainEvent.EVENT_NAME)
-    }
+  readonly userId: string
+  readonly content: string
+  readonly createdAt: Date
+  readonly updatedAt: Date
 
-    constructor(params: CommentCreatedDomainEventBody & { eventId?: string, occurredOn?: Date }) {
-        super(CommentCreatedDomainEvent.EVENT_NAME, params.id, params.eventId, params.occurredOn)
+  static {
+    DomainEvent.derived.add(CommentCreatedDomainEvent.EVENT_NAME)
+  }
 
-        this.id = params.id
-        this.postId = params.postId
-        this.author = params.author
-        this.userId = params.userId
-        this.content = params.content
-        this.createdAt = params.createdAt
-        this.updatedAt = params.updatedAt
-    }
+  constructor(params: CommentCreatedDomainEventBody & { eventId?: string, occurredOn?: Date }) {
+    super(CommentCreatedDomainEvent.EVENT_NAME, params.id, params.eventId, params.occurredOn)
 
-    static fromAggregate(comment: Comment): CommentCreatedDomainEvent {
-        return new CommentCreatedDomainEvent({
-            id: comment.id.valueOf(),
-            postId: comment.postId.valueOf(),
-            author: comment.author.toPrimitives(),
-            userId: comment.userId.valueOf(),
-            content: comment.content.valueOf(),
-            createdAt: comment.createdAt.valueOf(),
-            updatedAt: comment.updatedAt.valueOf()
-        })
-    }
+    this.id = params.id
+    this.postId = params.postId
+    this.author = params.author
+    this.userId = params.userId
+    this.content = params.content
+    this.createdAt = params.createdAt
+    this.updatedAt = params.updatedAt
+  }
 
-    toPrimitive(): CommentCreatedDomainEventBody {
-        return { ...this }
-    }
+  static fromAggregate(comment: Comment): CommentCreatedDomainEvent {
+    return new CommentCreatedDomainEvent({
+      id: comment.id.valueOf(),
+      postId: comment.postId.valueOf(),
+      author: comment.author.toPrimitives(),
+      userId: comment.userId.valueOf(),
+      content: comment.content.valueOf(),
+      createdAt: comment.createdAt.valueOf(),
+      updatedAt: comment.updatedAt.valueOf()
+    })
+  }
 
-    static fromPrimitives(id: string, attributes: CommentCreatedDomainEventBody, eventId: string, occurredOn: Date): CommentCreatedDomainEvent {
-        return new CommentCreatedDomainEvent({
-            ...attributes,
-            id,
-            eventId,
-            occurredOn
-        })
-    }
+  toPrimitive(): CommentCreatedDomainEventBody {
+    return { ...this }
+  }
+
+  static fromPrimitives(id: string, attributes: CommentCreatedDomainEventBody, eventId: string, occurredOn: Date): CommentCreatedDomainEvent {
+    return new CommentCreatedDomainEvent({
+      ...attributes,
+      id,
+      eventId,
+      occurredOn
+    })
+  }
 }

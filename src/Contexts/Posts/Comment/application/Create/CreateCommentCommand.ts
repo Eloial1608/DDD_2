@@ -7,12 +7,12 @@ export class CreateCommentCommand implements Command {
     readonly postId: string,
     readonly userId: string,
     readonly author: {
-        id: string,
-        mainId: string,
-        name: string,
-        username: string,
-        pictureUrl: Nullable<string>,
-        bannerUrl: Nullable<string>
+      id: string,
+      mainId: string,
+      name: string,
+      username: string,
+      pictureUrl: Nullable<string>,
+      bannerUrl: Nullable<string>
     },
     readonly content: string,
     readonly createdAt: Date,

@@ -29,7 +29,7 @@ export class CreateCommentCommandHandler implements CommandHandler <CreateCommen
         command.author.username,
         command.author.pictureUrl,
         command.author.bannerUrl
-        ),
+      ),
       new Content(command.content),
       new CreatedAt(command.createdAt),
       new UpdatedAt(command.updatedAt),

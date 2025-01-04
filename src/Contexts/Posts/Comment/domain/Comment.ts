@@ -12,13 +12,13 @@ import { CommentCreatedDomainEvent } from './Events/CommentCreatedDomainEvent'
 
 export class Comment extends AggregateRoot {
   constructor (
-        readonly id: Id,
-        readonly postId: PostId,
-        readonly userId: UserId,
-        readonly author: Author,
-        readonly content: Content,
-        readonly createdAt: CreatedAt,
-        readonly updatedAt: UpdatedAt
+    readonly id: Id,
+    readonly postId: PostId,
+    readonly userId: UserId,
+    readonly author: Author,
+    readonly content: Content,
+    readonly createdAt: CreatedAt,
+    readonly updatedAt: UpdatedAt
   ) {
     super()
   }
