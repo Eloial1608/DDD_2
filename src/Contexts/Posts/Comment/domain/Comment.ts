@@ -28,9 +28,7 @@ export class Comment extends AggregateRoot {
     postId: PostId,
     userId: UserId,
     author: Author,
-    content: Content,
-    createdAt: CreatedAt,
-    updatedAt: UpdatedAt
+    content: Content
   ): Comment {
     const post = new Comment(
       id,
