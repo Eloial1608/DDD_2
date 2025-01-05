@@ -8,18 +8,41 @@ import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { Author } from './ValueObjects/Author'
 import { CommentDeletedDomainEvent } from './Events/CommentDeletedDomainEvent'
 import { CommentUpdatedDomainEvent } from './Events/CommentUpdatedDomainEvent'
+import { CommentCreatedDomainEvent } from './Events/CommentCreatedDomainEvent'
 
 export class Comment extends AggregateRoot {
   constructor (
-        readonly id: Id,
-        readonly postId: PostId,
-        readonly userId: UserId,
-        readonly author: Author,
-        readonly content: Content,
-        readonly createdAt: CreatedAt,
-        readonly updatedAt: UpdatedAt
+    readonly id: Id,
+    readonly postId: PostId,
+    readonly userId: UserId,
+    readonly author: Author,
+    readonly content: Content,
+    readonly createdAt: CreatedAt,
+    readonly updatedAt: UpdatedAt
   ) {
     super()
+  }
+
+  static create (
+    id: Id,
+    postId: PostId,
+    userId: UserId,
+    author: Author,
+    content: Content
+  ): Comment {
+    const post = new Comment(
+      id,
+      postId,
+      userId,
+      author,
+      content,
+      new CreatedAt(new Date()),
+      new UpdatedAt(new Date())
+    )
+
+    post.record(CommentCreatedDomainEvent.fromAggregate(post))
+
+    return post
   }
 
   delete () {
