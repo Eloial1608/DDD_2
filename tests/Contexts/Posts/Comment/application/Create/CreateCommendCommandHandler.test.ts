@@ -9,6 +9,13 @@ import { FindUsersByCriteriaQuery } from '@Posts/User/application/FindByCriteria
 import { UserCollectionResponse } from '@Posts/User/application/UserCollectionResponse'
 import { CreateCommentCommandMother } from './CreateCommentCommandMother'
 import { CommentCreatedDomainEvent } from '@Posts/Comment/domain/Events/CommentCreatedDomainEvent'
+import { PostMother } from '@Tests/Contexts/Posts/Post/domain/PostMother'
+import { SpaceMother } from '@Tests/Contexts/Posts/Space/domain/SpaceMother'
+import { PostsConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/PostsConfiguration'
+import { PostResponse } from '@Posts/Post/application/PostResponse'
+import { SpaceResponse } from '@Posts/Space/application/SpaceResponse'
+import { FindPostByIdQuery } from '@Posts/Post/application/FindById/FindPostByIdQuery'
+import { FindSpaceByIdQuery } from '@Posts/Space/application/FindById/FindSpaceByIdQuery'
 
 let eventBus: EventBusMock
 let repository: CommentRepositoryMock
@@ -30,6 +37,12 @@ describe('CreatePostCommandHandler should ', () => {
 
     const comment = CommentMother.forAuthor(user)
 
+    const post = PostMother.random()
+
+    const space = SpaceMother.create({ id: post.spaceId, configuration: new PostsConfiguration({ allowsLikes: true }) })
+
+    queryBus.returnOnQuery(new FindPostByIdQuery(post.id.valueOf()), new PostResponse(post))
+    queryBus.returnOnQuery(new FindSpaceByIdQuery(space.id.valueOf()), new SpaceResponse(space))
     queryBus.returnOnQuery(new FindUsersByCriteriaQuery(), new UserCollectionResponse([user]))
 
     const command = CreateCommentCommandMother.fromAggregate(comment)
@@ -46,6 +59,12 @@ describe('CreatePostCommandHandler should ', () => {
 
     const existingComment = CommentMother.create({ id: comment.id })
 
+    const post = PostMother.random()
+
+    const space = SpaceMother.create({ id: post.spaceId, configuration: new PostsConfiguration({ allowsLikes: true }) })
+
+    queryBus.returnOnQuery(new FindPostByIdQuery(post.id.valueOf()), new PostResponse(post))
+    queryBus.returnOnQuery(new FindSpaceByIdQuery(space.id.valueOf()), new SpaceResponse(space))
     queryBus.returnOnQuery(new FindUsersByCriteriaQuery(), new UserCollectionResponse([user]))
 
     const command = CreateCommentCommandMother.fromAggregate(comment)
@@ -62,6 +81,12 @@ describe('CreatePostCommandHandler should ', () => {
 
     const comment = CommentMother.forAuthor(user)
 
+    const post = PostMother.random()
+
+    const space = SpaceMother.create({ id: post.spaceId, configuration: new PostsConfiguration({ allowsLikes: true }) })
+
+    queryBus.returnOnQuery(new FindPostByIdQuery(post.id.valueOf()), new PostResponse(post))
+    queryBus.returnOnQuery(new FindSpaceByIdQuery(space.id.valueOf()), new SpaceResponse(space))
     queryBus.returnOnQuery(new FindUsersByCriteriaQuery(), new UserCollectionResponse([user]))
 
     const command = CreateCommentCommandMother.fromAggregate(comment)

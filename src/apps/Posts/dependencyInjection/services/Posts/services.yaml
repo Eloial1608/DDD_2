@@ -343,10 +343,10 @@ services:
 
   Comment.Create.Creator:
     class: src/Contexts/Posts/Comment/application/Create/Creator
-    arguments: ['@Comment.Repository', '@Shared.QueryBus', '@Shared.EventBus']
+    arguments: ['@Comment.Repository', '@Shared.EventBus', '@Shared.QueryBus']
   
-  Comment.Update.CreateCommentCommandHandler:
-    class: src/Contexts/Posts/Comment/application/Update/CreateCommentCommandHandler
+  Comment.Create.CreateCommentCommandHandler:
+    class: src/Contexts/Posts/Comment/application/Create/CreateCommentCommandHandler
     arguments: ["@Comment.Create.Creator"]
     tags:
       - { name: "commandHandler" }
