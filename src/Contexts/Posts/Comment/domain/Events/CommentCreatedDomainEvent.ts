@@ -18,7 +18,7 @@ type CommentCreatedDomainEventBody = {
 }
 
 export class CommentCreatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.comments.comment.v1.created'
+  static readonly EVENT_NAME: string = 'app.quid.posts.comment.v1.created'
 
   readonly id: string
   readonly postId: string
@@ -38,7 +38,7 @@ export class CommentCreatedDomainEvent extends DomainEvent {
     DomainEvent.derived.add(CommentCreatedDomainEvent.EVENT_NAME)
   }
 
-  constructor(params: CommentCreatedDomainEventBody & { eventId?: string, occurredOn?: Date }) {
+  constructor (params: CommentCreatedDomainEventBody & { eventId?: string, occurredOn?: Date }) {
     super(CommentCreatedDomainEvent.EVENT_NAME, params.id, params.eventId, params.occurredOn)
 
     this.id = params.id
@@ -48,7 +48,7 @@ export class CommentCreatedDomainEvent extends DomainEvent {
     this.content = params.content
   }
 
-  static fromAggregate(comment: Comment): CommentCreatedDomainEvent {
+  static fromAggregate (comment: Comment): CommentCreatedDomainEvent {
     return new CommentCreatedDomainEvent({
       id: comment.id.valueOf(),
       postId: comment.postId.valueOf(),
@@ -58,11 +58,11 @@ export class CommentCreatedDomainEvent extends DomainEvent {
     })
   }
 
-  toPrimitive(): CommentCreatedDomainEventBody {
+  toPrimitive (): CommentCreatedDomainEventBody {
     return { ...this }
   }
 
-  static fromPrimitives(id: string, attributes: CommentCreatedDomainEventBody, eventId: string, occurredOn: Date): CommentCreatedDomainEvent {
+  static fromPrimitives (id: string, attributes: CommentCreatedDomainEventBody, eventId: string, occurredOn: Date): CommentCreatedDomainEvent {
     return new CommentCreatedDomainEvent({
       ...attributes,
       id,

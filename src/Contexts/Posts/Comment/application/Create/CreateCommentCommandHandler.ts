@@ -5,7 +5,6 @@ import { Command } from '@Shared/domain/CommandBus/Command'
 import { Id } from '@Posts/Comment/domain/ValueObjects/Id'
 import { PostId } from '@Posts/Comment/domain/ValueObjects/PostId'
 import { UserId } from '@Posts/Comment/domain/ValueObjects/UserId'
-import { Author } from '@Posts/Comment/domain/ValueObjects/Author'
 import { Content } from '@Posts/Comment/domain/ValueObjects/Content'
 
 export class CreateCommentCommandHandler implements CommandHandler <CreateCommentCommand> {
@@ -20,14 +19,6 @@ export class CreateCommentCommandHandler implements CommandHandler <CreateCommen
       new Id(command.id),
       new PostId(command.postId),
       new UserId(command.userId),
-      new Author(
-        command.author.id,
-        command.author.mainId,
-        command.author.name,
-        command.author.username,
-        command.author.pictureUrl,
-        command.author.bannerUrl
-      ),
       new Content(command.content)
     )
   }

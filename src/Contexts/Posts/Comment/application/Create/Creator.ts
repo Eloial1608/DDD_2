@@ -8,7 +8,12 @@ import { FindUsersByCriteriaQuery } from '@Posts/User/application/FindByCriteria
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { Comment } from '@Posts/Comment/domain/Comment'
-import { CommentCollectionResponse } from '../CommentCollectionResponse'
+import { FindPostByIdQuery } from '@Posts/Post/application/FindById/FindPostByIdQuery'
+import { PostResponse } from '@Posts/Post/application/PostResponse'
+import { FindSpaceByIdQuery } from '@Posts/Space/application/FindById/FindSpaceByIdQuery'
+import { SpaceResponse } from '@Posts/Space/application/SpaceResponse'
+import { PostsConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/PostsConfiguration'
+import { UserCollectionResponse } from '@Posts/User/application/UserCollectionResponse'
 
 export class Creator {
   constructor (private readonly repository: CommentRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
@@ -17,7 +22,6 @@ export class Creator {
     id: Id,
     postId: PostId,
     userId: UserId,
-    author: Author,
     content: Content
   ) {
     const existing = await this.repository.find(id)
@@ -28,17 +32,22 @@ export class Creator {
 
     if (!user) return
 
+    const post = await this.findPostById(postId)
+    const space = await this.findSpaceById(post.spaceId)
+
+    if (!(space.configuration as PostsConfiguration['configuration']).allowsComments) return
+
     const comment = Comment.create(
       id,
       postId,
       userId,
       new Author(
-        author.id,
-        author.mainId,
-        author.name,
-        author.username,
-        author.pictureUrl,
-        author.bannerUrl
+        user.id,
+        user.mainId,
+        user.name,
+        user.username,
+        user.pictureUrl,
+        user.bannerUrl
       ),
       content
     )
@@ -56,6 +65,18 @@ export class Creator {
       ])
     ])
 
-    return (await this.queryBus.ask<CommentCollectionResponse>(userQuery)).response.pop()
+    return (await this.queryBus.ask<UserCollectionResponse>(userQuery)).response.pop()
+  }
+
+  private async findPostById (postId: PostId) {
+    const query = new FindPostByIdQuery(postId.valueOf())
+
+    return (await this.queryBus.ask<PostResponse>(query)).response
+  }
+
+  private async findSpaceById (id: string) {
+    const spaceQuery = new FindSpaceByIdQuery(id)
+
+    return (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
   }
 }
