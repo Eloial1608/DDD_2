@@ -29,3 +29,10 @@ posts-service-server:
 - src/Contexts/Posts/**
 - tests/apps/Posts/**
 - tests/Contexts/Posts/**
+
+media-service-server:
+- *shared
+- src/apps/Media/**
+- src/Contexts/Media/**
+- tests/apps/Media/**
+- tests/Contexts/Media/**
