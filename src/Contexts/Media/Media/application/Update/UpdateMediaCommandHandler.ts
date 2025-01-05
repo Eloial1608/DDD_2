@@ -1,0 +1,40 @@
+import { CommandHandler } from '@Shared/domain/CommandBus/CommandHandler'
+import { UpdateMediaCommand } from './UpdateMediaCommand'
+import { Updater } from './Updater'
+import { Command } from '@Shared/domain/CommandBus/Command'
+import { Id } from '@Media/Media/domain/ValueObjects/Id'
+import { CommunityId } from '@Media/Media/domain/ValueObjects/CommunityId'
+import { UserId } from '@Media/Media/domain/ValueObjects/UserId'
+import { Title } from '@Media/Media/domain/ValueObjects/Title'
+import { BannerUrl } from '@Media/Media/domain/ValueObjects/BannerUrl'
+import { IsPaid } from '@Media/Media/domain/ValueObjects/IsPaid'
+import { Price, PriceCurrency, PriceValue } from '@Media/Media/domain/ValueObjects/Price'
+import { SpaceId } from '@Media/Media/domain/ValueObjects/SpaceId'
+import { ContentIds } from '@Media/Media/domain/ValueObjects/ContentIds'
+
+export class UpdateMediaCommandHandler implements CommandHandler<UpdateMediaCommand> {
+  constructor (private readonly updater: Updater) {}
+
+  subscribedTo (): Command {
+    return UpdateMediaCommand
+  }
+
+  async handle (command: UpdateMediaCommand): Promise<void> {
+    await this.updater.run(
+      new Id(command.id),
+      new CommunityId(command.communityId),
+      new UserId(command.userId),
+      new SpaceId(command.spaceId),
+      new Title(command.title),
+      new ContentIds(command.contentIds),
+      command.bannerUrl ? new BannerUrl(command.bannerUrl) : null,
+      new IsPaid(command.isPaid),
+      command.price
+        ? new Price(
+          new PriceValue(command.price.value),
+          new PriceCurrency(command.price.currency)
+        )
+        : null
+    )
+  }
+}

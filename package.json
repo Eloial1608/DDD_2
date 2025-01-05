@@ -8,12 +8,15 @@
     "lint:fix": "npm run lint -- --fix --no-error-on-unmatched-pattern",
     "start:core:server:dev": "NODE_ENV=development nodemon --config nodemon.config.json -r tsconfig-paths/register src/apps/Core/index.ts",
     "start:posts:server:dev": "NODE_ENV=development nodemon --config nodemon.config.json -r tsconfig-paths/register src/apps/Posts/index.ts",
+    "start:media:server:dev": "NODE_ENV=development nodemon --config nodemon.config.json -r tsconfig-paths/register src/apps/Media/index.ts",
     "start:auth:server:dev": "NODE_ENV=development nodemon --config nodemon.config.json -r tsconfig-paths/register src/apps/Auth/index.ts",
     "test:core-service-server": "npm run test:unit && npm run test:core:features",
     "test:posts-service-server": "npm run test:unit && npm run test:posts:features",
+    "test:media-service-server": "npm run test:unit && npm run test:media:features",
     "test:unit": "vitest run",
     "test:core:features": "ts-node ./etc/test/runCoreFeatureTest",
     "test:posts:features": "ts-node ./etc/test/runPostsFeatureTest",
+    "test:media:features": "ts-node ./etc/test/runMediaFeatureTest",
     "test:auth-service-server": "npm run test:unit && npm run test:auth:features",
     "test:auth:features": "ts-node ./etc/test/runAuthFeatureTest",
     "build": "node ./etc/build/build.js",
@@ -25,7 +28,10 @@
     "migrations:auth:revert": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:revert -d src/apps/Auth/dataSource",
     "migrations:posts:generate": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:generate persistence/migrations/posts/posts -d src/apps/Posts/dataSource -o",
     "migrations:posts:run": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:run -d src/apps/Posts/dataSource",
-    "migrations:posts:revert": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:revert -d src/apps/Posts/dataSource"
+    "migrations:posts:revert": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:revert -d src/apps/Posts/dataSource",
+    "migrations:media:generate": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:generate persistence/migrations/media/media -d src/apps/Media/dataSource -o",
+    "migrations:media:run": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:run -d src/apps/Media/dataSource",
+    "migrations:media:revert": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:revert -d src/apps/Media/dataSource"
     
   },
   "author": "Quid",

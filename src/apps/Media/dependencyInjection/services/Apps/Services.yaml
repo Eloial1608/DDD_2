@@ -1,0 +1,3 @@
+services:
+  Apps.Media.Controllers.HealthGetController:
+    class: src/apps/Media/controllers/HealthGetController

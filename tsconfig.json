@@ -31,6 +31,9 @@
     "@Posts/*": [
       "src/Contexts/Posts/*"
     ],
+    "@Media/*": [
+      "src/Contexts/Media/*"
+    ],
     "@Stripe/*": [
       "src/Contexts/Stripe/*"
     ],

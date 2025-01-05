@@ -16,3 +16,9 @@ CREATE DATABASE posts;
 \c posts
 GRANT ALL PRIVILEGES ON DATABASE posts TO posts_user;
 GRANT ALL ON SCHEMA public TO posts_user;
+
+CREATE USER media_user WITH PASSWORD 'media_pass' CREATEDB;
+CREATE DATABASE media;
+\c media
+GRANT ALL PRIVILEGES ON DATABASE media TO media_user;
+GRANT ALL ON SCHEMA public TO media_user;

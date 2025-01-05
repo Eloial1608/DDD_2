@@ -3,7 +3,8 @@ import { InvalidProductType } from '../Errors/InvalidProductType'
 
 export enum ProductTypes {
     USER_PLANS = 'user-plans',
-    POSTS = 'posts'
+    POSTS = 'posts',
+    MEDIA = 'media'
 }
 
 export class ProductType extends EnumValueObject<ProductTypes> {

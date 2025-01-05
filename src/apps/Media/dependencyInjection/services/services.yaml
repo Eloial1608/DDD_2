@@ -1,0 +1,4 @@
+imports:
+    - { resource: ./Media/services.yaml }
+    - { resource: ./Shared/Services.yaml }
+    - { resource: ./Apps/Services.yaml }

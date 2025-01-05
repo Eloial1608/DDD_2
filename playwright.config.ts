@@ -13,6 +13,10 @@ export default defineConfig({
     {
       name: 'posts',
       testDir: 'tests/apps/Posts'
+    },
+    {
+      name: 'media',
+      testDir: 'tests/apps/Media'
     }
   ],
   use: {
