@@ -18,6 +18,16 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 5000:5000
+
+  media-service-server:
+    depends_on:
+      - db
+      - rabbitmq
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - 5000:5000
   
   posts-service-server:
     depends_on:
