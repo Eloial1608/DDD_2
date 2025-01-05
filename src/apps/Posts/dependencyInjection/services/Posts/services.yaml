@@ -350,3 +350,13 @@ services:
     arguments: ["@Comment.Create.Creator"]
     tags:
       - { name: "commandHandler" }
+  
+  Post.UpdatePostOnCommentCreated.Updater:
+    class: src/Contexts/Posts/Post/application/UpdatePostOnCommentCreated/Updater
+    arguments: ['@Post.Repository', '@Shared.EventBus']
+  
+  Post.UpdatePostOnCommentCreated.UpdatePostOnCommentCreatedHandler:
+    class: src/Contexts/Posts/Post/application/UpdatePostOnCommentCreated/UpdatePostOnCommentCreatedHandler
+    arguments: ["@Post.UpdatePostOnCommentCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
