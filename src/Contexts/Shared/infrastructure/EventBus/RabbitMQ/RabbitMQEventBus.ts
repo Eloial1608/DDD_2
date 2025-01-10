@@ -154,6 +154,7 @@ export class RabbitMQEventBus implements EventBus {
     await this.rabbitMQChannel!.consume(queueUrl, async msg => {
       if (msg?.content) {
         await this.consumeMessage(msg.content)
+        this.rabbitMQChannel?.ack(msg)
       }
     })
   }
