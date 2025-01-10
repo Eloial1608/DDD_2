@@ -5,9 +5,9 @@ import { TokenDecoder } from '@Shared/domain/TokenDecoder/TokenDecoder'
 import { FindUsersByCriteriaQuery } from '@Core/User/application/FindByCriteria/FindUsersByCriteriaQuery'
 import { FindCommunityByIdQuery } from '@Core/Community/application/FindById/FindCommunityByIdQuery'
 import { CommunityResponse } from '@Core/Community/application/CommunityResponse'
-import { UserResponse } from '@Core/User/application/UserResponse'
 import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { CommunityNotFound } from '@Core/Community/domain/Errors/CommunityNotFound'
+import { UserCollectionResponse } from '@Core/User/application/UserCollectionResponse'
 
 export class MyselfGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
@@ -22,7 +22,7 @@ export class MyselfGetController implements Controller {
 
       const community = await (await this.queryBus.ask<CommunityResponse>(communityQuery)).response
 
-      if (community.mainId !== data.communityId) return res.status(401).send()
+      if ((community.mainId ?? community.id) !== data.communityId) return res.status(401).send()
 
       const query = new FindUsersByCriteriaQuery([
         new Map<string, string>([
@@ -37,10 +37,11 @@ export class MyselfGetController implements Controller {
         ])
       ])
 
-      const user = (await this.queryBus.ask<UserResponse>(query)).response
+      const user = (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
 
       return res.status(200).json(user)
     } catch (e) {
+      console.log(e)
       if (e instanceof CannotDecode) return res.status(401).send(e.getMessage())
       if (e instanceof CommunityNotFound) res.status(401).send(e.getMessage())
 

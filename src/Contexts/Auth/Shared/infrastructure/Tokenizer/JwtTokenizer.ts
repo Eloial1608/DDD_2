@@ -7,7 +7,7 @@ export class JwtTokenizer implements Tokenizer {
 
   async create (data: object, expiresIn: number): Promise<string> {
     return await sign(data, this.config.privateKey, {
-      algorithm: 'ES512',
+      algorithm: 'HS512',
       expiresIn
     })
   }

@@ -4,5 +4,5 @@ import { MyselfGetController } from '@Apps/Core/controllers/User/MyselfGetContro
 
 export const register = (router: Router) => {
   const controller = DI.getInstance().resolve<MyselfGetController>('Apps.Core.Controllers.MyselfGetController')
-  router.delete('/v1/me/:communityId', (req: Request, res: Response) => controller.run(req, res))
+  router.get('/v1/me/:communityId', (req: Request, res: Response) => controller.run(req, res))
 }

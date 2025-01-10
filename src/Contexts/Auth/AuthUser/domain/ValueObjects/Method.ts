@@ -2,8 +2,8 @@ import { EnumValueObject } from '@Shared/domain/ValueObjects/EnumValueObject'
 import { InvalidMethod } from '../Errors/InvalidMethod'
 
 export enum ValidMethods {
-    PASSWORD = 'password',
-    GOOGLE = 'google'
+    PASSWORD = 'PASSWORD',
+    GOOGLE = 'GOOGLE'
 }
 
 export class Method extends EnumValueObject<ValidMethods> {

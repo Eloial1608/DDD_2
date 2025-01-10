@@ -9,10 +9,10 @@ export class JwtTokenDecoder implements TokenDecoder {
 
   run (token: string): TokenData {
     try {
-      if (token.indexOf('Bearer') > -1) token.replace('Bearer ', '')
+      if (token.indexOf('Bearer') > -1) token = token.replace('Bearer ', '')
 
       const data = verify(token, this.config.publicKey, {
-        algorithms: ['ES512']
+        algorithms: ['HS512']
       })
 
       if (typeof data === 'string') throw new CannotDecode('The token cannot be decoded')

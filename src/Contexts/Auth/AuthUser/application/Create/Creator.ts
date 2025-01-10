@@ -41,7 +41,7 @@ export class Creator {
       new Criteria(
         new Filters([
           Filter.simple('communityId', '=', communityId.valueOf()),
-          Filter.simple('userId', '=', userId.valueOf())
+          Filter.simple('email', '=', email.valueOf())
         ])
       )
     )).pop()
