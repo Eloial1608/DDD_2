@@ -22,3 +22,9 @@ CREATE DATABASE media;
 \c media
 GRANT ALL PRIVILEGES ON DATABASE media TO media_user;
 GRANT ALL ON SCHEMA public TO media_user;
+
+CREATE USER course_user WITH PASSWORD 'course_pass' CREATEDB;
+CREATE DATABASE course;
+\c course
+GRANT ALL PRIVILEGES ON DATABASE course TO course_user;
+GRANT ALL ON SCHEMA public TO course_user;

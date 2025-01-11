@@ -36,3 +36,10 @@ media-service-server:
 - src/Contexts/Media/**
 - tests/apps/Media/**
 - tests/Contexts/Media/**
+
+course-service-server:
+- *shared
+- src/apps/Course/**
+- src/Contexts/Course/**
+- tests/apps/Course/**
+- tests/Contexts/Course/**

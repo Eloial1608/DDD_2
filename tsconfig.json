@@ -28,6 +28,9 @@
     "@Core/*": [
       "src/Contexts/Core/*"
     ],
+    "@Course/*": [
+      "src/Contexts/Course/*"
+    ],
     "@Posts/*": [
       "src/Contexts/Posts/*"
     ],
