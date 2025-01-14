@@ -1,9 +1,9 @@
-import { Community } from '@Posts/Community/domain/Community'
-import { CommunityRepository } from '@Posts/Community/domain/CommunityRepository'
+import { Community } from '@Course/Community/domain/Community'
+import { CommunityRepository } from '@Course/Community/domain/CommunityRepository'
 import { TypeOrmRepository } from '@Shared/infrastructure/persistence/typeorm/TypeOrmRepository'
 import { EntitySchema, Equal } from 'typeorm'
 import { CommunitySchema } from './entity/CommunitySchema'
-import { Id } from '@Posts/Community/domain/ValueObjects/Id'
+import { Id } from '@Course/Community/domain/ValueObjects/Id'
 import { Nullable } from '@Shared/domain/Nullable'
 import { Criteria } from '@Shared/domain/Criteria/Criteria'
 

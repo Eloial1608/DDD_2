@@ -1,6 +1,6 @@
-import { Community } from '@Posts/Community/domain/Community'
-import { Id } from '@Posts/Community/domain/ValueObjects/Id'
-import { IsPrivate } from '@Posts/Community/domain/ValueObjects/IsPrivate'
+import { Community } from '@Course/Community/domain/Community'
+import { Id } from '@Course/Community/domain/ValueObjects/Id'
+import { IsPrivate } from '@Course/Community/domain/ValueObjects/IsPrivate'
 import { ValueObjectTransformer } from '@Shared/domain/ValueObjects/ValueObjectTransformer'
 import { EntitySchema } from 'typeorm'
 
