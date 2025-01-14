@@ -46,7 +46,7 @@ const CourseAuthorSchema = new EntitySchema<Author>({
 })
 
 const CoursePriceSchema = new EntitySchema<Price>({
-  name: 'postPrice',
+  name: 'CoursePrice',
   target: Price,
   columns: {
     value: {
