@@ -32,7 +32,7 @@ export class JoinSubCommunityPostController implements Controller {
         tokenData.id,
         req.body.name,
         req.body.email,
-        tokenData.communityId,
+        req.params.id,
         !!canDo.admin,
         !!canDo.owner
       )
