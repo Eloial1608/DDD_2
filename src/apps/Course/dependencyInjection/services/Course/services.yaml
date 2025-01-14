@@ -1,1 +1,4 @@
 services:
+  Course.Repository:
+    class: src/Contexts/Course/Course/infrastructure/persistence/TypeOrmCourseRepository
+    arguments: ["@Shared.ORM.Connection"]
