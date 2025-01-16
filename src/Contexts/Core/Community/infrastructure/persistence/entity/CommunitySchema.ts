@@ -29,6 +29,8 @@ import { LogoUrl } from '@Core/Community/domain/ValueObjects/LogoUrl'
 import { BannerUrl } from '@Core/Community/domain/ValueObjects/BannerUrl'
 import { About } from '@Core/Community/domain/ValueObjects/About'
 import { AllowsPayments } from '@Core/Community/domain/ValueObjects/AllowsPayments'
+import { AllowedSubcommunities } from '@Core/Community/domain/ValueObjects/AllowedSubcommunities'
+import { SubcommunitiesCount } from '@Core/Community/domain/ValueObjects/SubcommunitiesCount'
 
 export const CommunitySchema = new EntitySchema<Community>({
   name: 'Community',
@@ -95,6 +97,16 @@ export const CommunitySchema = new EntitySchema<Community>({
       type: 'int',
       default: 0,
       transformer: ValueObjectTransformer(MembersCount)
+    },
+    allowedSubcommunities: {
+      type: 'int',
+      default: 0,
+      transformer: ValueObjectTransformer(AllowedSubcommunities)
+    },
+    subcommunitiesCount: {
+      type: 'int',
+      default: 0,
+      transformer: ValueObjectTransformer(SubcommunitiesCount)
     },
     firstPaymentDone: {
       type: Boolean,

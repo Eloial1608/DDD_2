@@ -124,6 +124,16 @@ services:
     arguments: ["@Community.UpdateTotalMembersOnUserCreated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+    
+  Community.UpdateTotalSubcommunitiesOnCommunityCreated.Updater:
+    class: src/Contexts/Core/Community/application/UpdateTotalSubcommunitiesOnCommunityCreated/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateTotalSubcommunitiesOnCommunityCreated.UpdateTotalSubcommunitiesOnCommunityCreatedHandler:
+    class: src/Contexts/Core/Community/application/UpdateTotalSubcommunitiesOnCommunityCreated/UpdateTotalSubcommunitiesOnCommunityCreatedHandler
+    arguments: ["@Community.UpdateTotalSubcommunitiesOnCommunityCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
   
   Community.UpdateTotalMembersOnUserDeleted.Updater:
     class: src/Contexts/Core/Community/application/UpdateTotalMembersOnUserDeleted/Updater

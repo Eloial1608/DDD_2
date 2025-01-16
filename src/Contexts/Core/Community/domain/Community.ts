@@ -33,6 +33,9 @@ import { About } from './ValueObjects/About'
 import { CommunitySpacesCountUpdatedDomainEvent } from './Events/CommunitySpacesCountUpdatedDomainEvent'
 import { AllowsPayments } from './ValueObjects/AllowsPayments'
 import { CommunityAllowsPaymentsUpdatedDomainEvent } from './Events/CommunityAllowsPaymentsUpdatedDomainEvent'
+import { AllowedSubcommunities } from './ValueObjects/AllowedSubcommunities'
+import { SubcommunitiesCount } from './ValueObjects/SubcommunitiesCount'
+import { CommunitySubcommunitiesCountUpdatedDomainEvent } from './Events/CommunitySubcommunitiesCountUpdatedDomainEvent'
 
 export class Community extends AggregateRoot {
   constructor (
@@ -60,6 +63,8 @@ export class Community extends AggregateRoot {
         readonly isPrivate: IsPrivate,
         readonly isRegisterOpen: IsRegisterOpen,
         readonly homeSpaceId: Nullable<HomeSpaceId>,
+        readonly allowedSubcommunities: AllowedSubcommunities,
+        readonly subcommunitiesCount: SubcommunitiesCount,
         readonly expiresAt: ExpiresAt,
         readonly createdAt: CreatedAt,
         readonly updatedAt: UpdatedAt,
@@ -80,7 +85,8 @@ export class Community extends AggregateRoot {
     color: Color,
     allowedFeatures: AllowedFeatures,
     allowedUsers: AllowedUsers,
-    expiresAt: ExpiresAt
+    expiresAt: ExpiresAt,
+    allowedSubcommunities: AllowedSubcommunities
   ): Community {
     const community = new Community(
       id,
@@ -107,6 +113,8 @@ export class Community extends AggregateRoot {
       new IsPrivate(false),
       new IsRegisterOpen(true),
       null,
+      allowedSubcommunities,
+      new SubcommunitiesCount(0),
       expiresAt,
       new CreatedAt(new Date()),
       new UpdatedAt(new Date()),
@@ -144,6 +152,8 @@ export class Community extends AggregateRoot {
       this.isPrivate,
       this.isRegisterOpen,
       this.homeSpaceId,
+      this.allowedSubcommunities,
+      this.subcommunitiesCount,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,
@@ -181,6 +191,8 @@ export class Community extends AggregateRoot {
       this.isPrivate,
       this.isRegisterOpen,
       this.homeSpaceId,
+      this.allowedSubcommunities,
+      this.subcommunitiesCount,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,
@@ -188,6 +200,45 @@ export class Community extends AggregateRoot {
     )
 
     community.record(CommunityMembersCountUpdatedDomainEvent.fromAggregate(community))
+
+    return community
+  }
+
+  updateSubcommunitiesCount (subcommunitiesCount: SubcommunitiesCount): Community {
+    const community = new Community(
+      this.id,
+      this.name,
+      this.suffix,
+      this.domain,
+      this.slug,
+      this.parentId,
+      this.mainId,
+      this.logoUrl,
+      this.bannerUrl,
+      this.about,
+      this.membersCount,
+      this.allowsPayments,
+      this.firstPaymentDone,
+      this.spacesCount,
+      this.hasPayment,
+      this.methodId,
+      this.allowedFeatures,
+      this.hasRegisterForm,
+      this.registerFormId,
+      this.allowedUsers,
+      this.color,
+      this.isPrivate,
+      this.isRegisterOpen,
+      this.homeSpaceId,
+      this.allowedSubcommunities,
+      subcommunitiesCount,
+      this.expiresAt,
+      this.createdAt,
+      this.updatedAt,
+      null
+    )
+
+    community.record(CommunitySubcommunitiesCountUpdatedDomainEvent.fromAggregate(community))
 
     return community
   }
@@ -218,6 +269,8 @@ export class Community extends AggregateRoot {
       this.isPrivate,
       this.isRegisterOpen,
       this.homeSpaceId,
+      this.allowedSubcommunities,
+      this.subcommunitiesCount,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,
@@ -255,6 +308,8 @@ export class Community extends AggregateRoot {
       this.isPrivate,
       this.isRegisterOpen,
       this.homeSpaceId,
+      this.allowedSubcommunities,
+      this.subcommunitiesCount,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,

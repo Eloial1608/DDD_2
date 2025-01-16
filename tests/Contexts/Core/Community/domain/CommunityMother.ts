@@ -1,5 +1,6 @@
 import { Community } from '@Core/Community/domain/Community'
 import { AllowedFeatures } from '@Core/Community/domain/ValueObjects/AllowedFeatures'
+import { AllowedSubcommunities } from '@Core/Community/domain/ValueObjects/AllowedSubcommunities'
 import { AllowedUsers } from '@Core/Community/domain/ValueObjects/AllowedUsers'
 import { AllowsPayments } from '@Core/Community/domain/ValueObjects/AllowsPayments'
 import { Color } from '@Core/Community/domain/ValueObjects/Color'
@@ -15,6 +16,7 @@ import { MembersCount } from '@Core/Community/domain/ValueObjects/MembersCount'
 import { Name } from '@Core/Community/domain/ValueObjects/Name'
 import { Slug } from '@Core/Community/domain/ValueObjects/Slug'
 import { SpacesCount } from '@Core/Community/domain/ValueObjects/SpacesCount'
+import { SubcommunitiesCount } from '@Core/Community/domain/ValueObjects/SubcommunitiesCount'
 import { Suffix } from '@Core/Community/domain/ValueObjects/Suffix'
 import { UpdatedAt } from '@Core/Community/domain/ValueObjects/UpdatedAt'
 import { MotherCreator } from '@Tests/Contexts/Shared/domain/MotherCreator'
@@ -49,6 +51,8 @@ export class CommunityMother {
       params.isPrivate ?? new IsPrivate(false),
       params.isRegisterOpen ?? new IsRegisterOpen(true),
       params.homeSpaceId ?? null,
+      params.allowedSubcommunities ?? new AllowedSubcommunities(10),
+      params.subcommunitiesCount ?? new SubcommunitiesCount(0),
       params.expiresAt ?? new ExpiresAt(MotherCreator.random().date.future()),
       params.createdAt ?? new CreatedAt(new Date()),
       params.updatedAt ?? new UpdatedAt(new Date()),

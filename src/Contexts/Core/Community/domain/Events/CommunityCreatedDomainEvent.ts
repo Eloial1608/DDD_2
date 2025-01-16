@@ -6,6 +6,8 @@ type CommunityCreatedDomainEventBody = {
     readonly id: string
     readonly name: string
     readonly suffix: string
+    readonly mainId: Nullable<string>
+    readonly parentId: Nullable<string>
     readonly domain: Nullable<string>
     readonly membersCount: number
     readonly firstPaymentDone: boolean
@@ -29,6 +31,8 @@ export class CommunityCreatedDomainEvent extends DomainEvent {
   readonly id: string
   readonly name: string
   readonly suffix: string
+  readonly mainId: Nullable<string>
+  readonly parentId: Nullable<string>
   readonly domain: Nullable<string>
   readonly membersCount: number
   readonly firstPaymentDone: boolean
@@ -56,6 +60,8 @@ export class CommunityCreatedDomainEvent extends DomainEvent {
     this.createdAt = params.createdAt
     this.updatedAt = params.updatedAt
     this.name = params.name
+    this.parentId = params.parentId
+    this.mainId = params.mainId
     this.domain = params.domain
     this.registerFormId = params.registerFormId
     this.suffix = params.suffix
@@ -78,6 +84,8 @@ export class CommunityCreatedDomainEvent extends DomainEvent {
       createdAt: community.createdAt.valueOf(),
       updatedAt: community.updatedAt.valueOf(),
       name: community.name.valueOf(),
+      mainId: community.mainId?.valueOf(),
+      parentId: community.parentId?.valueOf(),
       suffix: community.suffix.valueOf(),
       membersCount: community.membersCount.valueOf(),
       firstPaymentDone: community.firstPaymentDone.valueOf(),
