@@ -1,3 +1,3 @@
-import { StringValueObject } from '@Shared/domain/ValueObjects/StringValueObject'
+import { ValueObject } from '@Shared/domain/ValueObjects/ValueObject'
 
-export class Color extends StringValueObject {}
+export class Color extends ValueObject<any> {}

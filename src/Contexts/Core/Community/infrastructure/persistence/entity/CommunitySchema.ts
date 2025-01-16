@@ -146,7 +146,10 @@ export const CommunitySchema = new EntitySchema<Community>({
     },
     color: {
       type: String,
-      transformer: ValueObjectTransformer(Color)
+      transformer: {
+        to: (data: Color): string => JSON.stringify(data.valueOf()),
+        from: (data: string): Color => new Color(JSON.parse(data))
+      }
     },
     isPrivate: {
       type: Boolean,
