@@ -7,7 +7,7 @@ services:
     class: src/Contexts/Course/Community/application/CreateCommunityOnCommunityCreated/Creator
     arguments: ['@Community.Repository', '@Shared.EventBus']
   
-  Community.CreateCommunityOnCommunityCreated.CreateCommunityOnCommunityCreatedHandler:
+    Community.CreateCommunityOnCommunityCreated.CreateCommunityOnCommunityCreatedHandler:
     class: src/Contexts/Course/Community/application/CreateCommunityOnCommunityCreated/CreateCommunityOnCommunityCreatedHandler
     arguments: ["@Community.CreateCommunityOnCommunityCreated.Creator"]
     tags:
