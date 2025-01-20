@@ -36,6 +36,7 @@ import { CommunityAllowsPaymentsUpdatedDomainEvent } from './Events/CommunityAll
 import { AllowedSubcommunities } from './ValueObjects/AllowedSubcommunities'
 import { SubcommunitiesCount } from './ValueObjects/SubcommunitiesCount'
 import { CommunitySubcommunitiesCountUpdatedDomainEvent } from './Events/CommunitySubcommunitiesCountUpdatedDomainEvent'
+import { CommunityUpdatedDomainEvent } from './Events/CommunityUpdatedDomainEvent'
 
 export class Community extends AggregateRoot {
   constructor (
@@ -122,6 +123,57 @@ export class Community extends AggregateRoot {
     )
 
     community.record(CommunityCreatedDomainEvent.fromAggregate(community))
+
+    return community
+  }
+
+  update (
+    id: Id,
+    name: Name,
+    slug: Slug,
+    domain: Nullable<Domain>,
+    about: Nullable<About>,
+    isPrivate: IsPrivate,
+    isRegisterOpen: IsRegisterOpen,
+    logoUrl: Nullable<LogoUrl>,
+    bannerUrl: Nullable<BannerUrl>,
+    suffix: Suffix,
+    color: Color
+  ): Community {
+    const community = new Community(
+      id,
+      name,
+      suffix,
+      domain,
+      slug,
+      this.parentId,
+      this.mainId,
+      logoUrl,
+      bannerUrl,
+      about,
+      this.membersCount,
+      this.allowsPayments,
+      this.firstPaymentDone,
+      this.spacesCount,
+      this.hasPayment,
+      this.methodId,
+      this.allowedFeatures,
+      this.hasRegisterForm,
+      this.registerFormId,
+      this.allowedUsers,
+      color,
+      isPrivate,
+      isRegisterOpen,
+      this.homeSpaceId,
+      this.allowedSubcommunities,
+      this.subcommunitiesCount,
+      this.expiresAt,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      null
+    )
+
+    community.record(CommunityUpdatedDomainEvent.fromAggregate(community))
 
     return community
   }
