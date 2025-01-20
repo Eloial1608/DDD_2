@@ -2,3 +2,6 @@ services:
   Course.Repository:
     class: src/Contexts/Course/Course/infrastructure/persistence/TypeOrmCourseRepository
     arguments: ["@Shared.ORM.Connection"]
+  Community.Repository:
+    class: src/Contexts/Course/Community/infrastructure/persistence/TypeOrmCommunityRepository
+    arguments: ["@Shared.ORM.Connection"]

@@ -13,6 +13,7 @@ export class CreateCommunityCommand implements Command {
         readonly color: string,
         readonly expiresAt: Date,
         readonly allowedFeatures: string[],
-        readonly allowedUsers: number
+        readonly allowedUsers: number,
+        readonly allowedSubcommunities: number
   ) {}
 }

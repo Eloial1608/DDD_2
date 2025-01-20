@@ -3,6 +3,10 @@ services:
     class: src/apps/Core/controllers/Community/CommunityByIdGetController
     arguments: ["@Shared.QueryBus"]
   
+  Apps.Core.Controllers.CommunitiesGetController:
+    class: src/apps/Core/controllers/Community/CommunitiesGetController
+    arguments: ["@Shared.QueryBus"]
+  
   Apps.Core.Controllers.HealthGetController:
     class: src/apps/Core/controllers/HealthGetController
   

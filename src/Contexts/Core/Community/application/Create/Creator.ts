@@ -21,6 +21,7 @@ import { LogoUrl } from '@Core/Community/domain/ValueObjects/LogoUrl'
 import { BannerUrl } from '@Core/Community/domain/ValueObjects/BannerUrl'
 import { CommunityAlreadyExistsBySlug } from '@Core/Community/domain/Errors/CommunityAlreadyExistsBySlug'
 import { CommunityNotFound } from '@Core/Community/domain/Errors/CommunityNotFound'
+import { AllowedSubcommunities } from '@Core/Community/domain/ValueObjects/AllowedSubcommunities'
 
 type Params = {
     id: Id
@@ -34,6 +35,7 @@ type Params = {
     allowedFeatures: AllowedFeatures
     allowedUsers: AllowedUsers
     expiresAt: ExpiresAt
+    allowedSubcommunities: AllowedSubcommunities
 }
 
 export class Creator {
@@ -64,7 +66,8 @@ export class Creator {
       params.color,
       params.allowedFeatures,
       params.allowedUsers,
-      params.expiresAt
+      params.expiresAt,
+      params.allowedSubcommunities
     )
 
     await this.repository.persist(community)

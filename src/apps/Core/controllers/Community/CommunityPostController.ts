@@ -44,7 +44,8 @@ export class CommunityPostController implements Controller {
         ALLOWED_FEATURES.MEDIA,
         ALLOWED_FEATURES.CHAT
       ],
-      5
+      5,
+      10
     )
 
     await this.commandBus.dispatch(createCommunityCommand)

@@ -13,6 +13,7 @@ import { Slug } from '@Core/Community/domain/ValueObjects/Slug'
 import { ParentId } from '@Core/Community/domain/ValueObjects/ParentId'
 import { LogoUrl } from '@Core/Community/domain/ValueObjects/LogoUrl'
 import { BannerUrl } from '@Core/Community/domain/ValueObjects/BannerUrl'
+import { AllowedSubcommunities } from '@Core/Community/domain/ValueObjects/AllowedSubcommunities'
 
 export class CreateCommunityCommandHandler implements CommandHandler<CreateCommunityCommand> {
   constructor (private readonly creator: Creator) {}
@@ -33,7 +34,8 @@ export class CreateCommunityCommandHandler implements CommandHandler<CreateCommu
       color: new Color(command.color),
       allowedFeatures: AllowedFeatures.fromPrimitives(command.allowedFeatures),
       expiresAt: new ExpiresAt(command.expiresAt),
-      allowedUsers: new AllowedUsers(command.allowedUsers)
+      allowedUsers: new AllowedUsers(command.allowedUsers),
+      allowedSubcommunities: new AllowedSubcommunities(command.allowedSubcommunities)
     })
   }
 }
