@@ -4,7 +4,7 @@ import { InvalidType } from '../Errors/InvalidType'
 
 export class Type extends StringValueObject {
   constructor (value: string) {
-    if (value !== AllowedTypes.MEDIA) throw new InvalidType(value)
+    if (value !== AllowedTypes.COURSES) throw new InvalidType(value)
     super(value)
   }
 }
