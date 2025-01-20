@@ -2,9 +2,21 @@ services:
   Course.Repository:
     class: src/Contexts/Course/Course/infrastructure/persistence/TypeOrmCourseRepository
     arguments: ["@Shared.ORM.Connection"]
+
   Community.Repository:
     class: src/Contexts/Course/Community/infrastructure/persistence/TypeOrmCommunityRepository
     arguments: ["@Shared.ORM.Connection"]
+
   User.Repository:
     class: src/Contexts/Course/User/infrastructure/persistence/TypeOrmCommunityRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  User.Create.Creator:
+    class: src/Contexts/Course/User/application/CreateUserOnUserCreated/Creator
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.Create.CreateUserOnUserCreatedHandler:
+    class: src/Contexts/Course/User/application/CreateUserOnUserCreated/CreateUserOnUserCreatedHandler
+    arguments: ["@User.CreateUserOnUserCreated.Creator"]
+    tags:
+      - { name: "commandHandler" }
