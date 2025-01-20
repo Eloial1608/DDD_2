@@ -20,3 +20,6 @@ services:
     arguments: ["@User.DeleteUserOnUserDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
+  Space.Repository:
+    class: src/Contexts/Course/Space/infrastructure/persistence/TypeOrmSpaceRepository
+    arguments: ["@Shared.ORM.Connection"]

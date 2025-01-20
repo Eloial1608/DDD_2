@@ -13,6 +13,16 @@ services:
     tags:
       - { name: "commandHandler" }
   
+  Community.Update.Creator:
+    class: src/Contexts/Core/Community/application/Update/Updater
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.Update.UpdateCommunityCommandHandler:
+    class: src/Contexts/Core/Community/application/Update/UpdateCommunityCommandHandler
+    arguments: ["@Community.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
   Community.FindById.FinderById:
     class: src/Contexts/Core/Community/application/FindById/FinderById
     arguments: ['@Community.Repository']
