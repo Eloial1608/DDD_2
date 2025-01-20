@@ -7,6 +7,10 @@ services:
     class: src/Contexts/Course/Community/infrastructure/persistence/TypeOrmCommunityRepository
     arguments: ["@Shared.ORM.Connection"]
 
+  User.Repository:
+    class: src/Contexts/Course/User/infrastructure/persistence/TypeOrmCommunityRepository
+    arguments: ["@Shared.ORM.Connection"]
+
   Space.Repository:
     class: src/Contexts/Course/Space/infrastructure/persistence/TypeOrmSpaceRepository
     arguments: ["@Shared.ORM.Connection"]
