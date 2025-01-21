@@ -10,6 +10,7 @@ import { AllowedTypes } from '@Shared/domain/SharedValueObjects/Space/AllowedTyp
 import { Configuration } from '@Course/Space/domain/ValueObjects/Configuration'
 import { DeletedAt } from '@Core/Space/domain/ValueObjects/DeletedAt'
 import { SpaceDeletedDomainEvent } from '@Course/Space/domain/Events/SpaceDeletedDomainEvent'
+import { CourseConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/CourseConfiguration'
 
 let eventBus: EventBusMock
 let repository: SpaceRepositoryMock
