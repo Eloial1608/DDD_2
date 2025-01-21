@@ -43,7 +43,7 @@ export class Updater {
 
     if (!community) throw new CommunityNotFound(params.id)
 
-    await this.checkIfCommunityExists(params.suffix, params.slug, params.domain)
+    await this.checkIfCommunityExists(params.id, params.suffix, params.slug, params.domain)
 
     const modified = community.update(
       params.id,
@@ -64,20 +64,20 @@ export class Updater {
     await this.eventBus.publish(modified.pullDomainEvents())
   }
 
-  private async checkIfCommunityExists (suffix: Suffix, slug: Slug, domain: Nullable<Domain>) {
+  private async checkIfCommunityExists (id: Id, suffix: Suffix, slug: Slug, domain: Nullable<Domain>) {
     if (domain) {
       const existingCommunityByDomain = await this.getCommunityByDomain(domain)
 
-      if (existingCommunityByDomain) throw new CommunityAlreadyExistsByDomain(domain)
+      if (existingCommunityByDomain && existingCommunityByDomain.id.valueOf() !== id.valueOf()) throw new CommunityAlreadyExistsByDomain(domain)
     }
 
     const existingCommunityBySuffix = await this.getCommunityBySuffix(suffix)
 
-    if (existingCommunityBySuffix) throw new CommunityAlreadyExistsBySuffix(suffix)
+    if (existingCommunityBySuffix && existingCommunityBySuffix.id.valueOf() !== id.valueOf()) throw new CommunityAlreadyExistsBySuffix(suffix)
 
     const existingCommunityBySlug = await this.getCommunityBySlug(slug)
 
-    if (existingCommunityBySlug) throw new CommunityAlreadyExistsBySlug(slug)
+    if (existingCommunityBySlug && existingCommunityBySlug.id.valueOf() !== id.valueOf()) throw new CommunityAlreadyExistsBySlug(slug)
   }
 
   private async getCommunityBySuffix (suffix: Suffix): Promise<Nullable<Community>> {

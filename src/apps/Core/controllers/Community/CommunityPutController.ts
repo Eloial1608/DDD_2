@@ -19,7 +19,7 @@ export class CommunityPutController implements Controller {
 
       const data = await this.decoder.run(req.headers.authorization)
 
-      const user = await this.getUser(data.id, req.params.communityId)
+      const user = await this.getUser(data.id, req.params.id)
 
       if (!user?.isAdmin && !user?.isOwner) return res.status(401).send()
 
