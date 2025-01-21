@@ -13,7 +13,7 @@ services:
     tags:
       - { name: "commandHandler" }
   
-  Community.Update.Creator:
+  Community.Update.Updater:
     class: src/Contexts/Core/Community/application/Update/Updater
     arguments: ['@Community.Repository', '@Shared.EventBus']
   
