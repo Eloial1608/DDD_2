@@ -145,6 +145,16 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
   
+  Community.UpdateTotalSubcommunitiesOnCommunityDeleted.Updater:
+    class: src/Contexts/Core/Community/application/UpdateTotalSubcommunitiesOnCommunityDeleted/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateTotalSubcommunitiesOnCommunityDeleted.UpdateTotalSubcommunitiesOnCommunityDeletedHandler:
+    class: src/Contexts/Core/Community/application/UpdateTotalSubcommunitiesOnCommunityDeleted/UpdateTotalSubcommunitiesOnCommunityDeletedHandler
+    arguments: ["@Community.UpdateTotalSubcommunitiesOnCommunityDeleted.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
   Community.UpdateTotalMembersOnUserDeleted.Updater:
     class: src/Contexts/Core/Community/application/UpdateTotalMembersOnUserDeleted/Updater
     arguments: ["@Community.Repository", "@Shared.EventBus"]
