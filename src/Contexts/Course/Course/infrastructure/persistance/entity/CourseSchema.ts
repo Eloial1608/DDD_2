@@ -147,6 +147,6 @@ export const CourseSchema = new EntitySchema<Course>({
     price: {
       schema: CoursePriceSchema,
       prefix: 'price'
-    },
+    }
   }
 })
