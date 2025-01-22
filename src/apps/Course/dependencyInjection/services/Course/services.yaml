@@ -45,6 +45,16 @@ services:
     class: src/Contexts/Course/Space/infrastructure/persistence/TypeOrmSpaceRepository
     arguments: ["@Shared.ORM.Connection"]
 
+  Space.CreateSpaceOnSpaceCreated.Creator:
+    class: src/Contexts/Course/Space/application/CreateSpaceOnSpaceCreated/Creator
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.CreateSpaceOnSpaceCreated.CreateSpaceOnSpaceCreatedHandler:
+    class: src/Contexts/Course/Course/application/CreateSpaceOnSpaceCreated/CreateSpaceOnSpaceCreatedHandler
+    arguments: ["@Space.CreateSpaceOnSpaceCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
   Space.DeleteSpaceOnSpaceDeleted.Deleter:
     class: src/Contexts/Course/Space/application/CreateSpaceOnSpaceCreated/Creator
     arguments: ['@Space.Repository', '@Shared.EventBus']
