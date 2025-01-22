@@ -16,16 +16,15 @@ export class SpaceMember extends AggregateRoot {
   }
 
   delete (): SpaceMember {
-      const spaceMember = new SpaceMember(
-        this.id,
-        this.spaceId,
-        this.userId,
-        this.isModerator
-      )
-  
-      spaceMember.record(SpaceMemberDeletedDomainEvent.fromAggregate(spaceMember))
-  
-      return spaceMember
-    }
+    const spaceMember = new SpaceMember(
+      this.id,
+      this.spaceId,
+      this.userId,
+      this.isModerator
+    )
+
+    spaceMember.record(SpaceMemberDeletedDomainEvent.fromAggregate(spaceMember))
+
+    return spaceMember
   }
 }
