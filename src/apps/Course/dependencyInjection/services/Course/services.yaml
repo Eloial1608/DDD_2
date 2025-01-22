@@ -22,6 +22,15 @@ services:
     class: src/Contexts/Course/User/infrastructure/persistence/TypeOrmCommunityRepository
     arguments: ["@Shared.ORM.Connection"]
 
+  User.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Course/User/application/FindByCriteria/FinderByCriteria
+    arguments: ['@User.Repository']
+  
+  User.FindById.FindUserByCriteriaQueryHandler:
+    class: src/Contexts/Course/User/application/FindByCriteria/FindUserByCriteriaQueryHandler
+    arguments: ['@User.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
   Space.Repository:
     class: src/Contexts/Course/Space/infrastructure/persistence/TypeOrmSpaceRepository
     arguments: ["@Shared.ORM.Connection"]
