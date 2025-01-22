@@ -31,10 +31,30 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
       
+  User.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Course/User/application/FindByCriteria/FinderByCriteria
+    arguments: ['@User.Repository']
+  
+  User.FindById.FindUserByCriteriaQueryHandler:
+    class: src/Contexts/Course/User/application/FindByCriteria/FindUserByCriteriaQueryHandler
+    arguments: ['@User.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
   Space.Repository:
     class: src/Contexts/Course/Space/infrastructure/persistence/TypeOrmSpaceRepository
     arguments: ["@Shared.ORM.Connection"]
 
+  Space.DeleteSpaceOnSpaceDeleted.Deleter:
+    class: src/Contexts/Course/Space/application/CreateSpaceOnSpaceCreated/Creator
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.DeleteSpaceOnSpaceDeleted.DeleteSpaceOnSpaceDeletedHandler:
+    class: src/Contexts/Course/Space/application/DeleteSpaceOnSpaceDeleted/DeleteSpaceOnSpaceDeletedHandler
+    arguments: ["@Space.DeleteSpaceOnSpaceDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+      
   Space.UpdateSpaceOnSpaceUpdated.Updater:
     class: src/Contexts/Course/Space/application/UpdateSpaceOnSpaceUpdated/Updater
     arguments: ['@Space.Repository', '@Shared.EventBus']

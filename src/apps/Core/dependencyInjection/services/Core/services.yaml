@@ -13,7 +13,7 @@ services:
     tags:
       - { name: "commandHandler" }
   
-  Community.Update.Creator:
+  Community.Update.Updater:
     class: src/Contexts/Core/Community/application/Update/Updater
     arguments: ['@Community.Repository', '@Shared.EventBus']
   
@@ -142,6 +142,16 @@ services:
   Community.UpdateTotalSubcommunitiesOnCommunityCreated.UpdateTotalSubcommunitiesOnCommunityCreatedHandler:
     class: src/Contexts/Core/Community/application/UpdateTotalSubcommunitiesOnCommunityCreated/UpdateTotalSubcommunitiesOnCommunityCreatedHandler
     arguments: ["@Community.UpdateTotalSubcommunitiesOnCommunityCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.UpdateTotalSubcommunitiesOnCommunityDeleted.Updater:
+    class: src/Contexts/Core/Community/application/UpdateTotalSubcommunitiesOnCommunityDeleted/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateTotalSubcommunitiesOnCommunityDeleted.UpdateTotalSubcommunitiesOnCommunityDeletedHandler:
+    class: src/Contexts/Core/Community/application/UpdateTotalSubcommunitiesOnCommunityDeleted/UpdateTotalSubcommunitiesOnCommunityDeletedHandler
+    arguments: ["@Community.UpdateTotalSubcommunitiesOnCommunityDeleted.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
   
