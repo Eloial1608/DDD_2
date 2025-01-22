@@ -7,7 +7,6 @@ services:
     class: src/Contexts/Course/Community/infrastructure/persistence/TypeOrmCommunityRepository
     arguments: ["@Shared.ORM.Connection"]
 
-
     Community.CreateCommunityOnCommunityCreated.Creator:
     class: src/Contexts/Course/Community/application/CreateCommunityOnCommunityCreated/Creator
     arguments: ['@Community.Repository', '@Shared.EventBus']
@@ -22,6 +21,26 @@ services:
     class: src/Contexts/Course/User/infrastructure/persistence/TypeOrmCommunityRepository
     arguments: ["@Shared.ORM.Connection"]
 
+  User.DeleteUserOnUserDeleted.Deleter:
+    class: src/Contexts/Course/User/application/DeleteUserOnUserDeleted/Deleter
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.DeleteUserOnUserDeleted.DeleteUserOnUserDeletedHandler:
+    class: src/Contexts/Course/User/application/DeleteUserOnUserDeleted/DeleteUserOnUserDeletedHandler
+    arguments: ["@User.DeleteUserOnUserDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+      
+  User.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Course/User/application/FindByCriteria/FinderByCriteria
+    arguments: ['@User.Repository']
+  
+  User.FindById.FindUserByCriteriaQueryHandler:
+    class: src/Contexts/Course/User/application/FindByCriteria/FindUserByCriteriaQueryHandler
+    arguments: ['@User.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
   Space.Repository:
     class: src/Contexts/Course/Space/infrastructure/persistence/TypeOrmSpaceRepository
     arguments: ["@Shared.ORM.Connection"]
@@ -33,6 +52,16 @@ services:
   User.Create.CreateUserOnUserCreatedHandler:
     class: src/Contexts/Course/User/application/CreateUserOnUserCreated/CreateUserOnUserCreatedHandler
     arguments: ["@User.CreateUserOnUserCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  Space.DeleteSpaceOnSpaceDeleted.Deleter:
+    class: src/Contexts/Course/Space/application/CreateSpaceOnSpaceCreated/Creator
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.DeleteSpaceOnSpaceDeleted.DeleteSpaceOnSpaceDeletedHandler:
+    class: src/Contexts/Course/Space/application/DeleteSpaceOnSpaceDeleted/DeleteSpaceOnSpaceDeletedHandler
+    arguments: ["@Space.DeleteSpaceOnSpaceDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
 
