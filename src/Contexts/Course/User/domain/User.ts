@@ -42,6 +42,9 @@ export class User extends AggregateRoot {
 
     user.record(UserCreatedDomainEvent.fromAggregate(user))
 
+    return user
+  }
+
   delete (): User {
     const user = new User(
       this.id,
