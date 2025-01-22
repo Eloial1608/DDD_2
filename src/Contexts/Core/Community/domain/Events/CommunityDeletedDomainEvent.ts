@@ -4,6 +4,8 @@ import { Community } from '../Community'
 
 type CommunityDeletedDomainEventBody = {
     readonly id: string
+    readonly parentId: Nullable<string>
+    readonly mainId: Nullable<string>
     readonly name: string
     readonly suffix: string
     readonly domain: Nullable<string>
@@ -29,6 +31,8 @@ export class CommunityDeletedDomainEvent extends DomainEvent {
   static readonly EVENT_NAME: string = 'app.core.community.v1.deleted'
 
   readonly id: string
+  readonly parentId: Nullable<string>
+  readonly mainId: Nullable<string>
   readonly name: string
   readonly suffix: string
   readonly domain: Nullable<string>
@@ -57,6 +61,8 @@ export class CommunityDeletedDomainEvent extends DomainEvent {
     super(CommunityDeletedDomainEvent.EVENT_NAME, params.id, params.eventId, params.occurredOn)
 
     this.id = params.id
+    this.parentId = params.parentId
+    this.mainId = params.mainId
     this.createdAt = params.createdAt
     this.updatedAt = params.updatedAt
     this.name = params.name
@@ -81,6 +87,8 @@ export class CommunityDeletedDomainEvent extends DomainEvent {
   static fromAggregate (community: Community): CommunityDeletedDomainEvent {
     return new CommunityDeletedDomainEvent({
       id: community.id.valueOf(),
+      parentId: community.parentId?.valueOf(),
+      mainId: community.mainId?.valueOf(),
       createdAt: community.createdAt.valueOf(),
       updatedAt: community.updatedAt.valueOf(),
       name: community.name.valueOf(),

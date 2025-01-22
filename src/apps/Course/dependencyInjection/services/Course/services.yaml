@@ -36,6 +36,16 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
 
+  Space.DeleteSpaceOnSpaceDeleted.Deleter:
+    class: src/Contexts/Course/Space/application/CreateSpaceOnSpaceCreated/Creator
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.DeleteSpaceOnSpaceDeleted.DeleteSpaceOnSpaceDeletedHandler:
+    class: src/Contexts/Course/Space/application/DeleteSpaceOnSpaceDeleted/DeleteSpaceOnSpaceDeletedHandler
+    arguments: ["@Space.DeleteSpaceOnSpaceDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+      
   Space.UpdateSpaceOnSpaceUpdated.Updater:
     class: src/Contexts/Course/Space/application/UpdateSpaceOnSpaceUpdated/Updater
     arguments: ['@Space.Repository', '@Shared.EventBus']

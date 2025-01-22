@@ -11,6 +11,11 @@
     "start:posts:server:dev": "NODE_ENV=development nodemon --config nodemon.config.json -r tsconfig-paths/register src/apps/Posts/index.ts",
     "start:media:server:dev": "NODE_ENV=development nodemon --config nodemon.config.json -r tsconfig-paths/register src/apps/Media/index.ts",
     "start:auth:server:dev": "NODE_ENV=development nodemon --config nodemon.config.json -r tsconfig-paths/register src/apps/Auth/index.ts",
+    "start:core:server:dev:windows": "set NODE_ENV=development&& nodemon --config nodemon.config.json -r tsconfig-paths/register src/apps/Core/index.ts",
+    "start:course:server:dev:windows": "set NODE_ENV=development&& nodemon --config nodemon.config.json -r tsconfig-paths/register src/apps/Course/index.ts",
+    "start:posts:server:dev:windows": "set NODE_ENV=development&& nodemon --config nodemon.config.json -r tsconfig-paths/register src/apps/Posts/index.ts",
+    "start:media:server:dev:windows": "set NODE_ENV=development&& nodemon --config nodemon.config.json -r tsconfig-paths/register src/apps/Media/index.ts",
+    "start:auth:server:dev:windows": "set NODE_ENV=development&& nodemon --config nodemon.config.json -r tsconfig-paths/register src/apps/Auth/index.ts",
     "test:core-service-server": "npm run test:unit && npm run test:core:features",
     "test:course-service-server": "npm run test:unit && npm run test:course:features",
     "test:posts-service-server": "npm run test:unit && npm run test:posts:features",
@@ -38,7 +43,6 @@
     "migrations:media:generate": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:generate persistence/migrations/media/media -d src/apps/Media/dataSource -o",
     "migrations:media:run": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:run -d src/apps/Media/dataSource",
     "migrations:media:revert": "ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:revert -d src/apps/Media/dataSource"
-    
   },
   "author": "Quid",
   "license": "ISC",
