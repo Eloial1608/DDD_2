@@ -84,3 +84,13 @@ services:
     arguments: ["@Space.UpdateSpaceOnSpaceUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+
+    Community.DeleteCommunityOnCommunityDeleted.Deleter:
+    class: src/Contexts/Course/Community/application/DeleteCommunityOnCommunityDeleted/Deleter
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+    Community.DeleteCommunityOnCommunityDeleted.DeleteCommunityOnCommunityDeletedHandler:
+    class: src/Contexts/Course/Community/application/DeleteCommunityOnCommunityDeleted/DeleteCommunityOnCommunityDeletedHandler
+    arguments: ["@Community.DeleteCommunityOnCommunityDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
