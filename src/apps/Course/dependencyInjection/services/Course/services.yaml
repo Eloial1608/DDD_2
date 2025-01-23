@@ -98,3 +98,7 @@ services:
   SpaceMember.Repository:
     class: src/Contexts/Course/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  Section.Repository:
+    class: src/Contexts/Course/Section/infrastructure/persistence/TypeOrmSectionRepository
+    arguments: ["@Shared.ORM.Connection"]
