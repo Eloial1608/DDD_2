@@ -26,14 +26,14 @@ export class Community extends AggregateRoot {
     return community
   }
 
-    delete (): Community {
-      const community = new Community(
-        this.id,
-        this.isPrivate
-      )
-  
-      community.record(CommunityDeletedDomainEvent.fromAggregate(community))
-  
-      return community
-    }
+  delete (): Community {
+    const community = new Community(
+      this.id,
+      this.isPrivate
+    )
+
+    community.record(CommunityDeletedDomainEvent.fromAggregate(community))
+
+    return community
+  }
 }
