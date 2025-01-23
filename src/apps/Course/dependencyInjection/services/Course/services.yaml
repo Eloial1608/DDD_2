@@ -45,8 +45,8 @@ services:
     class: src/Contexts/Course/User/application/FindByCriteria/FinderByCriteria
     arguments: ['@User.Repository']
   
-  User.FindById.FindUserByCriteriaQueryHandler:
-    class: src/Contexts/Course/User/application/FindByCriteria/FindUserByCriteriaQueryHandler
+  User.FindByCriteria.FindUsersByCriteriaQueryHandler:
+    class: src/Contexts/Course/User/application/FindByCriteria/FindUsersByCriteriaQueryHandler
     arguments: ['@User.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
@@ -108,6 +108,16 @@ services:
   SpaceMember.Repository:
     class: src/Contexts/Course/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  SpaceMember.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Course/SpaceMember/application/FindByCriteria/FinderByCriteria
+    arguments: ['@SpaceMember.Repository']
+  
+  SpaceMember.FindByCriteria.FindSpaceMembersByCriteriaQueryHandler:
+    class: src/Contexts/Course/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQueryHandler
+    arguments: ['@SpaceMember.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
 
   SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.Creator:
     class: src/Contexts/Course/SpaceMember/application/CreateSpaceMemberOnSpaceMemberCreated/Creator
