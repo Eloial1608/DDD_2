@@ -28,10 +28,10 @@ export class RabbitMQDomainEventJsonDeserializer {
     }
 
     return eventClass.fromPrimitives(
-      eventAttributes.aggregateId.Value,
+      eventAttributes.aggregateId.StringValue,
       eventData,
-      eventAttributes.id.Value,
-      eventAttributes.occurred_on.Value
+      eventAttributes.id.StringValue,
+      eventAttributes.occurred_on.StringValue
     )
   }
 }

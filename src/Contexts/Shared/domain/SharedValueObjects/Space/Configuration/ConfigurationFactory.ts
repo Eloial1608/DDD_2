@@ -10,6 +10,8 @@ export class ConfigurationFactory {
         return new PostsConfiguration(configuration)
       case AllowedTypes.MEDIA:
         return new MediaConfiguration(configuration)
+      case AllowedTypes.COURSES:
+        return new MediaConfiguration(configuration)
       default:
         throw new InvalidConfigurationType(type)
     }

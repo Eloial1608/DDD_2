@@ -69,6 +69,14 @@ services:
   Apps.Core.Controllers.UserDeleteController:
     class: src/apps/Core/controllers/User/UserDeleteController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.BanUserPostController:
+    class: src/apps/Core/controllers/User/BanUserPostController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.UnBanUserPostController:
+    class: src/apps/Core/controllers/User/UnBanUserPostController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
 
   Apps.Core.Controllers.UserIsAdminPatchController:
     class: src/apps/Core/controllers/User/UserIsAdminPatchController
