@@ -4,5 +4,5 @@ import { UserIsAdminPatchController } from '@Apps/Core/controllers/User/UserIsAd
 
 export const register = (router: Router) => {
   const controller = DI.getInstance().resolve<UserIsAdminPatchController>('Apps.Core.Controllers.UserIsAdminPatchController')
-  router.patch('/v1/users/:id', (req: Request, res: Response) => controller.run(req, res))
+  router.patch('/v1/users/admin/:id', (req: Request, res: Response) => controller.run(req, res))
 }

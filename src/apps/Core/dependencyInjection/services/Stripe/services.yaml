@@ -9,7 +9,7 @@ services:
   
   StripeAccount.Create.Creator:
     class: src/Contexts/Stripe/StripeAccount/application/Create/Creator
-    arguments: ['@StripeAccount.Repository', '@Shared.EventBus']
+    arguments: ['@StripeAccount.Repository', '@StripeAccount.HttpStripeRepository', '@Shared.EventBus']
   
   StripeAccount.Create.CreateStripeAccountCommandHandler:
     class: src/Contexts/Stripe/StripeAccount/application/Create/CreateStripeAccountCommandHandler
