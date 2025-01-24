@@ -9,7 +9,6 @@ export class SectionRepositoryMock implements SectionRepository {
   private mockFind = mockFn()
   private mockSearch = mockFn()
   private mockPersist = mockFn()
-  private mockDelete = mockFn()
 
   private expectedFind: Nullable<Section>
   private expectedSearch: Array<Section> = []
@@ -38,18 +37,6 @@ export class SectionRepositoryMock implements SectionRepository {
 
   assertPersistHasBeenCalledWith (section: Section) {
     expect(this.mockPersist).toHaveBeenCalledWith(section)
-  }
-
-  async delete (section: Section): Promise<void> {
-    this.mockDelete(section)
-  }
-
-  assertDeleteHasBeenCalledWith (section: Section) {
-    expect(this.mockDelete).toHaveBeenCalledWith(section)
-  }
-
-  assertDeleteHasNotBeenCalled () {
-    expect(this.mockDelete).not.toHaveBeenCalled()
   }
 
   assertPersistHasNotBeenCalled () {

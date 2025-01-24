@@ -23,8 +23,4 @@ export class TypeOrmCourseRepository extends TypeOrmRepository<Course> implement
   async persist (course: Course): Promise<void> {
     await (await this.repository()).save(course)
   }
-
-  async delete (course: Course): Promise<void> {
-    await (await this.repository()).remove(course)
-  }
 }

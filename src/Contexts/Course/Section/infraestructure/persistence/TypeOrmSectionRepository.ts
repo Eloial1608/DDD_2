@@ -23,8 +23,4 @@ export class TypeOrmCourseRepository extends TypeOrmRepository<Section> implemen
   async persist (section: Section): Promise<void> {
     await (await this.repository()).save(section)
   }
-
-  async delete (section: Section): Promise<void> {
-    await (await this.repository()).remove(section)
-  }
 }
