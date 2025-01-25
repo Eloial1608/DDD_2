@@ -38,7 +38,7 @@ export class PlanForUsersDeleteController implements Controller {
 
       const command = new DeletePlanForUsersCommand(
         req.params.id,
-        req.body.communityId
+        plan.communityId
       )
 
       await this.commandBus.dispatch(command)
