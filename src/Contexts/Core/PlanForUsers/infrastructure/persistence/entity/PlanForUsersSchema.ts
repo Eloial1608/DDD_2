@@ -16,7 +16,7 @@ const PlanForUsersPriceSchema = new EntitySchema<Price>({
   target: Price,
   columns: {
     value: {
-      type: 'int',
+      type: 'bigint',
       transformer: ValueObjectTransformer(PriceValue)
     },
     currency: {
