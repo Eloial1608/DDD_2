@@ -37,6 +37,9 @@
     "@Media/*": [
       "src/Contexts/Media/*"
     ],
+    "@Threads/*": [
+      "src/Contexts/Threads/*"
+    ],
     "@Stripe/*": [
       "src/Contexts/Stripe/*"
     ],
