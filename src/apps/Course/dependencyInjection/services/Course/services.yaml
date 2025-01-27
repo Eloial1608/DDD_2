@@ -118,6 +118,11 @@ services:
     class: src/Contexts/Course/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
     arguments: ["@Shared.ORM.Connection"]
 
+
+  Section.Repository:
+    class: src/Contexts/Course/Section/infrastructure/persistence/TypeOrmSectionRepository
+    arguments: ["@Shared.ORM.Connection"]
+
   SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.Deleter:
     class: src/Contexts/Course/SpaceMember/application/DeleteSpaceMemberOnSpaceMemberDeleted/Deleter
     arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
@@ -147,3 +152,4 @@ services:
     arguments: ["@SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+
