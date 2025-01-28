@@ -153,3 +153,13 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
 
+  Section.Create.Creator:
+    class: src/Contexts/Course/Section/application/Create/Creator
+    arguments: ['@Course.Repository', '@Shared.QueryBus', '@Shared.EventBus']
+  
+  Section.Create.CreateSectionCommandHandler:
+    class: src/Contexts/Course/Section/application/Create/CreateSectionCommandHandler
+    arguments: ["@Course.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+

@@ -7,6 +7,7 @@ import { CreatedAt } from './ValueObjects/CreatedAt';
 import { UpdatedAt } from './ValueObjects/UpdatedAt';
 import { Nullable } from '@Shared/domain/Nullable';
 import { DeletedAt } from './ValueObjects/DeletedAt';
+import { SectionCreatedDomainEvent } from './events/SectionCreatedDomainEvent';
 
 
 export class Section extends AggregateRoot{
@@ -21,4 +22,24 @@ export class Section extends AggregateRoot{
     ){
         super()
     }
+
+    static create (
+        id: Id,
+        courseId: CourseId,
+        title: Title,
+      ): Section {
+        const section = new Section(
+          id,
+          courseId,
+          title,
+          new TotalLessons(0),
+          new CreatedAt(new Date()),
+          new UpdatedAt(new Date()),
+          null
+        )
+    
+        section.record(SectionCreatedDomainEvent.fromAggregate(section))
+    
+        return section
+      }
 }
