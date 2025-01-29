@@ -22,7 +22,7 @@ describe('UpdateFormCommandHandler should ', () => {
   test('Update a form', async () => {
     const form = FormMother.random()
 
-    repository.returnOnFind(FormMother.create({ id: form.id, communityId: form.communityId }))
+    repository.returnOnFind(FormMother.create({ id: form.id, communityId: form.communityId, createdBy: form.createdBy }))
 
     const command = UpdateFormCommandMother.fromAggregate(form)
 
@@ -34,7 +34,7 @@ describe('UpdateFormCommandHandler should ', () => {
   test('Update a new FormUpdatedDomainEvent', async () => {
     const form = FormMother.random()
 
-    repository.returnOnFind(FormMother.create({ id: form.id, communityId: form.communityId }))
+    repository.returnOnFind(FormMother.create({ id: form.id, communityId: form.communityId, createdBy: form.createdBy }))
 
     const command = UpdateFormCommandMother.fromAggregate(form)
 

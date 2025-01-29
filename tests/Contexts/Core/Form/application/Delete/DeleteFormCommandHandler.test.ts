@@ -5,6 +5,7 @@ import { FormRepositoryMock } from '../../__mocks__/FormRepositoryMock'
 import { FormMother } from '../../domain/FormMother'
 import { DeleteFormCommandMother } from './DeleteFormCommandMother'
 import { FormDeletedDomainEvent } from '@Core/Form/domain/Events/FormDeletedDomainEvent'
+import { DeletedAt } from '@Core/Form/domain/ValueObjects/DeletedAt'
 
 let eventBus: EventBusMock
 let repository: FormRepositoryMock
@@ -26,9 +27,14 @@ describe('DeleteFormCommandHandler should ', () => {
 
     const command = DeleteFormCommandMother.fromAggregate(form)
 
+    const expectedForm = FormMother.create({
+      ...form,
+      deletedAt: new DeletedAt(new Date())
+    })
+
     await handler.handle(command)
 
-    repository.assertPersistHasBeenCalledWith(form)
+    repository.assertPersistHasBeenCalledWith(expectedForm)
   })
 
   test('Delete a new FormDeletedDomainEvent', async () => {
@@ -38,9 +44,14 @@ describe('DeleteFormCommandHandler should ', () => {
 
     const command = DeleteFormCommandMother.fromAggregate(form)
 
+    const expectedForm = FormMother.create({
+      ...form,
+      deletedAt: new DeletedAt(new Date())
+    })
+
     await handler.handle(command)
 
-    const expectedEvent = FormDeletedDomainEvent.fromAggregate(form)
+    const expectedEvent = FormDeletedDomainEvent.fromAggregate(expectedForm)
 
     eventBus.assertEventHasBeenPublished(expectedEvent)
   })
