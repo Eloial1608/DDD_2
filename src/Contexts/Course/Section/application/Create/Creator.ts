@@ -4,10 +4,9 @@ import { CourseId } from "@Course/Section/domain/ValueObjects/CourseId";
 import { Id } from "@Course/Section/domain/ValueObjects/Id";
 import { Title } from "@Course/Section/domain/ValueObjects/Title";
 import { EventBus } from "@Shared/domain/EventBus/EventBus";
-import { QueryBus } from "@Shared/domain/QueryBus/QueryBus";
 
 export class Creator{
-    constructor (private readonly reposiotry: SectionRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus){}
+    constructor (private readonly reposiotry: SectionRepository, private readonly eventBus: EventBus){}
 
     async run(
         id:Id,

@@ -1,6 +1,5 @@
 import EventBusMock from "@Tests/Contexts/Shared/infrastructure/EventBus/EventBusMock";
 import { SectionRepositoryMock } from "../../__mocks__/SectionRepositoryMock";
-import { QueryBusMock } from "@Tests/Contexts/Shared/infrastructure/QueryBus/QueryBusMock";
 import { CreateSectionCommandHandler } from "@Course/Section/application/Create/CreateSectionCommandHandler";
 import { Creator } from "@Course/Section/application/Create/Creator";
 import { SectionMother } from "../../domain/SectionMother";
@@ -9,7 +8,6 @@ import { SectionCreatedDomainEvent } from "@Course/Section/domain/events/Section
 
 let eventBus: EventBusMock
 let repository: SectionRepositoryMock
-let queryBus; QueryBusMock
 let handler: CreateSectionCommandHandler
 let creator: Creator
 
@@ -17,8 +15,7 @@ describe('CreateSectionCommandHandler should ', () => {
   beforeEach(() => {
     eventBus = new EventBusMock()
     repository = new SectionRepositoryMock()
-    queryBus = new QueryBusMock()
-    creator = new Creator(repository,eventBus, queryBus)
+    creator = new Creator(repository,eventBus)
     handler = new CreateSectionCommandHandler(creator)
   })
 
