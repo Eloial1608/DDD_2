@@ -40,7 +40,7 @@ export class PostResponse implements QueryResponse<PostResponseBody> {
       bannerUrl: post.bannerUrl?.valueOf(),
       author: post.author.toPrimitives(),
       isPaid: post.isPaid.valueOf(),
-      price: post.price
+      price: post.price?.value?.valueOf() != null
         ? {
             value: post.price.value.valueOf(),
             currency: post.price.currency.valueOf()

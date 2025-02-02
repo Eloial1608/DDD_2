@@ -74,8 +74,9 @@ export class PostsGetController implements Controller {
         if (p) postsToSend.push(await this.buildResponse(post, this.user?.id))
       }
 
-      return res.status(200).json({ posts: postsToSend })
+      return res.status(200).json(posts)
     } catch (e) {
+      console.log(e)
       if (e instanceof CannotDecode) return res.status(401).send()
       if (e instanceof PostNotFound) return res.status(404).send(e.getMessage())
 
