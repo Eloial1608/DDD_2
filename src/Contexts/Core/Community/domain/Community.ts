@@ -37,6 +37,7 @@ import { AllowedSubcommunities } from './ValueObjects/AllowedSubcommunities'
 import { SubcommunitiesCount } from './ValueObjects/SubcommunitiesCount'
 import { CommunitySubcommunitiesCountUpdatedDomainEvent } from './Events/CommunitySubcommunitiesCountUpdatedDomainEvent'
 import { CommunityUpdatedDomainEvent } from './Events/CommunityUpdatedDomainEvent'
+import { CommunityHasFormUpdatedDomainEvent } from './Events/CommunityHasFormUpdatedDomainEvent'
 
 export class Community extends AggregateRoot {
   constructor (
@@ -330,6 +331,45 @@ export class Community extends AggregateRoot {
     )
 
     community.record(CommunityAllowsPaymentsUpdatedDomainEvent.fromAggregate(community))
+
+    return community
+  }
+
+  updateRegisterForm (hasForm: HasRegisterForm, registerFormId: Nullable<RegisterFormId>): Community {
+    const community = new Community(
+      this.id,
+      this.name,
+      this.suffix,
+      this.domain,
+      this.slug,
+      this.parentId,
+      this.mainId,
+      this.logoUrl,
+      this.bannerUrl,
+      this.about,
+      this.membersCount,
+      this.allowsPayments,
+      this.firstPaymentDone,
+      this.spacesCount,
+      this.hasPayment,
+      this.methodId,
+      this.allowedFeatures,
+      hasForm,
+      registerFormId,
+      this.allowedUsers,
+      this.color,
+      this.isPrivate,
+      this.isRegisterOpen,
+      this.homeSpaceId,
+      this.allowedSubcommunities,
+      this.subcommunitiesCount,
+      this.expiresAt,
+      this.createdAt,
+      this.updatedAt,
+      null
+    )
+
+    community.record(CommunityHasFormUpdatedDomainEvent.fromAggregate(community))
 
     return community
   }

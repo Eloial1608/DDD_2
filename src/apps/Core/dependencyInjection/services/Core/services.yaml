@@ -628,3 +628,23 @@ services:
     arguments: ["@Form.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
+  
+  Community.UpdateHasFormOnFormCreated.Updater:
+    class: src/Contexts/Core/Community/application/UpdateHasFormOnFormCreated/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateHasFormOnFormCreated.UpdateHasFormOnFormCreatedHandler:
+    class: src/Contexts/Core/Community/application/UpdateHasFormOnFormCreated/UpdateHasFormOnFormCreatedHandler
+    arguments: ["@Community.UpdateHasFormOnFormCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.UpdateHasFormOnFormDeleted.Updater:
+    class: src/Contexts/Core/Community/application/UpdateHasFormOnFormDeleted/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateHasFormOnFormDeleted.UpdateHasFormOnFormDeletedHandler:
+    class: src/Contexts/Core/Community/application/UpdateHasFormOnFormDeleted/UpdateHasFormOnFormDeletedHandler
+    arguments: ["@Community.UpdateHasFormOnFormDeleted.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
