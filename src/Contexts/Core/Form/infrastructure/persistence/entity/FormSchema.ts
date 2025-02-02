@@ -53,10 +53,6 @@ export const FormSchema = new EntitySchema<Form>({
     {
       name: 'IDX_FORM_COMMUNITY_ID',
       columns: ['communityId']
-    },
-    {
-      name: 'IDX_FORM_USER_IDS',
-      columns: ['userIds']
     }
   ]
 })
