@@ -14,7 +14,7 @@ export class UpdateHasFormOnFormDeletedHandler implements DomainEventSubscriber<
 
   async on (domainEvent: FormDeletedDomainEvent): Promise<void> {
     await this.updater.run(
-      new Id(domainEvent.id),
+      new Id(domainEvent.communityId),
       new HasRegisterForm(false)
     )
   }

@@ -22,6 +22,7 @@ export class FormGetController implements Controller {
 
       return res.status(200).json(response)
     } catch (e) {
+      console.log(e)
       if (e instanceof FormNotFound) return res.status(404).json({ message: e.getMessage() })
 
       if (e instanceof CannotDecode) return res.status(401).json({ message: e.getMessage() })

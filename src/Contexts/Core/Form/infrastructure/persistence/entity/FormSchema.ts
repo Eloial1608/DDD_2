@@ -8,6 +8,7 @@ import { CommunityId } from '@Core/Form/domain/ValueObjects/CommunityId'
 import { Name } from '@Core/Form/domain/ValueObjects/Name'
 import { IsActive } from '@Core/Form/domain/ValueObjects/IsActive'
 import { FormContents } from '@Core/Form/domain/ValueObjects/FormContent'
+import { CreatedBy } from '@Core/Form/domain/ValueObjects/CreatedBy'
 
 export const FormSchema = new EntitySchema<Form>({
   name: 'Form',
@@ -37,6 +38,10 @@ export const FormSchema = new EntitySchema<Form>({
         from: (data: string): FormContents => FormContents.fromPrimitives(JSON.parse(data)),
         to: (content: FormContents): string => JSON.stringify(content.toPrimitives())
       }
+    },
+    createdBy: {
+      type: String,
+      transformer: ValueObjectTransformer(CreatedBy)
     },
     createdAt: {
       type: Date,

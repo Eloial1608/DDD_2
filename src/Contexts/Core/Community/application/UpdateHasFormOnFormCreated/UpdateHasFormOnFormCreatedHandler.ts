@@ -15,7 +15,7 @@ export class UpdateHasFormOnFormCreatedHandler implements DomainEventSubscriber<
 
   async on (domainEvent: FormCreatedDomainEvent): Promise<void> {
     await this.updater.run(
-      new Id(domainEvent.id),
+      new Id(domainEvent.communityId),
       new HasRegisterForm(true),
       new RegisterFormId(domainEvent.id)
     )
