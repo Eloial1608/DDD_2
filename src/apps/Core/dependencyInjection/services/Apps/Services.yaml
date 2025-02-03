@@ -173,3 +173,19 @@ services:
   Apps.Core.Controllers.PlanForUsersDeleteController:
     class: src/apps/Core/controllers/PlanForUsers/PlanForUsersDeleteController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.FormGetController:
+    class: src/apps/Core/controllers/Form/FormGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.FormPostController:
+    class: src/apps/Core/controllers/Form/FormPostController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.FormDeleteController:
+    class: src/apps/Core/controllers/Form/FormDeleteController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.FormPutController:
+    class: src/apps/Core/controllers/Form/FormPutController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]

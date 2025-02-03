@@ -1,0 +1,4 @@
+services:
+  Apps.Threads.Controllers.HealthGetController:
+    class: src/apps/Threads/controllers/HealthGetController
+  

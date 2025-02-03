@@ -45,6 +45,7 @@ export class PostPostController implements Controller {
 
       return res.status(201).send()
     } catch (e) {
+      console.log(e)
       if (e instanceof CannotDecode) return res.status(401).send()
 
       return res.status(500).send()

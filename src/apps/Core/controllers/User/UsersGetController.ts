@@ -56,13 +56,14 @@ export class UsersGetController implements Controller {
         if ((community.mainId ?? community.id) !== data.communityId) return res.status(401).send()
       }
 
-      const query = new FindUsersByCriteriaQuery([
-        new Map<string, string>([
-          ['field', 'communityId'],
-          ['operator', '='],
-          ['value', communityId as string]
-        ])
-      ])
+      const query = new FindUsersByCriteriaQuery(
+        criteria.filters,
+        criteria.inFilters,
+        criteria.orderBy,
+        criteria.orderType,
+        criteria.limit,
+        criteria.offset
+      )
 
       const users = (await this.queryBus.ask<UserCollectionResponse>(query))
 
