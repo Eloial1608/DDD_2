@@ -16,6 +16,14 @@ core-service-server:
 - tests/Contexts/Core/**
 - tests/Contexts/Stripe/**
 
+threads-service-server:
+- *shared
+- src/apps/Threads/**
+- src/Contexts/Threads/**
+- tests/apps/Threads/**
+- tests/Contexts/Threads/**
+
+
 auth-service-server:
 - *shared
 - src/apps/Auth/**

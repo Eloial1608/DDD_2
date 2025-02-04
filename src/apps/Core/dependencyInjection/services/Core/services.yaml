@@ -574,3 +574,77 @@ services:
     arguments: ['@PlanForUsers.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+  
+  Form.Repository:
+    class: src/Contexts/Core/Form/infrastructure/persistence/TypeOrmFormRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Form.FindById.FinderById:
+    class: src/Contexts/Core/Form/application/FindById/FinderById
+    arguments: ['@Form.Repository']
+  
+  Form.FindById.FindFormByIdQueryHandler:
+    class: src/Contexts/Core/Form/application/FindById/FindFormByIdQueryHandler
+    arguments: ['@Form.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+  
+  Form.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/Form/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Form.Repository']
+  
+  Form.FindByCriteria.FindFormsByCriteriaQueryHandler:
+    class: src/Contexts/Core/Form/application/FindByCriteria/FindFormsByCriteriaQueryHandler
+    arguments: ['@Form.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+  
+  Form.Create.Creator:
+    class: src/Contexts/Core/Form/application/Create/Creator
+    arguments: ['@Form.Repository', '@Shared.EventBus']
+  
+  Form.Create.CreateFormCommandHandler:
+    class: src/Contexts/Core/Form/application/Create/CreateFormCommandHandler
+    arguments: ["@Form.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Form.Update.Updater:
+    class: src/Contexts/Core/Form/application/Update/Updater
+    arguments: ['@Form.Repository', '@Shared.EventBus']
+  
+  Form.Update.UpdateFormCommandHandler:
+    class: src/Contexts/Core/Form/application/Update/UpdateFormCommandHandler
+    arguments: ["@Form.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Form.Delete.Deleter:
+    class: src/Contexts/Core/Form/application/Delete/Deleter
+    arguments: ['@Form.Repository', '@Shared.EventBus']
+  
+  Form.Delete.DeleteFormCommandHandler:
+    class: src/Contexts/Core/Form/application/Delete/DeleteFormCommandHandler
+    arguments: ["@Form.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Community.UpdateHasFormOnFormCreated.Updater:
+    class: src/Contexts/Core/Community/application/UpdateHasFormOnFormCreated/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateHasFormOnFormCreated.UpdateHasFormOnFormCreatedHandler:
+    class: src/Contexts/Core/Community/application/UpdateHasFormOnFormCreated/UpdateHasFormOnFormCreatedHandler
+    arguments: ["@Community.UpdateHasFormOnFormCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.UpdateHasFormOnFormDeleted.Updater:
+    class: src/Contexts/Core/Community/application/UpdateHasFormOnFormDeleted/Updater
+    arguments: ["@Community.Repository", "@Shared.EventBus"]
+
+  Community.UpdateHasFormOnFormDeleted.UpdateHasFormOnFormDeletedHandler:
+    class: src/Contexts/Core/Community/application/UpdateHasFormOnFormDeleted/UpdateHasFormOnFormDeletedHandler
+    arguments: ["@Community.UpdateHasFormOnFormDeleted.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }

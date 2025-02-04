@@ -28,3 +28,9 @@ CREATE DATABASE course;
 \c course
 GRANT ALL PRIVILEGES ON DATABASE course TO course_user;
 GRANT ALL ON SCHEMA public TO course_user;
+
+CREATE USER threads_user WITH PASSWORD 'threads_pass' CREATEDB;
+CREATE DATABASE threads;
+\c threads
+GRANT ALL PRIVILEGES ON DATABASE threads TO threads_user;
+GRANT ALL ON SCHEMA public TO threads_user;
