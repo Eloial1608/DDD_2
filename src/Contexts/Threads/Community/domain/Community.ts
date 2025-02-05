@@ -2,6 +2,7 @@ import { AggregateRoot } from '@Shared/domain/AggregateRoot'
 import { Id } from './ValueObjects/Id'
 import { IsPrivate } from './ValueObjects/IsPrivate'
 import { CommunityCreatedDomainEvent } from './Events/CommunityCreatedDomainEvent'
+import { CommunityDeletedDomainEvent } from './Events/CommunityDeletedDomainEvent'
 
 export class Community extends AggregateRoot {
   constructor (
@@ -23,5 +24,16 @@ export class Community extends AggregateRoot {
   
       return community
     }
+
+    delete (): Community {
+        const community = new Community(
+          this.id,
+          this.isPrivate
+        )
+    
+        community.record(CommunityDeletedDomainEvent.fromAggregate(community))
+    
+        return community
+      }
   
 }
