@@ -6,14 +6,20 @@ import { Title } from '@Course/Course/domain/ValueObjects/Title'
 import { BannerUrl } from '@Course/Course/domain/ValueObjects/BannerUrl'
 import { IsPaid } from '@Course/Course/domain/ValueObjects/IsPaid'
 import { Price } from '@Course/Course/domain/ValueObjects/Price'
-import { TotalStudents } from '@Course/Course/domain/ValueObjects/TotalStudents'
-import { TotalComments } from '@Course/Course/domain/ValueObjects/TotalComments'
 import { StartDate } from '@Course/Course/domain/ValueObjects/StartDate'
 import { EndDate } from '@Course/Course/domain/ValueObjects/EndDate'
 import { Id } from '@Course/Course/domain/ValueObjects/Id'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 import { Nullable } from '@Shared/domain/Nullable'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
+import { CourseConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/CourseConfiguration'
+import { Course } from '@Course/Course/domain/Course'
+import { Author } from '@Course/Course/domain/ValueObjects/Author'
+import { FindUsersByCriteriaQuery } from '@Course/User/application/FindByCriteria/FindUsersByCriteriaQuery'
+import { UserCollectionResponse } from '@Course/User/application/UserCollectionResponse'
+import { FindSpaceByIdQuery } from '@Course/Space/application/FindById/FindSpaceByIdQuery'
+import { SpaceResponse } from '@Course/Space/application/SpaceResponse'
+import { MaxStudents } from '@Course/Course/domain/ValueObjects/MaxStudents'
 
 export class Creator {
   constructor (private readonly repository: CourseRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
@@ -27,10 +33,9 @@ export class Creator {
     bannerUrl: Nullable<BannerUrl>,
     isPaid: IsPaid,
     price: Nullable<Price>,
-    totalStudents: TotalStudents,
-    totalComments: TotalComments,
     startDate: StartDate,
-    endDate: Nullable<EndDate>
+    endDate: Nullable<EndDate>,
+    maxStudents: MaxStudents
   ) {
     if ((isPaid.valueOf() && !price) || (price && !isPaid.valueOf())) return
 
@@ -46,17 +51,14 @@ export class Creator {
 
     if (space.communityId.valueOf() !== communityId.valueOf()) return
 
-    if (!(space.configuration as CoursesConfiguration['configuration']).allowsPaid && isPaid.valueOf()) return
-    if ((space.configuration as CoursesConfiguration['configuration']).mustHaveBanner && !bannerUrl?.valueOf()) return
+    if (!(space.configuration as CourseConfiguration['configuration']).allowsPaid && isPaid.valueOf()) return
+    if ((space.configuration as CourseConfiguration['configuration']).mustHaveBanner && !bannerUrl?.valueOf()) return
 
-    const post = Course.create(
+    const course = Course.create(
       id,
       communityId,
-      userId,
       spaceId,
-      title,
-      content,
-      bannerUrl,
+      userId,
       new Author(
         user.id,
         user.mainId,
@@ -65,12 +67,17 @@ export class Creator {
         user.pictureUrl,
         user.bannerUrl
       ),
+      title,
+      bannerUrl,
       isPaid,
-      price
+      price,
+      startDate,
+      endDate,
+      maxStudents
     )
 
-    await this.repository.persist(post)
-    await this.eventBus.publish(post.pullDomainEvents())
+    await this.repository.persist(course)
+    await this.eventBus.publish(course.pullDomainEvents())
   }
 
   private async findUserByIdAndCommunityId (id: UserId, communityId: CommunityId) {

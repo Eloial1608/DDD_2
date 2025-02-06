@@ -16,6 +16,8 @@ import { EndDate } from './ValueObjects/EndDate'
 import { CreatedAt } from './ValueObjects/CreatedAt'
 import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { DeletedAt } from './ValueObjects/DeletedAt'
+import { CourseCreatedDomainEvent } from './Events/CourseCreatedDomainEvent'
+import { MaxStudents } from './ValueObjects/MaxStudents'
 
 export class Course extends AggregateRoot {
   constructor (
@@ -28,14 +30,54 @@ export class Course extends AggregateRoot {
     readonly bannerUrl: Nullable<BannerUrl>,
     readonly isPaid: IsPaid,
     readonly price: Nullable<Price>,
-    readonly totalStudents: TotalStudents,
-    readonly totalComments: TotalComments,
     readonly startDate: StartDate,
     readonly endDate: Nullable<EndDate>,
+    readonly maxStudents: MaxStudents,
+    readonly totalStudents: TotalStudents,
+    readonly totalComments: TotalComments,
     readonly createdAt: CreatedAt,
     readonly updatedAt: UpdatedAt,
     readonly deletedAt: Nullable<DeletedAt>
   ) {
     super()
+  }
+
+  static create (
+    id: Id,
+    communityId: CommunityId,
+    spaceId: SpaceId,
+    userId: UserId,
+    author: Author,
+    title: Title,
+    bannerUrl: Nullable<BannerUrl>,
+    isPaid: IsPaid,
+    price: Nullable<Price>,
+    startDate: StartDate,
+    endDate: Nullable<EndDate>,
+    maxStudents: MaxStudents
+  ): Course {
+    const course = new Course(
+      id,
+      communityId,
+      spaceId,
+      userId,
+      author,
+      title,
+      bannerUrl,
+      isPaid,
+      price,
+      startDate,
+      endDate,
+      maxStudents,
+      new TotalStudents(0),
+      new TotalComments(0),
+      new CreatedAt(new Date()),
+      new UpdatedAt(new Date()),
+      null
+    )
+
+    course.record(CourseCreatedDomainEvent.fromAggregate(course))
+
+    return course
   }
 }
