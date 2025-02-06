@@ -11,7 +11,6 @@ import { EndDate } from '@Course/Course/domain/ValueObjects/EndDate'
 import { Id } from '@Course/Course/domain/ValueObjects/Id'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 import { Nullable } from '@Shared/domain/Nullable'
-import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { CourseConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/CourseConfiguration'
 import { Course } from '@Course/Course/domain/Course'
 import { Author } from '@Course/Course/domain/ValueObjects/Author'
@@ -20,9 +19,14 @@ import { UserCollectionResponse } from '@Course/User/application/UserCollectionR
 import { FindSpaceByIdQuery } from '@Course/Space/application/FindById/FindSpaceByIdQuery'
 import { SpaceResponse } from '@Course/Space/application/SpaceResponse'
 import { MaxStudents } from '@Course/Course/domain/ValueObjects/MaxStudents'
+import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 
 export class Creator {
-  constructor (private readonly repository: CourseRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
+  constructor (
+    private readonly repository: CourseRepository,
+    private readonly eventBus: EventBus,
+    private readonly queryBus: QueryBus
+  ) {}
 
   async run (
     id: Id,
@@ -53,6 +57,8 @@ export class Creator {
 
     if (!(space.configuration as CourseConfiguration['configuration']).allowsPaid && isPaid.valueOf()) return
     if ((space.configuration as CourseConfiguration['configuration']).mustHaveBanner && !bannerUrl?.valueOf()) return
+
+    if (endDate && startDate > endDate) return
 
     const course = Course.create(
       id,

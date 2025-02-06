@@ -165,7 +165,7 @@ services:
 
   Course.Create.Creator:
     class: src/Contexts/Course/Course/application/Create/Creator
-    arguments: ['@Course.Repository', '@Shared.EventBus']
+    arguments: ['@Course.Repository', '@Shared.EventBus', '@Shared.QueryBus']
   
   Course.Create.CreateCourseCommandHandler:
     class: src/Contexts/Course/Course/application/Create/CreateCourseCommandHandler
