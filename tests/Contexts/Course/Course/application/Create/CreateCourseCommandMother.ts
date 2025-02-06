@@ -51,7 +51,7 @@ export class CreateCourseCommandMother {
         : null,
       course.startDate.valueOf(),
       course.endDate ? course.endDate.valueOf() : null,
-      course.maxStudents.valueOf(),
+      course.maxStudents.valueOf()
     )
   }
 }
