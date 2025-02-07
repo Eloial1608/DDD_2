@@ -60,13 +60,13 @@ export class PostGetController implements Controller {
       let spaceMember: SpaceMemberResponseBody | undefined
       let user: UserResponseBody | undefined
 
-      if (space.accessibility !== AllowedAccessibilities.PUBLIC) {
-        if (!req.headers.authorization) return res.status(401).send()
-
+      if (req.headers.authorization) {
         const data = await this.decoder.run(req.headers.authorization)
 
-        user = await this.getUser(data.id, req.body.communityId)
+        user = await this.getUser(data.id, post.communityId)
+      }
 
+      if (space.accessibility !== AllowedAccessibilities.PUBLIC) {
         if (!user) return res.status(401).send()
 
         if (!user.isAdmin && !user.isOwner) {
