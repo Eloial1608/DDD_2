@@ -39,7 +39,7 @@ services:
 
   Shared.EventBus:
     class: src/Contexts/Shared/infrastructure/EventBus/AWS/AWSEventBus
-    arguments: ['@Shared.EventBus.Config', '@Shared.Logger']
+    arguments: ['@Shared.EventBus.Config']
 
   Shared.ORM.Connection:
     factory:

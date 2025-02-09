@@ -13,7 +13,7 @@ class DI {
 
   // El constructor es privado para evitar instancias múltiples
   private constructor () {
-    const srcDir = path.resolve(`${this.urlPrefix}${process.cwd()}`)
+    const srcDir = path.resolve(process.cwd(), this.urlPrefix)
     this.container = new ContainerBuilder(true, srcDir)
   }
 
