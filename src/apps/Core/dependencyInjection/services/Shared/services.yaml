@@ -34,12 +34,12 @@ services:
 
   Shared.EventBus.Config:
     factory:
-      class: src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/RabbitMQEventBusConfigFactory
+      class: src/Contexts/Shared/infrastructure/EventBus/AWS/AWSEventBusConfigFactory
       method: 'createConfig'
 
   Shared.EventBus:
-    class: src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/RabbitMQEventBus
-    arguments: ['@Shared.EventBus.Config']
+    class: src/Contexts/Shared/infrastructure/EventBus/AWS/AWSEventBus
+    arguments: ['@Shared.EventBus.Config', '@Shared.Logger']
 
   Shared.ORM.Connection:
     factory:
