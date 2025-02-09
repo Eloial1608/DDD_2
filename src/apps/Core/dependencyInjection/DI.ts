@@ -1,3 +1,4 @@
+import { readdir } from 'fs/promises'
 import { ContainerBuilder, YamlFileLoader } from 'node-dependency-injection'
 import path from 'path'
 
@@ -29,6 +30,11 @@ class DI {
   public async initialize () {
     const loader = new YamlFileLoader(this.container)
     console.log(path.resolve(process.cwd(), this.urlPrefix, `src/apps/Core/dependencyInjection/services/services_${process.env.NODE_ENV}.yaml`))
+    // Lee el contenido del directorio de manera asíncrona
+    const files = await readdir(path.resolve(process.cwd(), this.urlPrefix, 'src/apps/Core/dependencyInjection/services'), { withFileTypes: true })
+    for (const file of files) {
+      console.log(file)
+    }
     await loader.load(path.resolve(process.cwd(), this.urlPrefix, `src/apps/Core/dependencyInjection/services/services_${process.env.NODE_ENV}.yaml`))
   }
 

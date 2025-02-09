@@ -28,7 +28,7 @@ class DI {
   public async initialize () {
     const loader = new YamlFileLoader(this.container)
 
-    await loader.load(path.resolve(process.cwd(), `${this.urlPrefix}src/apps/Posts/dependencyInjection/services/services_${process.env.NODE_ENV}.yaml`))
+    await loader.load(path.resolve(process.cwd(), this.urlPrefix, `src/apps/Posts/dependencyInjection/services/services_${process.env.NODE_ENV}.yaml`))
   }
 
   // Método para resolver una dependencia
