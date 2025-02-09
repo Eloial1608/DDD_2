@@ -6,7 +6,6 @@ export class CreateCommunityCommand implements Command {
         readonly id: string,
         readonly name: string,
         readonly slug: string,
-        readonly parentId: Nullable<string>,
         readonly logoUrl: Nullable<string>,
         readonly bannerUrl: Nullable<string>,
         readonly suffix: string,
