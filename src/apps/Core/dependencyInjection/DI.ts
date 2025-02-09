@@ -29,6 +29,8 @@ class DI {
 
   public async initialize () {
     const loader = new YamlFileLoader(this.container)
+    console.log(process.env.NODE_ENV)
+    console.log(process.env)
     console.log(path.resolve(process.cwd(), this.urlPrefix, `src/apps/Core/dependencyInjection/services/services_${process.env.NODE_ENV}.yaml`))
     // Lee el contenido del directorio de manera asíncrona
     const files = await readdir(path.resolve(process.cwd(), this.urlPrefix, 'src/apps/Core/dependencyInjection/services'), { withFileTypes: true })
