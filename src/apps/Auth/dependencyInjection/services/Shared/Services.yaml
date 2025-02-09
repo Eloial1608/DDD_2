@@ -17,7 +17,7 @@ services:
   
   Shared.ORM.DataSourceOptions:
     factory:
-      class: src/Contexts/Auth/Shared/infrastructure/persistence/typeorm/TypeOrmConfigFactory
+      class: src/Contexts/Auth/Shared/infrastructure/Persistence/typeorm/TypeOrmConfigFactory
       method: "create"
 
   Shared.SyncEventBus:
