@@ -13,7 +13,6 @@ import { FindUsersByCriteriaQuery } from '@Course/User/application/FindByCriteri
 import { FindSpaceByIdQuery } from '@Course/Space/application/FindById/FindSpaceByIdQuery'
 import { SpaceResponse } from '@Course/Space/application/SpaceResponse'
 import { SpaceMother } from '@Tests/Contexts/Course/Space/domain/SpaceMother'
-import { Author } from '@Course/Course/domain/ValueObjects/Author'
 import { StartDate } from '@Course/Course/domain/ValueObjects/StartDate'
 import { EndDate } from '@Course/Course/domain/ValueObjects/EndDate'
 import { EndDateEarlierThanStartDate } from '@Course/Course/domain/Errors/EndDateEarlierThanStartDate'
@@ -80,9 +79,9 @@ describe('UpdateCourseCommandHandler should ', () => {
 
   test('Fail if end date is earlier than start date', async () => {
     const user = UserMother.random()
-  
+
     const course = CourseMother.forAuthor(user)
- 
+
     const existingCourse = CourseMother.create({
       id: course.id,
       author: course.author,
@@ -94,25 +93,24 @@ describe('UpdateCourseCommandHandler should ', () => {
       startDate: new StartDate(new Date()),
       endDate: new EndDate(new Date())
     })
- 
+
     repository.returnOnFind(existingCourse)
- 
+
     const space = SpaceMother.create({ communityId: course.communityId })
 
     queryBus.returnOnQuery(new FindUsersByCriteriaQuery(), new UserCollectionResponse([user]))
     queryBus.returnOnQuery(new FindSpaceByIdQuery(space.id.valueOf()), new SpaceResponse(space))
-  
+
     const command = UpdateCourseCommandMother.fromAggregate(course)
 
     expect(handler.handle(command)).rejects.toThrow(EndDateEarlierThanStartDate)
   })
 
   test('Fail if max students is lower than total students', async () => {
-    test('Create a new CourseUpdatedDomainEvent', async () => {
     const user = UserMother.random()
-  
+
     const course = CourseMother.forAuthor(user)
- 
+
     const existingCourse = CourseMother.create({
       id: course.id,
       author: course.author,
@@ -122,14 +120,14 @@ describe('UpdateCourseCommandHandler should ', () => {
       maxStudents: new MaxStudents(2),
       totalStudents: new TotalStudents(3)
     })
- 
+
     repository.returnOnFind(existingCourse)
- 
+
     const space = SpaceMother.create({ communityId: course.communityId })
 
     queryBus.returnOnQuery(new FindUsersByCriteriaQuery(), new UserCollectionResponse([user]))
     queryBus.returnOnQuery(new FindSpaceByIdQuery(space.id.valueOf()), new SpaceResponse(space))
-  
+
     const command = UpdateCourseCommandMother.fromAggregate(course)
 
     expect(handler.handle(command)).rejects.toThrow(MaxStudentsLowerThanTotalStudents)
