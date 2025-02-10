@@ -1,6 +1,5 @@
 import { DomainEvent } from '@Shared/domain/EventBus/DomainEvent'
 import { Course } from '../Course'
-import { Nullable } from '@Shared/domain/Nullable'
 
 type CourseUpdatedDomainEventBody = {
     readonly id: string
