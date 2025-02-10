@@ -1,5 +1,7 @@
 import { CourseRepository } from '@Course/Course/domain/CourseRepository'
 import { CourseNotFound } from '@Course/Course/domain/Errors/CourseNotFound'
+import { EndDateEarlierThanStartDate } from '@Course/Course/domain/Errors/EndDateEarlierThanStartDate'
+import { MaxStudentsLowerThanTotalStudents } from '@Course/Course/domain/Errors/MaxStudentsLowerThanTotalStudents'
 import { NotAllowedToPersistCourse } from '@Course/Course/domain/Errors/NotAllowedToPersistCourse'
 import { BannerUrl } from '@Course/Course/domain/ValueObjects/BannerUrl'
 import { CommunityId } from '@Course/Course/domain/ValueObjects/CommunityId'
@@ -34,8 +36,8 @@ export class Updater {
     isPaid: IsPaid,
     price: Nullable<Price>,
     startDate: StartDate,
-    endDate: EndDate,
-    maxStudents: MaxStudents
+    endDate: Nullable<EndDate>,
+    maxStudents: Nullable<MaxStudents>
   ) {
     if ((isPaid.valueOf() && !price) || (price && !isPaid.valueOf())) return
 
@@ -56,7 +58,9 @@ export class Updater {
     if (!(space.configuration as CourseConfiguration['configuration']).allowsPaid && isPaid.valueOf()) return
     if ((space.configuration as CourseConfiguration['configuration']).mustHaveBanner && !bannerUrl?.valueOf()) return
 
-    if (endDate && startDate > endDate) return
+    if (endDate && startDate > endDate) throw new EndDateEarlierThanStartDate(course.id)
+
+    if (maxStudents && maxStudents < course.totalStudents) throw new MaxStudentsLowerThanTotalStudents(course.id)
 
     const updatedCourse = course.update(
       id,

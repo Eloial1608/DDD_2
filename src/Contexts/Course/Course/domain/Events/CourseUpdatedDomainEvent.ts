@@ -6,8 +6,7 @@ type CourseUpdatedDomainEventBody = {
     readonly id: string
     readonly communityId: string
     readonly userId: string
-    readonly title: string
-    readonly bannerUrl: Nullable<string>
+    readonly spaceId: string
 }
 
 export class CourseUpdatedDomainEvent extends DomainEvent {
@@ -16,8 +15,7 @@ export class CourseUpdatedDomainEvent extends DomainEvent {
   readonly id: string
   readonly communityId: string
   readonly userId: string
-  readonly title: string
-  readonly bannerUrl: Nullable<string>
+  readonly spaceId: string
 
   static {
     DomainEvent.derived.add(CourseUpdatedDomainEvent.EVENT_NAME)
@@ -29,8 +27,7 @@ export class CourseUpdatedDomainEvent extends DomainEvent {
     this.id = params.id
     this.communityId = params.communityId
     this.userId = params.userId
-    this.title = params.title
-    this.bannerUrl = params.bannerUrl
+    this.spaceId = params.spaceId
   }
 
   static fromAggregate (course: Course): CourseUpdatedDomainEvent {
@@ -38,8 +35,7 @@ export class CourseUpdatedDomainEvent extends DomainEvent {
       id: course.id.valueOf(),
       communityId: course.communityId.valueOf(),
       userId: course.userId.valueOf(),
-      title: course.title.valueOf(),
-      bannerUrl: course.bannerUrl?.valueOf()
+      spaceId: course.spaceId.valueOf(),
     })
   }
 

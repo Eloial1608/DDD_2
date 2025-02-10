@@ -1,32 +1,33 @@
 import { CommandHandler } from '@Shared/domain/CommandBus/CommandHandler'
-import { UpdatePostCommand } from './UpdatePostCommand'
 import { Updater } from './Updater'
 import { Command } from '@Shared/domain/CommandBus/Command'
-import { Id } from '@Posts/Post/domain/ValueObjects/Id'
-import { CommunityId } from '@Posts/Post/domain/ValueObjects/CommunityId'
-import { UserId } from '@Posts/Post/domain/ValueObjects/UserId'
-import { Title } from '@Posts/Post/domain/ValueObjects/Title'
-import { Content } from '@Posts/Post/domain/ValueObjects/Content'
-import { BannerUrl } from '@Posts/Post/domain/ValueObjects/BannerUrl'
-import { IsPaid } from '@Posts/Post/domain/ValueObjects/IsPaid'
-import { Price, PriceCurrency, PriceValue } from '@Posts/Post/domain/ValueObjects/Price'
-import { SpaceId } from '@Posts/Post/domain/ValueObjects/SpaceId'
+import { UpdateCourseCommand } from './UpdateCourseCommand'
+import { Id } from '@Course/Course/domain/ValueObjects/Id'
+import { CommunityId } from '@Course/Course/domain/ValueObjects/CommunityId'
+import { SpaceId } from '@Course/Course/domain/ValueObjects/SpaceId'
+import { UserId } from '@Course/Course/domain/ValueObjects/UserId'
+import { Title } from '@Course/Course/domain/ValueObjects/Title'
+import { BannerUrl } from '@Course/Course/domain/ValueObjects/BannerUrl'
+import { IsPaid } from '@Course/Course/domain/ValueObjects/IsPaid'
+import { Price, PriceValue, PriceCurrency } from '@Course/Course/domain/ValueObjects/Price'
+import { StartDate } from '@Course/Course/domain/ValueObjects/StartDate'
+import { EndDate } from '@Course/Course/domain/ValueObjects/EndDate'
+import { MaxStudents } from '@Course/Course/domain/ValueObjects/MaxStudents'
 
-export class UpdatePostCommandHandler implements CommandHandler<UpdatePostCommand> {
+export class UpdateCourseCommandHandler implements CommandHandler<UpdateCourseCommand> {
   constructor (private readonly updater: Updater) {}
 
   subscribedTo (): Command {
-    return UpdatePostCommand
+    return UpdateCourseCommand
   }
 
-  async handle (command: UpdatePostCommand): Promise<void> {
+  async handle (command: UpdateCourseCommand): Promise<void> {
     await this.updater.run(
       new Id(command.id),
       new CommunityId(command.communityId),
-      new UserId(command.userId),
       new SpaceId(command.spaceId),
+      new UserId(command.userId),
       new Title(command.title),
-      new Content(command.content),
       command.bannerUrl ? new BannerUrl(command.bannerUrl) : null,
       new IsPaid(command.isPaid),
       command.price
@@ -34,7 +35,10 @@ export class UpdatePostCommandHandler implements CommandHandler<UpdatePostComman
           new PriceValue(command.price.value),
           new PriceCurrency(command.price.currency)
         )
-        : null
+        : null,
+      new StartDate(command.startDate),
+      command.endDate ? new EndDate(command.endDate) : null,
+      command.maxStudents ? new MaxStudents(command.maxStudents) : null
     )
   }
 }
