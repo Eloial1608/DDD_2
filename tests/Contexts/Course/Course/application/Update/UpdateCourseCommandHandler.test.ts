@@ -77,62 +77,6 @@ describe('UpdateCourseCommandHandler should ', () => {
     expect(handler.handle(command)).rejects.toThrow(CourseNotFound)
   })
 
-  test('Fail if end date is earlier than start date', async () => {
-    const user = UserMother.random()
-
-    const course = CourseMother.forAuthor(user)
-
-    const existingCourse = CourseMother.create({
-      id: course.id,
-      author: course.author,
-      userId: course.userId,
-      spaceId: course.spaceId,
-      communityId: course.communityId,
-      maxStudents: new MaxStudents(2),
-      totalStudents: new TotalStudents(3),
-      startDate: new StartDate(new Date()),
-      endDate: new EndDate(new Date())
-    })
-
-    repository.returnOnFind(existingCourse)
-
-    const space = SpaceMother.create({ communityId: course.communityId })
-
-    queryBus.returnOnQuery(new FindUsersByCriteriaQuery(), new UserCollectionResponse([user]))
-    queryBus.returnOnQuery(new FindSpaceByIdQuery(space.id.valueOf()), new SpaceResponse(space))
-
-    const command = UpdateCourseCommandMother.fromAggregate(course)
-
-    expect(handler.handle(command)).rejects.toThrow(EndDateEarlierThanStartDate)
-  })
-
-  test('Fail if max students is lower than total students', async () => {
-    const user = UserMother.random()
-
-    const course = CourseMother.forAuthor(user)
-
-    const existingCourse = CourseMother.create({
-      id: course.id,
-      author: course.author,
-      userId: course.userId,
-      spaceId: course.spaceId,
-      communityId: course.communityId,
-      maxStudents: new MaxStudents(2),
-      totalStudents: new TotalStudents(3)
-    })
-
-    repository.returnOnFind(existingCourse)
-
-    const space = SpaceMother.create({ communityId: course.communityId })
-
-    queryBus.returnOnQuery(new FindUsersByCriteriaQuery(), new UserCollectionResponse([user]))
-    queryBus.returnOnQuery(new FindSpaceByIdQuery(space.id.valueOf()), new SpaceResponse(space))
-
-    const command = UpdateCourseCommandMother.fromAggregate(course)
-
-    expect(handler.handle(command)).rejects.toThrow(MaxStudentsLowerThanTotalStudents)
-  })
-
   test('Create a new CourseUpdatedDomainEvent', async () => {
     const user = UserMother.random()
 

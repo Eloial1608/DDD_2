@@ -55,7 +55,7 @@ export class Course extends AggregateRoot {
     price: Nullable<Price>,
     startDate: StartDate,
     endDate: Nullable<EndDate>,
-    maxStudents: MaxStudents
+    maxStudents: Nullable<MaxStudents>
   ): Course {
     const course = new Course(
       id,

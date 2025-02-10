@@ -17,7 +17,7 @@ export class CreateCourseCommandMother {
         }>,
     startDate: Date,
     endDate: Nullable<Date>,
-    maxStudents: number
+    maxStudents: Nullable<number>
   ): CreateCourseCommand {
     return new CreateCourseCommand(
       id,
@@ -51,7 +51,7 @@ export class CreateCourseCommandMother {
         : null,
       course.startDate.valueOf(),
       course.endDate ? course.endDate.valueOf() : null,
-      course.maxStudents.valueOf()
+      course.maxStudents ? course.maxStudents.valueOf() : null
     )
   }
 }

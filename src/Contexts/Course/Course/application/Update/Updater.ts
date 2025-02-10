@@ -41,9 +41,13 @@ export class Updater {
   ) {
     if ((isPaid.valueOf() && !price) || (price && !isPaid.valueOf())) return
 
+    if (endDate && startDate > endDate) return
+
     const course = await this.repository.find(id)
 
     if (!course) throw new CourseNotFound(id)
+
+    if (maxStudents && maxStudents < course.totalStudents) return
 
     if (course.userId.valueOf() !== userId.valueOf()) throw new NotAllowedToPersistCourse(course.id)
 
@@ -57,10 +61,6 @@ export class Updater {
 
     if (!(space.configuration as CourseConfiguration['configuration']).allowsPaid && isPaid.valueOf()) return
     if ((space.configuration as CourseConfiguration['configuration']).mustHaveBanner && !bannerUrl?.valueOf()) return
-
-    if (endDate && startDate > endDate) throw new EndDateEarlierThanStartDate(course.id)
-
-    if (maxStudents && maxStudents < course.totalStudents) throw new MaxStudentsLowerThanTotalStudents(course.id)
 
     const updatedCourse = course.update(
       id,
