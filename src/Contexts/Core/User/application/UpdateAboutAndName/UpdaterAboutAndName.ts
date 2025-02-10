@@ -5,6 +5,9 @@ import { Name } from '@Core/User/domain/ValueObjects/Name'
 import { Id } from '@Core/User/domain/ValueObjects/Id'
 import { UserNotFound } from '@Core/User/domain/Errors/UserNotFound'
 import { Nullable } from '@Shared/domain/Nullable'
+import { PictureUrl } from '@Core/User/domain/ValueObjects/PictureUrl'
+import { BannerUrl } from '@Core/User/domain/ValueObjects/BannerUrl'
+import { Username } from '@Core/User/domain/ValueObjects/Username'
 
 export class UpdaterAboutAndName {
   constructor (
@@ -15,15 +18,21 @@ export class UpdaterAboutAndName {
   async run (
     id: Id,
     about: Nullable<About>,
-    name: Name
+    name: Name,
+    username: Username,
+    pictureUrl: Nullable<PictureUrl>,
+    bannerUrl: Nullable<BannerUrl>
   ) {
     const user = await this.repository.find(id)
 
     if (!user) throw new UserNotFound(id)
 
-    const updatedUser = user.updateAboutAndName(
+    const updatedUser = user.update(
       about,
-      name
+      name,
+      username,
+      pictureUrl,
+      bannerUrl
     )
 
     await this.repository.persist(updatedUser)

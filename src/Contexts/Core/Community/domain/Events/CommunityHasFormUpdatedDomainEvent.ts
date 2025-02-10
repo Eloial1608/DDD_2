@@ -5,7 +5,7 @@ import { Community } from '../Community'
 type CommunityHasFormUpdatedDomainEventBody = {
     readonly id: string
     readonly name: string
-    readonly suffix: string
+    readonly suffix: Nullable<string>
     readonly domain: Nullable<string>
     readonly allowsPayments: boolean
     readonly firstPaymentDone: boolean
@@ -29,7 +29,7 @@ export class CommunityHasFormUpdatedDomainEvent extends DomainEvent {
 
   readonly id: string
   readonly name: string
-  readonly suffix: string
+  readonly suffix: Nullable<string>
   readonly domain: Nullable<string>
   readonly allowsPayments: boolean
   readonly firstPaymentDone: boolean
@@ -81,7 +81,7 @@ export class CommunityHasFormUpdatedDomainEvent extends DomainEvent {
       createdAt: community.createdAt.valueOf(),
       updatedAt: community.updatedAt.valueOf(),
       name: community.name.valueOf(),
-      suffix: community.suffix.valueOf(),
+      suffix: community.suffix?.valueOf(),
       allowsPayments: community.allowsPayments.valueOf(),
       firstPaymentDone: community.firstPaymentDone.valueOf(),
       spacesCount: community.spacesCount.valueOf(),

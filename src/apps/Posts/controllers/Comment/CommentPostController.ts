@@ -6,10 +6,7 @@ import { TokenDecoder } from '@Shared/domain/TokenDecoder/TokenDecoder'
 import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { CreateCommentCommand } from '@Posts/Comment/application/Create/CreateCommentCommand'
 import { PostNotFound } from '@Posts/Post/domain/Errors/PostNotFound'
-import { CommentNotFound } from '@Posts/Comment/domain/Errors/CommentNotFound'
 import { FindUsersByCriteriaQuery } from '@Posts/User/application/FindByCriteria/FindUsersByCriteriaQuery'
-import { FindCommentByIdQuery } from '@Posts/Comment/application/FindById/FindCommentByIdQuery'
-import { CommentResponse } from '@Posts/Comment/application/CommentResponse'
 import { FindPostByIdQuery } from '@Posts/Post/application/FindById/FindPostByIdQuery'
 import { PostResponse } from '@Posts/Post/application/PostResponse'
 import { UserCollectionResponse } from '@Posts/User/application/UserCollectionResponse'
@@ -23,9 +20,7 @@ export class CommentPostController implements Controller {
 
       const data = await this.decoder.run(req.headers.authorization)
 
-      const comment = await this.getComment(req.params.id)
-
-      const post = await this.getPost(comment.postId)
+      const post = await this.getPost(req.body.postId)
 
       const user = await this.getUser(data.id, post.communityId)
 
@@ -40,11 +35,11 @@ export class CommentPostController implements Controller {
 
       await this.commandBus.dispatch(command)
 
-      return res.status(204).send()
+      return res.status(201).send()
     } catch (e) {
+      console.log(e)
       if (e instanceof CannotDecode) return res.status(401).send()
       if (e instanceof PostNotFound) return res.status(404).send(e.getMessage())
-      if (e instanceof CommentNotFound) return res.status(404).send(e.getMessage())
 
       return res.status(500).send()
     }
@@ -67,14 +62,6 @@ export class CommentPostController implements Controller {
     const user = (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
 
     return user
-  }
-
-  private async getComment (commentId: string) {
-    const query = new FindCommentByIdQuery(commentId)
-
-    const comment = (await this.queryBus.ask<CommentResponse>(query)).response
-
-    return comment
   }
 
   private async getPost (postId: string) {

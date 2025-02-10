@@ -90,17 +90,15 @@ export class PostsGetController implements Controller {
     const space = await (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
     let spaceMember: SpaceMemberResponseBody | undefined
 
+    if (this.user === undefined && token) {
+      const data = await this.decoder.run(token)
+
+      const user = await this.getUser(data.id, post.communityId)
+
+      this.user = user ?? null
+    }
+
     if (space.accessibility !== AllowedAccessibilities.PUBLIC) {
-      if (this.user === undefined) {
-        if (!token) return null
-
-        const data = await this.decoder.run(token)
-
-        const user = await this.getUser(data.id, post.communityId)
-
-        this.user = user ?? null
-      }
-
       if (!this.user) return null
 
       if (!this.user.isAdmin && !this.user.isOwner) {

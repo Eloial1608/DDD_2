@@ -5,7 +5,7 @@ import { QueryResponse } from '@Shared/domain/QueryBus/QueryResponse'
 export type CommunityResponseBody = {
     readonly id: string
     readonly name: string
-    readonly suffix: string
+    readonly suffix: Nullable<string>
     readonly slug: string
     readonly parentId: Nullable<string>
     readonly mainId: Nullable<string>
@@ -40,7 +40,7 @@ export class CommunityResponse implements QueryResponse<CommunityResponseBody> {
     this.response = {
       id: community.id.valueOf(),
       name: community.name.valueOf(),
-      suffix: community.suffix.valueOf(),
+      suffix: community.suffix?.valueOf(),
       domain: community.domain?.valueOf(),
       slug: community.slug.valueOf(),
       parentId: community.parentId?.valueOf(),

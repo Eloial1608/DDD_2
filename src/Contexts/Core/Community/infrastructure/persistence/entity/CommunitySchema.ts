@@ -48,6 +48,7 @@ export const CommunitySchema = new EntitySchema<Community>({
     },
     suffix: {
       type: String,
+      nullable: true,
       transformer: ValueObjectTransformer(Suffix)
     },
     slug: {
