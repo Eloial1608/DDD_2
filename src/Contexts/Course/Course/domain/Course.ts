@@ -33,7 +33,7 @@ export class Course extends AggregateRoot {
     readonly price: Nullable<Price>,
     readonly startDate: StartDate,
     readonly endDate: Nullable<EndDate>,
-    readonly maxStudents: MaxStudents,
+    readonly maxStudents: Nullable<MaxStudents>,
     readonly totalStudents: TotalStudents,
     readonly totalComments: TotalComments,
     readonly createdAt: CreatedAt,
