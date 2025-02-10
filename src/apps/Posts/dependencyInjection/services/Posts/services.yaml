@@ -48,7 +48,7 @@ services:
     arguments: ["@Shared.ORM.Connection"]
 
   Like.Repository:
-    class: src/Contexts/Posts/Like/infrastructure/persistence/TypeOrmLikeRepository
+    class: src/Contexts/Posts/Like/infrastructure/persistence/TypeormLikeRepository
     arguments: ["@Shared.ORM.Connection"]
 
   Community.CreateCommunityOnCommunityCreated.Creator:

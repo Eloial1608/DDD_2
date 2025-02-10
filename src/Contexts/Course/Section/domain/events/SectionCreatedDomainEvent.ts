@@ -10,9 +10,9 @@ type SectionCreatedDomainEventBody = {
 export class SectionCreatedDomainEvent extends DomainEvent {
   static readonly EVENT_NAME: string = 'app.quid.course.section.v1.created'
 
-    readonly id: string
-    readonly courseId: string
-    readonly title: string
+  readonly id: string
+  readonly courseId: string
+  readonly title: string
 
   static {
     DomainEvent.derived.add(SectionCreatedDomainEvent.EVENT_NAME)
@@ -23,7 +23,7 @@ export class SectionCreatedDomainEvent extends DomainEvent {
 
     this.id = params.id
     this.courseId = params.courseId
-    this.title= params.title
+    this.title = params.title
   }
 
   static fromAggregate (section: Section): SectionCreatedDomainEvent {
@@ -31,7 +31,6 @@ export class SectionCreatedDomainEvent extends DomainEvent {
       id: section.id.valueOf(),
       courseId: section.courseId.valueOf(),
       title: section.title.valueOf()
-
 
     })
   }

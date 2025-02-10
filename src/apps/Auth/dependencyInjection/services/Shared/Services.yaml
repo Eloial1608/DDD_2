@@ -17,7 +17,7 @@ services:
   
   Shared.ORM.DataSourceOptions:
     factory:
-      class: src/Contexts/Auth/Shared/infrastructure/persistence/typeorm/TypeOrmConfigFactory
+      class: src/Contexts/Auth/Shared/infrastructure/Persistence/typeorm/TypeOrmConfigFactory
       method: "create"
 
   Shared.SyncEventBus:
@@ -25,11 +25,11 @@ services:
 
   Shared.EventBus.Config:
     factory:
-      class: src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/RabbitMQEventBusConfigFactory
+      class: src/Contexts/Shared/infrastructure/EventBus/AWS/AWSEventBusConfigFactory
       method: 'createConfig'
 
   Shared.EventBus:
-    class: src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/RabbitMQEventBus
+    class: src/Contexts/Shared/infrastructure/EventBus/AWS/AWSEventBus
     arguments: ['@Shared.EventBus.Config']
 
   Shared.ORM.Connection:

@@ -10,18 +10,18 @@ export class Community extends AggregateRoot {
   ) {
     super()
   }
+
   static create (
-      id: Id,
-      isPrivate: IsPrivate
-    ): Community {
-      const community = new Community(
-        id,
-        isPrivate
-      )
-  
-      community.record(CommunityCreatedDomainEvent.fromAggregate(community))
-  
-      return community
-    }
-  
+    id: Id,
+    isPrivate: IsPrivate
+  ): Community {
+    const community = new Community(
+      id,
+      isPrivate
+    )
+
+    community.record(CommunityCreatedDomainEvent.fromAggregate(community))
+
+    return community
+  }
 }

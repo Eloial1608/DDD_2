@@ -6,7 +6,9 @@
     "noImplicitAny": true,
     "moduleResolution": "Node",
     "sourceMap": true,
-    "types": ["vitest/globals"],
+    "types": [
+      "vitest/globals"
+    ],
     "skipLibCheck": true,
     "rootDir": ".",
     "strict": true,
@@ -16,42 +18,42 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-    "@Shared/*": [
-      "src/Contexts/Shared/*"
-    ],
-    "@Apps/*": [
-      "src/apps/*"
-    ],
-    "@Tests/*": [
-      "tests/*"
-    ],
-    "@Core/*": [
-      "src/Contexts/Core/*"
-    ],
-    "@Course/*": [
-      "src/Contexts/Course/*"
-    ],
-    "@Posts/*": [
-      "src/Contexts/Posts/*"
-    ],
-    "@Media/*": [
-      "src/Contexts/Media/*"
-    ],
-    "@Threads/*": [
-      "src/Contexts/Threads/*"
-    ],
-    "@Stripe/*": [
-      "src/Contexts/Stripe/*"
-    ],
-    "@Auth/*": [
-      "src/Contexts/Auth/*"
-    ],
-  },
+      "@Shared/*": [
+        "src/Contexts/Shared/*"
+      ],
+      "@Apps/*": [
+        "src/apps/*"
+      ],
+      "@Tests/*": [
+        "tests/*"
+      ],
+      "@Core/*": [
+        "src/Contexts/Core/*"
+      ],
+      "@Course/*": [
+        "src/Contexts/Course/*"
+      ],
+      "@Posts/*": [
+        "src/Contexts/Posts/*"
+      ],
+      "@Media/*": [
+        "src/Contexts/Media/*"
+      ],
+      "@Threads/*": [
+        "src/Contexts/Threads/*"
+      ],
+      "@Stripe/*": [
+        "src/Contexts/Stripe/*"
+      ],
+      "@Auth/*": [
+        "src/Contexts/Auth/*"
+      ]
+    }
   },
   "include": [
     "src/**/**.ts",
     "tests/**/**.ts"
-    ],
+  ],
   "exclude": [
     "node_modules"
   ]

@@ -2,6 +2,9 @@ import { DataSourceOptions } from 'typeorm'
 
 export class TypeOrmConfigFactory {
   static create (): DataSourceOptions {
+    const routes = ['staging', 'production'].includes(process.env.NODE_ENV!)
+      ? ['dist/src/Contexts/Posts/**/*Schema*']
+      : ['src/Contexts/Posts/**/*Schema*']
     return {
       type: 'postgres',
       host: process.env.DB_HOST,
@@ -11,7 +14,7 @@ export class TypeOrmConfigFactory {
       database: process.env.DB_NAME,
       synchronize: false,
       logging: false,
-      entities: ['src/Contexts/Posts/**/*Schema*'],
+      entities: routes,
       migrations: ['persistence/migrations/posts/*.js']
     }
   }

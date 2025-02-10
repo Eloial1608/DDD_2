@@ -43,7 +43,7 @@ export class Community extends AggregateRoot {
   constructor (
         readonly id: Id,
         readonly name: Name,
-        readonly suffix: Suffix,
+        readonly suffix: Nullable<Suffix>,
         readonly domain: Nullable<Domain>,
         readonly slug: Slug,
         readonly parentId: Nullable<ParentId>,
@@ -83,12 +83,15 @@ export class Community extends AggregateRoot {
     mainId: Nullable<MainId>,
     logoUrl: Nullable<LogoUrl>,
     bannerUrl: Nullable<BannerUrl>,
-    suffix: Suffix,
+    suffix: Nullable<Suffix>,
     color: Color,
     allowedFeatures: AllowedFeatures,
     allowedUsers: AllowedUsers,
     expiresAt: ExpiresAt,
-    allowedSubcommunities: AllowedSubcommunities
+    allowedSubcommunities: AllowedSubcommunities,
+    allowsPayments: AllowsPayments = new AllowsPayments(false),
+    firstPaymentDone: FirstPaymentDone = new FirstPaymentDone(false),
+    about: Nullable<About> = null
   ): Community {
     const community = new Community(
       id,
@@ -100,11 +103,11 @@ export class Community extends AggregateRoot {
       mainId,
       logoUrl,
       bannerUrl,
-      null,
+      about,
       new MembersCount(0),
-      new AllowsPayments(false),
-      new FirstPaymentDone(false),
-      new SpacesCount(1),
+      allowsPayments,
+      firstPaymentDone,
+      new SpacesCount(0),
       new HasPayment(false),
       null,
       allowedFeatures,
@@ -138,7 +141,7 @@ export class Community extends AggregateRoot {
     isRegisterOpen: IsRegisterOpen,
     logoUrl: Nullable<LogoUrl>,
     bannerUrl: Nullable<BannerUrl>,
-    suffix: Suffix,
+    suffix: Nullable<Suffix>,
     color: Color
   ): Community {
     const community = new Community(

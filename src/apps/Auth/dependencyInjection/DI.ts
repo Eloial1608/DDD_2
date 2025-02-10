@@ -9,10 +9,11 @@ interface IDI {
 class DI {
   private static instance: IDI
   private container: ContainerBuilder
+  private urlPrefix = ['staging', 'production'].includes(process.env.NODE_ENV!) ? 'dist/' : ''
 
   // El constructor es privado para evitar instancias múltiples
   private constructor () {
-    const srcDir = path.resolve(process.cwd())
+    const srcDir = path.resolve(process.cwd(), this.urlPrefix)
     this.container = new ContainerBuilder(true, srcDir)
   }
 
@@ -26,7 +27,8 @@ class DI {
 
   public async initialize () {
     const loader = new YamlFileLoader(this.container)
-    await loader.load(`src/apps/Auth/dependencyInjection/services/services_${process.env.NODE_ENV}.yaml`)
+
+    await loader.load(path.resolve(process.cwd(), this.urlPrefix, `src/apps/Auth/dependencyInjection/services/services_${process.env.NODE_ENV}.yaml`))
   }
 
   // Método para resolver una dependencia

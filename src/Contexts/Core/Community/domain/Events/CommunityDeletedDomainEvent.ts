@@ -7,7 +7,7 @@ type CommunityDeletedDomainEventBody = {
     readonly parentId: Nullable<string>
     readonly mainId: Nullable<string>
     readonly name: string
-    readonly suffix: string
+    readonly suffix: Nullable<string>
     readonly domain: Nullable<string>
     readonly membersCount: number
     readonly firstPaymentDone: boolean
@@ -34,7 +34,7 @@ export class CommunityDeletedDomainEvent extends DomainEvent {
   readonly parentId: Nullable<string>
   readonly mainId: Nullable<string>
   readonly name: string
-  readonly suffix: string
+  readonly suffix: Nullable<string>
   readonly domain: Nullable<string>
   readonly membersCount: number
   readonly firstPaymentDone: boolean
@@ -92,7 +92,7 @@ export class CommunityDeletedDomainEvent extends DomainEvent {
       createdAt: community.createdAt.valueOf(),
       updatedAt: community.updatedAt.valueOf(),
       name: community.name.valueOf(),
-      suffix: community.suffix.valueOf(),
+      suffix: community.suffix?.valueOf(),
       membersCount: community.membersCount.valueOf(),
       firstPaymentDone: community.firstPaymentDone.valueOf(),
       spacesCount: community.spacesCount.valueOf(),
