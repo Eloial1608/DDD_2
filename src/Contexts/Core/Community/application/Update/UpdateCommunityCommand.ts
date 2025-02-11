@@ -12,7 +12,7 @@ export class UpdateCommunityCommand implements Command {
         readonly isRegisterOpen: boolean,
         readonly logoUrl: Nullable<string>,
         readonly bannerUrl: Nullable<string>,
-        readonly suffix: string,
+        readonly suffix: Nullable<string>,
         readonly color: object
   ) {}
 }

@@ -11,7 +11,9 @@ export class Community extends AggregateRoot {
   ) {
     super()
   }
+
   static create (
+
       id: Id,
       isPrivate: IsPrivate
     ): Community {
@@ -35,5 +37,4 @@ export class Community extends AggregateRoot {
     
         return community
       }
-  
 }

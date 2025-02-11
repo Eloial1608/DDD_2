@@ -12,6 +12,16 @@ services:
     arguments: ["@Community.Create.Creator"]
     tags:
       - { name: "commandHandler" }
+    
+  Community.CreateSubcommunity.Creator:
+    class: src/Contexts/Core/Community/application/CreateSubcommunity/Creator
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.CreateSubcommunity.CreateSubcommunityCommandHandler:
+    class: src/Contexts/Core/Community/application/CreateSubcommunity/CreateSubcommunityCommandHandler
+    arguments: ["@Community.CreateSubcommunity.Creator"]
+    tags:
+      - { name: "commandHandler" }
   
   Community.Update.Updater:
     class: src/Contexts/Core/Community/application/Update/Updater

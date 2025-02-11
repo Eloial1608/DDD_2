@@ -8,8 +8,6 @@ import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { PostNotFound } from '@Posts/Post/domain/Errors/PostNotFound'
 import { CommandBus } from '@Shared/domain/CommandBus/CommandBus'
 import { CreateLikeCommand } from '@Posts/Like/application/Create/CreateLikeCommand'
-import { FindLikeByIdQuery } from '@Posts/Like/application/FindById/FindLikeByIdQuery'
-import { LikeResponse } from '@Posts/Like/application/LikeResponse'
 import { FindPostByIdQuery } from '@Posts/Post/application/FindById/FindPostByIdQuery'
 import { PostResponse } from '@Posts/Post/application/PostResponse'
 import { LikeNotFound } from '@Posts/Like/domain/Errors/LikeNotFound'
@@ -23,9 +21,7 @@ export class LikePostController implements Controller {
 
       const data = await this.decoder.run(req.headers.authorization)
 
-      const like = await this.getLike(req.params.id)
-
-      const post = await this.getPost(like.postId)
+      const post = await this.getPost(req.body.postId)
 
       const user = await this.getUser(data.id, post.communityId)
 
@@ -62,14 +58,6 @@ export class LikePostController implements Controller {
     const user = (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
 
     return user
-  }
-
-  private async getLike (likeId: string) {
-    const query = new FindLikeByIdQuery(likeId)
-
-    const like = (await this.queryBus.ask<LikeResponse>(query)).response
-
-    return like
   }
 
   private async getPost (postId: string) {

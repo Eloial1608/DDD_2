@@ -22,7 +22,7 @@ test('POST Community', async ({ request }) => {
     data: {
       name: community.name.valueOf(),
       slug: community.slug.valueOf(),
-      suffix: community.suffix.valueOf(),
+      suffix: community.suffix?.valueOf(),
       color: community.color.valueOf()
     }
   })

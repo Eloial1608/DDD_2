@@ -5,7 +5,7 @@ import { Community } from '../Community'
 type CommunityUpdatedDomainEventBody = {
     readonly id: string
     readonly name: string
-    readonly suffix: string
+    readonly suffix: Nullable<string>
     readonly mainId: Nullable<string>
     readonly parentId: Nullable<string>
     readonly domain: Nullable<string>
@@ -30,7 +30,7 @@ export class CommunityUpdatedDomainEvent extends DomainEvent {
 
   readonly id: string
   readonly name: string
-  readonly suffix: string
+  readonly suffix: Nullable<string>
   readonly mainId: Nullable<string>
   readonly parentId: Nullable<string>
   readonly domain: Nullable<string>
@@ -86,7 +86,7 @@ export class CommunityUpdatedDomainEvent extends DomainEvent {
       name: community.name.valueOf(),
       mainId: community.mainId?.valueOf(),
       parentId: community.parentId?.valueOf(),
-      suffix: community.suffix.valueOf(),
+      suffix: community.suffix?.valueOf(),
       membersCount: community.membersCount.valueOf(),
       firstPaymentDone: community.firstPaymentDone.valueOf(),
       spacesCount: community.spacesCount.valueOf(),
