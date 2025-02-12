@@ -7,6 +7,7 @@ import { DeletedAt } from '@Course/Course/domain/ValueObjects/DeletedAt'
 import { EndDate } from '@Course/Course/domain/ValueObjects/EndDate'
 import { Id } from '@Course/Course/domain/ValueObjects/Id'
 import { IsPaid } from '@Course/Course/domain/ValueObjects/IsPaid'
+import { MaxStudents } from '@Course/Course/domain/ValueObjects/MaxStudents'
 import { Price, PriceCurrency, PriceValue } from '@Course/Course/domain/ValueObjects/Price'
 import { SpaceId } from '@Course/Course/domain/ValueObjects/SpaceId'
 import { StartDate } from '@Course/Course/domain/ValueObjects/StartDate'
@@ -107,6 +108,10 @@ export const CourseSchema = new EntitySchema<Course>({
     totalStudents: {
       type: Number,
       transformer: ValueObjectTransformer(TotalStudents)
+    },
+    maxStudents: {
+      type: Number,
+      transformer: ValueObjectTransformer(MaxStudents)
     },
     totalComments: {
       type: Number,

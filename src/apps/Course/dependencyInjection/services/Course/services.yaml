@@ -155,10 +155,20 @@ services:
 
   Section.Create.Creator:
     class: src/Contexts/Course/Section/application/Create/Creator
-    arguments: ['@Course.Repository', '@Shared.QueryBus', '@Shared.EventBus']
+    arguments: ['@Course.Repository', '@Shared.EventBus']
   
   Section.Create.CreateSectionCommandHandler:
     class: src/Contexts/Course/Section/application/Create/CreateSectionCommandHandler
+    arguments: ["@Section.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  Course.Create.Creator:
+    class: src/Contexts/Course/Course/application/Create/Creator
+    arguments: ['@Course.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Course.Create.CreateCourseCommandHandler:
+    class: src/Contexts/Course/Course/application/Create/CreateCourseCommandHandler
     arguments: ["@Course.Create.Creator"]
     tags:
       - { name: "commandHandler" }
