@@ -41,7 +41,7 @@ jobs:
         run: |
           echo "*** Starting CI tests ***"
           docker-compose -f docker-compose.yml up -d db
-          docker-compose -f docker-compose.yml run --rm --name ${{inputs.SERVICE}} -e DB_HOST=db --entrypoint="npm run test:${{inputs.SERVICE}}" ${{inputs.SERVICE}}
+          docker-compose -f docker-compose.yml run --rm --name ${{inputs.SERVICE}} -e DB_HOST=db --entrypoint="npm run migrations:${{inputs.SERVICE}}:run && npm run test:${{inputs.SERVICE}}" ${{inputs.SERVICE}}
           docker ps -a
           docker-compose down ${{inputs.SERVICE}}
           docker compose ps
