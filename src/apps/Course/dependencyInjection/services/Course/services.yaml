@@ -173,3 +173,13 @@ services:
     tags:
       - { name: "commandHandler" }
 
+  Section.FindById.FinderById:
+    class: src/Contexts/Course/Section/application/FindById/FinderById
+    arguments: ['@Community.Repository']
+  
+  Section.FindById.FindSectionByIdQueryHandler:
+    class: src/Contexts/Course/Section/application/FindById/FindCommunityByIdQueryHandler
+    arguments: ['@Community.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
