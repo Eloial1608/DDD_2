@@ -15,12 +15,9 @@ import { AllowedUsers } from '@Core/Community/domain/ValueObjects/AllowedUsers'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 import { Nullable } from '@Shared/domain/Nullable'
 import { Slug } from '@Core/Community/domain/ValueObjects/Slug'
-import { ParentId } from '@Core/Community/domain/ValueObjects/ParentId'
-import { MainId } from '@Core/Community/domain/ValueObjects/MainId'
 import { LogoUrl } from '@Core/Community/domain/ValueObjects/LogoUrl'
 import { BannerUrl } from '@Core/Community/domain/ValueObjects/BannerUrl'
 import { CommunityAlreadyExistsBySlug } from '@Core/Community/domain/Errors/CommunityAlreadyExistsBySlug'
-import { CommunityNotFound } from '@Core/Community/domain/Errors/CommunityNotFound'
 import { AllowedSubcommunities } from '@Core/Community/domain/ValueObjects/AllowedSubcommunities'
 
 type Params = {
@@ -28,7 +25,6 @@ type Params = {
     name: Name
     suffix: Suffix
     slug: Slug,
-    parentId: Nullable<ParentId>,
     logoUrl: Nullable<LogoUrl>,
     bannerUrl: Nullable<BannerUrl>,
     color: Color
@@ -44,22 +40,12 @@ export class Creator {
   async run (params: Params): Promise<void> {
     await this.checkIfCommunityExists(params.id, params.suffix, params.slug)
 
-    let mainId: Nullable<MainId> = null
-
-    if (params.parentId) {
-      const parentCommunity = await this.repository.find(params.parentId)
-
-      if (!parentCommunity) throw new CommunityNotFound(params.parentId)
-
-      mainId = parentCommunity.mainId ?? parentCommunity.id
-    }
-
     const community = Community.create(
       params.id,
       params.name,
       params.slug,
-      params.parentId,
-      mainId,
+      null,
+      null,
       params.logoUrl,
       params.bannerUrl,
       params.suffix,
@@ -103,7 +89,8 @@ export class Creator {
     return (await this.repository.search(
       new Criteria(
         new Filters([
-          Filter.simple('slug', '=', slug.valueOf())
+          Filter.simple('slug', '=', slug.valueOf()),
+          Filter.simple('parentId', '=', null)
         ])
       )
     )).pop()

@@ -31,7 +31,6 @@ export class CommunityPostController implements Controller {
       req.params.id,
       req.body.name,
       req.body.slug,
-      req.body.parentId,
       req.body.logoUrl,
       req.body.bannerUrl,
       req.body.suffix,

@@ -24,7 +24,7 @@ import { CommunityAlreadyExistsByDomain } from '@Core/Community/domain/Errors/Co
 type Params = {
     id: Id
     name: Name
-    suffix: Suffix
+    suffix: Nullable<Suffix>
     slug: Slug,
     domain: Nullable<Domain>,
     about: Nullable<About>,
@@ -64,16 +64,18 @@ export class Updater {
     await this.eventBus.publish(modified.pullDomainEvents())
   }
 
-  private async checkIfCommunityExists (id: Id, suffix: Suffix, slug: Slug, domain: Nullable<Domain>) {
+  private async checkIfCommunityExists (id: Id, suffix: Nullable<Suffix>, slug: Slug, domain: Nullable<Domain>) {
     if (domain) {
       const existingCommunityByDomain = await this.getCommunityByDomain(domain)
 
       if (existingCommunityByDomain && existingCommunityByDomain.id.valueOf() !== id.valueOf()) throw new CommunityAlreadyExistsByDomain(domain)
     }
 
-    const existingCommunityBySuffix = await this.getCommunityBySuffix(suffix)
+    if (suffix) {
+      const existingCommunityBySuffix = await this.getCommunityBySuffix(suffix)
 
-    if (existingCommunityBySuffix && existingCommunityBySuffix.id.valueOf() !== id.valueOf()) throw new CommunityAlreadyExistsBySuffix(suffix)
+      if (existingCommunityBySuffix && existingCommunityBySuffix.id.valueOf() !== id.valueOf()) throw new CommunityAlreadyExistsBySuffix(suffix)
+    }
 
     const existingCommunityBySlug = await this.getCommunityBySlug(slug)
 

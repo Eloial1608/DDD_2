@@ -26,7 +26,10 @@ export class UserPatchController implements Controller {
       const command = new UpdateAboutAndNameCommand(
         req.params.id,
         req.body.about,
-        req.body.name
+        req.body.name,
+        user.username,
+        user.pictureUrl,
+        user.bannerUrl
       )
 
       await this.commandBus.dispatch(command)

@@ -12,7 +12,7 @@ const cleanDist = () => {
 
 const compileTS = () => {
   try {
-    execSync('tsc -p tsconfig.prod.json', { stdio: 'inherit' })
+    execSync('tsc -p tsconfig.prod.json && resolve-tspaths -p tsconfig.prod.json -s ./src -o ./dist/src', { stdio: 'inherit' })
     console.log('✔️  TypeScript compiled successfully.')
   } catch (error) {
     console.error('❌  TypeScript compilation failed.')

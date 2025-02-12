@@ -7,13 +7,17 @@ export class UpdateAboutAndNameUserCommandMother {
     id: string,
     about: Nullable<string>,
     name: string,
-    communityId: string
+    username: string,
+    pictureUrl: Nullable<string>,
+    bannerUrl: Nullable<string>
   ):UpdateAboutAndNameCommand {
     return new UpdateAboutAndNameCommand(
       id,
       about,
       name,
-      communityId
+      username,
+      pictureUrl,
+      bannerUrl
     )
   }
 
@@ -22,7 +26,9 @@ export class UpdateAboutAndNameUserCommandMother {
       user.id.valueOf(),
       user.about?.valueOf(),
       user.name.valueOf(),
-      user.communityId.valueOf()
+      user.username.valueOf(),
+      user.pictureUrl?.valueOf(),
+      user.bannerUrl?.valueOf()
     )
   }
 }

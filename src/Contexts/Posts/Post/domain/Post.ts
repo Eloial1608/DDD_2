@@ -125,7 +125,7 @@ export class Post extends AggregateRoot {
       totalLikes,
       this.totalComments,
       this.createdAt,
-      new UpdatedAt(new Date()),
+      this.updatedAt,
       null
     )
 
@@ -151,7 +151,7 @@ export class Post extends AggregateRoot {
       this.totalLikes,
       totalComments,
       this.createdAt,
-      new UpdatedAt(new Date()),
+      this.updatedAt,
       null
     )
 

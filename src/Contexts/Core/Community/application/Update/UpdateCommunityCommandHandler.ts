@@ -25,7 +25,7 @@ export class UpdateCommunityCommandHandler implements CommandHandler<UpdateCommu
     await this.updater.run({
       id: new Id(command.id),
       name: new Name(command.name),
-      suffix: new Suffix(command.suffix),
+      suffix: command.suffix ? new Suffix(command.suffix) : null,
       slug: new Slug(command.slug),
       domain: command.domain ? new Domain(command.domain) : null,
       about: command.about ? new About(command.about) : null,
