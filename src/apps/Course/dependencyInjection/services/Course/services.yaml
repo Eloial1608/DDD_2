@@ -183,3 +183,13 @@ services:
     tags:
       - { name: "queryHandler" }
 
+  Section.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Course/Section/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Section.Repository']
+  
+  Section.FindByCriteria.FindSectionsByCriteriaQueryHandler:
+    class: src/Contexts/Course/Section/application/FindByCriteria/FindSectionsByCriteriaQueryHandler
+    arguments: ['@Section.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
