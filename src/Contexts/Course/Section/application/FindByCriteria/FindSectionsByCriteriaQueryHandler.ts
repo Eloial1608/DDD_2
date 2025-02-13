@@ -1,5 +1,5 @@
 import { QueryHandler } from '@Shared/domain/QueryBus/QueryHandler'
-import { FindSectionsByCriteriaQuery } from './FindSectionsbyCriteriaQuery'
+import { FindSectionsByCriteriaQuery } from './FindSectionsByCriteriaQuery'
 import { FinderByCriteria } from './FinderByCriteria'
 import { Query } from '@Shared/domain/QueryBus/Query'
 import { CriteriaHandler } from '@Shared/domain/Criteria/CriteriaHandler'
