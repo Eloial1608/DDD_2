@@ -8,6 +8,16 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 5004:5004
+    env_file:
+      - /etc/gathered/core/.env
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "2GB"
+        reservations:
+          cpus: "1"
+          memory: "1GB"
 
   threads-service-server:
     depends_on:
@@ -18,6 +28,16 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 5004:5004
+    env_file:
+      - /etc/gathered/threads/.env
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "1GB"
+        reservations:
+          cpus: "0.5"
+          memory: "512MB"
   
   course-service-server:
     depends_on:
@@ -28,6 +48,16 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 5004:5004
+    env_file:
+      - /etc/gathered/course/.env
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "1GB"
+        reservations:
+          cpus: "0.5"
+          memory: "512MB"
   
   auth-service-server:
     depends_on:
@@ -38,6 +68,16 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 5000:5000
+    env_file:
+      - /etc/gathered/auth/.env
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "2GB"
+        reservations:
+          cpus: "1"
+          memory: "1GB"
 
   media-service-server:
     depends_on:
@@ -48,6 +88,16 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 5000:5000
+    env_file:
+      - /etc/gathered/media/.env
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "1GB"
+        reservations:
+          cpus: "0.5"
+          memory: "512MB"
   
   posts-service-server:
     depends_on:
@@ -58,6 +108,16 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 5000:5000
+    env_file:
+      - /etc/gathered/posts/.env
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "1GB"
+        reservations:
+          cpus: "0.5"
+          memory: "512MB"
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
