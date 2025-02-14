@@ -1,8 +1,5 @@
 services:
   core-service-server:
-    depends_on:
-      - db
-      - rabbitmq
     build:
       context: ./
       dockerfile: ./Dockerfile
@@ -20,9 +17,6 @@ services:
           memory: "1GB"
 
   threads-service-server:
-    depends_on:
-      - db
-      - rabbitmq
     build:
       context: ./
       dockerfile: ./Dockerfile
@@ -40,9 +34,6 @@ services:
           memory: "512MB"
   
   course-service-server:
-    depends_on:
-      - db
-      - rabbitmq
     build:
       context: ./
       dockerfile: ./Dockerfile
@@ -60,9 +51,6 @@ services:
           memory: "512MB"
   
   auth-service-server:
-    depends_on:
-      - db
-      - rabbitmq
     build:
       context: ./
       dockerfile: ./Dockerfile
@@ -80,9 +68,6 @@ services:
           memory: "1GB"
 
   media-service-server:
-    depends_on:
-      - db
-      - rabbitmq
     build:
       context: ./
       dockerfile: ./Dockerfile
@@ -100,9 +85,6 @@ services:
           memory: "512MB"
   
   posts-service-server:
-    depends_on:
-      - db
-      - rabbitmq
     build:
       context: ./
       dockerfile: ./Dockerfile
