@@ -3,6 +3,9 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
+      args:
+        START_SCRIPT: "start:core:server"
+        PORT: 5004
     ports:
       - 5004:5004
     env_file:
@@ -20,6 +23,9 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
+      args:
+        START_SCRIPT: "start:threads:server"
+        PORT: 5005
     ports:
       - 5005:5005
     env_file:
@@ -37,6 +43,9 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
+      args:
+        START_SCRIPT: "start:course:server"
+        PORT: 5006
     ports:
       - 5006:5006
     env_file:
@@ -54,6 +63,9 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
+      args:
+        START_SCRIPT: "start:auth:server"
+        PORT: 5007
     ports:
       - 5007:5007
     env_file:
@@ -71,6 +83,9 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
+      args:
+        START_SCRIPT: "start:media:server"
+        PORT: 5008
     ports:
       - 5008:5008
     env_file:
@@ -88,6 +103,9 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
+      args:
+        START_SCRIPT: "start:posts:server"
+        PORT: 5009
     ports:
       - 5009:5009
     env_file:
