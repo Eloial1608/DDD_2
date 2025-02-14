@@ -27,7 +27,7 @@ services:
       context: ./
       dockerfile: ./Dockerfile
     ports:
-      - 5004:5004
+      - 5005:5005
     env_file:
       - /etc/gathered/threads/.env
     deploy:
@@ -47,7 +47,7 @@ services:
       context: ./
       dockerfile: ./Dockerfile
     ports:
-      - 5004:5004
+      - 5006:5006
     env_file:
       - /etc/gathered/course/.env
     deploy:
@@ -67,7 +67,7 @@ services:
       context: ./
       dockerfile: ./Dockerfile
     ports:
-      - 5000:5000
+      - 5007:5007
     env_file:
       - /etc/gathered/auth/.env
     deploy:
@@ -87,7 +87,7 @@ services:
       context: ./
       dockerfile: ./Dockerfile
     ports:
-      - 5000:5000
+      - 5008:5008
     env_file:
       - /etc/gathered/media/.env
     deploy:
@@ -107,7 +107,7 @@ services:
       context: ./
       dockerfile: ./Dockerfile
     ports:
-      - 5000:5000
+      - 5009:5009
     env_file:
       - /etc/gathered/posts/.env
     deploy:
