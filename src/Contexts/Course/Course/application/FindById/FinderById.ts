@@ -1,16 +1,16 @@
-import { MediaRepository } from '@Media/Media/domain/MediaRepository'
-import { Id } from '@Media/Media/domain/ValueObjects/Id'
-import { Media } from '@Media/Media/domain/Media'
-import { MediaNotFound } from '@Media/Media/domain/Errors/MediaNotFound'
+import { CourseRepository } from '@Course/Course/domain/CourseRepository'
+import { Id } from '@Course/Course/domain/ValueObjects/Id'
+import { Course } from '@Course/Course/domain/Course'
+import { CourseNotFound } from '@Course/Course/domain/Errors/CourseNotFound'
 
 export class FinderById {
-  constructor (private readonly repository: MediaRepository) {}
+  constructor (private readonly repository: CourseRepository) {}
 
-  async find (id: Id): Promise<Media> {
-    const media = await this.repository.find(id)
+  async find (id: Id): Promise<Course> {
+    const course = await this.repository.find(id)
 
-    if (!media) throw new MediaNotFound(id)
+    if (!course) throw new CourseNotFound(id)
 
-    return media
+    return course
   }
 }
