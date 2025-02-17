@@ -28,7 +28,7 @@ services:
       - { name: "queryHandler" }
 
   User.Repository:
-    class: src/Contexts/Course/User/infrastructure/persistence/TypeOrmCommunityRepository
+    class: src/Contexts/Course/User/infrastructure/persistence/TypeOrmUserRepository
     arguments: ["@Shared.ORM.Connection"]
 
   User.DeleteUserOnUserDeleted.Deleter:
