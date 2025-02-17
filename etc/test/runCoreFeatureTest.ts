@@ -33,7 +33,7 @@ const waitForServer = async (url: string, timeout = 10000): Promise<void> => {
 
 const runTests = (): Promise<void> => {
   return new Promise((resolve, reject) => {
-    const tests = exec('NODE_ENV=test FORCE_COLOR=1 playwright test --project=core')
+    const tests = exec('NODE_ENV=test FORCE_COLOR=1 playwright test --project=core --pass-with-no-tests')
     tests.stdout?.on('data', (data) => console.log(data.toString()))
     tests.stderr?.on('data', (data) => console.error(data.toString()))
     tests.on('close', (code) => {

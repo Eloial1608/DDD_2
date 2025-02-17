@@ -13,6 +13,11 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
 
+
+   User.Repository:
+    class: src/Contexts/Threads/User/infrastructure/persistence/TypeOrmUserRepository
+    arguments: ["@Shared.ORM.Connection"]
+
    Community.DeleteCommunityOnCommunityDeleted.Deleter:
     class: src/Contexts/Threads/Community/application/DeleteCommunityOnCommunityDeleted/Deleter
     arguments: ['@Community.Repository', '@Shared.EventBus']
@@ -32,3 +37,4 @@ services:
     arguments: ['@Community.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+

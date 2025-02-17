@@ -1,4 +1,4 @@
 imports:
     - { resource: ./Threads/services.yaml }
-    - { resource: ./Shared/Services.yaml }
+    - { resource: ./Shared/services.yaml }
     - { resource: ./Apps/Services.yaml }

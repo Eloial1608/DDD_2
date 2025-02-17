@@ -28,7 +28,7 @@ services:
       - { name: "queryHandler" }
 
   User.Repository:
-    class: src/Contexts/Course/User/infrastructure/persistence/TypeOrmCommunityRepository
+    class: src/Contexts/Course/User/infrastructure/persistence/TypeOrmUserRepository
     arguments: ["@Shared.ORM.Connection"]
 
   User.DeleteUserOnUserDeleted.Deleter:
@@ -55,7 +55,7 @@ services:
     class: src/Contexts/Course/Space/infrastructure/persistence/TypeOrmSpaceRepository
     arguments: ["@Shared.ORM.Connection"]
 
-  User.Create.Creator:
+  User.CreateUserOnUserCreated.Creator:
     class: src/Contexts/Course/User/application/CreateUserOnUserCreated/Creator
     arguments: ['@User.Repository', '@Shared.EventBus']
   
@@ -70,7 +70,7 @@ services:
     arguments: ['@Space.Repository', '@Shared.EventBus']
   
   Space.CreateSpaceOnSpaceCreated.CreateSpaceOnSpaceCreatedHandler:
-    class: src/Contexts/Course/Course/application/CreateSpaceOnSpaceCreated/CreateSpaceOnSpaceCreatedHandler
+    class: src/Contexts/Course/Space/application/CreateSpaceOnSpaceCreated/CreateSpaceOnSpaceCreatedHandler
     arguments: ["@Space.CreateSpaceOnSpaceCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
@@ -178,7 +178,7 @@ services:
     arguments: ['@Section.Repository']
   
   Section.FindById.FindSectionByIdQueryHandler:
-    class: src/Contexts/Course/Section/application/FindById/FindCommunityByIdQueryHandler
+    class: src/Contexts/Course/Section/application/FindById/FindSectionByIdQueryHandler
     arguments: ['@Section.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
@@ -187,7 +187,7 @@ services:
     class: src/Contexts/Course/Course/application/FindById/FinderById
     arguments: ['@Course.Repository']
   
-  Course.FindById.FindCourseByIdQueryHandler:
+  Course.FindById.FindSectionByIdQueryHandler:
     class: src/Contexts/Course/Course/application/FindById/FindCourseByIdQueryHandler
     arguments: ['@Course.FindById.FinderById']
     tags:
