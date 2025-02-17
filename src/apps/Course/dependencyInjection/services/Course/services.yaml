@@ -174,7 +174,7 @@ services:
       - { name: "commandHandler" }
 
   Course.Update.Updater:
-    class: src/Contexts/Course/Course/application/Update.Updater
+    class: src/Contexts/Course/Course/application/Update/Updater
     arguments: ['@Course.Repository', '@Shared.EventBus', '@Shared.QueryBus']
   
   Course.Update.UpdateCourseCommandHandler:
