@@ -80,4 +80,30 @@ export class Course extends AggregateRoot {
 
     return course
   }
+
+  delete (): Course {
+    const course = new Course(
+      this.id,
+      this.communityId,
+      this.spaceId,
+      this.userId,
+      this.author,
+      this.title,
+      this.bannerUrl,
+      this.isPaid,
+      this.price,
+      this.startDate,
+      this.endDate,
+      this.maxStudents,
+      this.totalStudents,
+      this.totalComments,
+      this.createdAt,
+      this.updatedAt,
+      new DeletedAt(new Date())
+    )
+
+    course.record(CourseDeletedDomainEvent.fromAggregate(course))
+
+    return course
+  }
 }
