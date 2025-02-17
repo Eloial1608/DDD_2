@@ -87,6 +87,7 @@ jobs:
     with:
       BRANCH: ${{ needs.initial.outputs.BRANCH }}
       TAG: ${{ needs.initial.outputs.TAG }}
+      SSH_PASS: ${{ secrets.HETZNER_SSH_PASSWORD }}
     needs: [initial, tests]
     if: |
       contains('

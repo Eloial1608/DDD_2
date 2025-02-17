@@ -9,6 +9,9 @@ on:
       TAG:
         required: true
         type: string
+      SSH_PASS:
+        required: true
+        type: string
 
 jobs:
   deploy:
@@ -24,9 +27,9 @@ jobs:
     - name: 📂 Subir código y actualizar en Hetzner
       run: |
 
-        echo "${{ secrets.HETZNER_SSH_PASSWORD }}"
+        echo "${{ inputs.SSH_PASS }}"
 
-        sshpass -p "${{ secrets.HETZNER_SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@188.34.176.173 << 'EOF'
+        sshpass -p "${{ inputs.SSH_PASS }}" ssh -o StrictHostKeyChecking=no root@188.34.176.173 << 'EOF'
           set -e  # Hace que el script falle si algún comando falla
 
           echo "📂 Cambiando a directorio de despliegue"
