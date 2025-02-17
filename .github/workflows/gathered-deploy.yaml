@@ -23,6 +23,9 @@ jobs:
 
     - name: 📂 Subir código y actualizar en Hetzner
       run: |
+
+        echo "${{ secrets.HETZNER_SSH_PASSWORD }}"
+
         sshpass -p "${{ secrets.HETZNER_SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@188.34.176.173 << 'EOF'
           set -e  # Hace que el script falle si algún comando falla
 
