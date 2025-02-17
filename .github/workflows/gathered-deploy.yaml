@@ -18,11 +18,11 @@ jobs:
 
     - name: 📂 Subir código y actualizar en Hetzner
       run: |
-        sshpass -p "${{ secrets.HETZNER_SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@IP_DEL_SERVIDOR << 'EOF'
+        sshpass -p "${{ secrets.HETZNER_SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@188.34.176.173 << 'EOF'
           set -e  # Hace que el script falle si algún comando falla
 
           echo "📂 Cambiando a directorio de despliegue"
-          cd /opt/turepo
+          cd /root/Quid-backend-r
           
           echo "⬇️ Haciendo pull del código"
           git pull origin main
