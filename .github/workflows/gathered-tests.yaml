@@ -43,6 +43,6 @@ jobs:
           docker-compose -f docker-compose-dev.yml up -d db
           docker-compose -f docker-compose-dev.yml run --rm --name ${{inputs.SERVICE}} -e DB_HOST=db --entrypoint="npm run test:${{inputs.SERVICE}}" ${{inputs.SERVICE}}
           docker ps -a
-          docker-compose down ${{inputs.SERVICE}}
-          docker compose ps
+          docker-compose -f docker-compose-dev.yml down ${{inputs.SERVICE}}
+          docker-compose -f docker-compose-dev.yml ps
           echo "*** CI tests has passed SUCCESSFULLY ***"
