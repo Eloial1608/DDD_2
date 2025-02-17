@@ -4,8 +4,8 @@ import EventBusMock from '@Tests/Contexts/Shared/infrastructure/EventBus/EventBu
 import { CourseRepositoryMock } from '../../__mocks__/CourseRepositoryMock'
 import { CourseMother } from '../../domain/CourseMother'
 import { DeleteCourseCommandMother } from './DeleteCourseCommandMother'
-import { CourseDeletedDomainEvent } from '@Course/Course/domain/Events/CourseDeletedDomainEvent'
 import { DeletedAt } from '@Course/Course/domain/ValueObjects/DeletedAt'
+import { CourseDeletedDomainEvent } from '@Course/Course/domain/Events/CourseDeletedDomainEvent'
 
 let eventBus: EventBusMock
 let repository: CourseRepositoryMock

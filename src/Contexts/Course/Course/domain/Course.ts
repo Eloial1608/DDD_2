@@ -18,6 +18,7 @@ import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { DeletedAt } from './ValueObjects/DeletedAt'
 import { CourseCreatedDomainEvent } from './Events/CourseCreatedDomainEvent'
 import { MaxStudents } from './ValueObjects/MaxStudents'
+import { CourseDeletedDomainEvent } from './Events/CourseDeletedDomainEvent'
 
 export class Course extends AggregateRoot {
   constructor (
