@@ -4,5 +4,5 @@ import { CourseGetController } from '@Apps/Course/controllers/Course/CourseGetCo
 
 export const register = (router: Router) => {
   const controller = DI.getInstance().resolve<CourseGetController>('Apps.Course.Controllers.CourseGetController')
-  router.get('/v1/course/:id', (req: Request, res: Response) => controller.run(req, res))
+  router.get('/v1/courses/:id', (req: Request, res: Response) => controller.run(req, res))
 }
