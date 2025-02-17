@@ -80,3 +80,15 @@ jobs:
       success() &&
       needs.initial.outputs.ROLLBACK == 'false' &&
       !contains(join(needs.*.result, ','), 'failure')
+  
+  deploy:
+    name: 📦 Deploy
+    uses: ./.github/workflows/gathered-deploy.yaml
+    with:
+      BRANCH: ${{ needs.initial.outputs.BRANCH }}
+      TAG: ${{ needs.initial.outputs.TAG }}
+    needs: [initial, tests]
+    if: |
+      success() &&
+      needs.initial.outputs.ROLLBACK == 'false' &&
+      !contains(join(needs.*.result, ','), 'failure')
