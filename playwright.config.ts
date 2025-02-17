@@ -21,6 +21,10 @@ export default defineConfig({
     {
       name: 'threads',
       testDir: 'tests/apps/Threads'
+    },
+    {
+      name: 'course',
+      testDir: 'tests/apps/Course'
     }
   ],
   use: {
