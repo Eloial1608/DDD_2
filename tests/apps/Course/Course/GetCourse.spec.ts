@@ -20,7 +20,7 @@ test('GET Course should return a Course', async ({ request }) => {
 
   await repository.persist(course)
 
-  const r = await request.get('/v1/course')
+  const r = await request.get('/v1/courses/' + course.id)
 
   expect(r.ok()).toBeTruthy()
 })
