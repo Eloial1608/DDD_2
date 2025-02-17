@@ -1,7 +1,5 @@
 import { CourseRepository } from '@Course/Course/domain/CourseRepository'
 import { CourseNotFound } from '@Course/Course/domain/Errors/CourseNotFound'
-import { EndDateEarlierThanStartDate } from '@Course/Course/domain/Errors/EndDateEarlierThanStartDate'
-import { MaxStudentsLowerThanTotalStudents } from '@Course/Course/domain/Errors/MaxStudentsLowerThanTotalStudents'
 import { NotAllowedToPersistCourse } from '@Course/Course/domain/Errors/NotAllowedToPersistCourse'
 import { BannerUrl } from '@Course/Course/domain/ValueObjects/BannerUrl'
 import { CommunityId } from '@Course/Course/domain/ValueObjects/CommunityId'
