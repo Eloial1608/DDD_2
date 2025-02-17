@@ -8,7 +8,7 @@ COPY . /app
 RUN npm install --no-save
 RUN npm run build
 
-EXPOSE 5000
+ARG PORT=5000
+EXPOSE $PORT
 
 ENTRYPOINT ["npm", "run"]
-CMD [ "start:core:server:dev"]

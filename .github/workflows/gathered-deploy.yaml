@@ -1,0 +1,78 @@
+name: 📦 Deploy Backend to Hetzner
+
+on:
+  workflow_call:
+    inputs:
+      BRANCH:
+        required: true
+        type: string
+      TAG:
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🚀 Checkout del código
+      uses: actions/checkout@v3
+
+    - name: 🔧 Instalar `sshpass`
+      run: sudo apt-get install -y sshpass
+
+    - name: 📂 Subir código y actualizar en Hetzner
+      run: |
+        sshpass -p "${{ secrets.HETZNER_SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@188.34.176.173 << 'EOF'
+          set -e  # Hace que el script falle si algún comando falla
+
+          echo "📂 Cambiando a directorio de despliegue"
+          cd /root/Quid-backend-r
+          
+          echo "⬇️ Haciendo pull del código"
+          git pull origin main
+
+          echo "💾 Guardando versiones actuales de las imágenes"
+          docker images --format "{{.Repository}}:{{.Tag}}" > /tmp/previous_images.txt
+
+          echo "📦 Descargando nuevas imágenes"
+          docker-compose pull
+
+          echo "🚀 Iniciando nuevos servicios"
+          docker-compose up -d --remove-orphans
+
+          echo "⏳ Esperando 10 segundos para verificar servicios"
+          sleep 10
+
+          echo "✅ Verificando que todos los servicios están corriendo"
+          RUNNING_SERVICES=$(docker ps --format '{{.Names}}')
+
+          MISSING_SERVICES=0
+          for SERVICE in core-service-server threads-service-server course-service-server auth-service-server media-service-server posts-service-server; do
+            if ! echo "$RUNNING_SERVICES" | grep -q "$SERVICE"; then
+              echo "⚠️ ERROR: El servicio $SERVICE no está corriendo"
+              MISSING_SERVICES=$((MISSING_SERVICES + 1))
+            fi
+          done
+
+          if [ "$MISSING_SERVICES" -ne 0 ]; then
+            echo "🚨 ERROR: Algunos servicios fallaron. Revirtiendo al estado anterior"
+
+            echo "↩️ Restaurando la versión anterior de las imágenes"
+            while read -r IMAGE; do
+              docker pull "$IMAGE"
+            done < /tmp/previous_images.txt
+
+            echo "🛑 Deteniendo los servicios fallidos"
+            docker-compose down
+
+            echo "🔄 Levantando la versión anterior"
+            docker-compose up -d
+
+            echo "❌ Marcando el despliegue como fallido"
+            exit 1
+          fi
+
+          echo "🧹 Limpiando contenedores viejos"
+          docker system prune -f
+        EOF

@@ -4,6 +4,7 @@ import { CommunityId } from '@Course/Course/domain/ValueObjects/CommunityId'
 import { CreatedAt } from '@Course/Course/domain/ValueObjects/CreatedAt'
 import { Id } from '@Course/Course/domain/ValueObjects/Id'
 import { IsPaid } from '@Course/Course/domain/ValueObjects/IsPaid'
+import { MaxStudents } from '@Course/Course/domain/ValueObjects/MaxStudents'
 import { SpaceId } from '@Course/Course/domain/ValueObjects/SpaceId'
 import { StartDate } from '@Course/Course/domain/ValueObjects/StartDate'
 import { Title } from '@Course/Course/domain/ValueObjects/Title'
@@ -11,11 +12,12 @@ import { TotalComments } from '@Course/Course/domain/ValueObjects/TotalComments'
 import { TotalStudents } from '@Course/Course/domain/ValueObjects/TotalStudents'
 import { UpdatedAt } from '@Course/Course/domain/ValueObjects/UpdatedAt'
 import { UserId } from '@Course/Course/domain/ValueObjects/UserId'
+import { User } from '@Course/User/domain/User'
 import { SlugMother } from '@Tests/Contexts/Shared/domain/SlugMother'
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
 import { WordMother } from '@Tests/Contexts/Shared/domain/WordMother'
 
-export class PostMother {
+export class CourseMother {
   static create (params: Partial<Course>): Course {
     return new Course(
       params.id ?? new Id(UuidMother.random()),
@@ -34,10 +36,11 @@ export class PostMother {
       params.bannerUrl ?? null,
       params.isPaid ?? new IsPaid(false),
       params.price ?? null,
-      params.totalStudents ?? new TotalStudents(0),
-      params.totalComments ?? new TotalComments(0),
       params.startDate ?? new StartDate(new Date()),
       params.endDate ?? null,
+      params.maxStudents ?? params.totalStudents ?? new MaxStudents(0),
+      params.totalStudents ?? new TotalStudents(0),
+      params.totalComments ?? new TotalComments(0),
       params.createdAt ?? new CreatedAt(new Date()),
       params.updatedAt ?? new UpdatedAt(new Date()),
       params.deletedAt ?? null
@@ -48,18 +51,16 @@ export class PostMother {
     return this.create({})
   }
 
-  // Uncomment when User is done
-
-  // static forAuthor (user: User): Course {
-  //   return this.create({
-  //     author: new Author(
-  //       user.id.valueOf(),
-  //       user.mainId.valueOf(),
-  //       user.name.valueOf(),
-  //       user.username.valueOf(),
-  //       user.pictureUrl?.valueOf(),
-  //       user.bannerUrl?.valueOf()
-  //     )
-  //   })
-  // }
+  static forAuthor (user: User): Course {
+    return this.create({
+      author: new Author(
+        user.id.valueOf(),
+        user.mainId.valueOf(),
+        user.name.valueOf(),
+        user.username.valueOf(),
+        user.pictureUrl?.valueOf(),
+        user.bannerUrl?.valueOf()
+      )
+    })
+  }
 }

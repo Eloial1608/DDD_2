@@ -1,6 +1,6 @@
 services:
    Community.Repository:
-    class: src/Contexts/Posts/Community/infrastructure/persistence/TypeOrmCommunityRepository
+    class: src/Contexts/Threads/Community/infrastructure/persistence/TypeOrmCommunityRepository
     arguments: ["@Shared.ORM.Connection"]
 
    Community.CreateCommunityOnCommunityCreated.Creator:
@@ -13,6 +13,28 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
 
+
    User.Repository:
     class: src/Contexts/Threads/User/infrastructure/persistence/TypeOrmUserRepository
     arguments: ["@Shared.ORM.Connection"]
+
+   Community.DeleteCommunityOnCommunityDeleted.Deleter:
+    class: src/Contexts/Threads/Community/application/DeleteCommunityOnCommunityDeleted/Deleter
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+   Community.DeleteCommunityOnCommunityDeleted.DeleteCommunityOnCommunityDeletedHandler:
+    class: src/Contexts/Threads/Community/application/DeleteCommunityOnCommunityDeleted/DeleteCommunityOnCommunityDeletedHandler
+    arguments: ["@Community.DeleteCommunityOnCommunityDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+    
+   Community.FindById.FinderById:
+    class: src/Contexts/Threads/Community/application/FindById/FinderById
+    arguments: ['@Community.Repository']
+  
+   Community.FindById.FindCommunityByIdQueryHandler:
+    class: src/Contexts/Threads/Community/application/FindById/FindCommunityByIdQueryHandler
+    arguments: ['@Community.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+

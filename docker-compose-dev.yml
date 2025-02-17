@@ -1,0 +1,89 @@
+services:
+  core-service-server:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        PORT: 5004
+    ports:
+      - 5004:5004
+    command: ["start:core:server"]
+
+  threads-service-server:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        PORT: 5005
+    ports:
+      - 5005:5005
+    command: ["start:threads:server"]
+  
+  course-service-server:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        PORT: 5006
+    ports:
+      - 5006:5006
+    command: ["start:course:server"]
+  
+  auth-service-server:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        PORT: 5007
+    ports:
+      - 5007:5007
+    command: ["start:auth:server"]
+
+  media-service-server:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        PORT: 5008
+    ports:
+      - 5008:5008
+    command: ["start:media:server"]
+  
+  posts-service-server:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        PORT: 5009
+    ports:
+      - 5009:5009
+    command: ["start:posts:server"]
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    environment:
+      RABBITMQ_DEFAULT_USER: "core"
+      RABBITMQ_DEFAULT_PASS: "core"
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+
+  db:
+    image: postgres:17.1
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: superuser
+      POSTGRES_USER: superuser
+    ports:
+      - 5432:5432
+    volumes:
+      - ./etc/database/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro

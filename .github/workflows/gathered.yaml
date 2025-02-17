@@ -80,3 +80,20 @@ jobs:
       success() &&
       needs.initial.outputs.ROLLBACK == 'false' &&
       !contains(join(needs.*.result, ','), 'failure')
+  
+  deploy:
+    name: 📦 Deploy
+    uses: ./.github/workflows/gathered-deploy.yaml
+    with:
+      BRANCH: ${{ needs.initial.outputs.BRANCH }}
+      TAG: ${{ needs.initial.outputs.TAG }}
+    needs: [initial, tests]
+    if: |
+      contains('
+        refs/heads/staging
+        refs/heads/main'
+        , github.ref) &&
+      success() &&
+      needs.initial.outputs.SERVICES != '[]' &&
+      needs.initial.outputs.SERVICES != '' &&
+      !contains(join(needs.*.result, ','), 'failure')
