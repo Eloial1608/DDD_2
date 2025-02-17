@@ -175,11 +175,20 @@ services:
 
   Section.FindById.FinderById:
     class: src/Contexts/Course/Section/application/FindById/FinderById
-    arguments: ['@Community.Repository']
+    arguments: ['@Section.Repository']
   
   Section.FindById.FindSectionByIdQueryHandler:
     class: src/Contexts/Course/Section/application/FindById/FindSectionByIdQueryHandler
-    arguments: ['@Community.FindById.FinderById']
+    arguments: ['@Section.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
 
+  Course.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Course/Course/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Course.Repository']
+  
+  Section.FindByCriteria.FindCourseByCriteriaQueryHandler:
+    class: src/Contexts/Course/Course/application/FindByCriteria/FindCourseByCriteriaQueryHandler
+    arguments: ['@Course.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
