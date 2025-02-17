@@ -2,7 +2,7 @@ import { FindSectionsByCriteriaQueryHandler } from '@Course/Section/application/
 import { FinderByCriteria } from '@Course/Section/application/FindByCriteria/FinderByCriteria'
 import { SectionRepositoryMock } from '../../__mocks__/SectionRepositoryMock'
 import { SectionMother } from '../../domain/SectionMother'
-import { FindSectionsByCriteriaQuery } from '@Course/Section/application/FindByCriteria/FindSectionsbyCriteriaQuery'
+import { FindSectionsByCriteriaQuery } from '@Course/Section/application/FindByCriteria/FindSectionsByCriteriaQuery'
 import { SectionCollectionResponse } from '@Course/Section/application/SectionCollectionResponse'
 import { Criteria } from '@Shared/domain/Criteria/Criteria'
 
