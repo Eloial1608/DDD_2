@@ -7,22 +7,18 @@ import { DomainEventMapping } from '@Shared/infrastructure/EventBus/DomainEventM
 
 export class Worker {
   async start () {
-    try {
-      const eventBus = DI.getInstance().resolve('Shared.EventBus') as EventBus
-      const subscriberDefinitions = DI.getInstance().getContainer().findTaggedServiceIds('domainEventSubscriber') as Map<String, Definition>
-      const subscribers: Array<DomainEventSubscriber<DomainEvent>> = []
+    const eventBus = DI.getInstance().resolve('Shared.EventBus') as EventBus
+    const subscriberDefinitions = DI.getInstance().getContainer().findTaggedServiceIds('domainEventSubscriber') as Map<String, Definition>
 
-      subscriberDefinitions.forEach((value: any) => {
-        console.log('Subscribers ' + subscriberDefinitions.size)
-        subscribers.push(DI.getInstance().resolve(value.id))
-      })
-      const domainEventMapping = new DomainEventMapping(subscribers)
+    console.log('Subscribers: ')
+    const subscribers = [...subscriberDefinitions.keys()].map(k => {
+      console.log(k)
+      return DI.getInstance().getContainer().get<DomainEventSubscriber<DomainEvent>>(k)
+    })
+    const domainEventMapping = new DomainEventMapping(subscribers)
 
-      eventBus.setDomainEventMapping(domainEventMapping)
-      eventBus.addSubscribers(subscribers)
-      await eventBus.start()
-    } catch (e) {
-      console.log(e)
-    }
+    eventBus.setDomainEventMapping(domainEventMapping)
+    eventBus.addSubscribers(subscribers)
+    await eventBus.start()
   }
 }

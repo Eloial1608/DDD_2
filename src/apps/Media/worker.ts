@@ -9,11 +9,11 @@ export class Worker {
   async start () {
     const eventBus = DI.getInstance().resolve('Shared.EventBus') as EventBus
     const subscriberDefinitions = DI.getInstance().getContainer().findTaggedServiceIds('domainEventSubscriber') as Map<String, Definition>
-    const subscribers: Array<DomainEventSubscriber<DomainEvent>> = []
 
-    subscriberDefinitions.forEach((value: any) => {
-      console.log('Subscribers ' + subscriberDefinitions.size)
-      subscribers.push(DI.getInstance().resolve(value.id))
+    console.log('Subscribers: ')
+    const subscribers = [...subscriberDefinitions.keys()].map(k => {
+      console.log(k)
+      return DI.getInstance().getContainer().get<DomainEventSubscriber<DomainEvent>>(k)
     })
     const domainEventMapping = new DomainEventMapping(subscribers)
 
