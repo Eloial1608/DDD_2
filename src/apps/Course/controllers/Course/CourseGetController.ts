@@ -4,6 +4,8 @@ import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { TokenDecoder } from '@Shared/domain/TokenDecoder/TokenDecoder'
 import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { CourseResponse } from '@Course/Course/application/CourseResponse'
+import { FindCourseByIdQuery } from '@Course/Course/application/FindById/FindCourseByIdQuery'
+import { CourseNotFound } from '@Course/Course/domain/Errors/CourseNotFound'
 
 export class CourseGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
