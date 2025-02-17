@@ -14,27 +14,27 @@ export class Community extends AggregateRoot {
 
   static create (
 
-      id: Id,
-      isPrivate: IsPrivate
-    ): Community {
-      const community = new Community(
-        id,
-        isPrivate
-      )
-  
-      community.record(CommunityCreatedDomainEvent.fromAggregate(community))
-  
-      return community
-    }
+    id: Id,
+    isPrivate: IsPrivate
+  ): Community {
+    const community = new Community(
+      id,
+      isPrivate
+    )
 
-    delete (): Community {
-        const community = new Community(
-          this.id,
-          this.isPrivate
-        )
-    
-        community.record(CommunityDeletedDomainEvent.fromAggregate(community))
-    
-        return community
-      }
+    community.record(CommunityCreatedDomainEvent.fromAggregate(community))
+
+    return community
+  }
+
+  delete (): Community {
+    const community = new Community(
+      this.id,
+      this.isPrivate
+    )
+
+    community.record(CommunityDeletedDomainEvent.fromAggregate(community))
+
+    return community
+  }
 }

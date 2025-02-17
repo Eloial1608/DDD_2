@@ -22,3 +22,13 @@ services:
     arguments: ["@Community.DeleteCommunityOnCommunityDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
+    
+   Community.FindById.FinderById:
+    class: src/Contexts/Threads/Community/application/FindById/FinderById
+    arguments: ['@Community.Repository']
+  
+   Community.FindById.FindCommunityByIdQueryHandler:
+    class: src/Contexts/Threads/Community/application/FindById/FindCommunityByIdQueryHandler
+    arguments: ['@Community.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }

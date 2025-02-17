@@ -1,84 +1,126 @@
 services:
   core-service-server:
-    depends_on:
-      - db
-      - rabbitmq
+    restart: always
     build:
       context: ./
       dockerfile: ./Dockerfile
+      args:
+        PORT: 5004
     ports:
       - 5004:5004
+    env_file:
+      - /etc/gathered/core/.env
+    command: ["start:core:server"]
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "2GB"
+        reservations:
+          cpus: "1"
+          memory: "1GB"
 
   threads-service-server:
-    depends_on:
-      - db
-      - rabbitmq
+    restart: always
     build:
       context: ./
       dockerfile: ./Dockerfile
+      args:
+        PORT: 5005
     ports:
-      - 5004:5004
+      - 5005:5005
+    env_file:
+      - /etc/gathered/threads/.env
+    command: ["start:threads:server"]
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "1GB"
+        reservations:
+          cpus: "0.5"
+          memory: "512MB"
   
   course-service-server:
-    depends_on:
-      - db
-      - rabbitmq
+    restart: always
     build:
       context: ./
       dockerfile: ./Dockerfile
+      args:
+        PORT: 5006
     ports:
-      - 5004:5004
+      - 5006:5006
+    env_file:
+      - /etc/gathered/course/.env
+    command: ["start:course:server"]
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "1GB"
+        reservations:
+          cpus: "0.5"
+          memory: "512MB"
   
   auth-service-server:
-    depends_on:
-      - db
-      - rabbitmq
+    restart: always
     build:
       context: ./
       dockerfile: ./Dockerfile
+      args:
+        PORT: 5007
     ports:
-      - 5000:5000
+      - 5007:5007
+    env_file:
+      - /etc/gathered/auth/.env
+    command: ["start:auth:server"]
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "2GB"
+        reservations:
+          cpus: "1"
+          memory: "1GB"
 
   media-service-server:
-    depends_on:
-      - db
-      - rabbitmq
+    restart: always
     build:
       context: ./
       dockerfile: ./Dockerfile
+      args:
+        PORT: 5008
     ports:
-      - 5000:5000
+      - 5008:5008
+    env_file:
+      - /etc/gathered/media/.env
+    command: ["start:media:server"]
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "1GB"
+        reservations:
+          cpus: "0.5"
+          memory: "512MB"
   
   posts-service-server:
-    depends_on:
-      - db
-      - rabbitmq
+    restart: always
     build:
       context: ./
       dockerfile: ./Dockerfile
+      args:
+        PORT: 5009
     ports:
-      - 5000:5000
-
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    container_name: 'rabbitmq'
-    environment:
-      RABBITMQ_DEFAULT_USER: "core"
-      RABBITMQ_DEFAULT_PASS: "core"
-    ports:
-        - 5672:5672
-        - 15672:15672
-    volumes:
-        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-
-  db:
-    image: postgres:17.1
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: superuser
-      POSTGRES_USER: superuser
-    ports:
-      - 5432:5432
-    volumes:
-      - ./etc/database/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - 5009:5009
+    env_file:
+      - /etc/gathered/posts/.env
+    command: ["start:posts:server"]
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "1GB"
+        reservations:
+          cpus: "0.5"
+          memory: "512MB"
