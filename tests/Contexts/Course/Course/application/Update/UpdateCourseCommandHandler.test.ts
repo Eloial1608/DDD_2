@@ -13,12 +13,6 @@ import { FindUsersByCriteriaQuery } from '@Course/User/application/FindByCriteri
 import { FindSpaceByIdQuery } from '@Course/Space/application/FindById/FindSpaceByIdQuery'
 import { SpaceResponse } from '@Course/Space/application/SpaceResponse'
 import { SpaceMother } from '@Tests/Contexts/Course/Space/domain/SpaceMother'
-import { StartDate } from '@Course/Course/domain/ValueObjects/StartDate'
-import { EndDate } from '@Course/Course/domain/ValueObjects/EndDate'
-import { EndDateEarlierThanStartDate } from '@Course/Course/domain/Errors/EndDateEarlierThanStartDate'
-import { MaxStudents } from '@Course/Course/domain/ValueObjects/MaxStudents'
-import { TotalStudents } from '@Course/Course/domain/ValueObjects/TotalStudents'
-import { MaxStudentsLowerThanTotalStudents } from '@Course/Course/domain/Errors/MaxStudentsLowerThanTotalStudents'
 
 let eventBus: EventBusMock
 let repository: CourseRepositoryMock

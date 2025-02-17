@@ -38,7 +38,7 @@ export class CreateCourseCommandHandler implements CommandHandler<CreateCourseCo
         : null,
       new StartDate(command.startDate),
       command.endDate ? new EndDate(command.endDate) : null,
-      new MaxStudents(command.maxStudents)
+      command.maxStudents ? new MaxStudents(command.maxStudents) : null
     )
   }
 }

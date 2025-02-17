@@ -39,7 +39,7 @@ export class Creator {
     price: Nullable<Price>,
     startDate: StartDate,
     endDate: Nullable<EndDate>,
-    maxStudents: MaxStudents
+    maxStudents: Nullable<MaxStudents>
   ) {
     if ((isPaid.valueOf() && !price) || (price && !isPaid.valueOf())) return
 

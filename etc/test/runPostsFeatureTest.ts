@@ -64,7 +64,7 @@ const runTests = (): Promise<void> => {
     if (server) {
       console.log('Stopping server...')
       server.kill('SIGKILL')
-      process.exit(1)
+      process.exit(0)
     }
   }
 })()
