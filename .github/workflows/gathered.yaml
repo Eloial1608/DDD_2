@@ -89,6 +89,11 @@ jobs:
       TAG: ${{ needs.initial.outputs.TAG }}
     needs: [initial, tests]
     if: |
+      contains('
+        refs/heads/staging
+        refs/heads/main'
+        , github.ref) &&
       success() &&
-      needs.initial.outputs.ROLLBACK == 'false' &&
+      needs.initial.outputs.SERVICES != '[]' &&
+      needs.initial.outputs.SERVICES != '' &&
       !contains(join(needs.*.result, ','), 'failure')

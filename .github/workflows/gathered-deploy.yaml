@@ -1,9 +1,14 @@
 name: 📦 Deploy Backend to Hetzner
 
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
+    inputs:
+      BRANCH:
+        required: true
+        type: string
+      TAG:
+        required: true
+        type: string
 
 jobs:
   deploy:
