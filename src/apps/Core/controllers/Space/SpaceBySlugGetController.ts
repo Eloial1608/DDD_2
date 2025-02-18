@@ -35,12 +35,8 @@ export class SpaceBySlugGetController implements Controller {
 
       if ([AllowedAccessibilities.PAYMENT, AllowedAccessibilities.PRIVATE].includes(space.accessibility as AllowedAccessibilities)) {
         const response = {
-          id: space.id,
-          slug: space.slug,
-          accessibility: space.accessibility,
-          communityId: space.communityId,
-          isLocked: true,
-          price: space.price
+          ...space,
+          isLocked: true
         }
 
         if (!req.headers.authorization) return res.status(200).json(response)

@@ -46,12 +46,8 @@ export class SpacesGetController implements Controller {
 
         if ([AllowedAccessibilities.PAYMENT, AllowedAccessibilities.PRIVATE].includes(space.accessibility as AllowedAccessibilities)) {
           const response = {
-            id: space.id,
-            slug: space.slug,
-            accessibility: space.accessibility,
-            communityId: space.communityId,
-            isLocked: true,
-            price: space.price
+            ...space,
+            isLocked: true
           }
 
           if (await this.checkAccessibility(space.accessibility as AllowedAccessibilities, space.id, userId, space.communityId)) spacesToReturn.push(space)
