@@ -95,11 +95,13 @@ export const CourseSchema = new EntitySchema<Course>({
     },
     endDate: {
       type: Date,
-      transformer: ValueObjectTransformer(EndDate)
+      transformer: ValueObjectTransformer(EndDate),
+      nullable: true
     },
     bannerUrl: {
       type: String,
-      transformer: ValueObjectTransformer(BannerUrl)
+      transformer: ValueObjectTransformer(BannerUrl),
+      nullable: true
     },
     isPaid: {
       type: Boolean,
@@ -111,7 +113,8 @@ export const CourseSchema = new EntitySchema<Course>({
     },
     maxStudents: {
       type: Number,
-      transformer: ValueObjectTransformer(MaxStudents)
+      transformer: ValueObjectTransformer(MaxStudents),
+      nullable: true
     },
     totalComments: {
       type: Number,
@@ -127,7 +130,8 @@ export const CourseSchema = new EntitySchema<Course>({
     },
     deletedAt: {
       type: Date,
-      transformer: ValueObjectTransformer(DeletedAt)
+      transformer: ValueObjectTransformer(DeletedAt),
+      nullable: true
     }
   },
   indices: [
