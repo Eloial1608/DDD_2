@@ -40,7 +40,24 @@ export class SpacesGetController implements Controller {
       const spacesToReturn = []
 
       for (const space of spaces) {
-        if (await this.checkAccessibility(space.accessibility as AllowedAccessibilities, space.id, userId, space.communityId)) spacesToReturn.push(space)
+        if (space.accessibility === AllowedAccessibilities.HIDDEN) {
+          if (await this.checkAccessibility(space.accessibility as AllowedAccessibilities, space.id, userId, space.communityId)) spacesToReturn.push(space)
+        }
+
+        if ([AllowedAccessibilities.PAYMENT, AllowedAccessibilities.PRIVATE].includes(space.accessibility as AllowedAccessibilities)) {
+          const response = {
+            id: space.id,
+            slug: space.slug,
+            accessibility: space.accessibility,
+            communityId: space.communityId,
+            isLocked: true
+          }
+
+          if (await this.checkAccessibility(space.accessibility as AllowedAccessibilities, space.id, userId, space.communityId)) spacesToReturn.push(space)
+          else spacesToReturn.push(response)
+        }
+
+        if (space.accessibility === AllowedAccessibilities.PUBLIC) spacesToReturn.push(space)
       }
 
       return res.status(200).json(spacesToReturn)
@@ -55,13 +72,15 @@ export class SpacesGetController implements Controller {
 
   private addPublicCriteria () {
     return {
-      filters: [
-        new Map<string, string>([
-          ['field', 'accessibility'],
-          ['operator', '='],
-          ['value', AllowedAccessibilities.PUBLIC]
-        ])
-      ]
+      inFilters: [{
+        field: 'accessibility',
+        operator: 'IN',
+        values: [
+          AllowedAccessibilities.PUBLIC,
+          AllowedAccessibilities.PAYMENT,
+          AllowedAccessibilities.PRIVATE
+        ]
+      }]
     }
   }
 
