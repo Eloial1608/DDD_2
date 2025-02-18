@@ -15,7 +15,7 @@ test.beforeAll(async () => {
   await arranger.arrange()
 })
 
-test('POST Course', async ({ request }) => {
+test('PUT Course', async ({ request }) => {
   const oldCourse = CourseMother.random()
 
   const newCourse = CourseMother.create({
