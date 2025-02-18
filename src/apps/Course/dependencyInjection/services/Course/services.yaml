@@ -173,6 +173,16 @@ services:
     tags:
       - { name: "commandHandler" }
 
+  Course.Update.Updater:
+    class: src/Contexts/Course/Course/application/Update/Updater
+    arguments: ['@Course.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Course.Update.UpdateCourseCommandHandler:
+    class: src/Contexts/Course/Course/application/Update/UpdateCourseCommandHandler
+    arguments: ["@Course.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
   Section.FindById.FinderById:
     class: src/Contexts/Course/Section/application/FindById/FinderById
     arguments: ['@Community.Repository']
