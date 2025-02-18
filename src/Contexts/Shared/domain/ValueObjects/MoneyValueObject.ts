@@ -4,12 +4,8 @@ import currency from 'currency.js'
 
 export class MoneyValueObjectValue extends NumberValueObject {
   constructor (value: number) {
-    value = currency(value, { fromCents: false }).intValue
+    if (String(value).includes('.')) value = currency(value).intValue
     super(value < 0 ? 0 : value)
-  }
-
-  getFormattedValue () {
-    return currency(this.valueOf(), { fromCents: true })
   }
 }
 
