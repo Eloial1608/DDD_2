@@ -25,7 +25,6 @@ export class UpdateCourseCommandHandler implements CommandHandler<UpdateCourseCo
     await this.updater.run(
       new Id(command.id),
       new CommunityId(command.communityId),
-      new SpaceId(command.spaceId),
       new UserId(command.userId),
       new Title(command.title),
       command.bannerUrl ? new BannerUrl(command.bannerUrl) : null,
