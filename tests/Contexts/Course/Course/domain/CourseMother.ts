@@ -4,7 +4,6 @@ import { CommunityId } from '@Course/Course/domain/ValueObjects/CommunityId'
 import { CreatedAt } from '@Course/Course/domain/ValueObjects/CreatedAt'
 import { Id } from '@Course/Course/domain/ValueObjects/Id'
 import { IsPaid } from '@Course/Course/domain/ValueObjects/IsPaid'
-import { MaxStudents } from '@Course/Course/domain/ValueObjects/MaxStudents'
 import { SpaceId } from '@Course/Course/domain/ValueObjects/SpaceId'
 import { StartDate } from '@Course/Course/domain/ValueObjects/StartDate'
 import { Title } from '@Course/Course/domain/ValueObjects/Title'
@@ -38,7 +37,7 @@ export class CourseMother {
       params.price ?? null,
       params.startDate ?? new StartDate(new Date()),
       params.endDate ?? null,
-      params.maxStudents ?? params.totalStudents ?? new MaxStudents(0),
+      params.maxStudents ?? null,
       params.totalStudents ?? new TotalStudents(0),
       params.totalComments ?? new TotalComments(0),
       params.createdAt ?? new CreatedAt(new Date()),

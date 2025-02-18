@@ -173,6 +173,16 @@ services:
     tags:
       - { name: "commandHandler" }
 
+  Course.Update.Updater:
+    class: src/Contexts/Course/Course/application/Update/Updater
+    arguments: ['@Course.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Course.Update.UpdateCourseCommandHandler:
+    class: src/Contexts/Course/Course/application/Update/UpdateCourseCommandHandler
+    arguments: ["@Course.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
   Section.FindById.FinderById:
     class: src/Contexts/Course/Section/application/FindById/FinderById
     arguments: ['@Section.Repository']
@@ -180,6 +190,26 @@ services:
   Section.FindById.FindSectionByIdQueryHandler:
     class: src/Contexts/Course/Section/application/FindById/FindSectionByIdQueryHandler
     arguments: ['@Section.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  Course.FindById.FinderById:
+    class: src/Contexts/Course/Course/application/FindById/FinderById
+    arguments: ['@Course.Repository']
+  
+  Course.FindById.FindSectionByIdQueryHandler:
+    class: src/Contexts/Course/Course/application/FindById/FindCourseByIdQueryHandler
+    arguments: ['@Course.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  Section.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Course/Section/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Section.Repository']
+  
+  Section.FindByCriteria.FindSectionsByCriteriaQueryHandler:
+    class: src/Contexts/Course/Section/application/FindByCriteria/FindSectionsByCriteriaQueryHandler
+    arguments: ['@Section.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
 
