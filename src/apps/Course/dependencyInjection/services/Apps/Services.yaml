@@ -1,3 +1,7 @@
 services:
   Apps.Course.Controllers.HealthGetController:
     class: src/apps/Course/controllers/HealthGetController
+
+  Apps.Course.Controllers.CourseputController:
+    class: src/apps/Course/controllers/Course/CoursePutController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
