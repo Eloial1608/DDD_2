@@ -38,3 +38,7 @@ services:
     tags:
       - { name: "queryHandler" }
 
+   Space.Repository:
+    class: src/Contexts/Threads/Space/infrastructure/persistence/TypeOrmSpaceRepository
+    arguments: ["@Shared.ORM.Connection"]
+
