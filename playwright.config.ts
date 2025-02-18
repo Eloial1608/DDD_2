@@ -17,6 +17,14 @@ export default defineConfig({
     {
       name: 'media',
       testDir: 'tests/apps/Media'
+    },
+    {
+      name: 'threads',
+      testDir: 'tests/apps/Threads'
+    },
+    {
+      name: 'course',
+      testDir: 'tests/apps/Course'
     }
   ],
   use: {

@@ -1,19 +1,18 @@
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 import DI from './dependencyInjection/DI'
 import { DomainEvent } from '@Shared/domain/EventBus/DomainEvent'
-import { Definition } from 'node-dependency-injection'
 import { DomainEventSubscriber } from '@Shared/domain/EventBus/DomainEventSubscriber'
 import { DomainEventMapping } from '@Shared/infrastructure/EventBus/DomainEventMapping'
 
 export class Worker {
   async start () {
     const eventBus = DI.getInstance().resolve('Shared.EventBus') as EventBus
-    const subscriberDefinitions = DI.getInstance().getContainer().findTaggedServiceIds('domainEventSubscriber') as Map<String, Definition>
-    const subscribers: Array<DomainEventSubscriber<DomainEvent>> = []
+    const subscriberDefinitions = DI.getInstance().getContainer().findTaggedServiceIds('domainEventSubscriber')
 
-    subscriberDefinitions.forEach((value: any) => {
-      console.log('Subscribers ' + subscriberDefinitions.size)
-      subscribers.push(DI.getInstance().resolve(value.id))
+    console.log('Subscribers: ')
+    const subscribers = [...subscriberDefinitions].map(k => {
+      console.log(k.id)
+      return DI.getInstance().resolve<DomainEventSubscriber<DomainEvent>>(k.id)
     })
     const domainEventMapping = new DomainEventMapping(subscribers)
 
