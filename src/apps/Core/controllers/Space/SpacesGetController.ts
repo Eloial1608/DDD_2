@@ -50,7 +50,8 @@ export class SpacesGetController implements Controller {
             slug: space.slug,
             accessibility: space.accessibility,
             communityId: space.communityId,
-            isLocked: true
+            isLocked: true,
+            price: space.price
           }
 
           if (await this.checkAccessibility(space.accessibility as AllowedAccessibilities, space.id, userId, space.communityId)) spacesToReturn.push(space)

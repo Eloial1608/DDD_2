@@ -39,7 +39,8 @@ export class SpaceBySlugGetController implements Controller {
           slug: space.slug,
           accessibility: space.accessibility,
           communityId: space.communityId,
-          isLocked: true
+          isLocked: true,
+          price: space.price
         }
 
         if (!req.headers.authorization) return res.status(200).json(response)
