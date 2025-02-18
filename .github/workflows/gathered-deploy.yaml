@@ -36,16 +36,13 @@ jobs:
           cd /root/Quid-backend-r
           
           echo "⬇️ Haciendo pull del código"
-          git pull origin main
+          git pull
 
           echo "💾 Guardando versiones actuales de las imágenes"
           docker images --format "{{.Repository}}:{{.Tag}}" > /tmp/previous_images.txt
 
-          echo "📦 Descargando nuevas imágenes"
-          docker-compose pull
-
           echo "🚀 Iniciando nuevos servicios"
-          docker-compose up -d --remove-orphans
+          docker-compose up -d --remove-orphans --build
 
           echo "⏳ Esperando 10 segundos para verificar servicios"
           sleep 10
