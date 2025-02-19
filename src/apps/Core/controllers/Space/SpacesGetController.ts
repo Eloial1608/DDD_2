@@ -120,7 +120,7 @@ export class SpacesGetController implements Controller {
       ])
     ])
 
-    return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response
+    return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response.pop()
   }
 
   private async getUser (id: string, communityId: string) {
