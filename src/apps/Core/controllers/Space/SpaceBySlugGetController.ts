@@ -90,7 +90,7 @@ export class SpaceBySlugGetController implements Controller {
       ])
     ])
 
-    return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response
+    return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response.pop()
   }
 
   private async getSpaceBySlug (slug: string) {
