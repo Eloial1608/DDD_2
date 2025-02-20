@@ -38,3 +38,12 @@ services:
     tags:
       - { name: "queryHandler" }
 
+   User.DeleteUserOnUserDeleted.Deleter:
+    class: src/Contexts/Threads/User/application/DeleteUserOnUserDeleted/Deleter
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+   User.DeleteUserOnUserDeleted.DeleteUserOnUserDeletedHandler:
+    class: src/Contexts/Threads/User/application/DeleteUserOnUserDeleted/DeleteUserOnUserDeletedHandler
+    arguments: ["@User.DeleteUserOnUserDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
