@@ -50,6 +50,9 @@ export class SpacesGetController implements Controller {
             isLocked: true
           }
 
+          console.log(await this.checkAccessibility(space.accessibility as AllowedAccessibilities, space.id, userId, space.communityId))
+          console.log(userId, space.communityId)
+
           if (await this.checkAccessibility(space.accessibility as AllowedAccessibilities, space.id, userId, space.communityId)) spacesToReturn.push(space)
           else spacesToReturn.push(response)
         }
@@ -88,6 +91,8 @@ export class SpacesGetController implements Controller {
       if (!this.user) {
         this.user = await this.getUser(userId, communityId)
       }
+
+      console.log(this.user)
 
       if (!this.user) return false
 
