@@ -1,9 +1,9 @@
-import { Space } from '@Posts/Space/domain/Space'
-import { SpaceRepository } from '@Posts/Space/domain/SpaceRepository'
+import { Space } from '@Threads/Space/domain/Space'
+import { SpaceRepository } from '@Threads/Space/domain/SpaceRepository'
 import { TypeOrmRepository } from '@Shared/infrastructure/persistence/typeorm/TypeOrmRepository'
 import { EntitySchema, Equal } from 'typeorm'
 import { SpaceSchema } from './entity/SpaceSchema'
-import { Id } from '@Posts/Space/domain/ValueObjects/Id'
+import { Id } from '@Threads/Space/domain/ValueObjects/Id'
 import { Nullable } from '@Shared/domain/Nullable'
 import { Criteria } from '@Shared/domain/Criteria/Criteria'
 

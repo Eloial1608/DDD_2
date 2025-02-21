@@ -1,11 +1,11 @@
-import { Space } from '@Posts/Space/domain/Space'
-import { Id } from '@Posts/Space/domain/ValueObjects/Id'
+import { Space } from '@Threads/Space/domain/Space'
+import { Id } from '@Threads/Space/domain/ValueObjects/Id'
 import { ValueObjectTransformer } from '@Shared/domain/ValueObjects/ValueObjectTransformer'
 import { EntitySchema } from 'typeorm'
-import { Accessibility } from '@Posts/Space/domain/ValueObjects/Accessibility'
-import { Type } from '@Posts/Space/domain/ValueObjects/Type'
-import { CommunityId } from '@Posts/Space/domain/ValueObjects/CommunityId'
-import { Configuration } from '@Posts/Space/domain/ValueObjects/Configuration'
+import { Accessibility } from '@Threads/Space/domain/ValueObjects/Accessibility'
+import { Type } from '@Threads/Space/domain/ValueObjects/Type'
+import { CommunityId } from '@Threads/Space/domain/ValueObjects/CommunityId'
+import { Configuration } from '@Threads/Space/domain/ValueObjects/Configuration'
 
 export const SpaceSchema = new EntitySchema<Space>({
   name: 'Space',
