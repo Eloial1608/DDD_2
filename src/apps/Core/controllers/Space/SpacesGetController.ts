@@ -22,6 +22,7 @@ export class SpacesGetController implements Controller {
 
   async run (req: Request, res: Response): Promise<Response> {
     try {
+      this.user = undefined
       let userId: string | undefined
       let criteria = buildCriteriaFromUri(req.query.criteria as string)
 
@@ -88,6 +89,8 @@ export class SpacesGetController implements Controller {
       if (!this.user) {
         this.user = await this.getUser(userId, communityId)
       }
+
+      console.log(this.user)
 
       if (!this.user) return false
 
