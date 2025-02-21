@@ -63,7 +63,7 @@ services:
   
   StripeSession.Create.Creator:
     class: src/Contexts/Stripe/StripeSession/application/Create/Creator
-    arguments: ['@StripeAccount.Repository', '@StripeSession.HttpStripeRepository', '@Shared.QueryBus', '@Shared.EventBus']
+    arguments: ['@StripeSession.Repository', '@StripeSession.HttpStripeRepository', '@Shared.QueryBus', '@Shared.EventBus']
   
   StripeAccount.Create.CreateStripeSessionCommandHandler:
     class: src/Contexts/Stripe/StripeSession/application/Create/CreateStripeSessionCommandHandler
