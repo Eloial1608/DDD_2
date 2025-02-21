@@ -29,6 +29,7 @@ export class HttpStripeProductRepository implements StripeHttpProductRepository 
     const price = await client.prices.create({
       unit_amount: Number(product.price!.valueOf()),
       currency: 'EUR',
+      product: product.id.valueOf(),
       recurring: product.renovationInterval?.valueOf() && product.renovationType?.valueOf()
         ? {
             interval: product.renovationType.valueOf() as any,
