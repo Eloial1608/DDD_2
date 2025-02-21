@@ -90,8 +90,6 @@ export class SpacesGetController implements Controller {
         this.user = await this.getUser(userId, communityId)
       }
 
-      console.log(this.user)
-
       if (!this.user) return false
 
       if (this.user.isAdmin || this.user.isOwner) return true
