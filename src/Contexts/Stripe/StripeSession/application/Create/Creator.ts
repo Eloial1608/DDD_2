@@ -55,7 +55,7 @@ export class Creator {
       params.id,
       params.accountId,
       new StripeId(externalSession.id),
-      new Url(externalSession.url.replaceAll('"', '')),
+      new Url(externalSession.url),
       new Product(
         product.id.valueOf(),
         product.productType.valueOf(),
