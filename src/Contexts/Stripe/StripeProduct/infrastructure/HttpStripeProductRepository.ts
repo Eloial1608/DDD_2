@@ -1,9 +1,8 @@
 import Stripe from 'stripe'
-import { StripeHttpProductRepository } from '../domain/StripeHttpProductRepository'
-import { StripeProduct } from '../domain/StripeProduct'
+import { Params, StripeHttpProductRepository } from '../domain/StripeHttpProductRepository'
 
 export class HttpStripeProductRepository implements StripeHttpProductRepository {
-  async create (apiKey: string, product: Partial<StripeProduct>): Promise<string> {
+  async create (apiKey: string, product: Params): Promise<string> {
     const client = new Stripe(apiKey)
 
     const p = await client.products.create({
