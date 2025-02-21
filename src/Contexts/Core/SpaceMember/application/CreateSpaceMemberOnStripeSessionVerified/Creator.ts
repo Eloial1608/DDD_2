@@ -65,7 +65,7 @@ export class Creator {
   private async getUser (userId: UserId, communityId: string) {
     const query = new FindUsersByCriteriaQuery([
       new Map<string, string>([
-        ['field', 'userId'],
+        ['field', 'id'],
         ['operator', '='],
         ['value', userId.valueOf()]
       ]),
