@@ -3,6 +3,7 @@ import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { FindStripeAccountByIdQuery } from '@Stripe/StripeAccount/application/FindById/FindStripeAccountByIdQuery'
 import { StripeAccountResponse } from '@Stripe/StripeAccount/application/StripeAccountResponse'
 import { StripeHttpProductRepository } from '@Stripe/StripeProduct/domain/StripeHttpProductRepository'
+import { StripeProduct } from '@Stripe/StripeProduct/domain/StripeProduct'
 import { StripeProductRepository } from '@Stripe/StripeProduct/domain/StripeProductRepository'
 import { AccountId } from '@Stripe/StripeProduct/domain/ValueObjects/AccountId'
 import { Id } from '@Stripe/StripeProduct/domain/ValueObjects/Id'
@@ -30,9 +31,21 @@ export class Updater {
   ) {}
 
   async run (params: Params) {
-    const product = await this.repository.find(params.id)
+    let product = await this.repository.find(params.id)
 
-    if (!product) return
+    if (!product) {
+      product = StripeProduct.create(
+        params.id,
+        params.name,
+        params.accountId,
+        params.productType,
+        params.productId,
+        params.price,
+        new PriceId('placeholder'),
+        undefined,
+        undefined
+      )
+    }
 
     const account = await this.getAccountById(params.accountId)
 
