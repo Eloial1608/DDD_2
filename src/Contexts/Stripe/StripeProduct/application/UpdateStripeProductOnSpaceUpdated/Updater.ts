@@ -39,7 +39,7 @@ export class Updater {
     let productToPersist
 
     if (!product) {
-      const price = await this.httpRepository.update(account.apiKey, {
+      const price = await this.httpRepository.create(account.apiKey, {
         id: params.id,
         name: params.name,
         price: params.price,
