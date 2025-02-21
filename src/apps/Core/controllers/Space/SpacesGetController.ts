@@ -22,6 +22,7 @@ export class SpacesGetController implements Controller {
 
   async run (req: Request, res: Response): Promise<Response> {
     try {
+      this.user = undefined
       let userId: string | undefined
       let criteria = buildCriteriaFromUri(req.query.criteria as string)
 
@@ -49,9 +50,6 @@ export class SpacesGetController implements Controller {
             ...space,
             isLocked: true
           }
-
-          console.log(await this.checkAccessibility(space.accessibility as AllowedAccessibilities, space.id, userId, space.communityId))
-          console.log(userId, space.communityId)
 
           if (await this.checkAccessibility(space.accessibility as AllowedAccessibilities, space.id, userId, space.communityId)) spacesToReturn.push(space)
           else spacesToReturn.push(response)
