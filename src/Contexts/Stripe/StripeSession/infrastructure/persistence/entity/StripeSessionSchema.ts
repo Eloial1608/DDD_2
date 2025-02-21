@@ -2,6 +2,7 @@ import { ValueObjectTransformer } from '@Shared/domain/ValueObjects/ValueObjectT
 import { StripeSession } from '@Stripe/StripeSession/domain/StripeSession'
 import { AccountId } from '@Stripe/StripeSession/domain/ValueObjects/AccountId'
 import { Completed } from '@Stripe/StripeSession/domain/ValueObjects/Completed'
+import { CustomerId } from '@Stripe/StripeSession/domain/ValueObjects/CustomerId'
 import { FailUrl } from '@Stripe/StripeSession/domain/ValueObjects/FailUrl'
 import { Id } from '@Stripe/StripeSession/domain/ValueObjects/Id'
 import { Price } from '@Stripe/StripeSession/domain/ValueObjects/Price'
@@ -56,6 +57,10 @@ export const StripeSessionSchema = new EntitySchema<StripeSession>({
     url: {
       type: String,
       transformer: ValueObjectTransformer(Url)
+    },
+    customerId: {
+      type: String,
+      transformer: ValueObjectTransformer(CustomerId)
     },
     accountId: {
       type: String,
