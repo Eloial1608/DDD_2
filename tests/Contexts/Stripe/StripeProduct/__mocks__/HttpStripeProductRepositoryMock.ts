@@ -4,4 +4,8 @@ export class HttpStripeProductRepositoryMock implements StripeHttpProductReposit
   async create (apiKey: string, product: Params): Promise<string> {
     return 'paymentId'
   }
+
+  async update (apiKey: string, product: Params): Promise<string> {
+    return 'paymentId'
+  }
 }
