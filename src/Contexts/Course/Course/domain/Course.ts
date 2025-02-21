@@ -105,7 +105,7 @@ export class Course extends AggregateRoot {
     )
 
     course.record(CourseDeletedDomainEvent.fromAggregate(course))
-    
+
     return course
   }
 
