@@ -658,3 +658,13 @@ services:
     arguments: ["@Community.UpdateHasFormOnFormDeleted.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  SpaceMember.CreateSpaceMemberOnStripeSessionVerified.Creator:
+    class: src/Contexts/Core/SpaceMember/application/CreateSpaceMemberOnStripeSessionVerified/Creator
+    arguments: ["@SpaceMember.Repository", '@Shared.QueryBus', "@Shared.EventBus"]
+
+  SpaceMember.CreateSpaceMemberOnStripeSessionVerified.CreateSpaceMemberOnStripeSessionVerifiedHandler:
+    class: src/Contexts/Core/SpaceMember/application/CreateSpaceMemberOnStripeSessionVerified/CreateSpaceMemberOnStripeSessionVerifiedHandler
+    arguments: ["@SpaceMember.CreateSpaceMemberOnStripeSessionVerified.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }

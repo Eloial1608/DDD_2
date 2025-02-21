@@ -25,7 +25,9 @@ export class Creator {
     invitedAt: Nullable<InvitedAt>,
     isModerator: IsModerator
   ) {
-    await this.getSpaceMember(userId, spaceId, communityId)
+    const existing = await this.getSpaceMember(userId, spaceId, communityId)
+
+    if (existing) return
 
     const spaceMember = SpaceMember.create(
       id,
