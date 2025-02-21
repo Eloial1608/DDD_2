@@ -90,3 +90,13 @@ services:
     arguments: ['@StripeSession.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+  
+  Stripe.CreateStripeProductOnSpaceCreated.Creator:
+    class: src/Contexts/Stripe/StripeProduct/application/CreateStripeProductOnSpaceCreated/Creator
+    arguments: ["@StripeProduct.Repository", "@StripeProduct.HttpStripeRepository", "@Shared.QueryBus", "@Shared.EventBus"]
+
+  Stripe.CreateStripeProductOnSpaceCreated.CreateStripeProductOnSpaceCreatedHandler:
+    class: src/Contexts/Stripe/StripeProduct/application/CreateStripeProductOnSpaceCreated/CreateStripeProductOnSpaceCreatedHandler
+    arguments: ["@Stripe.CreateStripeProductOnSpaceCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
