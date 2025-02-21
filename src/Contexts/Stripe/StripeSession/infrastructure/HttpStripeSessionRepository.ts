@@ -26,7 +26,7 @@ export class HttpStripeSessionRepository implements StripeHttpSessionRepository 
   async verify (apiKey: string, session: StripeSession): Promise<boolean> {
     const client = new Stripe(apiKey)
 
-    const s = await client.checkout.sessions.retrieve(session.id.valueOf())
+    const s = await client.checkout.sessions.retrieve(session.stripeId.valueOf())
 
     return s.payment_status !== 'unpaid'
   }
