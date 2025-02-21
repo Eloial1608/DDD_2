@@ -31,47 +31,56 @@ export class Updater {
   ) {}
 
   async run (params: Params) {
-    let product = await this.repository.find(params.id)
+    const account = await this.getAccountById(params.accountId)
+
+    if (!account) return
+
+    const product = await this.repository.find(params.id)
+    let productToPersist
 
     if (!product) {
-      product = StripeProduct.create(
+      const price = await this.httpRepository.update(account.apiKey, {
+        id: params.id,
+        name: params.name,
+        price: params.price,
+        renovationInterval: undefined,
+        renovationType: undefined
+      })
+
+      productToPersist = StripeProduct.create(
         params.id,
         params.name,
         params.accountId,
         params.productType,
         params.productId,
         params.price,
-        new PriceId('placeholder'),
+        new PriceId(price),
+        undefined,
+        undefined
+      )
+    } else {
+      const price = await this.httpRepository.update(account.apiKey, {
+        id: params.id,
+        name: params.name,
+        price: params.price,
+        renovationInterval: undefined,
+        renovationType: undefined
+      })
+
+      productToPersist = product.update(
+        params.name,
+        params.accountId,
+        params.productType,
+        params.productId,
+        params.price,
+        new PriceId(price),
         undefined,
         undefined
       )
     }
 
-    const account = await this.getAccountById(params.accountId)
-
-    if (!account) return
-
-    const price = await this.httpRepository.update(account.apiKey, {
-      id: params.id,
-      name: params.name,
-      price: params.price,
-      renovationInterval: undefined,
-      renovationType: undefined
-    })
-
-    const updatedProduct = product.update(
-      params.name,
-      params.accountId,
-      params.productType,
-      params.productId,
-      params.price,
-      new PriceId(price),
-      undefined,
-      undefined
-    )
-
-    await this.repository.persist(updatedProduct)
-    await this.eventBus.publish(updatedProduct.pullDomainEvents())
+    await this.repository.persist(productToPersist)
+    await this.eventBus.publish(productToPersist.pullDomainEvents())
   }
 
   async getAccountById (id: AccountId) {
