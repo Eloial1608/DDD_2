@@ -100,3 +100,13 @@ services:
     arguments: ["@Stripe.CreateStripeProductOnSpaceCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  Stripe.UpdateStripeProductOnSpaceUpdated.Updater:
+    class: src/Contexts/Stripe/StripeProduct/application/UpdateStripeProductOnSpaceUpdated/Updater
+    arguments: ["@StripeProduct.Repository", "@StripeProduct.HttpStripeRepository", "@Shared.QueryBus", "@Shared.EventBus"]
+
+  Stripe.UpdateStripeProductOnSpaceUpdated.UpdateStripeProductOnSpaceUpdatedHandler:
+    class: src/Contexts/Stripe/StripeProduct/application/UpdateStripeProductOnSpaceUpdated/UpdateStripeProductOnSpaceUpdatedHandler
+    arguments: ["@Stripe.UpdateStripeProductOnSpaceUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }

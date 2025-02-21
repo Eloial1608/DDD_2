@@ -14,4 +14,5 @@ export type Params = {
 }
 export interface StripeHttpProductRepository {
     create (apiKey: string, product: Params): Promise<string>
+    update (apiKey: string, product: Params): Promise<string>
 }
