@@ -171,8 +171,6 @@ export class AWSEventBus implements EventBus {
       }
       const data = await this.sqsClient.send(new ReceiveMessageCommand(paramsReceiveMessage))
 
-      console.log(data?.Messages, queueUrl)
-
       await Promise.all((data?.Messages ?? []).map((msg: any) => this.consumeMessage(msg, queueUrl)))
     }
   }

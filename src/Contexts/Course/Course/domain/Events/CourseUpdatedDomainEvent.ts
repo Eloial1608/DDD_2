@@ -34,7 +34,7 @@ export class CourseUpdatedDomainEvent extends DomainEvent {
       id: course.id.valueOf(),
       communityId: course.communityId.valueOf(),
       userId: course.userId.valueOf(),
-      spaceId: course.spaceId.valueOf(),
+      spaceId: course.spaceId.valueOf()
     })
   }
 

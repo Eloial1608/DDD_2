@@ -21,6 +21,7 @@ export class VerifyStripeSessionPostController implements Controller {
 
       return res.status(204).send()
     } catch (e) {
+      console.log(e)
       if (e instanceof CannotDecode) return res.status(401).json({ message: e.getMessage() })
       if (e instanceof StripeAccountNotFound) return res.status(404).json({ message: e.getMessage() })
       if (e instanceof StripeSessionNotFound) return res.status(404).json({ message: e.getMessage() })
