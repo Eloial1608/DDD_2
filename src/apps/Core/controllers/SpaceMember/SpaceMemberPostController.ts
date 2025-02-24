@@ -40,7 +40,7 @@ export class SpaceMemberPostController implements Controller {
 
       const command = new CreateSpaceMemberCommand(
         req.params.id,
-        user.id,
+        (!user.isAdmin && !user.isOwner) ? user.id : (req.body.userId ?? data.id),
         space.id,
         req.body.communityId,
         req.body.isModerator,
