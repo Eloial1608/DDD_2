@@ -2,12 +2,14 @@ import { ValueObjectTransformer } from '@Shared/domain/ValueObjects/ValueObjectT
 import { StripeSession } from '@Stripe/StripeSession/domain/StripeSession'
 import { AccountId } from '@Stripe/StripeSession/domain/ValueObjects/AccountId'
 import { Completed } from '@Stripe/StripeSession/domain/ValueObjects/Completed'
+import { CustomerId } from '@Stripe/StripeSession/domain/ValueObjects/CustomerId'
 import { FailUrl } from '@Stripe/StripeSession/domain/ValueObjects/FailUrl'
 import { Id } from '@Stripe/StripeSession/domain/ValueObjects/Id'
 import { Price } from '@Stripe/StripeSession/domain/ValueObjects/Price'
 import { Product } from '@Stripe/StripeSession/domain/ValueObjects/Product'
 import { StripeId } from '@Stripe/StripeSession/domain/ValueObjects/StripeId'
 import { SuccessUrl } from '@Stripe/StripeSession/domain/ValueObjects/SuccessUrl'
+import { Url } from '@Stripe/StripeSession/domain/ValueObjects/Url'
 import { EntitySchema } from 'typeorm'
 
 const ProductSchema = new EntitySchema<Product>({
@@ -53,7 +55,12 @@ export const StripeSessionSchema = new EntitySchema<StripeSession>({
       transformer: ValueObjectTransformer(StripeId)
     },
     url: {
-      type: String
+      type: String,
+      transformer: ValueObjectTransformer(Url)
+    },
+    customerId: {
+      type: String,
+      transformer: ValueObjectTransformer(CustomerId)
     },
     accountId: {
       type: String,

@@ -22,6 +22,7 @@ export class SpacesGetController implements Controller {
 
   async run (req: Request, res: Response): Promise<Response> {
     try {
+      this.user = undefined
       let userId: string | undefined
       let criteria = buildCriteriaFromUri(req.query.criteria as string)
 

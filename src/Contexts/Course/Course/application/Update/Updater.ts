@@ -27,7 +27,6 @@ export class Updater {
   async run (
     id: Id,
     communityId: CommunityId,
-    spaceId: SpaceId,
     userId: UserId,
     title: Title,
     bannerUrl: Nullable<BannerUrl>,
@@ -53,7 +52,7 @@ export class Updater {
 
     if (!user) throw new NotAllowedToPersistCourse(course.id)
 
-    const space = await this.findSpaceById(spaceId)
+    const space = await this.findSpaceById(course.spaceId)
 
     if (space.communityId.valueOf() !== communityId.valueOf()) throw new NotAllowedToPersistCourse(course.id)
 

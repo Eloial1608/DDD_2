@@ -13,7 +13,6 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
 
-
    User.Repository:
     class: src/Contexts/Threads/User/infrastructure/persistence/TypeOrmUserRepository
     arguments: ["@Shared.ORM.Connection"]
@@ -48,3 +47,26 @@ services:
     tags:
       - { name: "queryHandler" }
 
+   User.DeleteUserOnUserDeleted.Deleter:
+    class: src/Contexts/Threads/User/application/DeleteUserOnUserDeleted/Deleter
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+   User.DeleteUserOnUserDeleted.DeleteUserOnUserDeletedHandler:
+    class: src/Contexts/Threads/User/application/DeleteUserOnUserDeleted/DeleteUserOnUserDeletedHandler
+    arguments: ["@User.DeleteUserOnUserDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+      
+   User.CreateUserOnUserCreated.Creator:
+    class: src/Contexts/Threads/User/application/CreateUserOnUserCreated/Creator
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+   User.CreateUserOnUserCreated.CreateUserOnUserCreatedHandler:
+    class: src/Contexts/Threads/User/application/CreateUserOnUserCreated/CreateUserOnUserCreatedHandler
+    arguments: ["@User.CreateUserOnUserCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+   Space.Repository:
+    class: src/Contexts/Threads/Space/infrastructure/persistence/TypeOrmSpaceRepository
+    arguments: ["@Shared.ORM.Connection"]
