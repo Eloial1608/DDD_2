@@ -163,7 +163,7 @@ export class User extends AggregateRoot {
       this.totalThreadResponses,
       this.communityId,
       this.createdAt,
-      this.updatedAt,
+      new UpdatedAt(new Date()),
       this.deletedAt
     )
 
