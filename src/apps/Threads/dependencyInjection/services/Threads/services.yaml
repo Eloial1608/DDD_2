@@ -37,6 +37,16 @@ services:
     tags:
       - { name: "queryHandler" }
 
+   User.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Threads/User/application/FindByCriteria/FinderByCriteria
+    arguments: ['@User.Repository']
+  
+   User.FindByCriteria.FindUsersByCriteriaQueryHandler:
+    class: src/Contexts/Threads/User/application/FindByCriteria/FindUsersByCriteriaQueryHandler
+    arguments: ['@User.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
    User.DeleteUserOnUserDeleted.Deleter:
     class: src/Contexts/Threads/User/application/DeleteUserOnUserDeleted/Deleter
     arguments: ['@User.Repository', '@Shared.EventBus']
