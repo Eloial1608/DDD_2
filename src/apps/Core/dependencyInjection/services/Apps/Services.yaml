@@ -156,7 +156,7 @@ services:
   
   Apps.Core.Controllers.MyselfPatchController:
     class: src/apps/Core/controllers/User/MyselfPatchController
-    arguments: ["@Shared.CommandBus", "@Shared.TokenDecoder"]
+    arguments: ["@Shared.CommandBus", "@Shared.TokenDecoder", "@Shared.QueryBus"]
   
   Apps.Core.Controllers.PlanForUsersGetController:
     class: src/apps/Core/controllers/PlanForUsers/PlanForUsersGetController
