@@ -16,6 +16,6 @@ export class CreateCourseCommand implements Command {
     }>,
     readonly startDate: Date,
     readonly endDate: Nullable<Date>,
-    readonly maxStudents: number
+    readonly maxStudents: Nullable<number>
   ) {}
 }

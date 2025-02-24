@@ -19,8 +19,8 @@ export class StripeProductMother {
       params.productId ?? new ProductId(UuidMother.random()),
       params.price ?? new Price('0'),
       params.priceId ?? new PriceId(UuidMother.random()),
-      params.renovationInterval ?? null,
-      params.renovationType ?? null
+      params.renovationInterval ?? undefined,
+      params.renovationType ?? undefined
     )
   }
 

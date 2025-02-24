@@ -22,6 +22,7 @@ export class SpacesGetController implements Controller {
 
   async run (req: Request, res: Response): Promise<Response> {
     try {
+      this.user = undefined
       let userId: string | undefined
       let criteria = buildCriteriaFromUri(req.query.criteria as string)
 
@@ -40,7 +41,21 @@ export class SpacesGetController implements Controller {
       const spacesToReturn = []
 
       for (const space of spaces) {
-        if (await this.checkAccessibility(space.accessibility as AllowedAccessibilities, space.id, userId, space.communityId)) spacesToReturn.push(space)
+        if (space.accessibility === AllowedAccessibilities.HIDDEN) {
+          if (await this.checkAccessibility(space.accessibility as AllowedAccessibilities, space.id, userId, space.communityId)) spacesToReturn.push(space)
+        }
+
+        if ([AllowedAccessibilities.PAYMENT, AllowedAccessibilities.PRIVATE].includes(space.accessibility as AllowedAccessibilities)) {
+          const response = {
+            ...space,
+            isLocked: true
+          }
+
+          if (await this.checkAccessibility(space.accessibility as AllowedAccessibilities, space.id, userId, space.communityId)) spacesToReturn.push(space)
+          else spacesToReturn.push(response)
+        }
+
+        if (space.accessibility === AllowedAccessibilities.PUBLIC) spacesToReturn.push(space)
       }
 
       return res.status(200).json(spacesToReturn)
@@ -55,13 +70,15 @@ export class SpacesGetController implements Controller {
 
   private addPublicCriteria () {
     return {
-      filters: [
-        new Map<string, string>([
-          ['field', 'accessibility'],
-          ['operator', '='],
-          ['value', AllowedAccessibilities.PUBLIC]
-        ])
-      ]
+      inFilters: [{
+        field: 'accessibility',
+        operator: 'IN',
+        values: [
+          AllowedAccessibilities.PUBLIC,
+          AllowedAccessibilities.PAYMENT,
+          AllowedAccessibilities.PRIVATE
+        ]
+      }]
     }
   }
 
@@ -104,7 +121,7 @@ export class SpacesGetController implements Controller {
       ])
     ])
 
-    return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response
+    return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response.pop()
   }
 
   private async getUser (id: string, communityId: string) {

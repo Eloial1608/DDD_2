@@ -3,6 +3,7 @@ import { PostsConfiguration } from './PostsConfiguration'
 import { AllowedTypes } from '../AllowedTypes'
 import { MediaConfiguration } from './MediaConfiguration'
 import { Configuration } from '@Core/Space/domain/ValueObjects/Configuration'
+import { ThreadsConfiguration } from './ThreadsConfiguration'
 
 export class ConfigurationFactory {
   static create (type: AllowedTypes, configuration: any) {
@@ -13,6 +14,8 @@ export class ConfigurationFactory {
         return new MediaConfiguration(configuration)
       case AllowedTypes.COURSES:
         return new MediaConfiguration(configuration)
+      case AllowedTypes.FORUM:
+        return new ThreadsConfiguration(configuration)
       case AllowedTypes.GROUP:
         return new Configuration(configuration)
       default:

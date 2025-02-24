@@ -47,3 +47,8 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
 
+   Space.Repository:
+    class: src/Contexts/Threads/Space/infrastructure/persistence/TypeOrmSpaceRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+

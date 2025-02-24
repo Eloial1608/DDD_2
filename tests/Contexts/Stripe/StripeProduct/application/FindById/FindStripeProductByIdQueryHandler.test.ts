@@ -17,23 +17,23 @@ describe('FindStripeProductByIdQueryHandler should', () => {
     handler = new FindStripeProductByIdQueryHandler(finder)
   })
 
-  test('Return a stripeproduct', async () => {
-    const stripeproduct = StripeProductMother.random()
+  test('Return a stripeProduct', async () => {
+    const stripeProduct = StripeProductMother.random()
 
-    repository.returnOnFind(stripeproduct)
+    repository.returnOnFind(stripeProduct)
 
-    const query = new FindStripeProductByIdQuery(stripeproduct.id.valueOf())
+    const query = new FindStripeProductByIdQuery(stripeProduct.id.valueOf())
 
     const response = await handler.handle(query)
 
-    repository.assertFindHasBeenCalledWith(stripeproduct.id)
-    expect(response).toEqual(new StripeProductResponse(stripeproduct))
+    repository.assertFindHasBeenCalledWith(stripeProduct.id)
+    expect(response).toEqual(new StripeProductResponse(stripeProduct))
   })
 
-  test('Fail if a stripeproduct doesnt exists', async () => {
-    const stripeproduct = StripeProductMother.random()
+  test('Fail if a stripeProduct doesnt exists', async () => {
+    const stripeProduct = StripeProductMother.random()
 
-    const query = new FindStripeProductByIdQuery(stripeproduct.id.valueOf())
+    const query = new FindStripeProductByIdQuery(stripeProduct.id.valueOf())
 
     expect(handler.handle(query)).rejects.toThrowError(StripeProductNotFound)
   })

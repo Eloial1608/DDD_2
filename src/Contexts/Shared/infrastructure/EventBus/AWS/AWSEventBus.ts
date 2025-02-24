@@ -81,6 +81,8 @@ export class AWSEventBus implements EventBus {
         }
 
         await this.snsClient.send(new PublishCommand(publishCommandInput))
+
+        console.log(`Published event ${evt.eventName}`)
       })
     )
   }
@@ -175,6 +177,9 @@ export class AWSEventBus implements EventBus {
 
   private async consumeMessage (message: Message, queueUrl: string) {
     const event = this.deserializer!.deserialize(message.Body!.toString())
+
+    console.log('Consuming event')
+
     if (!event) return
 
     if (event.eventName === 'app.tacter.tacter.guide.v1.last-thirty-days-views-updated') {

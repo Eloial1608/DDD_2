@@ -9,6 +9,9 @@ on:
       TAG:
         required: true
         type: string
+    secrets:
+      SSH_PASS:
+        required: true
 
 jobs:
   deploy:
@@ -24,25 +27,22 @@ jobs:
     - name: 📂 Subir código y actualizar en Hetzner
       run: |
 
-        echo "${{ secrets.HETZNER_SSH_PASSWORD }}"
+        echo "${{ secrets.SSH_PASS }}"
 
-        sshpass -p "${{ secrets.HETZNER_SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@188.34.176.173 << 'EOF'
+        sshpass -p "${{ secrets.SSH_PASS }}" ssh -o StrictHostKeyChecking=no root@188.34.176.173 << 'EOF'
           set -e  # Hace que el script falle si algún comando falla
 
           echo "📂 Cambiando a directorio de despliegue"
           cd /root/Quid-backend-r
           
           echo "⬇️ Haciendo pull del código"
-          git pull origin main
+          git pull
 
           echo "💾 Guardando versiones actuales de las imágenes"
           docker images --format "{{.Repository}}:{{.Tag}}" > /tmp/previous_images.txt
 
-          echo "📦 Descargando nuevas imágenes"
-          docker-compose pull
-
           echo "🚀 Iniciando nuevos servicios"
-          docker-compose up -d --remove-orphans
+          docker-compose up -d --remove-orphans --build
 
           echo "⏳ Esperando 10 segundos para verificar servicios"
           sleep 10
