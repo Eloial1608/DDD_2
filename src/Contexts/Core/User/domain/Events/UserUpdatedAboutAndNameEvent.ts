@@ -6,6 +6,9 @@ type UserUpdatedAboutAndNameDomainEventBody = {
     readonly id: string
     readonly about: Nullable<string>
     readonly name: string
+    readonly username: string
+    readonly pictureUrl: Nullable<string>
+    readonly bannerUrl: Nullable<string>
 }
 
 export class UserUpdatedAboutAndNameDomainEvent extends DomainEvent {
@@ -14,6 +17,9 @@ export class UserUpdatedAboutAndNameDomainEvent extends DomainEvent {
   readonly id: string
   readonly about: Nullable<string>
   readonly name: string
+  readonly username: string
+  readonly pictureUrl: Nullable<string>
+  readonly bannerUrl: Nullable<string>
 
   static {
     DomainEvent.derived.add(UserUpdatedAboutAndNameDomainEvent.EVENT_NAME)
@@ -24,13 +30,19 @@ export class UserUpdatedAboutAndNameDomainEvent extends DomainEvent {
     this.id = params.id
     this.about = params.about
     this.name = params.name
+    this.username = params.username
+    this.pictureUrl = params.pictureUrl
+    this.bannerUrl = params.bannerUrl
   }
 
   static fromAggregate (user:User): UserUpdatedAboutAndNameDomainEvent {
     return new UserUpdatedAboutAndNameDomainEvent({
       id: user.id.valueOf(),
       about: user.about?.valueOf(),
-      name: user.name.valueOf()
+      name: user.name.valueOf(),
+      username: user.username.valueOf(),
+      pictureUrl: user.pictureUrl?.valueOf(),
+      bannerUrl: user.bannerUrl?.valueOf()
     })
   }
 
