@@ -23,14 +23,29 @@ export class SpaceBySlugGetController implements Controller {
 
       if (!space) return res.status(404).send()
 
-      if (space.accessibility !== AllowedAccessibilities.PUBLIC) {
-        if (!req.headers.authorization) return res.status(401).send()
+      if (space.accessibility === AllowedAccessibilities.HIDDEN) {
+        if (!req.headers.authorization) return res.status(404).send()
 
         const tokenData = this.decoder.run(req.headers.authorization)
 
         if (tokenData.communityId !== space.communityId) return res.status(404).send()
 
-        if (!this.checkAccessibility(tokenData.id, space.communityId, space.id)) return res.status(401).send()
+        if (!this.checkAccessibility(tokenData.id, space.communityId, space.id)) return res.status(404).send()
+      }
+
+      if ([AllowedAccessibilities.PAYMENT, AllowedAccessibilities.PRIVATE].includes(space.accessibility as AllowedAccessibilities)) {
+        const response = {
+          ...space,
+          isLocked: true
+        }
+
+        if (!req.headers.authorization) return res.status(200).json(response)
+
+        const tokenData = this.decoder.run(req.headers.authorization)
+
+        if (tokenData.communityId !== space.communityId) return res.status(200).json(response)
+
+        if (!this.checkAccessibility(tokenData.id, space.communityId, space.id)) return res.status(200).json(response)
       }
 
       return res.status(200).json(space)
@@ -75,7 +90,7 @@ export class SpaceBySlugGetController implements Controller {
       ])
     ])
 
-    return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response
+    return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response.pop()
   }
 
   private async getSpaceBySlug (slug: string) {

@@ -213,6 +213,16 @@ services:
     tags:
       - { name: "queryHandler" }
 
+  Course.Delete.Deleter:
+    class: src/Contexts/Course/Course/application/Delete/Deleter
+    arguments: ['@Course.Repository', '@Shared.EventBus']
+  
+  Course.Delete.DeleterCourseCommandHandler:
+    class: src/Contexts/Course/Course/application/Delete/DeleterCourseCommandHandler
+    arguments: ["@Course.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
   Course.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Course/Course/application/FindByCriteria/FinderByCriteria
     arguments: ['@Course.Repository']

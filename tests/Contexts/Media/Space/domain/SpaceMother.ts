@@ -7,6 +7,7 @@ import { AllowedTypes } from '@Shared/domain/SharedValueObjects/Space/AllowedTyp
 import { ConfigurationFactory } from '@Shared/domain/SharedValueObjects/Space/Configuration/ConfigurationFactory'
 import { AllowedAccessibilities } from '@Shared/domain/SharedValueObjects/Space/SharedAccessibility'
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
+import { Configuration } from '@Media/Space/domain/ValueObjects/Configuration'
 
 export class SpaceMother {
   static create (params: Partial<Space>): Space {
@@ -14,7 +15,7 @@ export class SpaceMother {
       params.id ?? new Id(UuidMother.random()),
       params.communityId ?? new CommunityId(UuidMother.random()),
       params.accessibility ?? new Accessibility(AllowedAccessibilities.PUBLIC),
-      params.configuration ?? ConfigurationFactory.create(AllowedTypes.MEDIA, {}),
+      (params.configuration ?? ConfigurationFactory.create(AllowedTypes.MEDIA, {})) as Configuration,
       params.type ?? new Type(AllowedTypes.MEDIA)
     )
   }
