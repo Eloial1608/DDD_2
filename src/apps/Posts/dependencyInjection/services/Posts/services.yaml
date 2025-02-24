@@ -95,6 +95,26 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
   
+  User.UpdateUserOnUserUpdated.Updater:
+    class: src/Contexts/Posts/User/application/UpdateUserOnUserUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.UpdateUserOnUserUpdated.UpdateUserOnUserUpdatedHandler:
+    class: src/Contexts/Posts/User/application/UpdateUserOnUserUpdated/UpdateUserOnUserUpdatedHandler
+    arguments: ["@User.UpdateUserOnUserUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater:
+    class: src/Contexts/Posts/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.UpdateUserIsAdminOnUserIsAdminUpdated.UpdateUserIsAdminOnUserIsAdminUpdatedHandler:
+    class: src/Contexts/Posts/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/UpdateUserIsAdminOnUserIsAdminUpdatedHandler
+    arguments: ["@User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
   User.DeleteUserOnUserDeleted.Deleter:
     class: src/Contexts/Posts/User/application/DeleteUserOnUserDeleted/Deleter
     arguments: ['@User.Repository', '@Shared.EventBus']
