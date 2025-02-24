@@ -380,3 +380,13 @@ services:
     arguments: ["@Post.UpdatePostOnCommentCreated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  Post.UpdatePostOnUserUpdated.Updater:
+    class: src/Contexts/Posts/Post/application/UpdatePostOnUserUpdated/Updater
+    arguments: ['@Post.Repository', '@Shared.EventBus']
+  
+  Post.UpdatePostOnUserUpdated.UpdatePostOnUserUpdatedHandler:
+    class: src/Contexts/Posts/Post/application/UpdatePostOnUserUpdated/UpdatePostOnUserUpdatedHandler
+    arguments: ["@Post.UpdatePostOnUserUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
