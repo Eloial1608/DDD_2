@@ -5,7 +5,6 @@ export class UpdateCourseCommand implements Command {
   constructor (
         readonly id: string,
         readonly communityId: string,
-        readonly spaceId: string,
         readonly userId: string,
         readonly title: string,
         readonly bannerUrl: Nullable<string>,
