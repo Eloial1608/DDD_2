@@ -1,8 +1,8 @@
-import { SpaceMember } from '@Media/SpaceMember/domain/SpaceMember'
-import { Id } from '@Media/SpaceMember/domain/ValueObjects/Id'
-import { IsModerator } from '@Media/SpaceMember/domain/ValueObjects/IsModerator'
-import { SpaceId } from '@Media/SpaceMember/domain/ValueObjects/SpaceId'
-import { UserId } from '@Media/SpaceMember/domain/ValueObjects/UserId'
+import { SpaceMember } from '@Threads/SpaceMember/domain/SpaceMember'
+import { Id } from '@Threads/SpaceMember/domain/ValueObjects/Id'
+import { IsModerator } from '@Threads/SpaceMember/domain/ValueObjects/IsModerator'
+import { SpaceId } from '@Threads/SpaceMember/domain/ValueObjects/SpaceId'
+import { UserId } from '@Threads/SpaceMember/domain/ValueObjects/UserId'
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
 
 export class SpaceMemberMother {
