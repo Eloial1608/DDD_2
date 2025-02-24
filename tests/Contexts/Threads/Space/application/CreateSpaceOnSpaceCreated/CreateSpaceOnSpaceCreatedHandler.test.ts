@@ -45,7 +45,7 @@ describe('CreateSpaceOnSpaceCreatedHandler should ', () => {
 
   test('Dont do anything if the space type is not correct', async () => {
     const coreSpace = CoreSpaceMother.create({
-      type: new Type(AllowedTypes.FORUM)
+      type: new Type(AllowedTypes.POST)
     })
 
     const event = CoreSpaceCreatedDomainEvent.fromAggregate(coreSpace)
