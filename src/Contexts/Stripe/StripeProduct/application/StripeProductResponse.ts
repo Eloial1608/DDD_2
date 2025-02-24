@@ -15,15 +15,15 @@ export type StripeProductResponseBody = {
 export class StripeProductResponse implements QueryResponse<StripeProductResponseBody> {
   response: StripeProductResponseBody
 
-  constructor (stripeproduct: StripeProduct) {
+  constructor (stripeProduct: StripeProduct) {
     this.response = {
-      id: stripeproduct.id.valueOf(),
-      name: stripeproduct.name.valueOf(),
-      price: stripeproduct.price.valueOf(),
-      productType: stripeproduct.productType.valueOf(),
-      priceId: stripeproduct.priceId.valueOf(),
-      renovationInterval: stripeproduct.renovationInterval?.valueOf(),
-      renovationType: stripeproduct.renovationType?.valueOf()
+      id: stripeProduct.id.valueOf(),
+      name: stripeProduct.name.valueOf(),
+      price: stripeProduct.price.valueOf(),
+      productType: stripeProduct.productType.valueOf(),
+      priceId: stripeProduct.priceId.valueOf(),
+      renovationInterval: stripeProduct.renovationInterval?.valueOf(),
+      renovationType: stripeProduct.renovationType?.valueOf()
     }
   }
 }

@@ -1,6 +1,7 @@
 import { Space } from '@Core/Space/domain/Space'
 import { Accessibility } from '@Core/Space/domain/ValueObjects/Accessibility'
 import { CommunityId } from '@Core/Space/domain/ValueObjects/CommunityId'
+import { Configuration } from '@Core/Space/domain/ValueObjects/Configuration'
 import { CreatedAt } from '@Core/Space/domain/ValueObjects/CreatedAt'
 import { CreatedBy } from '@Core/Space/domain/ValueObjects/CreatedBy'
 import { Id } from '@Core/Space/domain/ValueObjects/Id'
@@ -26,7 +27,7 @@ export class SpaceMother {
       params.totalMembers ?? new TotalMembers(0),
       params.icon ?? null,
       params.createdBy ?? new CreatedBy(UuidMother.random()),
-      params.configuration ?? ConfigurationFactory.create(AllowedTypes.POST, {}),
+      params.configuration ?? ConfigurationFactory.create(AllowedTypes.POST, {}) as Configuration,
       params.accessibility ?? new Accessibility(AllowedAccessibilities.PUBLIC),
       params.headerUrl ?? null,
       params.type ?? new Type(AllowedTypes.POST),

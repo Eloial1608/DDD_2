@@ -47,10 +47,12 @@ export const StripeProductSchema = new EntitySchema<StripeProduct>({
     },
     renovationInterval: {
       type: Number,
+      nullable: true,
       transformer: ValueObjectTransformer(RenovationInterval)
     },
     renovationType: {
       type: String,
+      nullable: true,
       transformer: ValueObjectTransformer(RenovationType)
     }
   }
