@@ -4,7 +4,6 @@ import { Command } from '@Shared/domain/CommandBus/Command'
 import { UpdateCourseCommand } from './UpdateCourseCommand'
 import { Id } from '@Course/Course/domain/ValueObjects/Id'
 import { CommunityId } from '@Course/Course/domain/ValueObjects/CommunityId'
-import { SpaceId } from '@Course/Course/domain/ValueObjects/SpaceId'
 import { UserId } from '@Course/Course/domain/ValueObjects/UserId'
 import { Title } from '@Course/Course/domain/ValueObjects/Title'
 import { BannerUrl } from '@Course/Course/domain/ValueObjects/BannerUrl'
@@ -25,7 +24,6 @@ export class UpdateCourseCommandHandler implements CommandHandler<UpdateCourseCo
     await this.updater.run(
       new Id(command.id),
       new CommunityId(command.communityId),
-      new SpaceId(command.spaceId),
       new UserId(command.userId),
       new Title(command.title),
       command.bannerUrl ? new BannerUrl(command.bannerUrl) : null,

@@ -6,7 +6,6 @@ export class UpdateCourseCommandMother {
   static update (
     id: string,
     communityId: string,
-    spaceId: string,
     userId: string,
     title: string,
     bannerUrl: Nullable<string>,
@@ -22,7 +21,6 @@ export class UpdateCourseCommandMother {
     return new UpdateCourseCommand(
       id,
       communityId,
-      spaceId,
       userId,
       title,
       bannerUrl,
@@ -38,7 +36,6 @@ export class UpdateCourseCommandMother {
     return this.update(
       course.id.valueOf(),
       course.communityId.valueOf(),
-      course.spaceId.valueOf(),
       course.userId.valueOf(),
       course.title.valueOf(),
       course.bannerUrl?.valueOf(),
