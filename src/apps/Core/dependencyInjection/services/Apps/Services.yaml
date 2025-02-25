@@ -154,6 +154,10 @@ services:
     class: src/apps/Core/controllers/User/UserPatchController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
   
+  Apps.Core.Controllers.UserRegisterDataPatchController:
+    class: src/apps/Core/controllers/User/UserRegisterDataPatchController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
   Apps.Core.Controllers.MyselfPatchController:
     class: src/apps/Core/controllers/User/MyselfPatchController
     arguments: ["@Shared.CommandBus", "@Shared.TokenDecoder", "@Shared.QueryBus"]

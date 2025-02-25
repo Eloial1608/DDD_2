@@ -18,8 +18,10 @@ export class Updater {
     mainId: MainId,
     communityId: CommunityId
   ) {
+    let offset = 0
+
     for (;;) {
-      const communities = await this.getCommunitiesByParentId(communityId, this.LIMIT)
+      const communities = await this.getCommunitiesByParentId(communityId, this.LIMIT, offset)
 
       for (const community of communities) {
         const user = await this.getUserByMainIdAndCommunityId(mainId, community.id)
@@ -33,11 +35,13 @@ export class Updater {
         await this.eventBus.publish(updatedUser.pullDomainEvents())
       }
 
+      offset += communities.length
+
       if (communities.length !== this.LIMIT) break
     }
   }
 
-  private async getCommunitiesByParentId (parentId: CommunityId, limit: number) {
+  private async getCommunitiesByParentId (parentId: CommunityId, limit: number, offset: number) {
     const query = new FindCommunitiesByCriteriaQuery(
       [
         new Map<string, string>([
@@ -49,7 +53,8 @@ export class Updater {
       undefined,
       undefined,
       undefined,
-      limit
+      limit,
+      offset
     )
 
     return (await this.queryBus.ask<CommunityCollectionResponse>(query)).response
