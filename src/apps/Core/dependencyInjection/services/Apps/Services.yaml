@@ -149,6 +149,10 @@ services:
   Apps.Core.Controllers.UserPlanGetController:
     class: src/apps/Core/controllers/UserPlan/UserPlanGetController
     arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+  
+  Apps.Core.Controllers.UserPlanByUserIdGetController:
+    class: src/apps/Core/controllers/UserPlan/UserPlanByUserIdGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
 
   Apps.Core.Controllers.UserPatchController:
     class: src/apps/Core/controllers/User/UserPatchController
