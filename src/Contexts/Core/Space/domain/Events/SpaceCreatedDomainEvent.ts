@@ -76,7 +76,7 @@ export class SpaceCreatedDomainEvent extends DomainEvent {
       createdBy: space.createdBy.valueOf(),
       accessibility: space.accessibility.valueOf(),
       type: space.type.valueOf(),
-      price: space.price?.value.valueOf() != null
+      price: space.price?.value != null
         ? {
             value: space.price.value.valueOf(),
             currency: space.price.currency.valueOf()
