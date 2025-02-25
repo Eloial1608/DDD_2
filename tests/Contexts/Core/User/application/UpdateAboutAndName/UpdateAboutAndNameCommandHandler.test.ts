@@ -30,6 +30,7 @@ describe('UpdateAboutAndNameUserCommandHandler should ', () => {
       name: new Name('example name')
     })
     repository.returnOnFind(existignUser)
+    repository.returnOnSearch([existignUser])
 
     const command = UpdateAboutAndNameUserCommandMother.fromAggregate(user)
 
@@ -46,6 +47,7 @@ describe('UpdateAboutAndNameUserCommandHandler should ', () => {
       name: new Name('example name')
     })
     repository.returnOnFind(existignUser)
+    repository.returnOnSearch([existignUser])
 
     const command = UpdateAboutAndNameUserCommandMother.fromAggregate(user)
 
@@ -70,6 +72,7 @@ describe('UpdateAboutAndNameUserCommandHandler should ', () => {
     })
 
     repository.returnOnFind(existignUser)
+    repository.returnOnSearch([existignUser])
 
     const command = UpdateAboutAndNameUserCommandMother.fromAggregate(user)
 
