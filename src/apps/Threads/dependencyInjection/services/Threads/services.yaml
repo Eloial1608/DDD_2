@@ -70,3 +70,7 @@ services:
    Space.Repository:
     class: src/Contexts/Threads/Space/infrastructure/persistence/TypeOrmSpaceRepository
     arguments: ["@Shared.ORM.Connection"]
+
+   SpaceMember.Repository:
+    class: src/Contexts/Media/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
+    arguments: ["@Shared.ORM.Connection"]
