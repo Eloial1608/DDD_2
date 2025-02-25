@@ -72,5 +72,16 @@ services:
     arguments: ["@Shared.ORM.Connection"]
 
    SpaceMember.Repository:
-    class: src/Contexts/Media/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
+    class: src/Contexts/Threads/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
     arguments: ["@Shared.ORM.Connection"]
+
+
+   SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.Creator:
+    class: src/Contexts/Threads/SpaceMember/application/CreateSpaceMemberOnSpaceMemberCreated/Creator
+    arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
+  
+   SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.CreateSpaceMemberOnSpaceMemberCreatedHandler:
+    class: src/Contexts/Threads/SpaceMember/application/CreateSpaceMemberOnSpaceMemberCreated/CreateSpaceMemberOnSpaceMemberCreatedHandler
+    arguments: ["@SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
