@@ -7,7 +7,7 @@ export class HttpStripeSessionRepository implements StripeHttpSessionRepository 
     const client = new Stripe(apiKey)
 
     const s = await client.checkout.sessions.create({
-      customer_creation: 'if_required',
+      customer_creation: session.renovationType ? undefined : 'if_required',
       success_url: session.successUrl,
       mode: session.renovationInterval && session.renovationType ? 'subscription' : 'payment',
       cancel_url: session.failUrl,
