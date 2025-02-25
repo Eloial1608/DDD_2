@@ -25,7 +25,7 @@ export class UserPlanByUserIdGetController implements Controller {
 
       if ((!user.isAdmin && !user.isOwner) && user.mainId !== data.id) return res.status(401).send()
 
-      const userPlan = await this.getUserPlan(user.id, user.communityId)
+      const userPlan = await this.getUserPlan(user.id)
 
       if (!userPlan) return res.status(404).send()
 
@@ -38,17 +38,12 @@ export class UserPlanByUserIdGetController implements Controller {
     }
   }
 
-  private async getUserPlan (userId: string, communityId: string) {
+  private async getUserPlan (userId: string) {
     const query = new FindUserPlansByCriteriaQuery([
       new Map<string, string>([
         ['field', 'id'],
         ['operator', '='],
         ['value', userId]
-      ]),
-      new Map<string, string>([
-        ['field', 'communityId'],
-        ['operator', '='],
-        ['value', communityId]
       ])
     ])
 
