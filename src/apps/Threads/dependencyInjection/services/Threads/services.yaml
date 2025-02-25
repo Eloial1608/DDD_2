@@ -70,3 +70,13 @@ services:
    Space.Repository:
     class: src/Contexts/Threads/Space/infrastructure/persistence/TypeOrmSpaceRepository
     arguments: ["@Shared.ORM.Connection"]
+
+   Space.DeleteSpaceOnSpaceDeleted.Deleter:
+    class: src/Contexts/Threads/Space/application/DeleteSpaceOnSpaceDeleted/Deleter
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+   Space.DeleteSpaceOnSpaceDeleted.DeleteSpaceOnSpaceDeletedHandler:
+    class: src/Contexts/Threads/Space/application/DeleteSpaceOnSpaceDeleted/DeleteSpaceOnSpaceDeletedHandler
+    arguments: ["@Space.DeleteSpaceOnSpaceDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
