@@ -27,6 +27,7 @@ export class UserPlanGetController implements Controller {
 
       return res.status(200).json(userPlan)
     } catch (e) {
+      console.log(e)
       if (e instanceof CannotDecode) return res.status(401).json({ message: e.getMessage() })
 
       return res.status(500).send()
