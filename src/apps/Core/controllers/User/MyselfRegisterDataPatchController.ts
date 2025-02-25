@@ -23,7 +23,7 @@ export class MyselfRegisterDataPatchController implements Controller {
       if (!user) return res.status(404).send()
 
       const command = new UpdateUserRegisterDataCommand(
-        req.params.id,
+        user.id,
         req.body.registerData
       )
 
