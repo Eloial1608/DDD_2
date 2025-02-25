@@ -70,3 +70,13 @@ services:
    Space.Repository:
     class: src/Contexts/Threads/Space/infrastructure/persistence/TypeOrmSpaceRepository
     arguments: ["@Shared.ORM.Connection"]
+
+   Space.FindById.FinderById:
+    class: src/Contexts/Threads/Space/application/FindById/FinderById
+    arguments: ['@Space.Repository']
+  
+   Space.FindById.FindSpaceByIdQueryHandler:
+    class: src/Contexts/Threads/Space/application/FindById/FindSpaceByIdQueryHandler
+    arguments: ['@Space.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
