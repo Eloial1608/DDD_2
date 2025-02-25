@@ -47,6 +47,7 @@ export class SpacesDeleteController implements Controller {
 
       return res.status(201).send()
     } catch (e) {
+      console.log(e)
       if (e instanceof SpaceNotFound) return res.status(404).json({ message: e.getMessage() })
 
       if (e instanceof CannotDecode) return res.status(401).json({ message: e.getMessage() })
