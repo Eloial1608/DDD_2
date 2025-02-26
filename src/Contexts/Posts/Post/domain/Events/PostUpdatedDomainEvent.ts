@@ -8,6 +8,8 @@ type PostUpdatedDomainEventBody = {
     readonly userId: string
     readonly title: string
     readonly bannerUrl: Nullable<string>
+    readonly isPaid: boolean
+    readonly price: Nullable<{value: number, currency: string}>
 }
 
 export class PostUpdatedDomainEvent extends DomainEvent {
@@ -18,6 +20,8 @@ export class PostUpdatedDomainEvent extends DomainEvent {
   readonly userId: string
   readonly title: string
   readonly bannerUrl: Nullable<string>
+  readonly isPaid: boolean
+  readonly price: Nullable<{value: number, currency: string}>
 
   static {
     DomainEvent.derived.add(PostUpdatedDomainEvent.EVENT_NAME)
@@ -31,6 +35,8 @@ export class PostUpdatedDomainEvent extends DomainEvent {
     this.userId = params.userId
     this.title = params.title
     this.bannerUrl = params.bannerUrl
+    this.isPaid = params.isPaid
+    this.price = params.price
   }
 
   static fromAggregate (post: Post): PostUpdatedDomainEvent {
@@ -39,6 +45,13 @@ export class PostUpdatedDomainEvent extends DomainEvent {
       communityId: post.communityId.valueOf(),
       userId: post.userId.valueOf(),
       title: post.title.valueOf(),
+      isPaid: post.isPaid.valueOf(),
+      price: post.price?.value != null
+        ? {
+            value: post.price.value.valueOf(),
+            currency: post.price.currency.valueOf()
+          }
+        : undefined,
       bannerUrl: post.bannerUrl?.valueOf()
 
     })
