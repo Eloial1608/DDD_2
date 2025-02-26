@@ -461,6 +461,16 @@ services:
     tags:
       - { name: "commandHandler" }
   
+  User.UpdateUserRegisterData.UpdaterUserRegisterData:
+    class: src/Contexts/Core/User/application/UpdateUserRegisterData/UpdaterUserRegisterData
+    arguments: ['@User.Repository', '@Shared.EventBus']
+
+  User.Update.UpdateUserRegisterDataCommandHandler:
+    class: src/Contexts/Core/User/application/UpdateUserRegisterData/UpdateUserRegisterDataCommandHandler
+    arguments: ["@User.UpdateUserRegisterData.UpdaterUserRegisterData"]
+    tags:
+      - { name: "commandHandler" }
+  
   Community.UpdateAllowsPaymentsOnStripeAccountCreated.Updater:
     class: src/Contexts/Core/Community/application/UpdateAllowsPaymentsOnStripeAccountCreated/Updater
     arguments: ["@Community.Repository", "@Shared.EventBus"]

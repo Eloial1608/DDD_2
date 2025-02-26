@@ -8,6 +8,7 @@ import { RenovationType } from '@Core/UserPlan/domain/ValueObjects/RenovationTyp
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 import { UserPlan } from '@Core/UserPlan/domain/UserPlan'
 import { ExpiresAt } from '@Core/UserPlan/domain/ValueObjects/ExpiresAt'
+import { RenovationTypeValues } from '@Shared/domain/SharedValueObjects/SharedRenovationType'
 
 export class Creator {
   constructor (private readonly repository: UserPlanRepository, private readonly eventBus: EventBus) {}
@@ -20,9 +21,6 @@ export class Creator {
     renovationInterval: RenovationInterval,
     renovationType: RenovationType
   ) {
-    const expiresAtDate = new Date()
-    expiresAtDate.setDate(expiresAtDate.getDate() + 30)
-
     const userPlan = UserPlan.create(
       id,
       name,
@@ -30,10 +28,23 @@ export class Creator {
       price,
       renovationInterval,
       renovationType,
-      new ExpiresAt(expiresAtDate)
+      this.calcExpirationDate(renovationInterval, renovationType)
     )
 
     await this.repository.persist(userPlan)
     await this.eventBus.publish(userPlan.pullDomainEvents())
+  }
+
+  private calcExpirationDate (renovationInterval: RenovationInterval, renovationType: RenovationType): ExpiresAt {
+    const mult = {
+      [RenovationTypeValues.MONTH]: 1,
+      [RenovationTypeValues.YEAR]: 12
+    }
+
+    const today = new Date()
+
+    today.setMonth(today.getMonth() + (mult[renovationType.valueOf()] * renovationInterval.valueOf()))
+
+    return new ExpiresAt(today)
   }
 }
