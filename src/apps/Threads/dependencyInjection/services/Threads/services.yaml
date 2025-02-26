@@ -80,3 +80,37 @@ services:
     arguments: ['@Space.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+
+   Space.UpdateSpaceOnSpaceUpdated.Updater:
+    class: src/Contexts/Threads/Space/application/UpdateSpaceOnSpaceUpdated/Updater
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+   Space.UpdateSpaceOnSpaceUpdated.UpdateSpaceOnSpaceUpdatedHandler:
+    class: src/Contexts/Threads/Space/application/UpdateSpaceOnSpaceUpdated/UpdateSpaceOnSpaceUpdatedHandler
+    arguments: ["@Space.UpdateSpaceOnSpaceUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+   Space.DeleteSpaceOnSpaceDeleted.Deleter:
+    class: src/Contexts/Threads/Space/application/DeleteSpaceOnSpaceDeleted/Deleter
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+   Space.DeleteSpaceOnSpaceDeleted.DeleteSpaceOnSpaceDeletedHandler:
+    class: src/Contexts/Threads/Space/application/DeleteSpaceOnSpaceDeleted/DeleteSpaceOnSpaceDeletedHandler
+    arguments: ["@Space.DeleteSpaceOnSpaceDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+      
+   Space.CreateSpaceOnSpaceCreated.Creator:
+    class: src/Contexts/Threads/Space/application/CreateSpaceOnSpaceCreated/Creator
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+   Space.CreateSpaceOnSpaceCreated.CreateSpaceOnSpaceCreatedHandler:
+    class: src/Contexts/Threads/Space/application/CreateSpaceOnSpaceCreated/CreateSpaceOnSpaceCreatedHandler
+    arguments: ["@Space.CreateSpaceOnSpaceCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+   SpaceMember.Repository:
+    class: src/Contexts/Threads/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
+    arguments: ["@Shared.ORM.Connection"]
