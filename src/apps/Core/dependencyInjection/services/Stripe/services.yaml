@@ -110,3 +110,43 @@ services:
     arguments: ["@Stripe.UpdateStripeProductOnSpaceUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  Stripe.CreateStripeProductOnPostCreated.Creator:
+    class: src/Contexts/Stripe/StripeProduct/application/CreateStripeProductOnPostCreated/Creator
+    arguments: ["@StripeProduct.Repository", "@StripeProduct.HttpStripeRepository", "@Shared.QueryBus", "@Shared.EventBus"]
+
+  Stripe.CreateStripeProductOnPostCreated.CreateStripeProductOnPostCreatedHandler:
+    class: src/Contexts/Stripe/StripeProduct/application/CreateStripeProductOnPostCreated/CreateStripeProductOnPostCreatedHandler
+    arguments: ["@Stripe.CreateStripeProductOnPostCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Stripe.UpdateStripeProductOnPostUpdated.Updater:
+    class: src/Contexts/Stripe/StripeProduct/application/UpdateStripeProductOnPostUpdated/Updater
+    arguments: ["@StripeProduct.Repository", "@StripeProduct.HttpStripeRepository", "@Shared.QueryBus", "@Shared.EventBus"]
+
+  Stripe.UpdateStripeProductOnPostUpdated.UpdateStripeProductOnPostUpdatedHandler:
+    class: src/Contexts/Stripe/StripeProduct/application/UpdateStripeProductOnPostUpdated/UpdateStripeProductOnPostUpdatedHandler
+    arguments: ["@Stripe.UpdateStripeProductOnPostUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Stripe.CreateStripeProductOnPlanForUsersCreated.Creator:
+    class: src/Contexts/Stripe/StripeProduct/application/CreateStripeProductOnPlanForUsersCreated/Creator
+    arguments: ["@StripeProduct.Repository", "@StripeProduct.HttpStripeRepository", "@Shared.QueryBus", "@Shared.EventBus"]
+
+  Stripe.CreateStripeProductOnPlanForUsersCreated.CreateStripeProductOnPlanForUsersCreatedHandler:
+    class: src/Contexts/Stripe/StripeProduct/application/CreateStripeProductOnPlanForUsersCreated/CreateStripeProductOnPlanForUsersCreatedHandler
+    arguments: ["@Stripe.CreateStripeProductOnPlanForUsersCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Stripe.UpdateStripeProductOnPlanForUsersUpdated.Updater:
+    class: src/Contexts/Stripe/StripeProduct/application/UpdateStripeProductOnPlanForUsersUpdated/Updater
+    arguments: ["@StripeProduct.Repository", "@StripeProduct.HttpStripeRepository", "@Shared.QueryBus", "@Shared.EventBus"]
+
+  Stripe.UpdateStripeProductOnPlanForUsersUpdated.UpdateStripeProductOnPlanForUsersUpdatedHandler:
+    class: src/Contexts/Stripe/StripeProduct/application/UpdateStripeProductOnPlanForUsersUpdated/UpdateStripeProductOnPlanForUsersUpdatedHandler
+    arguments: ["@Stripe.UpdateStripeProductOnPlanForUsersUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }

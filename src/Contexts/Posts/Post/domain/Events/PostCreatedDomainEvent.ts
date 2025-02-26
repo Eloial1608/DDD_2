@@ -7,6 +7,8 @@ type PostCreatedDomainEventBody = {
     readonly communityId: string
     readonly userId: string
     readonly title: string
+    readonly isPaid: boolean
+    readonly price: Nullable<{value: number, currency: string}>
     readonly bannerUrl: Nullable<string>
 }
 
@@ -17,6 +19,8 @@ export class PostCreatedDomainEvent extends DomainEvent {
   readonly communityId: string
   readonly userId: string
   readonly title: string
+  readonly isPaid: boolean
+  readonly price: Nullable<{value: number, currency: string}>
   readonly bannerUrl: Nullable<string>
 
   static {
@@ -31,6 +35,8 @@ export class PostCreatedDomainEvent extends DomainEvent {
     this.userId = params.userId
     this.title = params.title
     this.bannerUrl = params.bannerUrl
+    this.isPaid = params.isPaid
+    this.price = params.price
   }
 
   static fromAggregate (post: Post): PostCreatedDomainEvent {
@@ -39,6 +45,13 @@ export class PostCreatedDomainEvent extends DomainEvent {
       communityId: post.communityId.valueOf(),
       userId: post.userId.valueOf(),
       title: post.title.valueOf(),
+      isPaid: post.isPaid.valueOf(),
+      price: post.price?.value != null
+        ? {
+            value: post.price.value.valueOf(),
+            currency: post.price.currency.valueOf()
+          }
+        : undefined,
       bannerUrl: post.bannerUrl?.valueOf()
 
     })

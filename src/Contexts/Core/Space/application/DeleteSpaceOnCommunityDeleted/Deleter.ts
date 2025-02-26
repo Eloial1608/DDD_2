@@ -13,8 +13,10 @@ export class Deleter {
   async run (
     communityId: CommunityId
   ) {
+    let offset = 0
+
     for (;;) {
-      const spaces = await this.getSpacesByCommunityId(communityId, this.LIMIT)
+      const spaces = await this.getSpacesByCommunityId(communityId, this.LIMIT, offset)
 
       for (const space of spaces) {
         const updatedSpace = space.delete()
@@ -24,18 +26,21 @@ export class Deleter {
         await this.eventBus.publish(updatedSpace.pullDomainEvents())
       }
 
+      offset += spaces.length
+
       if (spaces.length !== this.LIMIT) break
     }
   }
 
-  private async getSpacesByCommunityId (communityId: CommunityId, limit: number) {
+  private async getSpacesByCommunityId (communityId: CommunityId, limit: number, offset: number) {
     const criteria = new Criteria(
       new Filters([
         Filter.simple('communityId', '=', communityId.valueOf())
       ]),
       undefined,
       undefined,
-      limit
+      limit,
+      offset
     )
 
     return await this.repository.search(criteria)

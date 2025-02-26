@@ -30,6 +30,7 @@ import { UserBannedDomainEvent } from './Events/UserBannedDoaminEvent'
 import { UserHasPayedUpdatedDomainEvent } from './Events/UserHasPayedUpdatedDomainEvent'
 import { PictureUrl } from './ValueObjects/PictureUrl'
 import { BannerUrl } from './ValueObjects/BannerUrl'
+import { UserRegisterDataUpdatedDomainEvent } from './Events/UserRegisterDataUpdatedEvent'
 
 export class User extends AggregateRoot {
   constructor (
@@ -168,6 +169,40 @@ export class User extends AggregateRoot {
     )
 
     user.record(UserUpdatedAboutAndNameDomainEvent.fromAggregate(user))
+
+    return user
+  }
+
+  updateRegisterData (
+    registerData: RegisterData
+  ):User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      this.name,
+      this.username,
+      this.about,
+      this.email,
+      this.hasPayed,
+      this.planId,
+      this.pictureUrl,
+      this.bannerUrl,
+      new HasCompletedRegister(true),
+      registerData,
+      this.isBanned,
+      this.isAdmin,
+      this.isOwner,
+      this.totalPosts,
+      this.totalMedia,
+      this.totalThreads,
+      this.totalThreadResponses,
+      this.communityId,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      this.deletedAt
+    )
+
+    user.record(UserRegisterDataUpdatedDomainEvent.fromAggregate(user))
 
     return user
   }
