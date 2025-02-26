@@ -41,6 +41,7 @@ type PostsGetControllerResponseBody = {
     pictureUrl: Nullable<string>
   }
   readonly isPaid: boolean
+  readonly isLocked?: boolean
   totalLikes: number
   totalComments: number
   readonly price: Nullable<{value: number, currency: string}>
@@ -120,7 +121,10 @@ export class PostsGetController implements Controller {
   private getPostWithoutContent (post: PostResponseBody) {
     const { content, ...data } = post
 
-    return data
+    return {
+      ...data,
+      isLocked: true
+    }
   }
 
   private async buildResponse (post: Partial<PostsGetControllerResponseBody>, userId?: string) : Promise<PostsGetControllerResponseBody> {

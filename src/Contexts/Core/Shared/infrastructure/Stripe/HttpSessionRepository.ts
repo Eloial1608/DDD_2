@@ -6,7 +6,6 @@ export class HttpSessionRepository implements SessionRepository {
 
   async create (priceId: string, successUrl: string, failUrl: string) {
     const session = await this.client.checkout.sessions.create({
-      customer_creation: 'if_required',
       success_url: successUrl,
       mode: 'subscription',
       cancel_url: failUrl,
