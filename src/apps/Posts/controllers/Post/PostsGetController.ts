@@ -51,8 +51,6 @@ type PostsGetControllerResponseBody = {
 export class PostsGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
 
-  private user: Nullable<UserResponseBody>
-
   async run (req: Request, res: Response): Promise<Response> {
     try {
       const criteria = buildCriteriaFromUri(req.query.criteria as string)
@@ -72,7 +70,7 @@ export class PostsGetController implements Controller {
 
       for (const post of posts) {
         const p = await this.filterPost(post, req.headers.authorization as string)
-        if (p) postsToSend.push(await this.buildResponse(post, this.user?.id))
+        if (p) postsToSend.push(await this.buildResponse(post))
       }
 
       return res.status(200).json(posts)
@@ -90,26 +88,27 @@ export class PostsGetController implements Controller {
 
     const space = await (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
     let spaceMember: SpaceMemberResponseBody | undefined
+    let user: UserResponseBody | undefined
 
-    if (this.user === undefined && token) {
+    if (user == null && token) {
       const data = await this.decoder.run(token)
 
-      const user = await this.getUser(data.id, post.communityId)
+      const u = await this.getUser(data.id, post.communityId)
 
-      this.user = user ?? null
+      user = u ?? undefined
     }
 
     if (space.accessibility !== AllowedAccessibilities.PUBLIC) {
-      if (!this.user) return null
+      if (!user) return null
 
-      if (!this.user.isAdmin && !this.user.isOwner) {
-        spaceMember = await this.getSpaceMember(this.user.id, this.user.communityId, space.id)
+      if (!user.isAdmin && !user.isOwner) {
+        spaceMember = await this.getSpaceMember(user.id, user.communityId, space.id)
 
         if (!spaceMember) return null
       }
     }
 
-    if (post.isPaid && (!this.user?.isAdmin && !this.user?.isOwner && !spaceMember?.isModerator)) {
+    if (post.isPaid && (!user?.isAdmin && !user?.isOwner && !spaceMember?.isModerator)) {
       if (!spaceMember) return this.getPostWithoutContent(post)
       const postUser = await this.getPostUser(spaceMember.userId, post.id)
       if (!postUser) return this.getPostWithoutContent(post)
@@ -127,10 +126,14 @@ export class PostsGetController implements Controller {
     }
   }
 
-  private async buildResponse (post: Partial<PostsGetControllerResponseBody>, userId?: string) : Promise<PostsGetControllerResponseBody> {
+  private async buildResponse (post: Partial<PostsGetControllerResponseBody>, mainId?: string) : Promise<PostsGetControllerResponseBody> {
+    let user
+
+    if (mainId) user = await this.getUser(mainId, post.communityId!)
+
     return {
       ...post as PostsGetControllerResponseBody,
-      likeId: userId ? (await this.getLikeId(userId, post.id!))?.id : undefined
+      likeId: user ? (await this.getLikeId(user.id, post.id!))?.id : undefined
     }
   }
 
