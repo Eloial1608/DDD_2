@@ -3,7 +3,7 @@ import { DomainEventClass } from '@Shared/domain/EventBus/DomainEvent'
 import { DomainEventSubscriber } from '@Shared/domain/EventBus/DomainEventSubscriber'
 import { Deleter } from './Deleter'
 import { AllowedTypes } from '@Shared/domain/SharedValueObjects/Space/AllowedTypes'
-import { Id } from '@Threads/Space/domain/ValueObjects/Id'
+import { Id } from 'src/Contexts/Threads/Space/domain/ValueObjects/Id'
 
 export class DeleteSpaceOnSpaceDeletedHandler implements DomainEventSubscriber <SpaceDeletedDomainEvent> {
   constructor (private readonly deleter: Deleter) {}

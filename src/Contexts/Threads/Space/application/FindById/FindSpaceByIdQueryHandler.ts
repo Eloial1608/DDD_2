@@ -3,7 +3,7 @@ import { FindSpaceByIdQuery } from './FindSpaceByIdQuery'
 import { SpaceResponse } from '../SpaceResponse'
 import { FinderById } from './FinderById'
 import { Query } from '@Shared/domain/QueryBus/Query'
-import { Id } from '@Threads/Space/domain/ValueObjects/Id'
+import { Id } from 'src/Contexts/Threads/Space/domain/ValueObjects/Id'
 
 export class FindSpaceByIdQueryHandler implements QueryHandler<FindSpaceByIdQuery, SpaceResponse> {
   constructor (private readonly finder: FinderById) {}

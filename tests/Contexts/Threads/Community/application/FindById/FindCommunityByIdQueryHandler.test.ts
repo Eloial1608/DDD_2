@@ -1,10 +1,10 @@
-import { FindCommunityByIdQueryHandler } from '@Threads/Community/application/FindById/FindCommunityByIdQueryHandler'
-import { FinderById } from '@Threads/Community/application/FindById/FinderById'
+import { FindCommunityByIdQueryHandler } from 'src/Contexts/Threads/Community/application/FindById/FindCommunityByIdQueryHandler'
+import { FinderById } from 'src/Contexts/Threads/Community/application/FindById/FinderById'
 import { CommunityRepositoryMock } from '../../__mocks__/CommunityRepositoryMock'
 import { CommunityMother } from '../../domain/CommunityMother'
-import { FindCommunityByIdQuery } from '@Threads/Community/application/FindById/FindCommunityByIdQuery'
-import { CommunityResponse } from '@Threads/Community/application/CommunityResponse'
-import { CommunityNotFound } from '@Threads/Community/domain/Errors/CommunityNotFound'
+import { FindCommunityByIdQuery } from 'src/Contexts/Threads/Community/application/FindById/FindCommunityByIdQuery'
+import { CommunityResponse } from 'src/Contexts/Threads/Community/application/CommunityResponse'
+import { CommunityNotFound } from 'src/Contexts/Threads/Community/domain/Errors/CommunityNotFound'
 
 let repository: CommunityRepositoryMock
 let finder: FinderById

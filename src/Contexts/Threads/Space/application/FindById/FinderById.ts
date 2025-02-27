@@ -1,7 +1,7 @@
-import { SpaceRepository } from '@Threads/Space/domain/SpaceRepository'
-import { Id } from '@Threads/Space/domain/ValueObjects/Id'
-import { Space } from '@Threads/Space/domain/Space'
-import { SpaceNotFound } from '@Threads/Space/domain/Errors/SpaceNotFound'
+import { SpaceRepository } from 'src/Contexts/Threads/Space/domain/SpaceRepository'
+import { Id } from 'src/Contexts/Threads/Space/domain/ValueObjects/Id'
+import { Space } from 'src/Contexts/Threads/Space/domain/Space'
+import { SpaceNotFound } from 'src/Contexts/Threads/Space/domain/Errors/SpaceNotFound'
 
 export class FinderById {
   constructor (private readonly repository: SpaceRepository) {}

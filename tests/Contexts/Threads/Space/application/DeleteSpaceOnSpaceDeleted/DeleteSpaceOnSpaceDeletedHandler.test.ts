@@ -1,5 +1,5 @@
-import { DeleteSpaceOnSpaceDeletedHandler } from '@Threads/Space/application/DeleteSpaceOnSpaceDeleted/DeleteSpaceOnSpaceDeletedHandler'
-import { Deleter } from '@Threads/Space/application/DeleteSpaceOnSpaceDeleted/Deleter'
+import { DeleteSpaceOnSpaceDeletedHandler } from 'src/Contexts/Threads/Space/application/DeleteSpaceOnSpaceDeleted/DeleteSpaceOnSpaceDeletedHandler'
+import { Deleter } from 'src/Contexts/Threads/Space/application/DeleteSpaceOnSpaceDeleted/Deleter'
 import EventBusMock from '@Tests/Contexts/Shared/infrastructure/EventBus/EventBusMock'
 import { SpaceRepositoryMock } from '../../__mocks__/SpaceRepositoryMock'
 import { SpaceMother } from '../../domain/SpaceMother'
@@ -8,9 +8,9 @@ import { SpaceDeletedDomainEvent as CoreSpaceDeletedDomainEvent } from '@Core/Sp
 import { ThreadsConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/ThreadsConfiguration'
 import { Type } from '@Core/Space/domain/ValueObjects/Type'
 import { AllowedTypes } from '@Shared/domain/SharedValueObjects/Space/AllowedTypes'
-import { Configuration } from '@Threads/Space/domain/ValueObjects/Configuration'
+import { Configuration } from 'src/Contexts/Threads/Space/domain/ValueObjects/Configuration'
 import { DeletedAt } from '@Core/Space/domain/ValueObjects/DeletedAt'
-import { SpaceDeletedDomainEvent } from '@Threads/Space/domain/Events/SpaceDeletedDomainEvent'
+import { SpaceDeletedDomainEvent } from 'src/Contexts/Threads/Space/domain/Events/SpaceDeletedDomainEvent'
 
 let eventBus: EventBusMock
 let repository: SpaceRepositoryMock
