@@ -1,4 +1,3 @@
-import { StringModule } from "@faker-js/faker/.";
 import { ValueObjectTransformer } from "@Shared/domain/ValueObjects/ValueObjectTransformer";
 import { Thread } from "@Threads/Thread/domain/Thread";
 import { Author } from "@Threads/Thread/domain/ValueObjects/Author";
