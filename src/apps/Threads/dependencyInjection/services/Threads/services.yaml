@@ -124,7 +124,18 @@ services:
     arguments: ["@SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+
+   SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.Deleter:
+    class: src/Contexts/Threads/SpaceMember/application/DeleteSpaceMemberOnSpaceMemberDeleted/Deleter
+    arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
+  
+   SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.DeleteSpaceMemberOnSpaceMemberDeletedHandler:
+    class: src/Contexts/Threads/SpaceMember/application/DeleteSpaceMemberOnSpaceMemberDeleted/DeleteSpaceMemberOnSpaceMemberDeletedHandler
+    arguments: ["@SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
       
    Thread.Repository:
     class: src/Contexts/Threads/Thread/infrastructure/persistence/TypeOrmThreadRepository
     arguments: ["@Shared.ORM.Connection"]
+
