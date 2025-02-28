@@ -114,3 +114,7 @@ services:
    SpaceMember.Repository:
     class: src/Contexts/Threads/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
     arguments: ["@Shared.ORM.Connection"]
+
+   Thread.Repository:
+    class: src/Contexts/Threads/Thread/infrastructure/persistence/TypeOrmThreadRepository
+    arguments: ["@Shared.ORM.Connection"]

@@ -1,9 +1,9 @@
-import { FindUsersByCriteriaQueryHandler } from '@Threads/User/application/FindByCriteria/FindUsersByCriteriaQueryHandler'
-import { FinderByCriteria } from '@Threads/User/application/FindByCriteria/FinderByCriteria'
+import { FindUsersByCriteriaQueryHandler } from 'src/Contexts/Threads/User/application/FindByCriteria/FindUsersByCriteriaQueryHandler'
+import { FinderByCriteria } from 'src/Contexts/Threads/User/application/FindByCriteria/FinderByCriteria'
 import { UserRepositoryMock } from '../../__mocks__/UserRepositoryMock'
 import { UserMother } from '../../domain/UserMother'
-import { FindUsersByCriteriaQuery } from '@Threads/User/application/FindByCriteria/FindUsersByCriteriaQuery'
-import { UserCollectionResponse } from '@Threads/User/application/UserCollectionResponse'
+import { FindUsersByCriteriaQuery } from 'src/Contexts/Threads/User/application/FindByCriteria/FindUsersByCriteriaQuery'
+import { UserCollectionResponse } from 'src/Contexts/Threads/User/application/UserCollectionResponse'
 import { Criteria } from '@Shared/domain/Criteria/Criteria'
 
 let repository: UserRepositoryMock

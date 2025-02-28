@@ -1,7 +1,7 @@
-import { CommunityRepository } from '@Threads/Community/domain/CommunityRepository'
-import { Id } from '@Threads/Community/domain/ValueObjects/Id'
-import { Community } from '@Threads/Community/domain/Community'
-import { CommunityNotFound } from '@Threads/Community/domain/Errors/CommunityNotFound'
+import { CommunityRepository } from 'src/Contexts/Threads/Community/domain/CommunityRepository'
+import { Id } from 'src/Contexts/Threads/Community/domain/ValueObjects/Id'
+import { Community } from 'src/Contexts/Threads/Community/domain/Community'
+import { CommunityNotFound } from 'src/Contexts/Threads/Community/domain/Errors/CommunityNotFound'
 
 export class FinderById {
   constructor (private readonly repository: CommunityRepository) {}

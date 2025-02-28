@@ -1,12 +1,12 @@
-import { DeleteUserOnUserDeletedHandler } from '@Threads/User/application/DeleteUserOnUserDeleted/DeleteUserOnUserDeletedHandler'
-import { Deleter } from '@Threads/User/application/DeleteUserOnUserDeleted/Deleter'
+import { DeleteUserOnUserDeletedHandler } from 'src/Contexts/Threads/User/application/DeleteUserOnUserDeleted/DeleteUserOnUserDeletedHandler'
+import { Deleter } from 'src/Contexts/Threads/User/application/DeleteUserOnUserDeleted/Deleter'
 import EventBusMock from '@Tests/Contexts/Shared/infrastructure/EventBus/EventBusMock'
 import { UserRepositoryMock } from '../../__mocks__/UserRepositoryMock'
 import { UserMother } from '../../domain/UserMother'
 import { UserMother as CoreUserMother } from '@Tests/Contexts/Core/User/domain/UserMother'
 import { UserDeletedDomainEvent as CoreUserDeletedDomainEvent } from '@Core/User/domain/Events/UserDeletedDomainEvent'
 import { DeletedAt } from '@Core/User/domain/ValueObjects/DeletedAt'
-import { UserDeletedDomainEvent } from '@Threads/User/domain/Events/UserDeletedDomainEvent'
+import { UserDeletedDomainEvent } from 'src/Contexts/Threads/User/domain/Events/UserDeletedDomainEvent'
 
 let eventBus: EventBusMock
 let repository: UserRepositoryMock
