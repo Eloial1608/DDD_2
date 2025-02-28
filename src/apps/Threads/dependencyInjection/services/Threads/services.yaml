@@ -115,6 +115,16 @@ services:
     class: src/Contexts/Threads/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
     arguments: ["@Shared.ORM.Connection"]
 
+   SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.Creator:
+    class: src/Contexts/Threads/SpaceMember/application/CreateSpaceMemberOnSpaceMemberCreated/Creator
+    arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
+  
+   SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.CreateSpaceMemberOnSpaceMemberCreatedHandler:
+    class: src/Contexts/Threads/SpaceMember/application/CreateSpaceMemberOnSpaceMemberCreated/CreateSpaceMemberOnSpaceMemberCreatedHandler
+    arguments: ["@SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+      
    Thread.Repository:
     class: src/Contexts/Threads/Thread/infrastructure/persistence/TypeOrmThreadRepository
     arguments: ["@Shared.ORM.Connection"]
