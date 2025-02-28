@@ -1,7 +1,7 @@
-import { Community } from '@Threads/Community/domain/Community'
-import { CommunityRepository } from '@Threads/Community/domain/CommunityRepository'
-import { Id } from '@Threads/Community/domain/ValueObjects/Id'
-import { IsPrivate } from '@Threads/Community/domain/ValueObjects/IsPrivate'
+import { Community } from 'src/Contexts/Threads/Community/domain/Community'
+import { CommunityRepository } from 'src/Contexts/Threads/Community/domain/CommunityRepository'
+import { Id } from 'src/Contexts/Threads/Community/domain/ValueObjects/Id'
+import { IsPrivate } from 'src/Contexts/Threads/Community/domain/ValueObjects/IsPrivate'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 
 export class Creator {

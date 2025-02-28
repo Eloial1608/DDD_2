@@ -2,7 +2,7 @@ import { CommunityDeletedDomainEvent } from '@Core/Community/domain/Events/Commu
 import { DomainEventClass } from '@Shared/domain/EventBus/DomainEvent'
 import { DomainEventSubscriber } from '@Shared/domain/EventBus/DomainEventSubscriber'
 import { Deleter } from './Deleter'
-import { Id } from '@Threads/Community/domain/ValueObjects/Id'
+import { Id } from 'src/Contexts/Threads/Community/domain/ValueObjects/Id'
 
 export class DeleteCommunityOnCommunityDeletedHandler implements DomainEventSubscriber <CommunityDeletedDomainEvent> {
   constructor (private readonly deleter: Deleter) {}

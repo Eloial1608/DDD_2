@@ -1,6 +1,6 @@
-import { Community } from '@Threads/Community/domain/Community'
-import { Id } from '@Threads/Community/domain/ValueObjects/Id'
-import { IsPrivate } from '@Threads/Community/domain/ValueObjects/IsPrivate'
+import { Community } from 'src/Contexts/Threads/Community/domain/Community'
+import { Id } from 'src/Contexts/Threads/Community/domain/ValueObjects/Id'
+import { IsPrivate } from 'src/Contexts/Threads/Community/domain/ValueObjects/IsPrivate'
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
 
 export class CommunityMother {
