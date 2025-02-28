@@ -3,7 +3,7 @@ import { FindCommunityByIdQuery } from './FindCommunityByIdQuery'
 import { CommunityResponse } from '../CommunityResponse'
 import { FinderById } from './FinderById'
 import { Query } from '@Shared/domain/QueryBus/Query'
-import { Id } from '@Threads/Community/domain/ValueObjects/Id'
+import { Id } from 'src/Contexts/Threads/Community/domain/ValueObjects/Id'
 
 export class FindCommunityByIdQueryHandler implements QueryHandler<FindCommunityByIdQuery, CommunityResponse> {
   constructor (private readonly finder: FinderById) {}

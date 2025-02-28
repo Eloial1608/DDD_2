@@ -1,11 +1,11 @@
-import { CreateCommunityOnCommunityCreatedHandler } from '@Threads/Community/application/CreateCommunityOnCommunityCreated/CreateCommunityOnCommunityCreatedHandler'
-import { Creator } from '@Threads/Community/application/CreateCommunityOnCommunityCreated/Creator'
+import { CreateCommunityOnCommunityCreatedHandler } from 'src/Contexts/Threads/Community/application/CreateCommunityOnCommunityCreated/CreateCommunityOnCommunityCreatedHandler'
+import { Creator } from 'src/Contexts/Threads/Community/application/CreateCommunityOnCommunityCreated/Creator'
 import EventBusMock from '@Tests/Contexts/Shared/infrastructure/EventBus/EventBusMock'
 import { CommunityRepositoryMock } from '../../__mocks__/CommunityRepositoryMock'
 import { CommunityMother } from '../../domain/CommunityMother'
 import { CommunityMother as CoreCommunityMother } from '@Tests/Contexts/Core/Community/domain/CommunityMother'
 import { CommunityCreatedDomainEvent as CoreCommunityCreatedDomainEvent } from '@Core/Community/domain/Events/CommunityCreatedDomainEvent'
-import { CommunityCreatedDomainEvent } from '@Threads/Community/domain/Events/CommunityCreatedDomainEvent'
+import { CommunityCreatedDomainEvent } from 'src/Contexts/Threads/Community/domain/Events/CommunityCreatedDomainEvent'
 
 let eventBus: EventBusMock
 let repository: CommunityRepositoryMock
