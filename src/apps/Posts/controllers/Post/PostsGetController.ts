@@ -70,7 +70,7 @@ export class PostsGetController implements Controller {
 
       for (const post of posts) {
         const p = await this.filterPost(post, req.headers.authorization as string)
-        if (p) postsToSend.push(await this.buildResponse(post))
+        if (p) postsToSend.push(await this.buildResponse(p))
       }
 
       return res.status(200).json(postsToSend)
