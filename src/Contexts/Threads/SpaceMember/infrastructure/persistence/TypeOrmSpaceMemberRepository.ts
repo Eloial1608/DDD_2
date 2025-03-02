@@ -1,4 +1,3 @@
-
 import { SpaceMember } from 'src/Contexts/Threads/SpaceMember/domain/SpaceMember'
 import { SpaceMemberRepository } from 'src/Contexts/Threads/SpaceMember/domain/SpaceMemberRepository'
 import { TypeOrmRepository } from '@Shared/infrastructure/persistence/typeorm/TypeOrmRepository'

@@ -1,38 +1,38 @@
-import { ValueObjectTransformer } from "@Shared/domain/ValueObjects/ValueObjectTransformer";
-import { Thread } from "@Threads/Thread/domain/Thread";
-import { Author } from "@Threads/Thread/domain/ValueObjects/Author";
-import { BannerUrl } from "@Threads/Thread/domain/ValueObjects/BannerUrl";
-import { CommunityId } from "@Threads/Thread/domain/ValueObjects/CommunityId";
-import { Content } from "@Threads/Thread/domain/ValueObjects/Content";
-import { CreatedAt } from "@Threads/Thread/domain/ValueObjects/CreatedAt";
-import { DeletedAt } from "@Threads/Thread/domain/ValueObjects/DeletedAt";
-import { Id } from "@Threads/Thread/domain/ValueObjects/Id";
-import { IsPaid } from "@Threads/Thread/domain/ValueObjects/IsPaid";
-import { ParentThreadId } from "@Threads/Thread/domain/ValueObjects/ParentThreadId";
-import { Price, PriceCurrency, PriceValue } from "@Threads/Thread/domain/ValueObjects/Price";
-import { SpaceId } from "@Threads/Thread/domain/ValueObjects/SpaceId";
-import { Title } from "@Threads/Thread/domain/ValueObjects/Title";
-import { TotalLikes } from "@Threads/Thread/domain/ValueObjects/TotalLikes";
-import { TotalThreads } from "@Threads/Thread/domain/ValueObjects/TotalThreads";
-import { UpdatedAt } from "@Threads/Thread/domain/ValueObjects/UpdatedAt";
-import { UserId } from "@Threads/Thread/domain/ValueObjects/UserId";
-import { EntitySchema } from "typeorm";
+import { ValueObjectTransformer } from '@Shared/domain/ValueObjects/ValueObjectTransformer'
+import { Thread } from '@Threads/Thread/domain/Thread'
+import { Author } from '@Threads/Thread/domain/ValueObjects/Author'
+import { BannerUrl } from '@Threads/Thread/domain/ValueObjects/BannerUrl'
+import { CommunityId } from '@Threads/Thread/domain/ValueObjects/CommunityId'
+import { Content } from '@Threads/Thread/domain/ValueObjects/Content'
+import { CreatedAt } from '@Threads/Thread/domain/ValueObjects/CreatedAt'
+import { DeletedAt } from '@Threads/Thread/domain/ValueObjects/DeletedAt'
+import { Id } from '@Threads/Thread/domain/ValueObjects/Id'
+import { IsPaid } from '@Threads/Thread/domain/ValueObjects/IsPaid'
+import { ParentThreadId } from '@Threads/Thread/domain/ValueObjects/ParentThreadId'
+import { Price, PriceCurrency, PriceValue } from '@Threads/Thread/domain/ValueObjects/Price'
+import { SpaceId } from '@Threads/Thread/domain/ValueObjects/SpaceId'
+import { Title } from '@Threads/Thread/domain/ValueObjects/Title'
+import { TotalLikes } from '@Threads/Thread/domain/ValueObjects/TotalLikes'
+import { TotalThreads } from '@Threads/Thread/domain/ValueObjects/TotalThreads'
+import { UpdatedAt } from '@Threads/Thread/domain/ValueObjects/UpdatedAt'
+import { UserId } from '@Threads/Thread/domain/ValueObjects/UserId'
+import { EntitySchema } from 'typeorm'
 
 const ThreadPriceSchema = new EntitySchema<Price>({
-    name: 'threadPrice',
-    target: Price,
-    columns:{
-       value: {
-        type: 'int',
-        nullable: true,
-        transformer: ValueObjectTransformer(PriceValue)
-        },
-       currency: {
-        type: String,
-        nullable: true,
-        transformer: ValueObjectTransformer(PriceCurrency)
-        }
+  name: 'threadPrice',
+  target: Price,
+  columns: {
+    value: {
+      type: 'int',
+      nullable: true,
+      transformer: ValueObjectTransformer(PriceValue)
+    },
+    currency: {
+      type: String,
+      nullable: true,
+      transformer: ValueObjectTransformer(PriceCurrency)
     }
+  }
 })
 
 const ThreadAuthorSchema = new EntitySchema<Author>({
@@ -88,10 +88,10 @@ export const ThreadSchema = new EntitySchema<Thread>({
       type: String,
       transformer: ValueObjectTransformer(Title)
     },
-    parentThreadId:{
-        type:String,
-        nullable: true,
-        transformer: ValueObjectTransformer(ParentThreadId)
+    parentThreadId: {
+      type: String,
+      nullable: true,
+      transformer: ValueObjectTransformer(ParentThreadId)
     },
     content: {
       type: String,

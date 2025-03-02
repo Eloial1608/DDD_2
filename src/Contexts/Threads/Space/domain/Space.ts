@@ -18,54 +18,55 @@ export class Space extends AggregateRoot {
   ) {
     super()
   }
- delete (): Space {
-      const space = new Space(
-        this.id,
-        this.communityId,
-        this.accessibility,
-        this.configuration,
-        this.type
-      )
-  
-      space.record(SpaceDeletedDomainEvent.fromAggregate(space))
-      
-     return space
+
+  delete (): Space {
+    const space = new Space(
+      this.id,
+      this.communityId,
+      this.accessibility,
+      this.configuration,
+      this.type
+    )
+
+    space.record(SpaceDeletedDomainEvent.fromAggregate(space))
+
+    return space
   }
-  
-    static create (
-      id: Id,
-      communityId: CommunityId,
-      accessibility: Accessibility,
-      configuration: Configuration,
-      type: Type
-    ): Space {
-      const space = new Space(
-        id,
-        communityId,
-        accessibility,
-        configuration,
-        type
-      )
-  
-      space.record(SpaceCreatedDomainEvent.fromAggregate(space))
-        return space    
-    }
-  
+
+  static create (
+    id: Id,
+    communityId: CommunityId,
+    accessibility: Accessibility,
+    configuration: Configuration,
+    type: Type
+  ): Space {
+    const space = new Space(
+      id,
+      communityId,
+      accessibility,
+      configuration,
+      type
+    )
+
+    space.record(SpaceCreatedDomainEvent.fromAggregate(space))
+    return space
+  }
+
   update (
-      accessibility: Accessibility,
-      configuration: Configuration,
-      type: Type
-    ): Space {
-      const space = new Space(
-        this.id,
-        this.communityId,
-        accessibility,
-        configuration,
-        type
-      )
-  
-      space.record(SpaceUpdatedDomainEvent.fromAggregate(space))
-  
-      return space
-    }
+    accessibility: Accessibility,
+    configuration: Configuration,
+    type: Type
+  ): Space {
+    const space = new Space(
+      this.id,
+      this.communityId,
+      accessibility,
+      configuration,
+      type
+    )
+
+    space.record(SpaceUpdatedDomainEvent.fromAggregate(space))
+
+    return space
+  }
 }
