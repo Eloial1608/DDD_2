@@ -149,3 +149,13 @@ services:
    Thread.Repository:
     class: src/Contexts/Threads/Thread/infrastructure/persistence/TypeOrmThreadRepository
     arguments: ["@Shared.ORM.Connection"]
+
+   Thread.Create.Creator:
+    class: src/Contexts/Threads/Thread/application/Create/Creator
+    arguments: ['@Thread.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+   Thread.Create.CreateThreadCommandHandler:
+    class: src/Contexts/Threads/Thread/application/Create/CreateThreadCommandHandler
+    arguments: ["@Thread.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
