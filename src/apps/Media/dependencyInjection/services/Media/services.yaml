@@ -115,6 +115,26 @@ services:
     tags:
       - { name: "queryHandler" }
   
+  User.UpdateUserOnUserUpdated.Updater:
+    class: src/Contexts/Media/User/application/UpdateUserOnUserUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.UpdateUserOnUserUpdated.UpdateUserOnUserUpdatedHandler:
+    class: src/Contexts/Media/User/application/UpdateUserOnUserUpdated/UpdateUserOnUserUpdatedHandler
+    arguments: ["@User.UpdateUserOnUserUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater:
+    class: src/Contexts/Media/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.UpdateUserIsAdminOnUserIsAdminUpdated.UpdateUserIsAdminOnUserIsAdminUpdatedHandler:
+    class: src/Contexts/Media/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/UpdateUserIsAdminOnUserIsAdminUpdatedHandler
+    arguments: ["@User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
   SpaceMember.Repository:
     class: src/Contexts/Media/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
     arguments: ["@Shared.ORM.Connection"]
@@ -358,5 +378,15 @@ services:
   Media.UpdateMediaOnCommentCreated.UpdateMediaOnCommentCreatedHandler:
     class: src/Contexts/Media/Media/application/UpdateMediaOnCommentCreated/UpdateMediaOnCommentCreatedHandler
     arguments: ["@Media.UpdateMediaOnCommentCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Media.UpdateMediaOnUserUpdated.Updater:
+    class: src/Contexts/Media/Media/application/UpdateMediaOnUserUpdated/Updater
+    arguments: ['@Media.Repository', '@Shared.EventBus']
+  
+  Media.UpdateMediaOnUserUpdated.UpdateMediaOnUserUpdatedHandler:
+    class: src/Contexts/Media/Media/application/UpdateMediaOnUserUpdated/UpdateMediaOnUserUpdatedHandler
+    arguments: ["@Media.UpdateMediaOnUserUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
