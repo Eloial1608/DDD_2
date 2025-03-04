@@ -40,19 +40,19 @@ export class Thread extends AggregateRoot {
     super()
   }
 
-  static create(
-      id:Id,
-      communityId: CommunityId,
-      spaceId: SpaceId,
-      title: Title,
-      parentThreadId: Nullable<ParentThreadId>,
-      userId: UserId,
-      content: Content,
-      bannerUrl: Nullable<BannerUrl>,
-      author: Author,
-      isPaid: IsPaid,
-      price: Nullable<Price>
-  ):Thread{
+  static create (
+    id:Id,
+    communityId: CommunityId,
+    spaceId: SpaceId,
+    title: Title,
+    parentThreadId: Nullable<ParentThreadId>,
+    userId: UserId,
+    content: Content,
+    bannerUrl: Nullable<BannerUrl>,
+    author: Author,
+    isPaid: IsPaid,
+    price: Nullable<Price>
+  ):Thread {
     const thread = new Thread(
       id,
       communityId,
