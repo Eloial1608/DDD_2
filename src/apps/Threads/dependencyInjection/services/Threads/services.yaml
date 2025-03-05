@@ -159,3 +159,7 @@ services:
     arguments: ["@Thread.Create.Creator"]
     tags:
       - { name: "commandHandler" }
+
+   Like.Repository:
+    class: src/Contexts/Threads/Like/infrastructure/persistence/TypeOrmLikeRepository
+    arguments: ["@Shared.ORM.Connection"]
