@@ -186,11 +186,11 @@ services:
     class: src/Contexts/Course/Section/application/FindById/FinderById
     arguments: ['@Section.Repository']
   
-  Section.FindById.FindSectionByIdQueryHandler:
-    class: src/Contexts/Course/Section/application/FindById/FindSectionByIdQueryHandler
-    arguments: ['@Section.FindById.FinderById']
-    tags:
-      - { name: "queryHandler" }
+  # Section.FindById.FindSectionByIdQueryHandler:
+  #   class: src/Contexts/Course/Section/application/FindById/FindSectionByIdQueryHandler
+  #   arguments: ['@Section.FindById.FinderById']
+  #   tags:
+  #     - { name: "queryHandler" }
 
   Course.FindById.FinderById:
     class: src/Contexts/Course/Course/application/FindById/FinderById
