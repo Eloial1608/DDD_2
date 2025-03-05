@@ -17,7 +17,6 @@ import { EventBus } from '@Shared/domain/EventBus/EventBus'
 import { Nullable } from '@Shared/domain/Nullable'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { MediaConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/MediaConfiguration'
-import { ContentIds } from '@Media/Media/domain/ValueObjects/ContentIds'
 
 export class Updater {
   constructor (private readonly repository: MediaRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
@@ -28,7 +27,6 @@ export class Updater {
     userId: UserId,
     spaceId: SpaceId,
     title: Title,
-    contentIds: ContentIds,
     bannerUrl: Nullable<BannerUrl>,
     isPaid: IsPaid,
     price: Nullable<Price>
@@ -55,7 +53,6 @@ export class Updater {
     const updatedMedia = media.update(
       id,
       title,
-      contentIds,
       bannerUrl,
       isPaid,
       price

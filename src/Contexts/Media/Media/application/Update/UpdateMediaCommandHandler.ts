@@ -10,7 +10,6 @@ import { BannerUrl } from '@Media/Media/domain/ValueObjects/BannerUrl'
 import { IsPaid } from '@Media/Media/domain/ValueObjects/IsPaid'
 import { Price, PriceCurrency, PriceValue } from '@Media/Media/domain/ValueObjects/Price'
 import { SpaceId } from '@Media/Media/domain/ValueObjects/SpaceId'
-import { ContentIds } from '@Media/Media/domain/ValueObjects/ContentIds'
 
 export class UpdateMediaCommandHandler implements CommandHandler<UpdateMediaCommand> {
   constructor (private readonly updater: Updater) {}
@@ -26,7 +25,6 @@ export class UpdateMediaCommandHandler implements CommandHandler<UpdateMediaComm
       new UserId(command.userId),
       new SpaceId(command.spaceId),
       new Title(command.title),
-      new ContentIds(command.contentIds),
       command.bannerUrl ? new BannerUrl(command.bannerUrl) : null,
       new IsPaid(command.isPaid),
       command.price
