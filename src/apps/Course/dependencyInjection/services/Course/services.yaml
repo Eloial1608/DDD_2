@@ -227,7 +227,7 @@ services:
     class: src/Contexts/Course/Course/application/FindByCriteria/FinderByCriteria
     arguments: ['@Course.Repository']
   
-  Section.FindByCriteria.FindCourseByCriteriaQueryHandler:
+  Course.FindByCriteria.FindCourseByCriteriaQueryHandler:
     class: src/Contexts/Course/Course/application/FindByCriteria/FindCourseByCriteriaQueryHandler
     arguments: ['@Course.FindByCriteria.FinderByCriteria']
     tags:
