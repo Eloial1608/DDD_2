@@ -29,7 +29,7 @@ describe('UpdateSectionCommandHandler should ', () => {
   test('Update a section', async () => {
     const course = CourseMother.random()
 
-    const section = SectionMother.create({courseId: course.id})
+    const section = SectionMother.create({ courseId: course.id })
 
     const existingSection = SectionMother.create({
       id: section.id,
@@ -50,7 +50,7 @@ describe('UpdateSectionCommandHandler should ', () => {
   test('Fail if the section doesnt exists', async () => {
     const course = CourseMother.random()
 
-    const section = SectionMother.create({courseId: course.id})
+    const section = SectionMother.create({ courseId: course.id })
 
     queryBus.returnOnQuery(new FindCourseByIdQuery(course.id.valueOf()), new CourseResponse(course))
 
@@ -62,7 +62,7 @@ describe('UpdateSectionCommandHandler should ', () => {
   test('Create a new CourseUpdatedDomainEvent', async () => {
     const course = CourseMother.random()
 
-    const section = SectionMother.create({courseId: course.id})
+    const section = SectionMother.create({ courseId: course.id })
 
     const existingSection = SectionMother.create({
       id: section.id,

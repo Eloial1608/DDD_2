@@ -4,10 +4,10 @@ import { Id } from '@Course/Section/domain/ValueObjects/Id'
 import { Title } from '@Course/Section/domain/ValueObjects/Title'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
-import { FindSectionByIdQuery } from '../FindById/FindSectionByIdQuery'
-import { SectionResponse } from '../SectionResponse'
 import { SectionNotFound } from '@Course/Section/domain/Errors/SectionNotFound'
 import { NotAllowedToPersistSection } from '@Course/Section/domain/Errors/NotAllowedToPersistSection'
+import { CourseResponse } from '@Course/Course/application/CourseResponse'
+import { FindCourseByIdQuery } from '@Course/Course/application/FindById/FindCourseByIdQuery'
 
 export class Updater {
   constructor (private readonly repository: SectionRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
@@ -37,8 +37,8 @@ export class Updater {
   }
 
   private async findCourseById (id: CourseId) {
-    const courseQuery = new FindSectionByIdQuery(id.valueOf())
+    const courseQuery = new FindCourseByIdQuery(id.valueOf())
 
-    return (await this.queryBus.ask<SectionResponse>(courseQuery)).response
+    return (await this.queryBus.ask<CourseResponse>(courseQuery)).response
   }
 }
