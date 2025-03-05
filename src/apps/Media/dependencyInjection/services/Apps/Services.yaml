@@ -1,3 +1,63 @@
 services:
   Apps.Media.Controllers.HealthGetController:
     class: src/apps/Media/controllers/HealthGetController
+  
+  Apps.Media.Controllers.MediaPostController:
+    class: src/apps/Media/controllers/Media/MediaPostController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Media.Controllers.MediaPutController:
+    class: src/apps/Media/controllers/Media/MediaPutController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Media.Controllers.MediasGetController:
+    class: src/apps/Media/controllers/Media/MediasGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Media.Controllers.MediaGetController:
+    class: src/apps/Media/controllers/Media/MediaGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Media.Controllers.MediaDeleteController:
+    class: src/apps/Media/controllers/Media/MediaDeleteController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Media.Controllers.LikesGetController:
+    class: src/apps/Media/controllers/Like/LikesGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Media.Controllers.LikeDeleteController:
+    class: src/apps/Media/controllers/Like/LikeDeleteController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Media.Controllers.CommentsGetController:
+    class: src/apps/Media/controllers/Comment/CommentsGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Media.Controllers.CommentDeleteController:
+    class: src/apps/Media/controllers/Comment/CommentDeleteController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Media.Controllers.CommentPutController:
+    class: src/apps/Media/controllers/Comment/CommentPutController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Media.Controllers.LikePostController:
+    class: src/apps/Media/controllers/Like/LikePostController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Media.Controllers.CommentPostController:
+    class: src/apps/Media/controllers/Comment/CommentPostController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Media.Controllers.ContentPostController:
+    class: src/apps/Media/controllers/Content/ContentPostController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Media.Controllers.ContentGetController:
+    class: src/apps/Media/controllers/Content/ContentGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Media.Controllers.ContentDeleteController:
+    class: src/apps/Media/controllers/Content/ContentDeleteController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
