@@ -162,4 +162,7 @@ services:
 
    ThreadUser.Repository:
     class: src/Contexts/Threads/ThreadUser/infrastructure/persistence/TypeOrmThreadUserRepository
+
+   Like.Repository:
+
     arguments: ["@Shared.ORM.Connection"]
