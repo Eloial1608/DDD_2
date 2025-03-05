@@ -21,7 +21,7 @@ export class Updater {
 
     if (!section) throw new SectionNotFound(id)
 
-    if (section.courseId.valueOf() !== courseId.valueOf()) throw new NotAllowedToPersistSection(course.id)
+    if (section.courseId.valueOf() !== courseId.valueOf()) throw new NotAllowedToPersistSection(section.id)
 
     const course = await this.findCourseById(courseId)
 

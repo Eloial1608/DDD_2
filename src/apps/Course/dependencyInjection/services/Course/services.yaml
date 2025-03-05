@@ -76,7 +76,7 @@ services:
       - { name: "domainEventSubscriber" }
 
   Space.DeleteSpaceOnSpaceDeleted.Deleter:
-    class: src/Contexts/Course/Space/application/CreateSpaceOnSpaceCreated/Creator
+    class: src/Contexts/Course/Space/application/DeleteSpaceOnSpaceDeleted/Deleter
     arguments: ['@Space.Repository', '@Shared.EventBus']
   
   Space.DeleteSpaceOnSpaceDeleted.DeleteSpaceOnSpaceDeletedHandler:
@@ -117,7 +117,6 @@ services:
   SpaceMember.Repository:
     class: src/Contexts/Course/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
     arguments: ["@Shared.ORM.Connection"]
-
 
   Section.Repository:
     class: src/Contexts/Course/Section/infrastructure/persistence/TypeOrmSectionRepository
@@ -207,18 +206,18 @@ services:
     class: src/Contexts/Course/Section/application/FindByCriteria/FinderByCriteria
     arguments: ['@Section.Repository']
   
-  Section.FindByCriteria.FindSectionsByCriteriaQueryHandler:
-    class: src/Contexts/Course/Section/application/FindByCriteria/FindSectionsByCriteriaQueryHandler
-    arguments: ['@Section.FindByCriteria.FinderByCriteria']
-    tags:
-      - { name: "queryHandler" }
+  # Section.FindByCriteria.FindSectionsByCriteriaQueryHandler:
+  #   class: src\Contexts\Course\Section\application\FindByCriteria\FindSectionsByCriteriaQueryHandler
+  #   arguments: ['@Section.FindByCriteria.FinderByCriteria']
+  #   tags:
+  #     - { name: "queryHandler" }
 
   Course.Delete.Deleter:
     class: src/Contexts/Course/Course/application/Delete/Deleter
     arguments: ['@Course.Repository', '@Shared.EventBus']
   
-  Course.Delete.DeleterCourseCommandHandler:
-    class: src/Contexts/Course/Course/application/Delete/DeleterCourseCommandHandler
+  Course.Delete.DeleteCourseCommandHandler:
+    class: src/Contexts/Course/Course/application/Delete/DeleteCourseCommandHandler
     arguments: ["@Course.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
@@ -227,7 +226,7 @@ services:
     class: src/Contexts/Course/Course/application/FindByCriteria/FinderByCriteria
     arguments: ['@Course.Repository']
   
-  Section.FindByCriteria.FindCourseByCriteriaQueryHandler:
+  Course.FindByCriteria.FindCourseByCriteriaQueryHandler:
     class: src/Contexts/Course/Course/application/FindByCriteria/FindCourseByCriteriaQueryHandler
     arguments: ['@Course.FindByCriteria.FinderByCriteria']
     tags:
@@ -237,8 +236,8 @@ services:
     class: src/Contexts/Course/Section/application/Update/Updater
     arguments: ['@Section.Repository', '@Shared.EventBus', '@Shared.QueryBus']
   
-  Section.Update.UpdateSectionCommandHandler:
-    class: src/Contexts/Course/Section/application/Update/UpdateSectionCommandHandler
-    arguments: ["@Section.Update.Updater"]
-    tags:
-      - { name: "commandHandler" }
+  # Section.Update.UpdateSectionCommandHandler:
+  #   class: src/Contexts/Course/Section/application/Update/UpdateSectionCommandHandler
+  #   arguments: ["@Section.Update.Updater"]
+  #   tags:
+  #     - { name: "commandHandler" }

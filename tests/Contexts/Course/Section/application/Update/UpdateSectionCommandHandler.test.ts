@@ -8,8 +8,8 @@ import { SectionMother } from '../../domain/SectionMother'
 import { FindCourseByIdQuery } from '@Course/Course/application/FindById/FindCourseByIdQuery'
 import { CourseResponse } from '@Course/Course/application/CourseResponse'
 import { UpdateSectionCommandMother } from './UpdateSectionCommandMother'
-import { CourseNotFound } from '@Course/Course/domain/Errors/CourseNotFound'
 import { SectionUpdatedDomainEvent } from '@Course/Section/domain/events/SectionUpdatedDomainEvent'
+import { SectionNotFound } from '@Course/Section/domain/Errors/SectionNotFound'
 
 let eventBus: EventBusMock
 let repository: SectionRepositoryMock
@@ -47,7 +47,7 @@ describe('UpdateSectionCommandHandler should ', () => {
     repository.assertPersistHasBeenCalledWith(section)
   })
 
-  test('Fail if the course doesnt exists', async () => {
+  test('Fail if the section doesnt exists', async () => {
     const course = CourseMother.random()
 
     const section = SectionMother.create({courseId: course.id})
@@ -56,7 +56,7 @@ describe('UpdateSectionCommandHandler should ', () => {
 
     const command = UpdateSectionCommandMother.fromAggregate(section)
 
-    expect(handler.handle(command)).rejects.toThrow(CourseNotFound)
+    expect(handler.handle(command)).rejects.toThrow(SectionNotFound)
   })
 
   test('Create a new CourseUpdatedDomainEvent', async () => {
