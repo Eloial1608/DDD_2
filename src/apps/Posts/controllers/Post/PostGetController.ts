@@ -40,6 +40,7 @@ type PostsGetControllerResponseBody = {
   }
   readonly isPaid: boolean
   totalLikes: number
+  readonly isLocked?: boolean
   totalComments: number
   readonly price: Nullable<{value: number, currency: string}>
   readonly createdAt: Date
@@ -78,15 +79,11 @@ export class PostGetController implements Controller {
 
       if (post.isPaid && (!user?.isAdmin && !user?.isOwner && !spaceMember?.isModerator)) {
         if (!spaceMember) {
-          return res.status(200).json({
-            post: await this.buildResponse(this.getPostWithoutContent(post), user?.id)
-          })
+          return res.status(200).json(await this.buildResponse(this.getPostWithoutContent(post), user?.id))
         }
         const postUser = await this.getPostUser(spaceMember.userId, post.id)
         if (!postUser) {
-          return res.status(200).json({
-            post: await this.buildResponse(this.getPostWithoutContent(post), user?.id)
-          })
+          return res.status(200).json(await this.buildResponse(this.getPostWithoutContent(post), user?.id))
         }
       }
 
@@ -102,7 +99,10 @@ export class PostGetController implements Controller {
   private getPostWithoutContent (post: PostResponseBody) {
     const { content, ...data } = post
 
-    return data
+    return {
+      ...data,
+      isLocked: true
+    }
   }
 
   private async buildResponse (post: Partial<PostsGetControllerResponseBody>, userId?: string) : Promise<PostsGetControllerResponseBody> {

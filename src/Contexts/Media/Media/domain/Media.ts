@@ -20,6 +20,7 @@ import { MediaDeletedDomainEvent } from './Events/MediaDeletedDomainEvent'
 import { SpaceId } from './ValueObjects/SpaceId'
 import { MediaTotalLikesUpdatedDomainEvent } from './Events/MediaTotalLikesUpdatedDomainEvent'
 import { MediaTotalCommentsUpdatedDomainEvent } from './Events/MediaTotalCommentsUpdatedDomainEvent'
+import { MediaAuthorUpdatedDomainEvent } from './Events/MediaAuthorUpdatedDomainEvent'
 
 export class Media extends AggregateRoot {
   constructor (
@@ -104,6 +105,32 @@ export class Media extends AggregateRoot {
     )
 
     media.record(MediaUpdatedDomainEvent.fromAggregate(media))
+
+    return media
+  }
+
+  updateAuthor (
+    author: Author
+  ): Media {
+    const media = new Media(
+      this.id,
+      this.communityId,
+      this.userId,
+      this.spaceId,
+      this.title,
+      this.contentIds,
+      this.bannerUrl,
+      author,
+      this.isPaid,
+      this.price,
+      this.totalLikes,
+      this.totalComments,
+      this.createdAt,
+      this.updatedAt,
+      null
+    )
+
+    media.record(MediaAuthorUpdatedDomainEvent.fromAggregate(media))
 
     return media
   }

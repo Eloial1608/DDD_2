@@ -1,13 +1,13 @@
-import { Space } from '@Threads/Space/domain/Space'
-import { Accessibility } from '@Threads/Space/domain/ValueObjects/Accessibility'
-import { CommunityId } from '@Threads/Space/domain/ValueObjects/CommunityId'
-import { Id } from '@Threads/Space/domain/ValueObjects/Id'
-import { Type } from '@Threads/Space/domain/ValueObjects/Type'
+import { Space } from 'src/Contexts/Threads/Space/domain/Space'
+import { Accessibility } from 'src/Contexts/Threads/Space/domain/ValueObjects/Accessibility'
+import { CommunityId } from 'src/Contexts/Threads/Space/domain/ValueObjects/CommunityId'
+import { Id } from 'src/Contexts/Threads/Space/domain/ValueObjects/Id'
+import { Type } from 'src/Contexts/Threads/Space/domain/ValueObjects/Type'
 import { AllowedTypes } from '@Shared/domain/SharedValueObjects/Space/AllowedTypes'
 import { ConfigurationFactory } from '@Shared/domain/SharedValueObjects/Space/Configuration/ConfigurationFactory'
 import { AllowedAccessibilities } from '@Shared/domain/SharedValueObjects/Space/SharedAccessibility'
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
-import { Configuration } from '@Threads/Space/domain/ValueObjects/Configuration'
+import { Configuration } from 'src/Contexts/Threads/Space/domain/ValueObjects/Configuration'
 
 export class SpaceMother {
   static create (params: Partial<Space>): Space {

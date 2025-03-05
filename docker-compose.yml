@@ -52,7 +52,7 @@ services:
       - 5006:5006
     env_file:
       - /etc/gathered/course/.env
-    command: ["start:course:server"]
+    command: ["start:courses:server"]
     deploy:
       resources:
         limits:

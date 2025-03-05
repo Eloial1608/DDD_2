@@ -35,7 +35,7 @@ describe('CreateUserPlanOnStripeSessionVerifiedHandler should ', () => {
     await handler.on(event)
 
     const expiresAt = new Date()
-    expiresAt.setDate(expiresAt.getDate() + 30)
+    expiresAt.setMonth(expiresAt.getMonth() + stripeSession.product.renovationInterval!)
 
     const expectedUserPlan = UserPlanMother.create({
       id: stripeSession.customerId,

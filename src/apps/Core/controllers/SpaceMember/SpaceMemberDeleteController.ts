@@ -48,8 +48,9 @@ export class SpaceMemberDeleteController implements Controller {
 
       await this.commandBus.dispatch(command)
 
-      return res.status(201).send()
+      return res.status(204).send()
     } catch (e) {
+      console.log(e)
       if (e instanceof CannotDecode) return res.status(401).json({ message: e.getMessage() })
 
       return res.status(500).send()
