@@ -390,3 +390,57 @@ services:
     arguments: ["@Media.UpdateMediaOnUserUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  Content.Repository:
+    class: src/Contexts/Media/Content/infrastructure/persistence/TypeOrmContentRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Content.FindById.FinderById:
+    class: src/Contexts/Media/Content/application/FindById/FinderById
+    arguments: ['@Content.Repository']
+  
+  Content.FindById.FindContentByIdQueryHandler:
+    class: src/Contexts/Media/Content/application/FindById/FindContentByIdQueryHandler
+    arguments: ['@Content.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+  
+  Content.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Media/Content/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Content.Repository']
+  
+  Content.FindByCriteria.FindContentByCriteriaQueryHandler:
+    class: src/Contexts/Media/Content/application/FindByCriteria/FindContentByCriteriaQueryHandler
+    arguments: ['@Content.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+  Content.Delete.Deleter:
+    class: src/Contexts/Media/Content/application/Delete/Deleter
+    arguments: ['@Content.Repository', '@Shared.EventBus']
+  
+  Content.Delete.DeleteContentCommandHandler:
+    class: src/Contexts/Media/Content/application/Delete/DeleteContentCommandHandler
+    arguments: ["@Content.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Content.Update.Updater:
+    class: src/Contexts/Media/Content/application/Update/Updater
+    arguments: ['@Content.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Content.Update.UpdateContentCommandHandler:
+    class: src/Contexts/Media/Content/application/Update/UpdateContentCommandHandler
+    arguments: ["@Content.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Content.Create.Creator:
+    class: src/Contexts/Media/Content/application/Create/Creator
+    arguments: ['@Content.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Content.Create.CreateContentCommandHandler:
+    class: src/Contexts/Media/Content/application/Create/CreateContentCommandHandler
+    arguments: ["@Content.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }

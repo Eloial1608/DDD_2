@@ -8,7 +8,6 @@ export class UpdateMediaCommand implements Command {
         readonly userId: string,
         readonly spaceId: string,
         readonly title: string,
-        readonly contentIds: string[],
         readonly bannerUrl: Nullable<string>,
         readonly isPaid: boolean,
         readonly price: Nullable<{

@@ -7,7 +7,6 @@ export type MediaResponseBody = {
     readonly communityId: string
     readonly userId: string
     readonly title: string
-    readonly contentIds: string[]
     readonly bannerUrl: Nullable<string>
     readonly spaceId: string
     readonly author: {
@@ -36,7 +35,6 @@ export class MediaResponse implements QueryResponse<MediaResponseBody> {
       userId: media.userId.valueOf(),
       title: media.title.valueOf(),
       spaceId: media.spaceId.valueOf(),
-      contentIds: media.contentIds.valueOf(),
       bannerUrl: media.bannerUrl?.valueOf(),
       author: media.author.toPrimitives(),
       isPaid: media.isPaid.valueOf(),

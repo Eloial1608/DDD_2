@@ -3,7 +3,6 @@ import { MediaRepository } from '@Media/Media/domain/MediaRepository'
 import { Author } from '@Media/Media/domain/ValueObjects/Author'
 import { BannerUrl } from '@Media/Media/domain/ValueObjects/BannerUrl'
 import { CommunityId } from '@Media/Media/domain/ValueObjects/CommunityId'
-import { ContentIds } from '@Media/Media/domain/ValueObjects/ContentIds'
 import { Id } from '@Media/Media/domain/ValueObjects/Id'
 import { IsPaid } from '@Media/Media/domain/ValueObjects/IsPaid'
 import { Price } from '@Media/Media/domain/ValueObjects/Price'
@@ -28,7 +27,6 @@ export class Creator {
     userId: UserId,
     spaceId: SpaceId,
     title: Title,
-    contentIds: ContentIds,
     bannerUrl: Nullable<BannerUrl>,
     isPaid: IsPaid,
     price: Nullable<Price>
@@ -56,7 +54,6 @@ export class Creator {
       userId,
       spaceId,
       title,
-      contentIds,
       bannerUrl,
       new Author(
         user.id,

@@ -1,7 +1,6 @@
 import { Media } from '@Media/Media/domain/Media'
 import { Author } from '@Media/Media/domain/ValueObjects/Author'
 import { CommunityId } from '@Media/Media/domain/ValueObjects/CommunityId'
-import { ContentIds } from '@Media/Media/domain/ValueObjects/ContentIds'
 import { CreatedAt } from '@Media/Media/domain/ValueObjects/CreatedAt'
 import { Id } from '@Media/Media/domain/ValueObjects/Id'
 import { IsPaid } from '@Media/Media/domain/ValueObjects/IsPaid'
@@ -24,7 +23,6 @@ export class MediaMother {
       params.userId ?? new UserId(UuidMother.random()),
       params.spaceId ?? new SpaceId(UuidMother.random()),
       params.title ?? new Title(UuidMother.random()),
-      params.contentIds ?? new ContentIds([UuidMother.random()]),
       params.bannerUrl ?? null,
       params.author ?? new Author(
         UuidMother.random(),
