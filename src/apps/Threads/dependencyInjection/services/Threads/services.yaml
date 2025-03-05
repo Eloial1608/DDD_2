@@ -159,3 +159,14 @@ services:
     arguments: ["@Thread.Create.Creator"]
     tags:
       - { name: "commandHandler" }
+
+
+   Thread.Delete.Deleter:
+    class: src/Contexts/Threads/Thread/application/Delete/Deleter
+    arguments: ['@Thread.Repository', '@Shared.EventBus']
+  
+   Thread.Delete.DeleteThreadCommandHandler:
+    class: src/Contexts/Threads/Thread/application/Delete/DeleteThreadCommandHandler
+    arguments: ["@Thread.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
