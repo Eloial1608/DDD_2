@@ -6,6 +6,9 @@ import { SectionMother } from '../../domain/SectionMother'
 import { CreateSectionCommandMother } from './CreateSectionCommandMother'
 import { SectionCreatedDomainEvent } from '@Course/Section/domain/events/SectionCreatedDomainEvent'
 import { QueryBusMock } from '@Tests/Contexts/Shared/infrastructure/QueryBus/QueryBusMock'
+import { CourseMother } from '@Tests/Contexts/Course/Course/domain/CourseMother'
+import { FindCourseByIdQuery } from '@Course/Course/application/FindById/FindCourseByIdQuery'
+import { CourseResponse } from '@Course/Course/application/CourseResponse'
 
 let eventBus: EventBusMock
 let queryBus: QueryBusMock
@@ -23,9 +26,13 @@ describe('CreateSectionCommandHandler should ', () => {
   })
 
   test('create a new Section', async () => {
-    const section = SectionMother.random()
+    const course = CourseMother.random()
+
+    const section = SectionMother.create({ courseId: course.id })
 
     const command = CreateSectionCommandMother.fromAggregate(section)
+
+    queryBus.returnOnQuery(new FindCourseByIdQuery(course.id.valueOf()), new CourseResponse(course))
 
     await handler.handle(command)
 
@@ -33,9 +40,13 @@ describe('CreateSectionCommandHandler should ', () => {
   })
 
   test('Create a new SectionCreateDomainEvent', async () => {
+    const course = CourseMother.random()
+
     const section = SectionMother.random()
 
     const command = CreateSectionCommandMother.fromAggregate(section)
+
+    queryBus.returnOnQuery(new FindCourseByIdQuery(course.id.valueOf()), new CourseResponse(course))
 
     await handler.handle(command)
 
