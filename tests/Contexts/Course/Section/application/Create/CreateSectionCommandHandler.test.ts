@@ -5,8 +5,10 @@ import { Creator } from '@Course/Section/application/Create/Creator'
 import { SectionMother } from '../../domain/SectionMother'
 import { CreateSectionCommandMother } from './CreateSectionCommandMother'
 import { SectionCreatedDomainEvent } from '@Course/Section/domain/events/SectionCreatedDomainEvent'
+import { QueryBusMock } from '@Tests/Contexts/Shared/infrastructure/QueryBus/QueryBusMock'
 
 let eventBus: EventBusMock
+let queryBus: QueryBusMock
 let repository: SectionRepositoryMock
 let handler: CreateSectionCommandHandler
 let creator: Creator
@@ -14,8 +16,9 @@ let creator: Creator
 describe('CreateSectionCommandHandler should ', () => {
   beforeEach(() => {
     eventBus = new EventBusMock()
+    queryBus = new QueryBusMock()
     repository = new SectionRepositoryMock()
-    creator = new Creator(repository, eventBus)
+    creator = new Creator(repository, eventBus, queryBus)
     handler = new CreateSectionCommandHandler(creator)
   })
 
