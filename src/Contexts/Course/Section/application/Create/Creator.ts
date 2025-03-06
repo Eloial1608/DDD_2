@@ -4,9 +4,12 @@ import { CourseId } from '@Course/Section/domain/ValueObjects/CourseId'
 import { Id } from '@Course/Section/domain/ValueObjects/Id'
 import { Title } from '@Course/Section/domain/ValueObjects/Title'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
+import { FindCourseByIdQuery } from '@Course/Course/application/FindById/FindCourseByIdQuery'
+import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
+import { CourseResponse } from '@Course/Course/application/CourseResponse'
 
 export class Creator {
-  constructor (private readonly reposiotry: SectionRepository, private readonly eventBus: EventBus) {}
+  constructor (private readonly reposiotry: SectionRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
 
   async run (
     id:Id,
@@ -17,6 +20,10 @@ export class Creator {
 
     if (existing) return
 
+    const course = await this.findCourseById(courseId)
+
+    if (!course) return
+
     const section = Section.create(
       id,
       courseId,
@@ -25,5 +32,11 @@ export class Creator {
 
     await this.reposiotry.persist(section)
     await this.eventBus.publish(section.pullDomainEvents())
+  }
+
+  private async findCourseById (id: CourseId) {
+    const spaceQuery = new FindCourseByIdQuery(id.valueOf())
+
+    return (await this.queryBus.ask<CourseResponse>(spaceQuery)).response
   }
 }
