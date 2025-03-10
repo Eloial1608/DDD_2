@@ -118,7 +118,6 @@ services:
     class: src/Contexts/Course/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
     arguments: ["@Shared.ORM.Connection"]
 
-
   Section.Repository:
     class: src/Contexts/Course/Section/infrastructure/persistence/TypeOrmSectionRepository
     arguments: ["@Shared.ORM.Connection"]
@@ -208,7 +207,7 @@ services:
     arguments: ['@Section.Repository']
   
   Section.FindByCriteria.FindSectionsByCriteriaQueryHandler:
-    class: src/Contexts/Course/Section/application/FindByCriteria/FindSectionsByCriteriaQueryHandler
+    class: src\Contexts\Course\Section\application\FindByCriteria\FindSectionsByCriteriaQueryHandler
     arguments: ['@Section.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
@@ -227,8 +226,29 @@ services:
     class: src/Contexts/Course/Course/application/FindByCriteria/FinderByCriteria
     arguments: ['@Course.Repository']
   
-  Section.FindByCriteria.FindCourseByCriteriaQueryHandler:
+  Course.FindByCriteria.FindCourseByCriteriaQueryHandler:
     class: src/Contexts/Course/Course/application/FindByCriteria/FindCourseByCriteriaQueryHandler
     arguments: ['@Course.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+
+  Section.Update.Updater:
+    class: src/Contexts/Course/Section/application/Update/Updater
+    arguments: ['@Section.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Section.Update.UpdateSectionCommandHandler:
+    class: src/Contexts/Course/Section/application/Update/UpdateSectionCommandHandler
+    arguments: ["@Section.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
+
+  Section.Delete.Deleter:
+    class: src/Contexts/Course/Section/application/Delete/Deleter
+    arguments: ['@Section.Repository', '@Shared.EventBus']
+  
+  Section.Delete.DeleteSectionCommandHandler:
+    class: src/Contexts/Course/Section/application/Delete/DeleteSectionCommandHandler
+    arguments: ["@Section.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }

@@ -7,7 +7,7 @@ import { SectionRepository } from '@Course/Section/domain/SectionRepository'
 import { SectionSchema } from './entity/SectionSchema'
 import { Id } from '@Course/Section/domain/ValueObjects/Id'
 
-export class TypeOrmCourseRepository extends TypeOrmRepository<Section> implements SectionRepository {
+export class TypeOrmSectionRepository extends TypeOrmRepository<Section> implements SectionRepository {
   protected get entitySchema (): EntitySchema {
     return SectionSchema
   }

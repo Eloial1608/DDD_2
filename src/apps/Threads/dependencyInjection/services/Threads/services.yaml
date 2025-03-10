@@ -178,3 +178,22 @@ services:
     class: src/Contexts/Threads/Like/infrastructure/persistence/TypeOrmLikeRepository
     arguments: ["@Shared.ORM.Connection"]
 
+   Thread.Update.Updater:
+    class: src/Contexts/Threads/Thread/application/Update/Updater
+    arguments: ['@Thread.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+   Thread.Update.UpdateThreadCommandHandler:
+    class: src/Contexts/Threads/Thread/application/Update/UpdateThreadCommandHandler
+    arguments: ["@Thread.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
+   Thread.FindById.FinderById:
+    class: src/Contexts/Threads/Thread/application/FindById/FinderById
+    arguments: ['@Thread.Repository']
+  
+   Thread.FindById.FindThreadByIdQueryHandler:
+    class: src/Contexts/Threads/Thread/application/FindById/FindThreadByIdQueryHandler
+    arguments: ['@Thread.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
