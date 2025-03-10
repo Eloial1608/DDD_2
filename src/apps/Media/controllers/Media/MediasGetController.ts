@@ -48,7 +48,7 @@ type MediaGetControllerResponseBody = {
     readonly updatedAt: Date
 }
 
-export class MediaGetController implements Controller {
+export class MediasGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
 
   async run (req: Request, res: Response): Promise<Response> {
