@@ -197,3 +197,13 @@ services:
     arguments: ['@Thread.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+  
+   Like.Create.Creator:
+    class: src/Contexts/Threads/Like/application/Create/Creator
+    arguments: ['@Like.Repository', '@Shared.QueryBus', '@Shared.EventBus']
+  
+   Like.Create.CreateLikeCommandHandler:
+    class: src/Contexts/Threads/Like/application/Create/CreateLikeCommandHandler
+    arguments: ["@Like.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
