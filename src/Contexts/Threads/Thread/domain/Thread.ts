@@ -78,7 +78,7 @@ export class Thread extends AggregateRoot {
     return thread
   }
 
-   delete():Thread{
+  delete ():Thread {
     const thread = new Thread(
       this.id,
       this.communityId,
@@ -103,14 +103,14 @@ export class Thread extends AggregateRoot {
     return thread
   }
 
-  update(
+  update (
     id: Id,
     title: Title,
     content: Content,
     bannerUrl: Nullable<BannerUrl>,
     isPaid: IsPaid,
     price: Nullable<Price>
-  ): Thread{
+  ): Thread {
     const thread = new Thread(
       id,
       this.communityId,

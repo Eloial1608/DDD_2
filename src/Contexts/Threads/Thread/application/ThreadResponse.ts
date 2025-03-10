@@ -1,6 +1,6 @@
-import { Nullable } from "@Shared/domain/Nullable"
-import { QueryResponse } from "@Shared/domain/QueryBus/QueryResponse"
-import { Thread } from "../domain/Thread"
+import { Nullable } from '@Shared/domain/Nullable'
+import { QueryResponse } from '@Shared/domain/QueryBus/QueryResponse'
+import { Thread } from '../domain/Thread'
 
 export type ThreadResponseBody ={
     readonly id: string
@@ -27,31 +27,31 @@ export type ThreadResponseBody ={
     readonly updatedAt: Date
 }
 
-export class ThreadResponse implements QueryResponse<ThreadResponseBody>{
-    response: ThreadResponseBody
-    
-    constructor(thread: Thread){
-        this.response = {
-            id: thread.id.valueOf(),
-            communityId: thread.communityId.valueOf(),
-            userId: thread.userId.valueOf(),
-            title: thread.title.valueOf(),
-            parentThreadId: thread.parentThreadId?.valueOf(),
-            spaceId: thread.spaceId.valueOf(),
-            content: thread.content.valueOf(),
-            bannerUrl: thread.bannerUrl?.valueOf(),
-            author: thread.author.toPrimitives(),
-            isPaid: thread.isPaid.valueOf(),
-            price: thread.price?.value?.valueOf() != null
-              ? {
-                  value: thread.price.value.valueOf(),
-                  currency: thread.price.currency.valueOf()
-                }
-              : null,
-            totalLikes: thread.totalLikes.valueOf(),
-            totalThreads: thread.totalThreads.valueOf(),
-            createdAt: thread.createdAt.valueOf(),
-            updatedAt: thread.updatedAt.valueOf()
-        }
+export class ThreadResponse implements QueryResponse<ThreadResponseBody> {
+  response: ThreadResponseBody
+
+  constructor (thread: Thread) {
+    this.response = {
+      id: thread.id.valueOf(),
+      communityId: thread.communityId.valueOf(),
+      userId: thread.userId.valueOf(),
+      title: thread.title.valueOf(),
+      parentThreadId: thread.parentThreadId?.valueOf(),
+      spaceId: thread.spaceId.valueOf(),
+      content: thread.content.valueOf(),
+      bannerUrl: thread.bannerUrl?.valueOf(),
+      author: thread.author.toPrimitives(),
+      isPaid: thread.isPaid.valueOf(),
+      price: thread.price?.value?.valueOf() != null
+        ? {
+            value: thread.price.value.valueOf(),
+            currency: thread.price.currency.valueOf()
+          }
+        : null,
+      totalLikes: thread.totalLikes.valueOf(),
+      totalThreads: thread.totalThreads.valueOf(),
+      createdAt: thread.createdAt.valueOf(),
+      updatedAt: thread.updatedAt.valueOf()
     }
+  }
 }
