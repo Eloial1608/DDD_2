@@ -188,3 +188,12 @@ services:
     tags:
       - { name: "commandHandler" }
   
+   Thread.FindById.FinderById:
+    class: src/Contexts/Threads/Thread/application/FindById/FinderById
+    arguments: ['@Thread.Repository']
+  
+   Thread.FindById.FindThreadByIdQueryHandler:
+    class: src/Contexts/Threads/Thread/application/FindById/FindThreadByIdQueryHandler
+    arguments: ['@Thread.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
