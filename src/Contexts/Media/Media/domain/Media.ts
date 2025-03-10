@@ -3,7 +3,6 @@ import { Id } from './ValueObjects/Id'
 import { CommunityId } from './ValueObjects/CommunityId'
 import { UserId } from './ValueObjects/UserId'
 import { Title } from './ValueObjects/Title'
-import { ContentIds } from './ValueObjects/ContentIds'
 import { Nullable } from '@Shared/domain/Nullable'
 import { BannerUrl } from './ValueObjects/BannerUrl'
 import { Author } from './ValueObjects/Author'
@@ -29,7 +28,6 @@ export class Media extends AggregateRoot {
         readonly userId: UserId,
         readonly spaceId: SpaceId,
         readonly title: Title,
-        readonly contentIds: ContentIds,
         readonly bannerUrl: Nullable<BannerUrl>,
         readonly author: Author,
         readonly isPaid: IsPaid,
@@ -49,7 +47,6 @@ export class Media extends AggregateRoot {
     userId: UserId,
     spaceId: SpaceId,
     title: Title,
-    contentIds: ContentIds,
     bannerUrl: Nullable<BannerUrl>,
     author: Author,
     isPaid: IsPaid,
@@ -61,7 +58,6 @@ export class Media extends AggregateRoot {
       userId,
       spaceId,
       title,
-      contentIds,
       bannerUrl,
       author,
       isPaid,
@@ -81,7 +77,6 @@ export class Media extends AggregateRoot {
   update (
     id: Id,
     title: Title,
-    contentIds: ContentIds,
     bannerUrl: Nullable<BannerUrl>,
     isPaid: IsPaid,
     price: Nullable<Price>
@@ -92,7 +87,6 @@ export class Media extends AggregateRoot {
       this.userId,
       this.spaceId,
       title,
-      contentIds,
       bannerUrl,
       this.author,
       isPaid,
@@ -118,7 +112,6 @@ export class Media extends AggregateRoot {
       this.userId,
       this.spaceId,
       this.title,
-      this.contentIds,
       this.bannerUrl,
       author,
       this.isPaid,
@@ -144,7 +137,6 @@ export class Media extends AggregateRoot {
       this.userId,
       this.spaceId,
       this.title,
-      this.contentIds,
       this.bannerUrl,
       this.author,
       this.isPaid,
@@ -170,7 +162,6 @@ export class Media extends AggregateRoot {
       this.userId,
       this.spaceId,
       this.title,
-      this.contentIds,
       this.bannerUrl,
       this.author,
       this.isPaid,
@@ -194,7 +185,6 @@ export class Media extends AggregateRoot {
       this.userId,
       this.spaceId,
       this.title,
-      this.contentIds,
       this.bannerUrl,
       this.author,
       this.isPaid,

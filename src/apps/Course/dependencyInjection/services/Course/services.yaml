@@ -241,3 +241,14 @@ services:
     arguments: ["@Section.Update.Updater"]
     tags:
       - { name: "commandHandler" }
+
+
+  Section.Delete.Deleter:
+    class: src/Contexts/Course/Section/application/Delete/Deleter
+    arguments: ['@Section.Repository', '@Shared.EventBus']
+  
+  Section.Delete.DeleteSectionCommandHandler:
+    class: src/Contexts/Course/Section/application/Delete/DeleteSectionCommandHandler
+    arguments: ["@Section.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }

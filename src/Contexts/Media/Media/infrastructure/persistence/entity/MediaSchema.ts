@@ -15,7 +15,6 @@ import { DeletedAt } from '@Media/Media/domain/ValueObjects/DeletedAt'
 import { Price, PriceCurrency, PriceValue } from '@Media/Media/domain/ValueObjects/Price'
 import { Author } from '@Media/Media/domain/ValueObjects/Author'
 import { SpaceId } from '@Media/Media/domain/ValueObjects/SpaceId'
-import { ContentIds } from '@Media/Media/domain/ValueObjects/ContentIds'
 
 const MediaPriceSchema = new EntitySchema<Price>({
   name: 'mediaPrice',
@@ -86,10 +85,6 @@ export const Mediachema = new EntitySchema<Media>({
     title: {
       type: String,
       transformer: ValueObjectTransformer(Title)
-    },
-    contentIds: {
-      type: 'simple-array',
-      transformer: ValueObjectTransformer(ContentIds)
     },
     bannerUrl: {
       type: String,

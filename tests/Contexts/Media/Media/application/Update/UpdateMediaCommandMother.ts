@@ -9,7 +9,6 @@ export class UpdateMediaCommandMother {
     userId: string,
     spaceId: string,
     title: string,
-    contentIds: string[],
     bannerUrl: Nullable<string>,
     isPaid: boolean,
     price: Nullable<{
@@ -23,7 +22,6 @@ export class UpdateMediaCommandMother {
       userId,
       spaceId,
       title,
-      contentIds,
       bannerUrl,
       isPaid,
       price
@@ -37,7 +35,6 @@ export class UpdateMediaCommandMother {
       media.userId.valueOf(),
       media.spaceId.valueOf(),
       media.title.valueOf(),
-      media.contentIds.valueOf(),
       media.bannerUrl?.valueOf(),
       media.isPaid.valueOf(),
       media.price
