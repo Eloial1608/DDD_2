@@ -15,7 +15,7 @@ export class TypeOrmConfigFactory {
       synchronize: false,
       logging: false,
       entities: routes,
-      migrations: ['persistence/migrations/Media/*.js']
+      migrations: ['persistence/migrations/media/*.js']
     }
   }
 }
