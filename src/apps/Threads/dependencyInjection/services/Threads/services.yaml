@@ -197,3 +197,13 @@ services:
     arguments: ['@Thread.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+
+   Thread.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Threads/Thread/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Thread.Repository']
+  
+   Thread.FindByCriteria.FindThreadsByCriteriaQueryHandler:
+    class: src/Contexts/Threads/Thread/application/FindByCriteria/FindThreadsByCriteriaQueryHandler
+    arguments: ['@Thread.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
