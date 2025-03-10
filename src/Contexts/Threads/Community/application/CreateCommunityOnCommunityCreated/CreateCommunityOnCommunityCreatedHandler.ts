@@ -2,8 +2,8 @@ import { CommunityCreatedDomainEvent } from '@Core/Community/domain/Events/Commu
 import { DomainEventClass } from '@Shared/domain/EventBus/DomainEvent'
 import { DomainEventSubscriber } from '@Shared/domain/EventBus/DomainEventSubscriber'
 import { Creator } from './Creator'
-import { Id } from '@Threads/Community/domain/ValueObjects/Id'
-import { IsPrivate } from '@Threads/Community/domain/ValueObjects/IsPrivate'
+import { Id } from 'src/Contexts/Threads/Community/domain/ValueObjects/Id'
+import { IsPrivate } from 'src/Contexts/Threads/Community/domain/ValueObjects/IsPrivate'
 
 export class CreateCommunityOnCommunityCreatedHandler implements DomainEventSubscriber <CommunityCreatedDomainEvent> {
   constructor (private readonly creator: Creator) {}
