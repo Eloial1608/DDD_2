@@ -209,3 +209,12 @@ services:
     tags:
       - { name: "queryHandler" }
   
+   Like.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Threads/Like/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Like.Repository']
+  
+   Like.FindByCriteria.FindLikesByCriteriaQueryHandler:
+    class: src/Contexts/Threads/Like/application/FindByCriteria/FindLikesByCriteriaQueryHandler
+    arguments: ['@Like.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
