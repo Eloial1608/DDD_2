@@ -160,9 +160,40 @@ services:
     tags:
       - { name: "commandHandler" }
 
+   Thread.Delete.Deleter:
+    class: src/Contexts/Threads/Thread/application/Delete/Deleter
+    arguments: ['@Thread.Repository', '@Shared.EventBus']
+  
+   Thread.Delete.DeleteThreadCommandHandler:
+    class: src/Contexts/Threads/Thread/application/Delete/DeleteThreadCommandHandler
+    arguments: ["@Thread.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
    ThreadUser.Repository:
     class: src/Contexts/Threads/ThreadUser/infrastructure/persistence/TypeOrmThreadUserRepository
+    arguments: ["@Shared.ORM.Connection"]
 
    Like.Repository:
-
+    class: src/Contexts/Threads/Like/infrastructure/persistence/TypeOrmLikeRepository
     arguments: ["@Shared.ORM.Connection"]
+
+   Thread.Update.Updater:
+    class: src/Contexts/Threads/Thread/application/Update/Updater
+    arguments: ['@Thread.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+   Thread.Update.UpdateThreadCommandHandler:
+    class: src/Contexts/Threads/Thread/application/Update/UpdateThreadCommandHandler
+    arguments: ["@Thread.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
+   Thread.FindById.FinderById:
+    class: src/Contexts/Threads/Thread/application/FindById/FinderById
+    arguments: ['@Thread.Repository']
+  
+   Thread.FindById.FindThreadByIdQueryHandler:
+    class: src/Contexts/Threads/Thread/application/FindById/FindThreadByIdQueryHandler
+    arguments: ['@Thread.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
