@@ -8,6 +8,9 @@ import { FindUsersByCriteriaQuery } from "@Threads/User/application/FindByCriter
 import { SpaceMemberCollectionResponse } from "@Threads/SpaceMember/application/SpaceMemberCollectionResponse";
 import { FindSpaceMembersByCriteriaQuery } from "@Threads/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQuery";
 import { CannotDecode } from "@Shared/domain/TokenDecoder/Errors/CannotDecode";
+import { FindThreadByIdQuery } from "@Threads/Thread/application/FindById/FindThreadByIdQuery";
+import { ThreadResponse } from "@Threads/Thread/application/ThreadResponse";
+import { DeleteThreadCommand } from "@Threads/Thread/application/Delete/DeleteThreadCommand";
 
 export class ThreadDeleteController implements Controller{
     constructor (private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder){}
@@ -18,6 +21,28 @@ export class ThreadDeleteController implements Controller{
 
         const data = await this.decoder.run(req.headers.authorization)
 
+        const threadQuery = new FindThreadByIdQuery(req.params.id)
+
+        const thread = (await this.queryBus.ask<ThreadResponse>(threadQuery)).response
+
+        const user = await this.getUser(data.id, thread.communityId)
+
+        if(!user) return res.status(401).send()
+        
+        if (!user.isAdmin && !user.isOwner) {
+          const spaceMember = await this.getSpaceMember(user.id, user.communityId, thread.spaceId)
+  
+          if (!spaceMember) return res.status(401).send()
+        }
+
+        const command = new DeleteThreadCommand(
+          req.params.id,
+          user.communityId,
+          user.id
+        )
+
+        await this.commandBus.dispatch(command)
+    
         return res.status(204).send()
       } catch (e) {
          if (e instanceof CannotDecode) return res.status(401).send()
