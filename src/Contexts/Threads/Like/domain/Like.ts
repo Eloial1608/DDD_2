@@ -3,6 +3,7 @@ import { Id } from './ValueObjects/Id'
 import { CreatedAt } from './ValueObjects/CreatedAt'
 import { ThreadId } from './ValueObjects/ThreadId'
 import { UserId } from './ValueObjects/UserId'
+import { LikeDeletedDomainEvent } from './Events/LikeDeletedDomainEvent'
 
 export class Like extends AggregateRoot {
   constructor (
@@ -13,4 +14,16 @@ export class Like extends AggregateRoot {
   ) {
     super()
   }
+  delete () {
+      const like = new Like(
+        this.id,
+        this.threadId,
+        this.userId,
+        this.createdAt
+      )
+  
+      like.record(LikeDeletedDomainEvent.fromAggregate(like))
+  
+      return like
+    }
 }

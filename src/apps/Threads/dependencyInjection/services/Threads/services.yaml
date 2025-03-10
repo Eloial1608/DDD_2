@@ -197,3 +197,13 @@ services:
     arguments: ['@Thread.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+
+   Like.Delete.Deleter:
+    class: src/Contexts/Threads/Like/application/Delete/Deleter
+    arguments: ['@Like.Repository', '@Shared.EventBus']
+  
+   Like.Delete.DeleteLikeCommandHandler:
+    class: src/Contexts/Threads/Like/application/Delete/DeleteLikeCommandHandler
+    arguments: ["@Like.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
