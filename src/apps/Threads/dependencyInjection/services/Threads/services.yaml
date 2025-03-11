@@ -198,7 +198,6 @@ services:
     tags:
       - { name: "queryHandler" }
 
-
    Like.FindById.FinderById:
     class: src/Contexts/Threads/Like/application/FindById/FinderById
     arguments: ['@Like.Repository']
@@ -218,3 +217,34 @@ services:
     arguments: ['@Like.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+
+   Like.Delete.Deleter:
+    class: src/Contexts/Threads/Like/application/Delete/Deleter
+    arguments: ['@Like.Repository', '@Shared.EventBus']
+  
+   Like.Delete.DeleteLikeCommandHandler:
+    class: src/Contexts/Threads/Like/application/Delete/DeleteLikeCommandHandler
+    arguments: ["@Like.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
+   Like.Create.Creator:
+    class: src/Contexts/Threads/Like/application/Create/Creator
+    arguments: ['@Like.Repository', '@Shared.QueryBus', '@Shared.EventBus']
+  
+   Like.Create.CreateLikeCommandHandler:
+    class: src/Contexts/Threads/Like/application/Create/CreateLikeCommandHandler
+    arguments: ["@Like.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+   Thread.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Threads/Thread/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Thread.Repository']
+  
+   Thread.FindByCriteria.FindThreadsByCriteriaQueryHandler:
+    class: src/Contexts/Threads/Thread/application/FindByCriteria/FindThreadsByCriteriaQueryHandler
+    arguments: ['@Thread.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
