@@ -3,7 +3,7 @@ services:
     class: src/apps/Threads/controllers/HealthGetController
 
   Apps.Threads.Controllers.ThreadThreadController:
-    class: src/apps/Threads/controllers/Thread/ThreadThreadController
+    class: src/apps/Threads/controllers/Thread/ThreadPostController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
 
   Apps.Threads.Controllers.ThreadDeleteController:
