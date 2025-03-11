@@ -9,6 +9,10 @@ import { SpaceResponse } from "@Threads/Space/application/SpaceResponse"
 import { SpaceMemberResponseBody } from "@Threads/SpaceMember/application/SpaceMemberResponse"
 import { UserResponseBody } from "@Threads/User/application/UserResponse"
 import { FindSpaceByIdQuery } from "@Threads/Space/application/FindById/FindSpaceByIdQuery"
+import { UserCollectionResponse } from "@Threads/User/application/UserCollectionResponse"
+import { FindUsersByCriteriaQuery } from "@Threads/User/application/FindByCriteria/FindUsersByCriteriaQuery"
+import { SpaceMemberCollectionResponse } from "@Threads/SpaceMember/application/SpaceMemberCollectionResponse"
+import { FindSpaceMembersByCriteriaQuery } from "@Threads/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQuery"
 
 type ThreadsGetControllerResponseBody = {
   readonly id: string
@@ -48,9 +52,104 @@ export class ThreadGetController implements Controller{
 
             const spaceQuery = new FindSpaceByIdQuery(thread.spaceId)
 
-             const space = await (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
-                  let spaceMember: SpaceMemberResponseBody | undefined
-                  let user: UserResponseBody | undefined
+            const space = await (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
+            let spaceMember: SpaceMemberResponseBody | undefined
+            let user: UserResponseBody | undefined
         }
      }
+
+       private getThreadWithoutContent (thread: ThreadResponseBody) {
+         const { content, ...data } = thread
+     
+         return {
+           ...data,
+           isLocked: true
+         }
+       }
+     
+       private async buildResponse (thread: Partial<ThreadsGetControllerResponseBody>, userId?: string) : Promise<ThreadsGetControllerResponseBody> {
+         return {
+           ...thread as ThreadsGetControllerResponseBody,
+           likeId: userId ? (await this.getLikeId(userId, thread.id!))?.id : undefined
+         }
+       }
+     
+       private async getThreadUser (userId: string, threadId: string) {
+         const query = new FindThreadUsersByCriteriaQuery([
+           new Map<string, string>([
+             ['field', 'userId'],
+             ['operator', '='],
+             ['value', userId]
+           ]),
+           new Map<string, string>([
+             ['field', 'threadId'],
+             ['operator', '='],
+             ['value', threadId]
+           ])
+         ])
+     
+         const user = (await this.queryBus.ask<ThreadUserCollectionResponse>(query)).response.pop()
+     
+         return user
+       }
+     
+       private async getLikeId (userId: string, threadId: string) {
+         const query = new FindLikesByCriteriaQuery([
+           new Map<string, string>([
+             ['field', 'userId'],
+             ['operator', '='],
+             ['value', userId]
+           ]),
+           new Map<string, string>([
+             ['field', 'threadId'],
+             ['operator', '='],
+             ['value', threadId]
+           ])
+         ])
+     
+         const user = (await this.queryBus.ask<LikeCollectionResponse>(query)).response.pop()
+     
+         return user
+       }
+     
+       private async getSpaceMember (userId: string, communityId: string, spaceId: string) {
+         const query = new FindSpaceMembersByCriteriaQuery([
+           new Map<string, string>([
+             ['field', 'userId'],
+             ['operator', '='],
+             ['value', userId]
+           ]),
+           new Map<string, string>([
+             ['field', 'spaceId'],
+             ['operator', '='],
+             ['value', spaceId]
+           ]),
+           new Map<string, string>([
+             ['field', 'communityId'],
+             ['operator', '='],
+             ['value', communityId]
+           ])
+         ])
+     
+         return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response.pop()
+       }
+     
+       private async getUser (id: string, communityId: string) {
+         const query = new FindUsersByCriteriaQuery([
+           new Map<string, string>([
+             ['field', 'mainId'],
+             ['operator', '='],
+             ['value', id]
+           ]),
+           new Map<string, string>([
+             ['field', 'communityId'],
+             ['operator', '='],
+             ['value', communityId]
+           ])
+         ])
+     
+         const user = (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
+     
+         return user
+       }
 }
