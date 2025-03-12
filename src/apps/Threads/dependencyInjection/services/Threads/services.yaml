@@ -247,4 +247,14 @@ services:
     arguments: ['@Thread.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+    
+   ThreadUser.CreateThreadUserOnStripeSessionVerified.Creator:
+    class: src/Contexts/Threads/ThreadUser/application/CreateThreadUserOnStripeSessionVerified/Creator
+    arguments: ['@ThreadUser.Repository', '@Shared.EventBus']
+  
+   ThreadUser.CreateThreadUserOnStripeSessionVerified.CreateThreadUserOnStripeSessionVerifiedHandler:
+    class: src/Contexts/Threads/ThreadUser/application/CreateThreadUserOnStripeSessionVerified/CreateThreadUserOnStripeSessionVerifiedHandler
+    arguments: ["@ThreadUser.CreateThreadUserOnStripeSessionVerified.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
 
