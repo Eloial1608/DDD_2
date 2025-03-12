@@ -91,10 +91,10 @@ export class ThreadGetController implements Controller{
       
             return res.status(200).json(await this.buildResponse(thread, user?.id))
         }catch(e){
-                if (e instanceof CannotDecode) return res.status(401).send()
-                if (e instanceof ThreadNotFound) return res.status(404).send(e.getMessage())
-          
-                return res.status(500).send()
+            if (e instanceof CannotDecode) return res.status(401).send()
+            if (e instanceof ThreadNotFound) return res.status(404).send(e.getMessage())
+      
+            return res.status(500).send()
         }
      }
 

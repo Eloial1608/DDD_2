@@ -259,11 +259,11 @@ services:
       - { name: "domainEventSubscriber" }
 
    ThreadUser.FindByCriteria.FinderByCriteria:
-    class: src/Contexts/Thread/ThreadUser/application/FindByCriteria/FinderByCriteria
+    class: src/Contexts/Threads/ThreadUser/application/FindByCriteria/FinderByCriteria
     arguments: ['@ThreadUser.Repository']
   
    ThreadUser.FindByCriteria.FindThreadUsersByCriteriaQueryHandler:
-    class: src/Contexts/Thread/ThreadUser/application/FindByCriteria/FindThreadUsersByCriteriaQueryHandler
+    class: src/Contexts/Threads/ThreadUser/application/FindByCriteria/FindThreadUsersByCriteriaQueryHandler
     arguments: ['@ThreadUser.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
