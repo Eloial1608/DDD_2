@@ -198,7 +198,6 @@ services:
     tags:
       - { name: "queryHandler" }
 
-
    Like.FindById.FinderById:
     class: src/Contexts/Threads/Like/application/FindById/FinderById
     arguments: ['@Like.Repository']
@@ -209,6 +208,16 @@ services:
     tags:
       - { name: "queryHandler" }
   
+   Like.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Threads/Like/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Like.Repository']
+  
+   Like.FindByCriteria.FindLikesByCriteriaQueryHandler:
+    class: src/Contexts/Threads/Like/application/FindByCriteria/FindLikesByCriteriaQueryHandler
+    arguments: ['@Like.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
    Like.Delete.Deleter:
     class: src/Contexts/Threads/Like/application/Delete/Deleter
     arguments: ['@Like.Repository', '@Shared.EventBus']
