@@ -242,7 +242,6 @@ services:
     tags:
       - { name: "commandHandler" }
 
-
   Section.Delete.Deleter:
     class: src/Contexts/Course/Section/application/Delete/Deleter
     arguments: ['@Section.Repository', '@Shared.EventBus']
@@ -256,3 +255,13 @@ services:
   CourseUser.Repository:
     class: src/Contexts/Course/CourseUser/infrastructure/persistence/TypeOrmCourseUserRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  CourseUser.CreateCourseUserOnStripeSessionVerified.Creator:
+    class: src/Contexts/Course/CourseUser/application/CreateCourseUserOnStripeSessionVerified/Creator
+    arguments: ['@CourseUser.Repository', '@Shared.EventBus']
+  
+  CourseUser.CreateCourseUserOnStripeSessionVerifiedHandler.CreateCourseUserOnStripeSessionVerifiedHandler:
+    class: src/Contexts/Course/CourseUser/application/CreateCourseUserOnStripeSessionVerifiedHandler/CreateCourseUserOnStripeSessionVerifiedHandler
+    arguments: ["@CourseUser.CreateCourseUserOnStripeSessionVerified.Creator"]
+    tags:
+      - { name: "commandHandler" }
