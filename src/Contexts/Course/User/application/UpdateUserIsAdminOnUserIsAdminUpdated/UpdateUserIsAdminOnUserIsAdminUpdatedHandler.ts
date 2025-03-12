@@ -1,9 +1,9 @@
 import { DomainEventClass } from '@Shared/domain/EventBus/DomainEvent'
 import { DomainEventSubscriber } from '@Shared/domain/EventBus/DomainEventSubscriber'
 import { Updater } from './Updater'
-import { Id } from '@Posts/User/domain/ValueObjects/Id'
+import { Id } from '@Course/User/domain/ValueObjects/Id'
 import { UserUpdatedIsAdminDomainEvent } from '@Core/User/domain/Events/UserUpdatedIsAdminEvent'
-import { IsAdmin } from '@Posts/User/domain/ValueObjects/IsAdmin'
+import { IsAdmin } from '@Course/User/domain/ValueObjects/IsAdmin'
 
 export class UpdateUserIsAdminOnUserIsAdminUpdatedHandler implements DomainEventSubscriber <UserUpdatedIsAdminDomainEvent> {
   constructor (private readonly updater: Updater) {}

@@ -1,11 +1,11 @@
 import { DomainEventClass } from '@Shared/domain/EventBus/DomainEvent'
 import { DomainEventSubscriber } from '@Shared/domain/EventBus/DomainEventSubscriber'
 import { Updater } from './Updater'
-import { Id } from '@Posts/User/domain/ValueObjects/Id'
-import { Name } from '@Posts/User/domain/ValueObjects/Name'
-import { Username } from '@Posts/User/domain/ValueObjects/Username'
-import { PictureUrl } from '@Posts/User/domain/ValueObjects/PictureUrl'
-import { BannerUrl } from '@Posts/User/domain/ValueObjects/BannerUrl'
+import { Id } from '@Course/User/domain/ValueObjects/Id'
+import { Name } from '@Course/User/domain/ValueObjects/Name'
+import { Username } from '@Course/User/domain/ValueObjects/Username'
+import { PictureUrl } from '@Course/User/domain/ValueObjects/PictureUrl'
+import { BannerUrl } from '@Course/User/domain/ValueObjects/BannerUrl'
 import { UserUpdatedAboutAndNameDomainEvent } from '@Core/User/domain/Events/UserUpdatedAboutAndNameEvent'
 
 export class UpdateUserOnUserUpdatedHandler implements DomainEventSubscriber <UserUpdatedAboutAndNameDomainEvent> {
