@@ -13,4 +13,10 @@ services:
   Apps.Thread.Controllers.ThreadPutController:
     class: src/apps/Thread/controllers/Thread/ThreadPutController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+
+
+  Apps.Thread.Controllers.ThreadGetController:
+    class: src/apps/Thread/controllers/Thread/ThreadGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+  
   
