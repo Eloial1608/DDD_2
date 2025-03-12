@@ -17,4 +17,8 @@ services:
   Apps.Threads.Controllers.ThreadsGetController:
     class: src/apps/Threads/controllers/Thread/ThreadsGetController
     arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+
+  Apps.Threads.Controllers.LikePostControllers:
+    class: src/apps/Threads/controllers/Like/LikePostController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
   
