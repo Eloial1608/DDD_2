@@ -88,6 +88,7 @@ export class MediaGetController implements Controller {
 
       return res.status(200).json(await this.buildResponse(media, user?.id))
     } catch (e) {
+      console.log(e)
       if (e instanceof CannotDecode) return res.status(401).send()
       if (e instanceof MediaNotFound) return res.status(404).send(e.getMessage())
 
