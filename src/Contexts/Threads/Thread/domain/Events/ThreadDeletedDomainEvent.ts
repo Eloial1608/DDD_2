@@ -5,7 +5,7 @@ import { Thread } from '../Thread'
 type ThreadDeletedDomainEventBody = {
     readonly id: string
     readonly communityId: string
-    readonly threadParentId: Nullable<string>
+    readonly threadParentId: string
     readonly userId: string
     readonly title: string
     readonly bannerUrl: Nullable<string>
@@ -16,7 +16,7 @@ export class ThreadDeletedDomainEvent extends DomainEvent {
 
   readonly id: string
   readonly communityId: string
-  readonly threadParentId: Nullable<string>
+  readonly threadParentId: string
   readonly userId: string
   readonly title: string
   readonly bannerUrl: Nullable<string>
@@ -40,7 +40,7 @@ export class ThreadDeletedDomainEvent extends DomainEvent {
     return new ThreadDeletedDomainEvent({
       id: thread.id.valueOf(),
       communityId: thread.communityId.valueOf(),
-      threadParentId: thread.parentThreadId?.valueOf(),
+      threadParentId: thread.parentThreadId.valueOf(),
       userId: thread.userId.valueOf(),
       title: thread.title.valueOf(),
       bannerUrl: thread.bannerUrl?.valueOf()
