@@ -16,19 +16,19 @@ export class ThreadUser extends AggregateRoot {
   }
 
   static create (
-      id: Id,
-      userId: UserId,
-      threadId: ThreadId
-    ): ThreadUser {
-      const threadUser = new ThreadUser(
-        id,
-        userId,
-        threadId,
-        new CreatedAt(new Date())
-      )
-  
-      threadUser.record(ThreadUserCreatedDomainEvent.fromAggregate(threadUser))
-  
-      return threadUser
-    }
+    id: Id,
+    userId: UserId,
+    threadId: ThreadId
+  ): ThreadUser {
+    const threadUser = new ThreadUser(
+      id,
+      userId,
+      threadId,
+      new CreatedAt(new Date())
+    )
+
+    threadUser.record(ThreadUserCreatedDomainEvent.fromAggregate(threadUser))
+
+    return threadUser
+  }
 }

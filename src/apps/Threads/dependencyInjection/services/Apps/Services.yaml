@@ -21,3 +21,7 @@ services:
   Apps.Threads.Controllers.LikeDeleteController:
     class: src/apps/Threads/controllers/Like/LikeDeleteController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+
+  Apps.Threads.Controllers.ThreadGetController:
+    class: src/apps/Threads/controllers/Thread/ThreadGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
