@@ -275,3 +275,13 @@ services:
   CourseUser.Repository:
     class: src/Contexts/Course/CourseUser/infrastructure/persistence/TypeOrmCourseUserRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  CourseUser.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Course/CourseUser/application/FindByCriteria/FinderByCriteria
+    arguments: ['@CourseUser.Repository']
+  
+  CourseUser.FindByCriteria.FindCourseUsersByCriteriaQueryHandler:
+    class: src/Contexts/Course/CourseUser/application/FindByCriteria/FindCourseUsersByCriteriaQueryHandler
+    arguments: ['@CourseUser.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
