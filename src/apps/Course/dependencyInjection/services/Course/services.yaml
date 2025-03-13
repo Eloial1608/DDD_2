@@ -265,3 +265,13 @@ services:
     arguments: ["@CourseUser.CreateCourseUserOnStripeSessionVerified.Creator"]
     tags:
       - { name: "commandHandler" }
+
+  Course.UpdateCourseOnCourseUserCreated.Updater:
+    class: src/Contexts/Course/Course/application/UpdateCourseOnCourseUserCreated/Updater
+    arguments: ['@Course.Repository', '@Shared.EventBus']
+  
+  Course.UpdateCourseOnCourseUserCreated.UpdateCourseOnCourseUserCreatedHandler:
+    class: src/Contexts/Course/Course/application/UpdateCourseOnCourseUserCreated/UpdateCourseOnCourseUserCreatedHandler
+    arguments: ["@Course.UpdateCourseOnCourseUserCreated.Updater"]
+    tags:
+      - { name: "commandHandler" }
