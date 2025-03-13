@@ -19,6 +19,7 @@ import { Nullable } from '@Shared/domain/Nullable'
 import { ThreadCreatedDomainEvent } from './Events/ThreadCreatedDomainEvent'
 import { ThreadDeletedDomainEvent } from './Events/ThreadDeletedDomainEvent'
 import { ThreadUpdatedDomainEvent } from './Events/ThreadUpdatedDomainEvent'
+import { ThreadTotalLikesUpdatedDomainEvent } from './Events/ThreadTotalLikesUpdatedDomainEvent'
 
 export class Thread extends AggregateRoot {
   constructor (
@@ -155,7 +156,7 @@ export class Thread extends AggregateRoot {
       null
     )
 
-    thread.record(ThreadDeletedDomainEvent.fromAggregate(thread))
+    thread.record(ThreadTotalLikesUpdatedDomainEvent.fromAggregate(thread))
 
     return thread
   }
