@@ -134,4 +134,29 @@ export class Thread extends AggregateRoot {
 
     return thread
   }
+
+  updateTotalLikes (totalLikes:TotalLikes):Thread {
+    const thread = new Thread(
+      this.id,
+      this.communityId,
+      this.spaceId,
+      this.title,
+      this.parentThreadId,
+      this.userId,
+      this.content,
+      this.bannerUrl,
+      this.author,
+      this.isPaid,
+      this.price,
+      totalLikes,
+      this.totalThreads,
+      this.createdAt,
+      this.updatedAt,
+      new DeletedAt(new Date())
+    )
+
+    thread.record(ThreadDeletedDomainEvent.fromAggregate(thread))
+
+    return thread
+  }
 }
