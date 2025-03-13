@@ -26,7 +26,7 @@ export class ContentPostController implements Controller {
 
       if (!media) return res.status(404).send()
 
-      const user = await this.getUser(data.id, media.userId)
+      const user = await this.getUser(data.id, media.communityId)
 
       if (!user) return res.status(401).send()
 
