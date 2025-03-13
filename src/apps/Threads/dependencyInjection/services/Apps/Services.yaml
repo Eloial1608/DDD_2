@@ -2,11 +2,15 @@ services:
   Apps.Threads.Controllers.HealthGetController:
     class: src/apps/Threads/controllers/HealthGetController
 
-  Apps.Threads.Controllers.ThreadThreadController:
-    class: src/apps/Threads/controllers/Thread/ThreadThreadController
+  Apps.Threads.Controllers.ThreadPostController:
+    class: src/apps/Threads/controllers/Thread/ThreadPostController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
 
   Apps.Threads.Controllers.ThreadDeleteController:
     class: src/apps/Threads/controllers/Thread/ThreadDeleteController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+
+  Apps.Thread.Controllers.ThreadPutController:
+    class: src/apps/Thread/controllers/Thread/ThreadPutController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
   

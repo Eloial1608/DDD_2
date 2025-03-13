@@ -271,3 +271,7 @@ services:
     arguments: ["@User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  CourseUser.Repository:
+    class: src/Contexts/Course/CourseUser/infrastructure/persistence/TypeOrmCourseUserRepository
+    arguments: ["@Shared.ORM.Connection"]

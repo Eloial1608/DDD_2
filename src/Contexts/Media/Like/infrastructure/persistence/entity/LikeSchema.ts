@@ -1,9 +1,9 @@
-import { Like } from '@Posts/Like/domain/Like'
+import { Like } from '@Media/Like/domain/Like'
 import { ValueObjectTransformer } from '@Shared/domain/ValueObjects/ValueObjectTransformer'
-import { Id } from '@Posts/Like/domain/ValueObjects/Id'
-import { PostId } from '@Posts/Like/domain/ValueObjects/PostId'
-import { UserId } from '@Posts/Like/domain/ValueObjects/UserId'
-import { CreatedAt } from '@Posts/Like/domain/ValueObjects/CreatedAt'
+import { Id } from '@Media/Like/domain/ValueObjects/Id'
+import { MediaId } from '@Media/Like/domain/ValueObjects/MediaId'
+import { UserId } from '@Media/Like/domain/ValueObjects/UserId'
+import { CreatedAt } from '@Media/Like/domain/ValueObjects/CreatedAt'
 import { EntitySchema } from 'typeorm'
 
 export const LikeSchema = new EntitySchema<Like>({
@@ -16,9 +16,9 @@ export const LikeSchema = new EntitySchema<Like>({
       primary: true,
       transformer: ValueObjectTransformer(Id)
     },
-    postId: {
+    mediaId: {
       type: String,
-      transformer: ValueObjectTransformer(PostId)
+      transformer: ValueObjectTransformer(MediaId)
     },
     userId: {
       type: String,
@@ -35,8 +35,8 @@ export const LikeSchema = new EntitySchema<Like>({
       columns: ['userId']
     },
     {
-      name: 'IDX_LIKE_POST_ID',
-      columns: ['postId']
+      name: 'IDX_LIKE_MEDIA_ID',
+      columns: ['mediaId']
     }
   ]
 })
