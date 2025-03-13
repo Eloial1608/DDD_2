@@ -252,6 +252,26 @@ services:
     tags:
       - { name: "commandHandler" }
 
+  User.UpdateUserOnUserUpdated.Updater:
+    class: src/Contexts/Course/User/application/UpdateUserOnUserUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+
+  User.UpdateUserOnUserUpdated.UpdateUserOnUserUpdatedHandler:
+    class: src/Contexts/Course/User/application/UpdateUserOnUserUpdated/UpdateUserOnUserUpdatedHandler
+    arguments: ["@User.UpdateUserOnUserUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater:
+    class: src/Contexts/Course/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+
+  User.UpdateUserIsAdminOnUserIsAdminUpdated.UpdateUserIsAdminOnUserIsAdminUpdatedHandler:
+    class: src/Contexts/Course/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/UpdateUserIsAdminOnUserIsAdminUpdatedHandler
+    arguments: ["@User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
   CourseUser.Repository:
     class: src/Contexts/Course/CourseUser/infrastructure/persistence/TypeOrmCourseUserRepository
     arguments: ["@Shared.ORM.Connection"]
@@ -265,3 +285,13 @@ services:
     arguments: ["@CourseUser.CreateCourseUserOnStripeSessionVerified.Creator"]
     tags:
       - { name: "commandHandler" }
+
+  CourseUser.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Course/CourseUser/application/FindByCriteria/FinderByCriteria
+    arguments: ['@CourseUser.Repository']
+  
+  CourseUser.FindByCriteria.FindCourseUsersByCriteriaQueryHandler:
+    class: src/Contexts/Course/CourseUser/application/FindByCriteria/FindCourseUsersByCriteriaQueryHandler
+    arguments: ['@CourseUser.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }

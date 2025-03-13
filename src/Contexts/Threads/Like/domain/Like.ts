@@ -17,34 +17,32 @@ export class Like extends AggregateRoot {
   }
 
   delete (): Like {
-      const like = new Like(
-        this.id,
-        this.threadId,
-        this.userId,
-        this.createdAt
-      )
-  
-      like.record(LikeDeletedDomainEvent.fromAggregate(like))
-    
-      return like
+    const like = new Like(
+      this.id,
+      this.threadId,
+      this.userId,
+      this.createdAt
+    )
+
+    like.record(LikeDeletedDomainEvent.fromAggregate(like))
+
+    return like
   }
 
-
   static create (
-      id: Id,
-      threadId: ThreadId,
-      userId: UserId
-    ) {
-      const like = new Like(
-        id,
-        threadId,
-        userId,
-        new CreatedAt(new Date())
-      )
-  
-      like.record(LikeCreatedDomainEvent.fromAggregate(like))
+    id: Id,
+    threadId: ThreadId,
+    userId: UserId
+  ) {
+    const like = new Like(
+      id,
+      threadId,
+      userId,
+      new CreatedAt(new Date())
+    )
 
-  
-      return like
-    }
+    like.record(LikeCreatedDomainEvent.fromAggregate(like))
+
+    return like
+  }
 }
