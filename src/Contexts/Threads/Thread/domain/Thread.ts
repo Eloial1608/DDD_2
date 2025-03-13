@@ -152,7 +152,7 @@ export class Thread extends AggregateRoot {
       this.totalThreads,
       this.createdAt,
       this.updatedAt,
-      new DeletedAt(new Date())
+      null
     )
 
     thread.record(ThreadDeletedDomainEvent.fromAggregate(thread))
