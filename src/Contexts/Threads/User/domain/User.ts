@@ -65,46 +65,46 @@ export class User extends AggregateRoot {
     return user
   }
 
-    update (
-      name: Name,
-      username: Username,
-      pictureUrl: Nullable<PictureUrl>,
-      bannerUrl: Nullable<BannerUrl>
-    ): User {
-      const user = new User(
-        this.id,
-        this.mainId,
-        this.communityId,
-        name,
-        username,
-        pictureUrl,
-        bannerUrl,
-        this.isAdmin,
-        this.isOwner
-      )
-  
-      user.record(UserUpdatedDomainEvent.fromAggregate(user))
-  
-      return user
-    }
+  update (
+    name: Name,
+    username: Username,
+    pictureUrl: Nullable<PictureUrl>,
+    bannerUrl: Nullable<BannerUrl>
+  ): User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      this.communityId,
+      name,
+      username,
+      pictureUrl,
+      bannerUrl,
+      this.isAdmin,
+      this.isOwner
+    )
 
-     updateIsAdmin (
-        isAdmin: IsAdmin
-      ): User {
-        const user = new User(
-          this.id,
-          this.mainId,
-          this.communityId,
-          this.name,
-          this.username,
-          this.pictureUrl,
-          this.bannerUrl,
-          isAdmin,
-          this.isOwner
-        )
-    
-        user.record(UserIsAdminUpdatedDomainEvent.fromAggregate(user))
-    
-        return user
-      }
+    user.record(UserUpdatedDomainEvent.fromAggregate(user))
+
+    return user
+  }
+
+  updateIsAdmin (
+    isAdmin: IsAdmin
+  ): User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      this.communityId,
+      this.name,
+      this.username,
+      this.pictureUrl,
+      this.bannerUrl,
+      isAdmin,
+      this.isOwner
+    )
+
+    user.record(UserIsAdminUpdatedDomainEvent.fromAggregate(user))
+
+    return user
+  }
 }
