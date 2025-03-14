@@ -50,8 +50,6 @@ type CoursesGetControllerResponseBody = {
 export class CoursesGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
 
-  private user: Nullable<UserResponseBody>
-
   async run (req: Request, res: Response): Promise<Response> {
     try {
       const criteria = buildCriteriaFromUri(req.query.criteria as string)
