@@ -5,7 +5,9 @@ export enum ProductTypes {
     USER_PLANS = 'user-plans',
     POSTS = 'posts',
     MEDIA = 'media',
-    SPACE = 'space'
+    SPACE = 'space',
+    COURSE = 'course',
+    THREADS = 'threads'
 }
 
 export class ProductType extends EnumValueObject<ProductTypes> {

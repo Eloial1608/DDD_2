@@ -19,6 +19,8 @@ import { Nullable } from '@Shared/domain/Nullable'
 import { ThreadCreatedDomainEvent } from './Events/ThreadCreatedDomainEvent'
 import { ThreadDeletedDomainEvent } from './Events/ThreadDeletedDomainEvent'
 import { ThreadUpdatedDomainEvent } from './Events/ThreadUpdatedDomainEvent'
+import { ThreadTotalThreadsUpdatedDomainEvent } from './Events/ThreadTotalThreadsUpdatedDomainEvent'
+import { ThreadTotalLikesUpdatedDomainEvent } from './Events/ThreadTotalLikesUpdatedDomainEvent'
 
 export class Thread extends AggregateRoot {
   constructor (
@@ -132,6 +134,58 @@ export class Thread extends AggregateRoot {
 
     thread.record(ThreadUpdatedDomainEvent.fromAggregate(thread))
 
+    return thread
+  }
+
+  updateTotalThreads (
+    totalThreads: TotalThreads
+  ):Thread {
+    const thread = new Thread(
+      this.id,
+      this.communityId,
+      this.spaceId,
+      this.title,
+      this.parentThreadId,
+      this.userId,
+      this.content,
+      this.bannerUrl,
+      this.author,
+      this.isPaid,
+      this.price,
+      this.totalLikes,
+      totalThreads,
+      this.createdAt,
+      this.updatedAt,
+      null
+    )
+
+    thread.record(ThreadTotalThreadsUpdatedDomainEvent.fromAggregate(thread))
+    return thread
+  }
+
+  updateTotalLikes (
+    totalLikes: TotalLikes
+  ):Thread {
+    const thread = new Thread(
+      this.id,
+      this.communityId,
+      this.spaceId,
+      this.title,
+      this.parentThreadId,
+      this.userId,
+      this.content,
+      this.bannerUrl,
+      this.author,
+      this.isPaid,
+      this.price,
+      totalLikes,
+      this.totalThreads,
+      this.createdAt,
+      this.updatedAt,
+      null
+    )
+
+    thread.record(ThreadTotalLikesUpdatedDomainEvent.fromAggregate(thread))
     return thread
   }
 }

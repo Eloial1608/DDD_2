@@ -197,3 +197,131 @@ services:
     arguments: ['@Thread.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+
+   Like.FindById.FinderById:
+    class: src/Contexts/Threads/Like/application/FindById/FinderById
+    arguments: ['@Like.Repository']
+  
+   Like.FindById.FindLikeByIdQueryHandler:
+    class: src/Contexts/Threads/Like/application/FindById/FindLikeByIdQueryHandler
+    arguments: ['@Like.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+  
+   Like.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Threads/Like/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Like.Repository']
+  
+   Like.FindByCriteria.FindLikesByCriteriaQueryHandler:
+    class: src/Contexts/Threads/Like/application/FindByCriteria/FindLikesByCriteriaQueryHandler
+    arguments: ['@Like.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+   Like.Delete.Deleter:
+    class: src/Contexts/Threads/Like/application/Delete/Deleter
+    arguments: ['@Like.Repository', '@Shared.EventBus']
+  
+   Like.Delete.DeleteLikeCommandHandler:
+    class: src/Contexts/Threads/Like/application/Delete/DeleteLikeCommandHandler
+    arguments: ["@Like.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
+   Like.Create.Creator:
+    class: src/Contexts/Threads/Like/application/Create/Creator
+    arguments: ['@Like.Repository', '@Shared.QueryBus', '@Shared.EventBus']
+  
+   Like.Create.CreateLikeCommandHandler:
+    class: src/Contexts/Threads/Like/application/Create/CreateLikeCommandHandler
+    arguments: ["@Like.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+   Thread.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Threads/Thread/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Thread.Repository']
+  
+   Thread.FindByCriteria.FindThreadsByCriteriaQueryHandler:
+    class: src/Contexts/Threads/Thread/application/FindByCriteria/FindThreadsByCriteriaQueryHandler
+    arguments: ['@Thread.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+    
+   ThreadUser.CreateThreadUserOnStripeSessionVerified.Creator:
+    class: src/Contexts/Threads/ThreadUser/application/CreateThreadUserOnStripeSessionVerified/Creator
+    arguments: ['@ThreadUser.Repository', '@Shared.EventBus']
+  
+   ThreadUser.CreateThreadUserOnStripeSessionVerified.CreateThreadUserOnStripeSessionVerifiedHandler:
+    class: src/Contexts/Threads/ThreadUser/application/CreateThreadUserOnStripeSessionVerified/CreateThreadUserOnStripeSessionVerifiedHandler
+    arguments: ["@ThreadUser.CreateThreadUserOnStripeSessionVerified.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+   ThreadUser.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Threads/ThreadUser/application/FindByCriteria/FinderByCriteria
+    arguments: ['@ThreadUser.Repository']
+  
+   ThreadUser.FindByCriteria.FindThreadUsersByCriteriaQueryHandler:
+    class: src/Contexts/Threads/ThreadUser/application/FindByCriteria/FindThreadUsersByCriteriaQueryHandler
+    arguments: ['@ThreadUser.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+   User.UpdateUserOnUserUpdated.Updater:
+    class: src/Contexts/Threads/User/application/UpdateUserOnUserUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+   User.UpdateUserOnUserUpdated.UpdateUserOnUserUpdatedHandler:
+    class: src/Contexts/Threads/User/application/UpdateUserOnUserUpdated/UpdateUserOnUserUpdatedHandler
+    arguments: ["@User.UpdateUserOnUserUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+   User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater:
+    class: src/Contexts/Threads/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+   User.UpdateUserIsAdminOnUserIsAdminUpdated.UpdateUserIsAdminOnUserIsAdminUpdatedHandler:
+    class: src/Contexts/Threads/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/UpdateUserIsAdminOnUserIsAdminUpdatedHandler
+    arguments: ["@User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+   Thread.UpdateThreadOnThreadDeleted.Updater:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadDeleted/Updater
+    arguments: ['@Thread.Repository', '@Shared.EventBus']
+  
+   Thread.UpdateThreadOnThreadDeleted.UpdateThreadOnThreadDeletedHandler:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadDeleted/UpdateThreadOnThreadDeletedHandler
+    arguments: ["@Thread.UpdateThreadOnThreadDeleted.Updater"]
+    
+   Thread.UpdateThreadOnLikeCreated.Updater:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnLikeCreated/Updater
+    arguments: ['@Thread.Repository', '@Shared.EventBus']
+  
+   Thread.UpdateThreadOnLikeCreated.UpdateThreadOnLikeCreatedHandler:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnLikeCreated/UpdateThreadOnLikeCreatedHandler
+    arguments: ["@Thread.UpdateThreadOnLikeCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+   Thread.UpdateThreadOnLikeDeleted.Updater:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnLikeDeleted/Updater
+    arguments: ['@Thread.Repository', '@Shared.EventBus']
+  
+   Thread.UpdateThreadOnLikeDeleted.UpdateThreadOnLikeDeletedHandler:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnLikeDeleted/UpdateThreadOnLikeDeletedHandler
+    arguments: ["@Thread.UpdateThreadOnLikeDeleted.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+   Thread.UpdateThreadOnThreadCreated.Updater:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadCreated/Updater
+    arguments: ['@Thread.Repository', '@Shared.EventBus']
+  
+   Thread.UpdateThreadOnThreadCreated.UpdateThreadOnThreadCreatedHandler:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadCreated/UpdateThreadOnThreadCreatedHandler
+    arguments: ["@Thread.UpdateThreadOnThreadCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }

@@ -30,6 +30,7 @@ export class UserIsAdminPatchController implements Controller {
 
       return res.status(204).send()
     } catch (e) {
+      console.log(e)
       if (e instanceof UserNotFound) return res.status(404).json({ message: e.getMessage() })
 
       if (e instanceof CannotDecode) return res.status(404).json({ message: e.getMessage() })
