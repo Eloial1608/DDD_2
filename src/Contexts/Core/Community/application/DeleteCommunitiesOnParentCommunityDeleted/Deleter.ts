@@ -10,9 +10,8 @@ export class Deleter {
   private readonly LIMIT = 50
 
   async run (id: Id): Promise<void> {
-    let offset = 0
     for (;;) {
-      const communities = await this.getCommunitiesByParentId(id, this.LIMIT, offset)
+      const communities = await this.getCommunitiesByParentId(id, this.LIMIT)
 
       for (const community of communities) {
         const updatedCommunity = community.delete()
@@ -22,21 +21,18 @@ export class Deleter {
         await this.eventBus.publish(updatedCommunity.pullDomainEvents())
       }
 
-      offset += communities.length
-
       if (communities.length !== this.LIMIT) break
     }
   }
 
-  private async getCommunitiesByParentId (parentId: Id, limit: number, offset: number) {
+  private async getCommunitiesByParentId (parentId: Id, limit: number) {
     const criteria = new Criteria(
       new Filters([
         Filter.simple('parentId', '=', parentId.valueOf())
       ]),
       undefined,
       undefined,
-      limit,
-      offset
+      limit
     )
 
     return await this.repository.search(criteria)
