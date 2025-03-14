@@ -43,7 +43,7 @@ export class ThreadTotalThreadsUpdatedDomainEvent extends DomainEvent {
       userId: thread.userId.valueOf(),
       title: thread.title.valueOf(),
       bannerUrl: thread.bannerUrl?.valueOf(),
-      parentThreadId : thread.parentThreadId?.valueOf()
+      parentThreadId: thread.parentThreadId?.valueOf()
 
     })
   }
