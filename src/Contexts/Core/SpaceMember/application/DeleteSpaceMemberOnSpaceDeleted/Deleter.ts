@@ -11,8 +11,6 @@ export class Deleter {
   private readonly LIMIT = 50
 
   async run (spaceId: SpaceId) {
-    let offset = 0
-
     for (;;) {
       const spaceMembers = await this.repository.search(
         new Criteria(
@@ -21,8 +19,7 @@ export class Deleter {
           ]),
           undefined,
           undefined,
-          this.LIMIT,
-          offset
+          this.LIMIT
         )
       )
 
@@ -32,8 +29,6 @@ export class Deleter {
         await this.repository.persist(deletedSpaceMember)
         await this.eventBus.publish(deletedSpaceMember.pullDomainEvents())
       }
-
-      offset += spaceMembers.length
 
       if (spaceMembers.length !== this.LIMIT) break
     }
