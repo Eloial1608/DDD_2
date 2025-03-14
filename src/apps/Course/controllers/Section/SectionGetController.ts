@@ -20,7 +20,7 @@ import { UserCollectionResponse } from '@Course/User/application/UserCollectionR
 import { FindCourseUsersByCriteriaQuery } from '@Course/CourseUser/application/FindByCriteria/FindCourseUsersByCriteriaQuery'
 import { CourseUserCollectionResponse } from '@Course/CourseUser/application/CourseUserCollectionResponse'
 
-export type SectionGetControllerResponseBody = {
+type SectionGetControllerResponseBody = {
   readonly id: string
   readonly courseId: string
   readonly title: string

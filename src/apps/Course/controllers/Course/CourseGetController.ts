@@ -19,7 +19,7 @@ import { SpaceMemberResponseBody } from '@Course/SpaceMember/application/SpaceMe
 import { UserResponseBody } from '@Course/User/application/UserResponse'
 import { AllowedAccessibilities } from '@Shared/domain/SharedValueObjects/Space/SharedAccessibility'
 
-export type CourseGetControllerResponseBody = {
+type CourseGetControllerResponseBody = {
   readonly id: string,
   readonly communityId: string,
   readonly spaceId: string,
