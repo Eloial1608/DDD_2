@@ -4,29 +4,29 @@ import { QueryResponse } from '@Shared/domain/QueryBus/QueryResponse'
 
 export type CourseResponseBody = {
   readonly id: string,
-    readonly communityId: string,
-    readonly spaceId: string,
-    readonly userId: string,
-    readonly author: {
-      id: string
-      mainId: string
-      name: string
-      username: string
-      bannerUrl: Nullable<string>
-      pictureUrl: Nullable<string>
-    }
-    readonly title: string,
-    readonly bannerUrl: Nullable<string>,
-    readonly isPaid: boolean,
-    readonly price: Nullable<{value: number, currency: string}>
-    readonly startDate: Date,
-    readonly endDate: Nullable<Date>,
-    readonly maxStudents: Nullable<number>,
-    readonly totalStudents: number,
-    readonly totalComments: number,
-    readonly createdAt: Date,
-    readonly updatedAt: Date,
-    readonly deletedAt: Nullable<Date>
+  readonly communityId: string,
+  readonly spaceId: string,
+  readonly userId: string,
+  readonly author: {
+    id: string
+    mainId: string
+    name: string
+    username: string
+    bannerUrl: Nullable<string>
+    pictureUrl: Nullable<string>
+  }
+  readonly title: string,
+  readonly bannerUrl: Nullable<string>,
+  readonly isPaid: boolean,
+  readonly price: Nullable<{value: number, currency: string}>
+  readonly startDate: Date,
+  readonly endDate: Nullable<Date>,
+  readonly maxStudents: Nullable<number>,
+  readonly totalStudents: number,
+  readonly totalComments: number,
+  readonly createdAt: Date,
+  readonly updatedAt: Date,
+  readonly deletedAt: Nullable<Date>
 }
 
 export class CourseResponse implements QueryResponse<CourseResponseBody> {

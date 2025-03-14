@@ -1,3 +1,4 @@
+/* eslint-disable no-trailing-spaces */
 import { Request, Response } from 'express'
 import { Controller } from '../@types/Controller'
 import { CommandBus } from '@Shared/domain/CommandBus/CommandBus'
@@ -9,6 +10,8 @@ import { CourseResponse } from '@Course/Course/application/CourseResponse'
 import { FindUsersByCriteriaQuery } from '@Course/User/application/FindByCriteria/FindUsersByCriteriaQuery'
 import { UserCollectionResponse } from '@Course/User/application/UserCollectionResponse'
 import { CreateSectionCommand } from '@Course/Section/application/Create/CreateSectionCommand'
+import { FindSpaceMembersByCriteriaQuery } from '@Course/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQuery'
+import { SpaceMemberCollectionResponse } from '@Course/SpaceMember/application/SpaceMemberCollectionResponse'
 
 export class SectionPostController implements Controller {
   constructor (private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
@@ -24,6 +27,12 @@ export class SectionPostController implements Controller {
       const user = await this.getUser(data.id, course.communityId)
 
       if (!user) return res.status(401).send()
+
+      if (!user.isAdmin && !user.isOwner) {
+        const spaceMember = await this.getSpaceMember(user.id, user.communityId, req.body.spaceId)
+  
+        if (!spaceMember) return res.status(401).send()
+      }
 
       const command = new CreateSectionCommand(
         req.params.id,
@@ -48,6 +57,28 @@ export class SectionPostController implements Controller {
     const course = (await this.queryBus.ask<CourseResponse>(query)).response
 
     return course
+  }
+
+  private async getSpaceMember (userId: string, communityId: string, spaceId: string) {
+    const query = new FindSpaceMembersByCriteriaQuery([
+      new Map<string, string>([
+        ['field', 'userId'],
+        ['operator', '='],
+        ['value', userId]
+      ]),
+      new Map<string, string>([
+        ['field', 'spaceId'],
+        ['operator', '='],
+        ['value', spaceId]
+      ]),
+      new Map<string, string>([
+        ['field', 'communityId'],
+        ['operator', '='],
+        ['value', communityId]
+      ])
+    ])
+  
+    return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response
   }
 
   private async getUser (id: string, communityId: string) {
