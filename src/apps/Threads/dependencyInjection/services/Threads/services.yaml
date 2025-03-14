@@ -315,3 +315,13 @@ services:
     arguments: ["@Thread.UpdateThreadOnLikeDeleted.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+
+   Thread.UpdateThreadOnThreadCreated.Updater:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadCreated/Updater
+    arguments: ['@Thread.Repository', '@Shared.EventBus']
+  
+   Thread.UpdateThreadOnThreadCreated.UpdateThreadOnThreadCreatedHandler:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadCreated/UpdateThreadOnThreadCreatedHandler
+    arguments: ["@Thread.UpdateThreadOnThreadCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
