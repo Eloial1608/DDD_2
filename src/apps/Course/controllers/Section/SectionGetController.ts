@@ -55,15 +55,9 @@ export class SectionGetController implements Controller {
 
           if (!spaceMember) return res.status(401).send()
         }
-
-        //Mirar si no es publico si hay que ser courseUser
-        if (!courseUser) {
-          return res.status(200).json(await this.buildResponse(this.getPostWithoutContent(post), user?.id))
-        }
       }
 
       if (course.isPaid && (!user?.isAdmin && !user?.isOwner && !spaceMember?.isModerator)) {
-        //Mirar que se muestra si es publico pero no eres user
         if (!spaceMember) {
           return res.status(200).json(await this.buildResponse(this.getPostWithoutContent(post), user?.id))
         }
@@ -121,6 +115,25 @@ export class SectionGetController implements Controller {
     ])
 
     const user = (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
+
+    return user
+  }
+
+  private async getCourseUser (userId: string, postId: string) {
+    const query = new FindCourseUsersByCriteriaQuery([
+      new Map<string, string>([
+        ['field', 'userId'],
+        ['operator', '='],
+        ['value', userId]
+      ]),
+      new Map<string, string>([
+        ['field', 'postId'],
+        ['operator', '='],
+        ['value', postId]
+      ])
+    ])
+
+    const user = (await this.queryBus.ask<PostUserCollectionResponse>(query)).response.pop()
 
     return user
   }
