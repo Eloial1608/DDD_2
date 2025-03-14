@@ -43,6 +43,7 @@ type CoursesGetControllerResponseBody = {
   readonly maxStudents: Nullable<number>
   readonly totalStudents: number
   readonly totalComments: number
+  isLocked: boolean
   readonly createdAt: Date
   readonly updatedAt: Date
 }
