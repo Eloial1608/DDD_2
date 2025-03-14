@@ -4,7 +4,7 @@ import { QueryResponse } from '@Shared/domain/QueryBus/QueryResponse'
 
 export type CommentResponseBody = {
     readonly id: string
-    readonly postId: string
+    readonly courseId: string
     readonly userId: string
     readonly content: string
     readonly author: {
@@ -25,7 +25,7 @@ export class CommentResponse implements QueryResponse<CommentResponseBody> {
   constructor (comment: Comment) {
     this.response = {
       id: comment.id.valueOf(),
-      postId: comment.postId.valueOf(),
+      courseId: comment.courseId.valueOf(),
       userId: comment.userId.valueOf(),
       content: comment.content.valueOf(),
       author: comment.author.toPrimitives(),
