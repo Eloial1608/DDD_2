@@ -18,6 +18,8 @@ import { FindCourseByCriteriaQuery } from '@Course/Course/application/FindByCrit
 import { CourseCollectionResponse } from '@Course/Course/application/CourseCollectionResponse'
 import { CourseNotFound } from '@Course/Course/domain/Errors/CourseNotFound'
 import { CourseResponseBody } from '@Course/Course/application/CourseResponse'
+import { CourseUserCollectionResponse } from '@Course/CourseUser/application/CourseUserCollectionResponse'
+import { FindCourseUsersByCriteriaQuery } from '@Course/CourseUser/application/FindByCriteria/FindCourseUsersByCriteriaQuery'
 
 type CoursesGetControllerResponseBody = {
   readonly id: string
@@ -41,14 +43,13 @@ type CoursesGetControllerResponseBody = {
   readonly maxStudents: Nullable<number>
   readonly totalStudents: number
   readonly totalComments: number
+  isLocked: boolean
   readonly createdAt: Date
   readonly updatedAt: Date
 }
 
 export class CoursesGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
-
-  private user: Nullable<UserResponseBody>
 
   async run (req: Request, res: Response): Promise<Response> {
     try {
@@ -69,10 +70,10 @@ export class CoursesGetController implements Controller {
 
       for (const course of courses) {
         const p = await this.filterCourse(course, req.headers.authorization as string)
-        if (p) coursesToSend.push(await this.buildResponse(course, this.user?.id))
+        if (p) coursesToSend.push(await this.buildResponse(p))
       }
 
-      return res.status(200).json(courses)
+      return res.status(200).json(coursesToSend)
     } catch (e) {
       console.log(e)
       if (e instanceof CannotDecode) return res.status(401).send()
@@ -87,29 +88,43 @@ export class CoursesGetController implements Controller {
 
     const space = await (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
     let spaceMember: SpaceMemberResponseBody | undefined
+    let user: UserResponseBody | undefined
 
-    if (this.user === undefined && token) {
+    if (user == null && token) {
       const data = await this.decoder.run(token)
 
-      const user = await this.getUser(data.id, course.communityId)
+      const u = await this.getUser(data.id, course.communityId)
 
-      this.user = user ?? null
+      user = u ?? undefined
     }
 
     if (space.accessibility !== AllowedAccessibilities.PUBLIC) {
-      if (!this.user) return null
+      if (!user) return null
 
-      if (!this.user.isAdmin && !this.user.isOwner) {
-        spaceMember = await this.getSpaceMember(this.user.id, this.user.communityId, space.id)
+      if (!user.isAdmin && !user.isOwner) {
+        spaceMember = await this.getSpaceMember(user.id, user.communityId, space.id)
 
         if (!spaceMember) return null
       }
     }
 
+    if (course.isPaid && (!user?.isAdmin && !user?.isOwner && !spaceMember?.isModerator)) {
+      if (!spaceMember) return this.getCourseWithoutContent(course)
+      const courseUser = await this.getCourseUser(spaceMember.userId, course.id)
+      if (!courseUser) return this.getCourseWithoutContent(course)
+    }
+
     return course
   }
 
-  private async buildResponse (course: Partial<CoursesGetControllerResponseBody>, userId?: string) : Promise<CoursesGetControllerResponseBody> {
+  private getCourseWithoutContent (media: CourseResponseBody) {
+    return {
+      ...media,
+      isLocked: true
+    }
+  }
+
+  private async buildResponse (course: Partial<CoursesGetControllerResponseBody>) : Promise<CoursesGetControllerResponseBody> {
     return {
       ...course as CoursesGetControllerResponseBody
     }
@@ -152,6 +167,25 @@ export class CoursesGetController implements Controller {
     ])
 
     const user = (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
+
+    return user
+  }
+
+  private async getCourseUser (userId: string, courseId: string) {
+    const query = new FindCourseUsersByCriteriaQuery([
+      new Map<string, string>([
+        ['field', 'userId'],
+        ['operator', '='],
+        ['value', userId]
+      ]),
+      new Map<string, string>([
+        ['field', 'mediaId'],
+        ['operator', '='],
+        ['value', courseId]
+      ])
+    ])
+
+    const user = (await this.queryBus.ask<CourseUserCollectionResponse>(query)).response.pop()
 
     return user
   }
