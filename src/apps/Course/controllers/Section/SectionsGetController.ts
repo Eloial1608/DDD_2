@@ -20,6 +20,17 @@ import { FindUsersByCriteriaQuery } from '@Course/User/application/FindByCriteri
 import { UserCollectionResponse } from '@Course/User/application/UserCollectionResponse'
 import { FindCourseUsersByCriteriaQuery } from '@Course/CourseUser/application/FindByCriteria/FindCourseUsersByCriteriaQuery'
 import { CourseUserCollectionResponse } from '@Course/CourseUser/application/CourseUserCollectionResponse'
+import { SectionResponseBody } from '@Course/Section/application/SectionResponse'
+
+type SectionGetControllerResponseBody = {
+  readonly id: string
+  readonly courseId: string
+  readonly title: string
+  readonly totalLessons: number
+  isLocked: boolean
+  readonly createdAt: Date
+  readonly updatedAt: Date
+}
 
 export class SectionsGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
@@ -45,11 +56,14 @@ export class SectionsGetController implements Controller {
 
       const sections = (await this.queryBus.ask<SectionCollectionResponse>(query)).response
 
-      const canAccess = await this.canAccess(course, req.headers.authorization as string)
+      const sectionsToSend = []
 
-      if (!canAccess) return res.status(401).send()
+      for (const section of sections) {
+        const filteredSection = await this.filterSections(section, course, req.headers.authorization as string)
+        if (filteredSection) sectionsToSend.push(await this.buildResponse(filteredSection))
+      }
 
-      return res.status(200).json(sections)
+      return res.status(200).json(sectionsToSend)
     } catch (e) {
       console.log(e)
       if (e instanceof CannotDecode) return res.status(401).send()
@@ -59,7 +73,7 @@ export class SectionsGetController implements Controller {
     }
   }
 
-  private async canAccess (course: CourseResponseBody, token: string): Promise<boolean> {
+  private async filterSections (section: SectionResponseBody, course: CourseResponseBody, token: string) {
     const spaceQuery = new FindSpaceByIdQuery(course.spaceId)
 
     const space = await (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
@@ -75,22 +89,35 @@ export class SectionsGetController implements Controller {
     }
 
     if (space.accessibility !== AllowedAccessibilities.PUBLIC) {
-      if (!user) return false
+      if (!user) return null
 
       if (!user.isAdmin && !user.isOwner) {
         spaceMember = await this.getSpaceMember(user.id, user.communityId, space.id)
 
-        if (!spaceMember) return false
+        if (!spaceMember) return null
       }
     }
 
     if (course.isPaid && (!user?.isAdmin && !user?.isOwner && !spaceMember?.isModerator)) {
-      if (!spaceMember) return false
+      if (!spaceMember) return this.getSectionWithoutContent(section)
       const courseUser = await this.getCourseUser(spaceMember.userId, course.id)
-      if (!courseUser) return false
+      if (!courseUser) return this.getSectionWithoutContent(section)
     }
 
-    return true
+    return section
+  }
+
+  private getSectionWithoutContent (section: SectionResponseBody) {
+    return {
+      ...section,
+      isLocked: true
+    }
+  }
+
+  private async buildResponse (section: Partial<SectionGetControllerResponseBody>) : Promise<SectionGetControllerResponseBody> {
+    return {
+      ...section as SectionGetControllerResponseBody
+    }
   }
 
   private async getSpaceMember (userId: string, communityId: string, spaceId: string) {
