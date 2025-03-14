@@ -16,16 +16,19 @@ export class ContentPostController implements Controller {
   async run (req: Request, res: Response): Promise<Response> {
     try {
       if (!req.headers.authorization) return res.status(401).send()
+      if (!req.body.mediaId) return res.status(400).send()
 
       const data = await this.decoder.run(req.headers.authorization)
-
-      const user = await this.getUser(data.id, req.body.communityId)
-
-      if (!user) return res.status(401).send()
 
       const mediaQuery = new FindMediaByIdQuery(req.body.mediaId)
 
       const media = await (await this.queryBus.ask<MediaResponse>(mediaQuery)).response
+
+      if (!media) return res.status(404).send()
+
+      const user = await this.getUser(data.id, media.communityId)
+
+      if (!user) return res.status(401).send()
 
       if (media.userId !== user.id && !user.isAdmin && !user.isOwner) return res.status(401).send()
 

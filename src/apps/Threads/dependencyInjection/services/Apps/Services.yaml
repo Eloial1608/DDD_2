@@ -2,11 +2,34 @@ services:
   Apps.Threads.Controllers.HealthGetController:
     class: src/apps/Threads/controllers/HealthGetController
 
-  Apps.Threads.Controllers.ThreadThreadController:
-    class: src/apps/Threads/controllers/Thread/ThreadThreadController
+  Apps.Threads.Controllers.ThreadPostController:
+    class: src/apps/Threads/controllers/Thread/ThreadPostController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
 
   Apps.Threads.Controllers.ThreadDeleteController:
     class: src/apps/Threads/controllers/Thread/ThreadDeleteController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+
+  Apps.Threads.Controllers.ThreadPutController:
+    class: src/apps/Threads/controllers/Thread/ThreadPutController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+
+  Apps.Threads.Controllers.ThreadsGetController:
+    class: src/apps/Threads/controllers/Thread/ThreadsGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+
+  Apps.Threads.Controllers.LikePostController:
+    class: src/apps/Threads/controllers/Like/LikePostController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
   
+  Apps.Threads.Controllers.LikesGetController:
+    class: src/apps/Threads/controllers/Like/LikesGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Threads.Controllers.LikeDeleteController:
+    class: src/apps/Threads/controllers/Like/LikeDeleteController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+
+  Apps.Threads.Controllers.ThreadGetController:
+    class: src/apps/Threads/controllers/Thread/ThreadGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']

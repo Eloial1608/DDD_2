@@ -198,7 +198,6 @@ services:
     tags:
       - { name: "queryHandler" }
 
-
    Like.FindById.FinderById:
     class: src/Contexts/Threads/Like/application/FindById/FinderById
     arguments: ['@Like.Repository']
@@ -209,6 +208,16 @@ services:
     tags:
       - { name: "queryHandler" }
   
+   Like.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Threads/Like/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Like.Repository']
+  
+   Like.FindByCriteria.FindLikesByCriteriaQueryHandler:
+    class: src/Contexts/Threads/Like/application/FindByCriteria/FindLikesByCriteriaQueryHandler
+    arguments: ['@Like.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
    Like.Delete.Deleter:
     class: src/Contexts/Threads/Like/application/Delete/Deleter
     arguments: ['@Like.Repository', '@Shared.EventBus']
@@ -238,4 +247,43 @@ services:
     arguments: ['@Thread.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+    
+   ThreadUser.CreateThreadUserOnStripeSessionVerified.Creator:
+    class: src/Contexts/Threads/ThreadUser/application/CreateThreadUserOnStripeSessionVerified/Creator
+    arguments: ['@ThreadUser.Repository', '@Shared.EventBus']
+  
+   ThreadUser.CreateThreadUserOnStripeSessionVerified.CreateThreadUserOnStripeSessionVerifiedHandler:
+    class: src/Contexts/Threads/ThreadUser/application/CreateThreadUserOnStripeSessionVerified/CreateThreadUserOnStripeSessionVerifiedHandler
+    arguments: ["@ThreadUser.CreateThreadUserOnStripeSessionVerified.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
 
+   ThreadUser.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Threads/ThreadUser/application/FindByCriteria/FinderByCriteria
+    arguments: ['@ThreadUser.Repository']
+  
+   ThreadUser.FindByCriteria.FindThreadUsersByCriteriaQueryHandler:
+    class: src/Contexts/Threads/ThreadUser/application/FindByCriteria/FindThreadUsersByCriteriaQueryHandler
+    arguments: ['@ThreadUser.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+   User.UpdateUserOnUserUpdated.Updater:
+    class: src/Contexts/Threads/User/application/UpdateUserOnUserUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+   User.UpdateUserOnUserUpdated.UpdateUserOnUserUpdatedHandler:
+    class: src/Contexts/Threads/User/application/UpdateUserOnUserUpdated/UpdateUserOnUserUpdatedHandler
+    arguments: ["@User.UpdateUserOnUserUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+   User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater:
+    class: src/Contexts/Threads/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+   User.UpdateUserIsAdminOnUserIsAdminUpdated.UpdateUserIsAdminOnUserIsAdminUpdatedHandler:
+    class: src/Contexts/Threads/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/UpdateUserIsAdminOnUserIsAdminUpdatedHandler
+    arguments: ["@User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
