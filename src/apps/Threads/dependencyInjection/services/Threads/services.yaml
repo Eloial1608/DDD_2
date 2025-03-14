@@ -294,6 +294,6 @@ services:
   
    Thread.UpdateThreadOnThreadDeleted.UpdateThreadOnThreadDeletedHandler:
     class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadDeleted/UpdateThreadOnThreadDeletedHandler
-    arguments: ["@Thread.UpdateThreadOnCommentDeleted.Updater"]
+    arguments: ["@Thread.UpdateThreadOnThreadDeleted.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
