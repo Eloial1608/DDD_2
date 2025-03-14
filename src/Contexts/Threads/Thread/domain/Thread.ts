@@ -163,7 +163,7 @@ export class Thread extends AggregateRoot {
     return thread
   }
   
-    updateTotalThreads (
+    updateTotalLikes (
     totalLikes: TotalLikes
   ):Thread {
     const thread = new Thread(
