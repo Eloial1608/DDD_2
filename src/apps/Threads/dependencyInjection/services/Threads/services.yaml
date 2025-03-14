@@ -287,3 +287,41 @@ services:
     arguments: ["@User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+
+   Thread.UpdateThreadOnThreadDeleted.Updater:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadDeleted/Updater
+    arguments: ['@Thread.Repository', '@Shared.EventBus']
+  
+   Thread.UpdateThreadOnThreadDeleted.UpdateThreadOnThreadDeletedHandler:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadDeleted/UpdateThreadOnThreadDeletedHandler
+    arguments: ["@Thread.UpdateThreadOnThreadDeleted.Updater"]
+    
+   Thread.UpdateThreadOnLikeCreated.Updater:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnLikeCreated/Updater
+    arguments: ['@Thread.Repository', '@Shared.EventBus']
+  
+   Thread.UpdateThreadOnLikeCreated.UpdateThreadOnLikeCreatedHandler:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnLikeCreated/UpdateThreadOnLikeCreatedHandler
+    arguments: ["@Thread.UpdateThreadOnLikeCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+   Thread.UpdateThreadOnLikeDeleted.Updater:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnLikeDeleted/Updater
+    arguments: ['@Thread.Repository', '@Shared.EventBus']
+  
+   Thread.UpdateThreadOnLikeDeleted.UpdateThreadOnLikeDeletedHandler:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnLikeDeleted/UpdateThreadOnLikeDeletedHandler
+    arguments: ["@Thread.UpdateThreadOnLikeDeleted.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+   Thread.UpdateThreadOnThreadCreated.Updater:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadCreated/Updater
+    arguments: ['@Thread.Repository', '@Shared.EventBus']
+  
+   Thread.UpdateThreadOnThreadCreated.UpdateThreadOnThreadCreatedHandler:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadCreated/UpdateThreadOnThreadCreatedHandler
+    arguments: ["@Thread.UpdateThreadOnThreadCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }

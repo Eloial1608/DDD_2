@@ -51,7 +51,7 @@ export class ThreadDeletedDomainEvent extends DomainEvent {
     return { ...this }
   }
 
-  static fromPrimitives (id: string, attributes: ThreadDeletedDomainEventBody, eventId: string, occurredOn: Date): ThreadDeletedDomainEventBody {
+  static fromPrimitives (id: string, attributes: ThreadDeletedDomainEventBody, eventId: string, occurredOn: Date): ThreadDeletedDomainEvent {
     return new ThreadDeletedDomainEvent({
       ...attributes,
       id,

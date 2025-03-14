@@ -20,6 +20,7 @@ import { CourseCreatedDomainEvent } from './Events/CourseCreatedDomainEvent'
 import { MaxStudents } from './ValueObjects/MaxStudents'
 import { CourseDeletedDomainEvent } from './Events/CourseDeletedDomainEvent'
 import { CourseUpdatedDomainEvent } from './Events/CourseUpdatedDomainEvent'
+import { CourseTotalStudentsUpdatedDomainEvent } from './Events/CourseTotalStudentsUpdatedDomainEvent'
 
 export class Course extends AggregateRoot {
   constructor (
@@ -140,6 +141,34 @@ export class Course extends AggregateRoot {
     )
 
     course.record(CourseUpdatedDomainEvent.fromAggregate(course))
+
+    return course
+  }
+
+  updateTotalStudents (
+    totalStudents: TotalStudents
+  ): Course {
+    const course = new Course(
+      this.id,
+      this.communityId,
+      this.spaceId,
+      this.userId,
+      this.author,
+      this.title,
+      this.bannerUrl,
+      this.isPaid,
+      this.price,
+      this.startDate,
+      this.endDate,
+      this.maxStudents,
+      totalStudents,
+      this.totalComments,
+      this.createdAt,
+      this.updatedAt,
+      null
+    )
+
+    course.record(CourseTotalStudentsUpdatedDomainEvent.fromAggregate(course))
 
     return course
   }

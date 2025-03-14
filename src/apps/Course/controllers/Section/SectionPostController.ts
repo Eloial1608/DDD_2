@@ -77,7 +77,7 @@ export class SectionPostController implements Controller {
         ['value', communityId]
       ])
     ])
-
+    
     return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response
   }
 

@@ -8,6 +8,7 @@ type ThreadCreatedDomainEventBody = {
     readonly userId: string
     readonly title: string
     readonly bannerUrl: Nullable<string>
+    readonly threadParentId: Nullable<string>
 }
 
 export class ThreadCreatedDomainEvent extends DomainEvent {
@@ -18,6 +19,7 @@ export class ThreadCreatedDomainEvent extends DomainEvent {
   readonly userId: string
   readonly title: string
   readonly bannerUrl: Nullable<string>
+  readonly threadParentId: Nullable<string>
 
   static {
     DomainEvent.derived.add(ThreadCreatedDomainEvent.EVENT_NAME)
@@ -31,6 +33,7 @@ export class ThreadCreatedDomainEvent extends DomainEvent {
     this.userId = params.userId
     this.title = params.title
     this.bannerUrl = params.bannerUrl
+    this.threadParentId = params.threadParentId
   }
 
   static fromAggregate (thread: Thread): ThreadCreatedDomainEvent {
@@ -39,7 +42,8 @@ export class ThreadCreatedDomainEvent extends DomainEvent {
       communityId: thread.communityId.valueOf(),
       userId: thread.userId.valueOf(),
       title: thread.title.valueOf(),
-      bannerUrl: thread.bannerUrl?.valueOf()
+      bannerUrl: thread.bannerUrl?.valueOf(),
+      threadParentId: thread.parentThreadId?.valueOf()
 
     })
   }
