@@ -373,6 +373,16 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
   
+  Space.DeleteSpaceOnSpaceDeleted.Deleter:
+    class: src/Contexts/Core/Space/application/DeleteSpaceOnSpaceDeleted/Deleter
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.DeleteSpaceOnSpaceDeleted.DeleteSpaceOnSpaceDeletedHandler:
+    class: src/Contexts/Core/Space/application/DeleteSpaceOnSpaceDeleted/DeleteSpaceOnSpaceDeletedHandler
+    arguments: ["@Space.DeleteSpaceOnSpaceDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
   SpaceMember.DeleteSpaceMemberOnSpaceDeleted.Deleter:
     class: src/Contexts/Core/SpaceMember/application/DeleteSpaceMemberOnSpaceDeleted/Deleter
     arguments: ['@SpaceMember.Repository', '@Shared.EventBus']

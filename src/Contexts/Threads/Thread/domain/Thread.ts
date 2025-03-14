@@ -162,8 +162,8 @@ export class Thread extends AggregateRoot {
     thread.record(ThreadTotalThreadsUpdatedDomainEvent.fromAggregate(thread))
     return thread
   }
-  
-    updateTotalLikes (
+
+  updateTotalLikes (
     totalLikes: TotalLikes
   ):Thread {
     const thread = new Thread(
