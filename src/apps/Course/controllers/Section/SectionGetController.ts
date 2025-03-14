@@ -7,7 +7,7 @@ import { FindSectionByIdQuery } from '@Course/Section/application/FindById/FindS
 import { SectionResponse, SectionResponseBody } from '@Course/Section/application/SectionResponse'
 import { SectionNotFound } from '@Course/Section/domain/Errors/SectionNotFound'
 import { FindCourseByIdQuery } from '@Course/Course/application/FindById/FindCourseByIdQuery'
-import { CourseResponse, CourseResponseBody } from '@Course/Course/application/CourseResponse'
+import { CourseResponse } from '@Course/Course/application/CourseResponse'
 import { FindSpaceByIdQuery } from '@Course/Space/application/FindById/FindSpaceByIdQuery'
 import { SpaceResponse } from '@Course/Space/application/SpaceResponse'
 import { SpaceMemberResponseBody } from '@Course/SpaceMember/application/SpaceMemberResponse'
