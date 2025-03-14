@@ -21,7 +21,7 @@ import { UserCollectionResponse } from '@Course/User/application/UserCollectionR
 import { FindCourseUsersByCriteriaQuery } from '@Course/CourseUser/application/FindByCriteria/FindCourseUsersByCriteriaQuery'
 import { CourseUserCollectionResponse } from '@Course/CourseUser/application/CourseUserCollectionResponse'
 
-export class CourseGetController implements Controller {
+export class SectionsGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
 
   async run (req: Request, res: Response): Promise<Response> {
