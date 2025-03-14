@@ -38,7 +38,7 @@ export class MediaResponse implements QueryResponse<MediaResponseBody> {
       bannerUrl: media.bannerUrl?.valueOf(),
       author: media.author.toPrimitives(),
       isPaid: media.isPaid.valueOf(),
-      price: media.price
+      price: media.price?.value?.valueOf() != null
         ? {
             value: media.price.value.valueOf(),
             currency: media.price.currency.valueOf()

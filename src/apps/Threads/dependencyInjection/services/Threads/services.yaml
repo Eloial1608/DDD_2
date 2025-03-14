@@ -160,9 +160,130 @@ services:
     tags:
       - { name: "commandHandler" }
 
+   Thread.Delete.Deleter:
+    class: src/Contexts/Threads/Thread/application/Delete/Deleter
+    arguments: ['@Thread.Repository', '@Shared.EventBus']
+  
+   Thread.Delete.DeleteThreadCommandHandler:
+    class: src/Contexts/Threads/Thread/application/Delete/DeleteThreadCommandHandler
+    arguments: ["@Thread.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
    ThreadUser.Repository:
     class: src/Contexts/Threads/ThreadUser/infrastructure/persistence/TypeOrmThreadUserRepository
+    arguments: ["@Shared.ORM.Connection"]
 
    Like.Repository:
-
+    class: src/Contexts/Threads/Like/infrastructure/persistence/TypeOrmLikeRepository
     arguments: ["@Shared.ORM.Connection"]
+
+   Thread.Update.Updater:
+    class: src/Contexts/Threads/Thread/application/Update/Updater
+    arguments: ['@Thread.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+   Thread.Update.UpdateThreadCommandHandler:
+    class: src/Contexts/Threads/Thread/application/Update/UpdateThreadCommandHandler
+    arguments: ["@Thread.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
+   Thread.FindById.FinderById:
+    class: src/Contexts/Threads/Thread/application/FindById/FinderById
+    arguments: ['@Thread.Repository']
+  
+   Thread.FindById.FindThreadByIdQueryHandler:
+    class: src/Contexts/Threads/Thread/application/FindById/FindThreadByIdQueryHandler
+    arguments: ['@Thread.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+   Like.FindById.FinderById:
+    class: src/Contexts/Threads/Like/application/FindById/FinderById
+    arguments: ['@Like.Repository']
+  
+   Like.FindById.FindLikeByIdQueryHandler:
+    class: src/Contexts/Threads/Like/application/FindById/FindLikeByIdQueryHandler
+    arguments: ['@Like.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+  
+   Like.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Threads/Like/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Like.Repository']
+  
+   Like.FindByCriteria.FindLikesByCriteriaQueryHandler:
+    class: src/Contexts/Threads/Like/application/FindByCriteria/FindLikesByCriteriaQueryHandler
+    arguments: ['@Like.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+   Like.Delete.Deleter:
+    class: src/Contexts/Threads/Like/application/Delete/Deleter
+    arguments: ['@Like.Repository', '@Shared.EventBus']
+  
+   Like.Delete.DeleteLikeCommandHandler:
+    class: src/Contexts/Threads/Like/application/Delete/DeleteLikeCommandHandler
+    arguments: ["@Like.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
+   Like.Create.Creator:
+    class: src/Contexts/Threads/Like/application/Create/Creator
+    arguments: ['@Like.Repository', '@Shared.QueryBus', '@Shared.EventBus']
+  
+   Like.Create.CreateLikeCommandHandler:
+    class: src/Contexts/Threads/Like/application/Create/CreateLikeCommandHandler
+    arguments: ["@Like.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+   Thread.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Threads/Thread/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Thread.Repository']
+  
+   Thread.FindByCriteria.FindThreadsByCriteriaQueryHandler:
+    class: src/Contexts/Threads/Thread/application/FindByCriteria/FindThreadsByCriteriaQueryHandler
+    arguments: ['@Thread.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+    
+   ThreadUser.CreateThreadUserOnStripeSessionVerified.Creator:
+    class: src/Contexts/Threads/ThreadUser/application/CreateThreadUserOnStripeSessionVerified/Creator
+    arguments: ['@ThreadUser.Repository', '@Shared.EventBus']
+  
+   ThreadUser.CreateThreadUserOnStripeSessionVerified.CreateThreadUserOnStripeSessionVerifiedHandler:
+    class: src/Contexts/Threads/ThreadUser/application/CreateThreadUserOnStripeSessionVerified/CreateThreadUserOnStripeSessionVerifiedHandler
+    arguments: ["@ThreadUser.CreateThreadUserOnStripeSessionVerified.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+   ThreadUser.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Threads/ThreadUser/application/FindByCriteria/FinderByCriteria
+    arguments: ['@ThreadUser.Repository']
+  
+   ThreadUser.FindByCriteria.FindThreadUsersByCriteriaQueryHandler:
+    class: src/Contexts/Threads/ThreadUser/application/FindByCriteria/FindThreadUsersByCriteriaQueryHandler
+    arguments: ['@ThreadUser.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+   User.UpdateUserOnUserUpdated.Updater:
+    class: src/Contexts/Threads/User/application/UpdateUserOnUserUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+   User.UpdateUserOnUserUpdated.UpdateUserOnUserUpdatedHandler:
+    class: src/Contexts/Threads/User/application/UpdateUserOnUserUpdated/UpdateUserOnUserUpdatedHandler
+    arguments: ["@User.UpdateUserOnUserUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+   User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater:
+    class: src/Contexts/Threads/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+   User.UpdateUserIsAdminOnUserIsAdminUpdated.UpdateUserIsAdminOnUserIsAdminUpdatedHandler:
+    class: src/Contexts/Threads/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/UpdateUserIsAdminOnUserIsAdminUpdatedHandler
+    arguments: ["@User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }

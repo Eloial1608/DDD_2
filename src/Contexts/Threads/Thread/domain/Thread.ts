@@ -17,6 +17,8 @@ import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { DeletedAt } from './ValueObjects/DeletedAt'
 import { Nullable } from '@Shared/domain/Nullable'
 import { ThreadCreatedDomainEvent } from './Events/ThreadCreatedDomainEvent'
+import { ThreadDeletedDomainEvent } from './Events/ThreadDeletedDomainEvent'
+import { ThreadUpdatedDomainEvent } from './Events/ThreadUpdatedDomainEvent'
 
 export class Thread extends AggregateRoot {
   constructor (
@@ -72,6 +74,63 @@ export class Thread extends AggregateRoot {
       null
     )
     thread.record(ThreadCreatedDomainEvent.fromAggregate(thread))
+
+    return thread
+  }
+
+  delete ():Thread {
+    const thread = new Thread(
+      this.id,
+      this.communityId,
+      this.spaceId,
+      this.title,
+      this.parentThreadId,
+      this.userId,
+      this.content,
+      this.bannerUrl,
+      this.author,
+      this.isPaid,
+      this.price,
+      this.totalLikes,
+      this.totalThreads,
+      this.createdAt,
+      this.updatedAt,
+      new DeletedAt(new Date())
+    )
+
+    thread.record(ThreadDeletedDomainEvent.fromAggregate(thread))
+
+    return thread
+  }
+
+  update (
+    id: Id,
+    title: Title,
+    content: Content,
+    bannerUrl: Nullable<BannerUrl>,
+    isPaid: IsPaid,
+    price: Nullable<Price>
+  ): Thread {
+    const thread = new Thread(
+      id,
+      this.communityId,
+      this.spaceId,
+      title,
+      this.parentThreadId,
+      this.userId,
+      content,
+      bannerUrl,
+      this.author,
+      isPaid,
+      price,
+      this.totalLikes,
+      this.totalThreads,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      null
+    )
+
+    thread.record(ThreadUpdatedDomainEvent.fromAggregate(thread))
 
     return thread
   }

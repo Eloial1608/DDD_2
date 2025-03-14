@@ -7,7 +7,7 @@ import { FindSectionByIdQuery } from '@Course/Section/application/FindById/FindS
 import { SectionResponse } from '@Course/Section/application/SectionResponse'
 import { SectionNotFound } from '@Course/Section/domain/Errors/SectionNotFound'
 import { FindCourseByIdQuery } from '@Course/Course/application/FindById/FindCourseByIdQuery'
-import { CourseResponse } from '@Course/Course/application/CourseResponse'
+import { CourseResponse, CourseResponseBody } from '@Course/Course/application/CourseResponse'
 import { FindSpaceByIdQuery } from '@Course/Space/application/FindById/FindSpaceByIdQuery'
 import { SpaceResponse } from '@Course/Space/application/SpaceResponse'
 import { SpaceMemberResponseBody } from '@Course/SpaceMember/application/SpaceMemberResponse'
@@ -17,6 +17,8 @@ import { SpaceMemberCollectionResponse } from '@Course/SpaceMember/application/S
 import { FindSpaceMembersByCriteriaQuery } from '@Course/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQuery'
 import { AllowedAccessibilities } from '@Shared/domain/SharedValueObjects/Space/SharedAccessibility'
 import { UserCollectionResponse } from '@Course/User/application/UserCollectionResponse'
+import { FindCourseUsersByCriteriaQuery } from '@Course/CourseUser/application/FindByCriteria/FindCourseUsersByCriteriaQuery'
+import { CourseUserCollectionResponse } from '@Course/CourseUser/application/CourseUserCollectionResponse'
 
 export class SectionGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
@@ -35,37 +37,9 @@ export class SectionGetController implements Controller {
 
       const course = (await this.queryBus.ask<CourseResponse>(courseQuery)).response
 
-      const spaceQuery = new FindSpaceByIdQuery(course.spaceId)
+      const canAccess = await this.canAccess(course, req.headers.authorization as string)
 
-      const space = await (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
-      let spaceMember: SpaceMemberResponseBody | undefined
-      let user: UserResponseBody | undefined
-
-      if (req.headers.authorization) {
-        const data = await this.decoder.run(req.headers.authorization)
-
-        user = await this.getUser(data.id, course.communityId)
-      }
-
-      if (space.accessibility !== AllowedAccessibilities.PUBLIC) {
-        if (!user) return res.status(401).send()
-
-        if (!user.isAdmin && !user.isOwner) {
-          spaceMember = await this.getSpaceMember(user.id, user.communityId, space.id)
-
-          if (!spaceMember) return res.status(401).send()
-        }
-      }
-
-      if (course.isPaid && (!user?.isAdmin && !user?.isOwner && !spaceMember?.isModerator)) {
-        if (!spaceMember) {
-          return res.status(200).json(await this.buildResponse(this.getPostWithoutContent(post), user?.id))
-        }
-        const courseUser = await this.getCoureseUser(spaceMember.userId, course.id)
-        if (!courseUser) {
-          return res.status(200).json(await this.buildResponse(this.getPostWithoutContent(post), user?.id))
-        }
-      }
+      if (!canAccess) return res.status(401).send()
 
       return res.status(200).json(section)
     } catch (e) {
@@ -76,6 +50,40 @@ export class SectionGetController implements Controller {
 
       return res.status(500).send()
     }
+  }
+
+  private async canAccess (course: CourseResponseBody, token: string): Promise<boolean> {
+    const spaceQuery = new FindSpaceByIdQuery(course.spaceId)
+
+    const space = await (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
+    let spaceMember: SpaceMemberResponseBody | undefined
+    let user: UserResponseBody | undefined
+
+    if (user == null && token) {
+      const data = await this.decoder.run(token)
+
+      const u = await this.getUser(data.id, course.communityId)
+
+      user = u ?? undefined
+    }
+
+    if (space.accessibility !== AllowedAccessibilities.PUBLIC) {
+      if (!user) return false
+
+      if (!user.isAdmin && !user.isOwner) {
+        spaceMember = await this.getSpaceMember(user.id, user.communityId, space.id)
+
+        if (!spaceMember) return false
+      }
+    }
+
+    if (course.isPaid && (!user?.isAdmin && !user?.isOwner && !spaceMember?.isModerator)) {
+      if (!spaceMember) return false
+      const courseUser = await this.getCourseUser(spaceMember.userId, course.id)
+      if (!courseUser) return false
+    }
+
+    return true
   }
 
   private async getSpaceMember (userId: string, communityId: string, spaceId: string) {
@@ -119,7 +127,7 @@ export class SectionGetController implements Controller {
     return user
   }
 
-  private async getCourseUser (userId: string, postId: string) {
+  private async getCourseUser (userId: string, courseId: string) {
     const query = new FindCourseUsersByCriteriaQuery([
       new Map<string, string>([
         ['field', 'userId'],
@@ -129,12 +137,12 @@ export class SectionGetController implements Controller {
       new Map<string, string>([
         ['field', 'postId'],
         ['operator', '='],
-        ['value', postId]
+        ['value', courseId]
       ])
     ])
 
-    const user = (await this.queryBus.ask<PostUserCollectionResponse>(query)).response.pop()
+    const courseUser = (await this.queryBus.ask<CourseUserCollectionResponse>(query)).response.pop()
 
-    return user
+    return courseUser
   }
 }
