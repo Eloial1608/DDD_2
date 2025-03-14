@@ -276,6 +276,16 @@ services:
     class: src/Contexts/Course/CourseUser/infrastructure/persistence/TypeOrmCourseUserRepository
     arguments: ["@Shared.ORM.Connection"]
 
+  CourseUser.CreateCourseUserOnStripeSessionVerified.Creator:
+    class: src/Contexts/Course/CourseUser/application/CreateCourseUserOnStripeSessionVerified/Creator
+    arguments: ['@CourseUser.Repository', '@Shared.EventBus']
+  
+  CourseUser.CreateCourseUserOnStripeSessionVerified.CreateCourseUserOnStripeSessionVerifiedHandler:
+    class: src/Contexts/Course/CourseUser/application/CreateCourseUserOnStripeSessionVerified/CreateCourseUserOnStripeSessionVerifiedHandler
+    arguments: ["@CourseUser.CreateCourseUserOnStripeSessionVerified.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
   CourseUser.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Course/CourseUser/application/FindByCriteria/FinderByCriteria
     arguments: ['@CourseUser.Repository']
