@@ -288,6 +288,14 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
 
+   Thread.UpdateThreadOnThreadDeleted.Updater:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadDeleted/Updater
+    arguments: ['@Thread.Repository', '@Shared.EventBus']
+  
+   Thread.UpdateThreadOnThreadDeleted.UpdateThreadOnThreadDeletedHandler:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadDeleted/UpdateThreadOnThreadDeletedHandler
+    arguments: ["@Thread.UpdateThreadOnThreadDeleted.Updater"]
+    
    Thread.UpdateThreadOnLikeCreated.Updater:
     class: src/Contexts/Threads/Thread/application/UpdateThreadOnLikeCreated/Updater
     arguments: ['@Thread.Repository', '@Shared.EventBus']
