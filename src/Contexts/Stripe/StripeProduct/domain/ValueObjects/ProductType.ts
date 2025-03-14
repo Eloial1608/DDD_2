@@ -6,7 +6,7 @@ export enum ProductTypes {
     POSTS = 'posts',
     MEDIA = 'media',
     SPACE = 'space',
-    COURSE = 'course'.
+    COURSE = 'course',
     THREADS = 'threads'
 }
 
