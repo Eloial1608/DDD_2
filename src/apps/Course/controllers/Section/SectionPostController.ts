@@ -29,7 +29,7 @@ export class SectionPostController implements Controller {
       if (!user) return res.status(401).send()
 
       if (!user.isAdmin && !user.isOwner) {
-        const spaceMember = await this.getSpaceMember(user.id, user.communityId, req.body.spaceId)
+        const spaceMember = await this.getSpaceMember(user.id, user.communityId, course.spaceId)
   
         if (!spaceMember) return res.status(401).send()
       }
@@ -77,7 +77,7 @@ export class SectionPostController implements Controller {
         ['value', communityId]
       ])
     ])
-  
+    
     return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response
   }
 
