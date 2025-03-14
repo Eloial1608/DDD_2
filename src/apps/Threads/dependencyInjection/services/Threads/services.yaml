@@ -287,3 +287,13 @@ services:
     arguments: ["@User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+
+   Thread.UpdateThreadOnThreadDeleted.Updater:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadDeleted/Updater
+    arguments: ['@Thread.Repository', '@Shared.EventBus']
+  
+   Thread.UpdateThreadOnThreadDeleted.UpdateThreadOnThreadDeletedHandler:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadDeleted/UpdateThreadOnThreadDeletedHandler
+    arguments: ["@Thread.UpdateThreadOnCommentDeleted.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
