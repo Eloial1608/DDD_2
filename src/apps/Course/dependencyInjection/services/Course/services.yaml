@@ -309,3 +309,13 @@ services:
   Lesson.Repository:
     class: src/Contexts/Course/Lesson/infrastructure/persistence/TypeOrmLessonRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  Lesson.Delete.Deleter:
+    class: src/Contexts/Course/Lesson/application/Delete/Deleter
+    arguments: ['@Lesson.Repository', '@Shared.EventBus']
+  
+  Lesson.Delete.DeleteLessonCommandHandler:
+    class: src/Contexts/Course/Lesson/application/Delete/DeleteLessonCommandHandler
+    arguments: ["@Lesson.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }

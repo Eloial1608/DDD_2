@@ -7,6 +7,8 @@ import { Content } from './ValueObjects/Content'
 import { CreatedAt } from './ValueObjects/CreatedAt'
 import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { Nullable } from '@Shared/domain/Nullable'
+import { DeletedAt } from './ValueObjects/DeletedAt'
+import { LessonDeletedDomainEvent } from './events/LessonDeletedDomainEvent'
 
 export class Lesson extends AggregateRoot {
   constructor (
@@ -17,8 +19,25 @@ export class Lesson extends AggregateRoot {
         readonly content: Content,
         readonly createdAt: CreatedAt,
         readonly updatedAt: UpdatedAt,
-        readonly deletedAt: Nullable<UpdatedAt>
+        readonly deletedAt: Nullable<DeletedAt>
   ) {
     super()
+  }
+
+  delete (): Lesson {
+    const lesson = new Lesson(
+      this.id,
+      this.sectionId,
+      this.title,
+      this.type,
+      this.content,
+      this.createdAt,
+      this.updatedAt,
+      new DeletedAt(new Date())
+    )
+
+    lesson.record(LessonDeletedDomainEvent.fromAggregate(lesson))
+
+    return lesson
   }
 }
