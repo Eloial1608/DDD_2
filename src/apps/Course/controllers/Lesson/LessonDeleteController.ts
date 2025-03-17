@@ -11,6 +11,10 @@ import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { DeleteLessonCommand } from '@Course/Lesson/application/Delete/DeleteLessonCommand'
 import { FindLessonByIdQuery } from '@Course/Lesson/application/FindById/FindLessonByIdQuery'
 import { LessonResponse } from '@Course/Lesson/application/LessonResponse'
+import { FindSectionByIdQuery } from '@Course/Section/application/FindById/FindSectionByIdQuery'
+import { SectionResponse } from '@Course/Section/application/SectionResponse'
+import { FindCourseByIdQuery } from '@Course/Course/application/FindById/FindCourseByIdQuery'
+import { CourseResponse } from '@Course/Course/application/CourseResponse'
 
 export class LessonDeleteController implements Controller {
   constructor (private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
@@ -22,23 +26,27 @@ export class LessonDeleteController implements Controller {
       const data = await this.decoder.run(req.headers.authorization)
 
       const lessonQuery = new FindLessonByIdQuery(req.params.id)
-
       const lesson = (await this.queryBus.ask<LessonResponse>(lessonQuery)).response
 
-      const user = await this.getUser(data.id, lesson.communityId)
+      const sectionQuery = new FindSectionByIdQuery(lesson.sectionId)
+      const section = (await this.queryBus.ask<SectionResponse>(sectionQuery)).response
+
+      const courseQuery = new FindCourseByIdQuery(section.courseId)
+      const course = (await this.queryBus.ask<CourseResponse>(courseQuery)).response
+
+      const user = await this.getUser(data.id, course.communityId)
 
       if (!user) return res.status(401).send()
 
       if (!user.isAdmin && !user.isOwner) {
-        const spaceMember = await this.getSpaceMember(user.id, user.communityId, lesson.spaceId)
+        const spaceMember = await this.getSpaceMember(user.id, user.communityId, course.spaceId)
 
         if (!spaceMember) return res.status(401).send()
       }
 
       const command = new DeleteLessonCommand(
         req.params.id,
-        user.communityId,
-        user.id
+        lesson.sectionId
       )
 
       await this.commandBus.dispatch(command)
