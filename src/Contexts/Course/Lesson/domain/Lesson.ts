@@ -7,6 +7,7 @@ import { Content } from './ValueObjects/Content'
 import { CreatedAt } from './ValueObjects/CreatedAt'
 import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { Nullable } from '@Shared/domain/Nullable'
+import { DeletedAt } from './ValueObjects/DeletedAt'
 
 export class Lesson extends AggregateRoot {
   constructor (
@@ -17,7 +18,7 @@ export class Lesson extends AggregateRoot {
         readonly content: Content,
         readonly createdAt: CreatedAt,
         readonly updatedAt: UpdatedAt,
-        readonly deletedAt: Nullable<UpdatedAt>
+        readonly deletedAt: Nullable<DeletedAt>
   ) {
     super()
   }
