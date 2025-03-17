@@ -2,11 +2,11 @@ import { QueryResponse } from '@Shared/domain/QueryBus/QueryResponse'
 import { Lesson } from '../domain/Lesson'
 
 export type LessonResponseBody = {
-  readonly id: String,
-  readonly sectionId: String,
-  readonly title: String,
-  readonly type: String,
-  readonly content: String,
+  readonly id: string,
+  readonly sectionId: string,
+  readonly title: string,
+  readonly type: string,
+  readonly content: string,
   readonly createdAt: Date,
   readonly updatedAt: Date
 }
