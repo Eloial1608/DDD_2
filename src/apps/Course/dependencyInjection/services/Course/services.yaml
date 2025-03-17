@@ -309,3 +309,13 @@ services:
   Lesson.Repository:
     class: src/Contexts/Course/Lesson/infrastructure/persistence/TypeOrmLessonRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  Lesson.Update.Updater:
+    class: src/Contexts/Course/Lesson/application/Update/Updater
+    arguments: ['@Lesson.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Lesson.UpdateLesson.UpdateLessonCommandHandler:
+    class: src/Contexts/Course/Lesson/application/UpdateLesson/UpdateLessonCommandHandler
+    arguments: ["@Lesson.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
