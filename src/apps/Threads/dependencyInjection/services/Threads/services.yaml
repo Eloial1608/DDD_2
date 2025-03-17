@@ -1,11 +1,11 @@
 services:
-   Community.Repository:
-    class: src/Contexts/Threads/Community/infrastructure/persistence/TypeOrmCommunityRepository
-    arguments: ["@Shared.ORM.Connection"]
-
    Community.CreateCommunityOnCommunityCreated.Creator:
     class: src/Contexts/Threads/Community/application/CreateCommunityOnCommunityCreated/Creator
     arguments: ['@Community.Repository', '@Shared.EventBus']
+
+   Community.Repository:
+    class: src/Contexts/Threads/Community/infrastructure/persistence/TypeOrmCommunityRepository
+    arguments: ["@Shared.ORM.Connection"]
   
    Community.CreateCommunityOnCommunityCreated.CreateCommunityOnCommunityCreatedHandler:
     class: src/Contexts/Threads/Community/application/CreateCommunityOnCommunityCreated/CreateCommunityOnCommunityCreatedHandler
