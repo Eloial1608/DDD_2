@@ -11,14 +11,14 @@ import { DeletedAt } from './ValueObjects/DeletedAt'
 
 export class Lesson extends AggregateRoot {
   constructor (
-        readonly id: Id,
-        readonly sectionId: SectionId,
-        readonly title: Title,
-        readonly type: Type,
-        readonly content: Content,
-        readonly createdAt: CreatedAt,
-        readonly updatedAt: UpdatedAt,
-        readonly deletedAt: Nullable<DeletedAt>
+    readonly id: Id,
+    readonly sectionId: SectionId,
+    readonly title: Title,
+    readonly type: Type,
+    readonly content: Content,
+    readonly createdAt: CreatedAt,
+    readonly updatedAt: UpdatedAt,
+    readonly deletedAt: Nullable<DeletedAt>
   ) {
     super()
   }
