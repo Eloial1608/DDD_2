@@ -39,5 +39,5 @@ services:
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
 
   Apps.Course.Controllers.LessonGetController:
-    class: src/apps/Course/controllers/Section/LessonGetController
+    class: src/apps/Course/controllers/Lesson/LessonGetController
     arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
