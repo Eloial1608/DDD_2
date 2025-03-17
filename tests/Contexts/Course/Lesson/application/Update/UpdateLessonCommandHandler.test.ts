@@ -4,12 +4,12 @@ import { QueryBusMock } from '@Tests/Contexts/Shared/infrastructure/QueryBus/Que
 import { UpdateLessonCommandHandler } from '@Course/Lesson/application/Update/UpdateLessonCommandHandler'
 import { Updater } from '@Course/Lesson/application/Update/Updater'
 import { LessonMother } from '../../domain/LessonMother'
-import { FindCourseByIdQuery } from '@Course/Course/application/FindById/FindCourseByIdQuery'
-import { CourseResponse } from '@Course/Course/application/CourseResponse'
 import { UpdateLessonCommandMother } from './UpdateLessonCommandMother'
 import { LessonUpdatedDomainEvent } from '@Course/Lesson/domain/events/LessonUpdatedDomainEvent'
 import { LessonNotFound } from '@Course/Lesson/domain/Errors/LessonNotFound'
 import { SectionMother } from '@Tests/Contexts/Course/Section/domain/SectionMother'
+import { FindSectionByIdQuery } from '@Course/Section/application/FindById/FindSectionByIdQuery'
+import { SectionResponse } from '@Course/Section/application/SectionResponse'
 
 let eventBus: EventBusMock
 let repository: LessonRepositoryMock
@@ -38,7 +38,7 @@ describe('UpdateLessonCommandHandler should ', () => {
 
     repository.returnOnFind(existingLesson)
 
-    queryBus.returnOnQuery(new FindCourseByIdQuery(section.id.valueOf()), new CourseResponse(course))
+    queryBus.returnOnQuery(new FindSectionByIdQuery(section.id.valueOf()), new SectionResponse(section))
 
     const command = UpdateLessonCommandMother.fromAggregate(lesson)
 
@@ -52,7 +52,7 @@ describe('UpdateLessonCommandHandler should ', () => {
 
     const lesson = LessonMother.create({ sectionId: section.id })
 
-    queryBus.returnOnQuery(new FindCourseByIdQuery(section.id.valueOf()), new CourseResponse(course))
+    queryBus.returnOnQuery(new FindSectionByIdQuery(section.id.valueOf()), new SectionResponse(section))
 
     const command = UpdateLessonCommandMother.fromAggregate(lesson)
 
@@ -71,7 +71,7 @@ describe('UpdateLessonCommandHandler should ', () => {
 
     repository.returnOnFind(existingLesson)
 
-    queryBus.returnOnQuery(new FindCourseByIdQuery(section.id.valueOf()), new CourseResponse(course))
+    queryBus.returnOnQuery(new FindSectionByIdQuery(section.id.valueOf()), new SectionResponse(section))
 
     const command = UpdateLessonCommandMother.fromAggregate(lesson)
 
