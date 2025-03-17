@@ -319,3 +319,13 @@ services:
     arguments: ["@Lesson.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
+      
+  Lesson.FindById.FinderById:
+    class: src/Contexts/Course/Lesson/application/FindById/FinderById
+    arguments: ['@CourseUser.Repository']
+  
+  Lesson.FindById.FindLessonByIdQueryHandler:
+    class: src/Contexts/Course/Lesson/application/FindById/FindLessonByIdQueryHandler
+    arguments: ['@Lesson.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
