@@ -305,3 +305,7 @@ services:
     arguments: ['@CourseUser.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+
+  Lesson.Repository:
+    class: src/Contexts/Course/Lesson/infrastructure/persistence/TypeOrmLessonRepository
+    arguments: ["@Shared.ORM.Connection"]
