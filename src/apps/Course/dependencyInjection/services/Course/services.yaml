@@ -309,3 +309,13 @@ services:
   Lesson.Repository:
     class: src/Contexts/Course/Lesson/infrastructure/persistence/TypeOrmLessonRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  Lesson.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Course/Lesson/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Lesson.Repository']
+  
+  Lesson.FindByCriteria.FindLessonsByCriteriaQueryHandler:
+    class: src/Contexts/Course/Lesson/application/FindByCriteria/FindLessonsByCriteriaQueryHandler
+    arguments: ['@Lesson.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
