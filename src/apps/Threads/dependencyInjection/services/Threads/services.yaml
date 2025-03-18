@@ -9,12 +9,12 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
 
-   Community.Repository:
-    class: src/Contexts/Threads/Community/infrastructure/persistence/TypeOrmCommunityRepository
-    arguments: ["@Shared.ORM.Connection"]
-
    User.Repository:
     class: src/Contexts/Threads/User/infrastructure/persistence/TypeOrmUserRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+   Community.Repository:
+    class: src/Contexts/Threads/Community/infrastructure/persistence/TypeOrmCommunityRepository
     arguments: ["@Shared.ORM.Connection"]
 
    Community.DeleteCommunityOnCommunityDeleted.Deleter:
