@@ -40,7 +40,7 @@ jobs:
         shell: sh
         run: |
           echo "*** Starting CI tests ***"
-          docker-compose -f docker-compose-dev.yml up -d db
+          docker-compose -f docker-compose-dev.yml up -d db rabbitmq
           docker-compose -f docker-compose-dev.yml run --rm --name ${{inputs.SERVICE}} -e DB_HOST=db --entrypoint="npm run test:${{inputs.SERVICE}}" ${{inputs.SERVICE}}
           docker ps -a
           docker-compose -f docker-compose-dev.yml down ${{inputs.SERVICE}}

@@ -38,7 +38,7 @@ jobs:
         shell: sh
         run: |
           echo "Starting docker compose DB"
-          docker-compose -f docker-compose.yml up -d db
+          docker-compose -f docker-compose-dev.yml up -d db rabbitmq
 
       # Running feature tests
       - name: Run feature tests
