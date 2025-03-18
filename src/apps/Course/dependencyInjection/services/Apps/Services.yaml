@@ -33,3 +33,7 @@ services:
   Apps.Course.Controllers.SectionPostController:
     class: src/apps/Course/controllers/Section/SectionPostController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Course.Controllers.SectionPutController:
+    class: src/apps/Course/controllers/Section/SectionPutController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
