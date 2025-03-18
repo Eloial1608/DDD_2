@@ -50,7 +50,7 @@ jobs:
             echo "*** Skiping CI feature tests ***"
           else
             echo "*** Starting CI migrations & tests ***"
-            docker-compose -f docker-compose.yml run --rm --name ${{ inputs.SERVICE }} -e DB_HOST=db --entrypoint="npm run test:${{ inputs.SERVICE }}:features" ${{ inputs.SERVICE }}
+            docker-compose -f docker-compose.yml run --rm --name ${{ inputs.SERVICE }} -e DB_HOST=db -e RABBITMQ_HOSTNAME=rabbitmq --entrypoint="npm run test:${{ inputs.SERVICE }}:features" ${{ inputs.SERVICE }}
             docker ps -a
             docker-compose -f docker-compose.yml down
             echo "*** CI migrations & tests has passed SUCCESSFULLY ***"
