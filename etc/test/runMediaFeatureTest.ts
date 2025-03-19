@@ -3,7 +3,7 @@ import { exec, ChildProcess } from 'child_process'
 
 const startServer = (): Promise<ChildProcess> => {
   return new Promise((resolve, reject) => {
-    const server = exec('NODE_ENV=test ts-node -r tsconfig-paths/register src/apps/Media/index.ts')
+    const server = exec('PORT=12371 NODE_ENV=test ts-node -r tsconfig-paths/register src/apps/Media/index.ts')
     server.stdout?.on('data', (data) => {
       console.log(data.toString())
       if (data.includes('is running')) {
