@@ -305,3 +305,13 @@ services:
     arguments: ['@CourseUser.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+
+  Comment.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Course/Comment/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Comment.Repository']
+  
+  Comment.FindByCriteria.FindCommentsByCriteriaQueryHandler:
+    class: src/Contexts/Course/Comment/application/FindByCriteria/FindCommentsByCriteriaQueryHandler
+    arguments: ['@Comment.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
