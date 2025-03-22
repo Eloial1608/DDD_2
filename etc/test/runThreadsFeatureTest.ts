@@ -17,7 +17,7 @@ const startServer = (): Promise<ChildProcess> => {
   })
 }
 
-const waitForServer = async (url: string, timeout = 10000): Promise<void> => {
+const waitForServer = async (url: string, timeout = 60000): Promise<void> => {
   const start = Date.now()
   while (Date.now() - start < timeout) {
     try {
@@ -28,7 +28,7 @@ const waitForServer = async (url: string, timeout = 10000): Promise<void> => {
       await new Promise((resolve) => setTimeout(resolve, 500))
     }
   }
-  throw new Error('Server did not start in time')
+  throw new Error(`Server did not start in time, url: ${url} `)
 }
 
 const runTests = (): Promise<void> => {
