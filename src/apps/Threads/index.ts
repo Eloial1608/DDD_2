@@ -9,8 +9,10 @@ const di = DI.getInstance()
 
 export const starter = async () => {
   await di.initialize()
+
   application = new Server()
   worker = new Worker()
+
   await application.start()
   await worker.start()
 }
