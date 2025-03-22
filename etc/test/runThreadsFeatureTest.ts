@@ -3,7 +3,7 @@ import { exec, ChildProcess } from 'child_process'
 
 const startServer = (): Promise<ChildProcess> => {
   return new Promise((resolve, reject) => {
-    const server = exec('PORT=12371 NODE_ENV=test ts-node -r tsconfig-paths/register src/apps/Threads/index.ts')
+    const server = exec('NODE_ENV=test ts-node -r tsconfig-paths/register src/apps/Threads/index.ts')
     server.stdout?.on('data', (data) => {
       console.log(data.toString())
       if (data.includes('is running')) {
@@ -17,14 +17,15 @@ const startServer = (): Promise<ChildProcess> => {
   })
 }
 
-const waitForServer = async (url: string, timeout = 60000): Promise<void> => {
+const waitForServer = async (url: string, timeout = 10000): Promise<void> => {
   const start = Date.now()
   while (Date.now() - start < timeout) {
     try {
       const response = await fetch(url)
       console.log(response.status)
       if (response.ok) return
-    } catch {
+    } catch (e: unknown) {
+      console.log(e)
       await new Promise((resolve) => setTimeout(resolve, 500))
     }
   }
