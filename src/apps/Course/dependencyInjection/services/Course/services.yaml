@@ -306,6 +306,10 @@ services:
     tags:
       - { name: "queryHandler" }
 
+  Comment.Repository:
+    class: src/Contexts/Course/Comment/infrastructure/persistence/TypeOrmCommentRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
   Comment.Create.Creator:
     class: src/Contexts/Course/Comment/application/Create/Creator
     arguments: ['@Comment.Repository', '@Shared.EventBus', '@Shared.QueryBus']
