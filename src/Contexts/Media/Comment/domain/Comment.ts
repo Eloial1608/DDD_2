@@ -45,7 +45,7 @@ export class Comment extends AggregateRoot {
     return media
   }
 
-  delete () {
+  delete (): Comment {
     const comment = new Comment(
       this.id,
       this.mediaId,
@@ -63,7 +63,7 @@ export class Comment extends AggregateRoot {
 
   update (
     content: Content
-  ) {
+  ): Comment {
     const comment = new Comment(
       this.id,
       this.mediaId,
