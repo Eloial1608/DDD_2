@@ -6,6 +6,7 @@ import { CreatedAt } from './ValueObjects/CreatedAt'
 import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { Author } from './ValueObjects/Author'
 import { CourseId } from './ValueObjects/CourseId'
+import { CommentCreatedDomainEvent } from './Events/CommentCreatedDomainEvent'
 
 export class Comment extends AggregateRoot {
   constructor (
@@ -18,5 +19,27 @@ export class Comment extends AggregateRoot {
     readonly updatedAt: UpdatedAt
   ) {
     super()
+  }
+
+  static create (
+    id: Id,
+    courseId: CourseId,
+    userId: UserId,
+    author: Author,
+    content: Content
+  ): Comment {
+    const comment = new Comment(
+      id,
+      courseId,
+      userId,
+      author,
+      content,
+      new CreatedAt(new Date()),
+      new UpdatedAt(new Date())
+    )
+
+    comment.record(CommentCreatedDomainEvent.fromAggregate(comment))
+
+    return comment
   }
 }
