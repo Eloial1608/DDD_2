@@ -305,3 +305,13 @@ services:
     arguments: ['@CourseUser.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+
+  Comment.Create.Creator:
+    class: src/Contexts/Course/Comment/application/Create/Creator
+    arguments: ['@Comment.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Comment.Create.CreateCommentCommandHandler:
+    class: src/Contexts/Course/Comment/application/Create/CreateCommentCommandHandler
+    arguments: ["@Comment.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
