@@ -1,12 +1,12 @@
-import { DeleteCommunityOnCommunityDeletedHandler } from 'src/Contexts/Threads/Community/application/DeleteCommunityOnCommunityDeleted/DeleteCommunityOnCommunityDeletedHandler'
-import { Deleter } from 'src/Contexts/Threads/Community/application/DeleteCommunityOnCommunityDeleted/Deleter'
+import { DeleteCommunityOnCommunityDeletedHandler } from '@Threads/Community/application/DeleteCommunityOnCommunityDeleted/DeleteCommunityOnCommunityDeletedHandler'
+import { Deleter } from '@Threads/Community/application/DeleteCommunityOnCommunityDeleted/Deleter'
 import EventBusMock from '@Tests/Contexts/Shared/infrastructure/EventBus/EventBusMock'
 import { CommunityRepositoryMock } from '../../__mocks__/CommunityRepositoryMock'
 import { CommunityMother } from '../../domain/CommunityMother'
 import { CommunityMother as CoreCommunityMother } from '@Tests/Contexts/Core/Community/domain/CommunityMother'
 import { CommunityDeletedDomainEvent as CoreCommunityDeletedDomainEvent } from '@Core/Community/domain/Events/CommunityDeletedDomainEvent'
 import { DeletedAt } from '@Core/Community/domain/ValueObjects/DeletedAt'
-import { CommunityDeletedDomainEvent } from 'src/Contexts/Threads/Community/domain/Events/CommunityDeletedDomainEvent'
+import { CommunityDeletedDomainEvent } from '@Threads/Community/domain/Events/CommunityDeletedDomainEvent'
 
 let eventBus: EventBusMock
 let repository: CommunityRepositoryMock
