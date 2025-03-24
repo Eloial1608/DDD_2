@@ -339,7 +339,7 @@ services:
     arguments: ['@Comment.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
-      
+
   Lesson.Repository:
     class: src/Contexts/Course/Lesson/infrastructure/persistence/TypeOrmLessonRepository
     arguments: ["@Shared.ORM.Connection"]
@@ -381,6 +381,16 @@ services:
     arguments: ['@Lesson.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+
+  Comment.Update.Updater:
+    class: src/Contexts/Course/Comment/application/Update/Updater
+    arguments: ['@Comment.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Comment.Update.UpdateCommentCommandHandler:
+    class: src/Contexts/Course/Comment/application/Update/UpdateCommentCommandHandler
+    arguments: ["@Comment.Update.Updater"]
+    tags:
+      - { name: "commandHandler"}
 
   Lesson.Create.Creator:
     class: src/Contexts/Course/Lesson/application/Create/Creator
