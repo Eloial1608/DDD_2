@@ -16,9 +16,9 @@ services:
       context: ./
       dockerfile: ./Dockerfile
       args:
-        PORT: 5005
+        PORT: 5004
     ports:
-      - 5005:5005
+      - 5004:5004
     command: ["start:threads:server"]
   
   course-service-server:
@@ -27,9 +27,9 @@ services:
       context: ./
       dockerfile: ./Dockerfile
       args:
-        PORT: 5006
+        PORT: 5004
     ports:
-      - 5006:5006
+      - 5004:5004
     command: ["start:course:server"]
   
   auth-service-server:
@@ -38,9 +38,9 @@ services:
       context: ./
       dockerfile: ./Dockerfile
       args:
-        PORT: 5007
+        PORT: 5004
     ports:
-      - 5007:5007
+      - 5004:5004
     command: ["start:auth:server"]
 
   media-service-server:
@@ -49,9 +49,9 @@ services:
       context: ./
       dockerfile: ./Dockerfile
       args:
-        PORT: 5008
+        PORT: 5004
     ports:
-      - 5008:5008
+      - 5004:5004
     command: ["start:media:server"]
   
   posts-service-server:
@@ -60,9 +60,9 @@ services:
       context: ./
       dockerfile: ./Dockerfile
       args:
-        PORT: 5009
+        PORT: 5004
     ports:
-      - 5009:5009
+      - 5004:5004
     command: ["start:posts:server"]
   rabbitmq:
     image: rabbitmq:3-management-alpine

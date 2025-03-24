@@ -24,11 +24,12 @@ const waitForServer = async (url: string, timeout = 10000): Promise<void> => {
       const response = await fetch(url)
       console.log(response.status)
       if (response.ok) return
-    } catch {
+    } catch (e: unknown) {
+      console.log(e)
       await new Promise((resolve) => setTimeout(resolve, 500))
     }
   }
-  throw new Error('Server did not start in time')
+  throw new Error(`Server did not start in time, url: ${url} `)
 }
 
 const runTests = (): Promise<void> => {

@@ -22,6 +22,18 @@ services:
     class: src/apps/Course/controllers/Course/CoursesGetController
     arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
 
+  Apps.Course.Controllers.SectionsGetController:
+    class: src/apps/Course/controllers/Section/SectionsGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+    
+  Apps.Course.Controllers.SectionGetController:
+    class: src/apps/Course/controllers/Section/SectionGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+    
   Apps.Course.Controllers.SectionPostController:
-    class: src/apps/Course/controllers/Course/CoursesGetController
+    class: src/apps/Course/controllers/Section/SectionPostController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Course.Controllers.SectionPutController:
+    class: src/apps/Course/controllers/Section/SectionPutController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
