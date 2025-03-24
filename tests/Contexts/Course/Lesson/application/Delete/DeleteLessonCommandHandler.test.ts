@@ -5,7 +5,7 @@ import { DeleteLessonCommandHandler } from '@Course/Lesson/application/Delete/De
 import { LessonMother } from '../../domain/LessonMother'
 import { DeletedAt } from '@Course/Lesson/domain/ValueObjects/DeletedAt'
 import { DeleteLessonCommandMother } from './DeleteLessonCommandMother'
-import { LessonDeletedDomainEvent } from '@Course/Lesson/domain/Events/LessonDeletedDomainEvent'
+import { LessonDeletedDomainEvent } from '@Course/Lesson/domain/Eventss/LessonDeletedDomainEvent'
 
 let eventBus: EventBusMock
 let repository: LessonRepositoryMock

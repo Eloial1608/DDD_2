@@ -8,8 +8,8 @@ import { CreatedAt } from './ValueObjects/CreatedAt'
 import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { Nullable } from '@Shared/domain/Nullable'
 import { DeletedAt } from './ValueObjects/DeletedAt'
-import { LessonDeletedDomainEvent } from './Events/LessonDeletedDomainEvent'
-import { LessonCreatedDomainEvent } from './Events/LessonCreatedDomainEvent'
+import { LessonDeletedDomainEvent } from './Eventss/LessonDeletedDomainEvent'
+import { LessonCreatedDomainEvent } from './Eventss/LessonCreatedDomainEvent'
 
 export class Lesson extends AggregateRoot {
   constructor (
