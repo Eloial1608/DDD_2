@@ -49,7 +49,7 @@ export class Section extends AggregateRoot {
     id: Id,
     title: Title
   ): Section {
-    const course = new Section(
+    const section = new Section(
       id,
       this.courseId,
       title,
@@ -59,9 +59,9 @@ export class Section extends AggregateRoot {
       null
     )
 
-    course.record(SectionUpdatedDomainEvent.fromAggregate(course))
+    section.record(SectionUpdatedDomainEvent.fromAggregate(section))
 
-    return course
+    return section
   }
 
   delete (): Section {
