@@ -10,6 +10,8 @@ import { CommunityResponse } from '@Core/Community/application/CommunityResponse
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { TokenDecoder } from '@Shared/domain/TokenDecoder/TokenDecoder'
 import { CreateSubcommunityCommand } from '@Core/Community/application/CreateSubcommunity/CreateSubcommunityCommand'
+import { CreateUserCommand } from '@Core/User/application/Create/CreateUserCommand'
+import { v4 } from 'uuid'
 
 export class SubcommunityPostController implements Controller {
   constructor (private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
@@ -26,6 +28,7 @@ export class SubcommunityPostController implements Controller {
       if (!await this.isAdmin(data.id, community.id)) return res.status(401).send()
 
       await this.createCommunity(req)
+      await this.copyUser(data.id, community.id, req.params.id)
 
       return res.status(201).send()
     } catch (e) {
@@ -74,5 +77,36 @@ export class SubcommunityPostController implements Controller {
     )
 
     await this.commandBus.dispatch(createCommunityCommand)
+  }
+
+  async copyUser (userId: string, parentCommunityId: string, currentCommunityId: string): Promise<void> {
+    const query = new FindUsersByCriteriaQuery([
+      new Map<string, string>([
+        ['field', 'mainId'],
+        ['operator', '='],
+        ['value', userId]
+      ]),
+      new Map<string, string>([
+        ['field', 'communityId'],
+        ['operator', '='],
+        ['value', parentCommunityId]
+      ])
+    ])
+
+    const user = (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
+
+    if (!user) return
+
+    const command = new CreateUserCommand(
+      v4(),
+      user.mainId,
+      user.name,
+      user.email,
+      currentCommunityId,
+      user.isAdmin,
+      user.isOwner
+    )
+
+    await this.commandBus.dispatch(command)
   }
 }
