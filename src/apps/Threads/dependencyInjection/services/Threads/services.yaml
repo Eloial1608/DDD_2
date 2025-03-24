@@ -1,327 +1,327 @@
 services:
-   Community.CreateCommunityOnCommunityCreated.Creator:
-    class: src/Contexts/Threads/Community/application/CreateCommunityOnCommunityCreated/Creator
-    arguments: ['@Community.Repository', '@Shared.EventBus']
-
-   Community.CreateCommunityOnCommunityCreated.CreateCommunityOnCommunityCreatedHandler:
-    class: src/Contexts/Threads/Community/application/CreateCommunityOnCommunityCreated/CreateCommunityOnCommunityCreatedHandler
-    arguments: ["@Community.CreateCommunityOnCommunityCreated.Creator"]
-    tags:
-      - { name: "domainEventSubscriber" }
-
-   User.Repository:
+  User.Repository:
     class: src/Contexts/Threads/User/infrastructure/persistence/TypeOrmUserRepository
     arguments: ["@Shared.ORM.Connection"]
 
-   Community.Repository:
+  Community.Repository:
     class: src/Contexts/Threads/Community/infrastructure/persistence/TypeOrmCommunityRepository
     arguments: ["@Shared.ORM.Connection"]
 
-   Community.DeleteCommunityOnCommunityDeleted.Deleter:
-    class: src/Contexts/Threads/Community/application/DeleteCommunityOnCommunityDeleted/Deleter
-    arguments: ['@Community.Repository', '@Shared.EventBus']
-  
-   Community.DeleteCommunityOnCommunityDeleted.DeleteCommunityOnCommunityDeletedHandler:
-    class: src/Contexts/Threads/Community/application/DeleteCommunityOnCommunityDeleted/DeleteCommunityOnCommunityDeletedHandler
-    arguments: ["@Community.DeleteCommunityOnCommunityDeleted.Deleter"]
-    tags:
-      - { name: "domainEventSubscriber" }
-    
-   Community.FindById.FinderById:
-    class: src/Contexts/Threads/Community/application/FindById/FinderById
-    arguments: ['@Community.Repository']
-  
-   Community.FindById.FindCommunityByIdQueryHandler:
-    class: src/Contexts/Threads/Community/application/FindById/FindCommunityByIdQueryHandler
-    arguments: ['@Community.FindById.FinderById']
-    tags:
-      - { name: "queryHandler" }
-
-   User.FindByCriteria.FinderByCriteria:
+  User.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Threads/User/application/FindByCriteria/FinderByCriteria
     arguments: ['@User.Repository']
   
-   User.FindByCriteria.FindUsersByCriteriaQueryHandler:
+  User.FindByCriteria.FindUsersByCriteriaQueryHandler:
     class: src/Contexts/Threads/User/application/FindByCriteria/FindUsersByCriteriaQueryHandler
     arguments: ['@User.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
 
-   User.DeleteUserOnUserDeleted.Deleter:
+  User.DeleteUserOnUserDeleted.Deleter:
     class: src/Contexts/Threads/User/application/DeleteUserOnUserDeleted/Deleter
     arguments: ['@User.Repository', '@Shared.EventBus']
   
-   User.DeleteUserOnUserDeleted.DeleteUserOnUserDeletedHandler:
+  User.DeleteUserOnUserDeleted.DeleteUserOnUserDeletedHandler:
     class: src/Contexts/Threads/User/application/DeleteUserOnUserDeleted/DeleteUserOnUserDeletedHandler
     arguments: ["@User.DeleteUserOnUserDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
       
-   User.CreateUserOnUserCreated.Creator:
+  User.CreateUserOnUserCreated.Creator:
     class: src/Contexts/Threads/User/application/CreateUserOnUserCreated/Creator
     arguments: ['@User.Repository', '@Shared.EventBus']
   
-   User.CreateUserOnUserCreated.CreateUserOnUserCreatedHandler:
+  User.CreateUserOnUserCreated.CreateUserOnUserCreatedHandler:
     class: src/Contexts/Threads/User/application/CreateUserOnUserCreated/CreateUserOnUserCreatedHandler
     arguments: ["@User.CreateUserOnUserCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
 
-   Space.Repository:
+  Space.Repository:
     class: src/Contexts/Threads/Space/infrastructure/persistence/TypeOrmSpaceRepository
     arguments: ["@Shared.ORM.Connection"]
 
-   Space.FindById.FinderById:
+  Space.FindById.FinderById:
     class: src/Contexts/Threads/Space/application/FindById/FinderById
     arguments: ['@Space.Repository']
   
-   Space.FindById.FindSpaceByIdQueryHandler:
+  Space.FindById.FindSpaceByIdQueryHandler:
     class: src/Contexts/Threads/Space/application/FindById/FindSpaceByIdQueryHandler
     arguments: ['@Space.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
 
-   Space.UpdateSpaceOnSpaceUpdated.Updater:
+  Space.UpdateSpaceOnSpaceUpdated.Updater:
     class: src/Contexts/Threads/Space/application/UpdateSpaceOnSpaceUpdated/Updater
     arguments: ['@Space.Repository', '@Shared.EventBus']
   
-   Space.UpdateSpaceOnSpaceUpdated.UpdateSpaceOnSpaceUpdatedHandler:
+  Space.UpdateSpaceOnSpaceUpdated.UpdateSpaceOnSpaceUpdatedHandler:
     class: src/Contexts/Threads/Space/application/UpdateSpaceOnSpaceUpdated/UpdateSpaceOnSpaceUpdatedHandler
     arguments: ["@Space.UpdateSpaceOnSpaceUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
 
-   Space.DeleteSpaceOnSpaceDeleted.Deleter:
+  Space.DeleteSpaceOnSpaceDeleted.Deleter:
     class: src/Contexts/Threads/Space/application/DeleteSpaceOnSpaceDeleted/Deleter
     arguments: ['@Space.Repository', '@Shared.EventBus']
   
-   Space.DeleteSpaceOnSpaceDeleted.DeleteSpaceOnSpaceDeletedHandler:
+  Space.DeleteSpaceOnSpaceDeleted.DeleteSpaceOnSpaceDeletedHandler:
     class: src/Contexts/Threads/Space/application/DeleteSpaceOnSpaceDeleted/DeleteSpaceOnSpaceDeletedHandler
     arguments: ["@Space.DeleteSpaceOnSpaceDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
       
-   Space.CreateSpaceOnSpaceCreated.Creator:
+  Space.CreateSpaceOnSpaceCreated.Creator:
     class: src/Contexts/Threads/Space/application/CreateSpaceOnSpaceCreated/Creator
     arguments: ['@Space.Repository', '@Shared.EventBus']
   
-   Space.CreateSpaceOnSpaceCreated.CreateSpaceOnSpaceCreatedHandler:
+  Space.CreateSpaceOnSpaceCreated.CreateSpaceOnSpaceCreatedHandler:
     class: src/Contexts/Threads/Space/application/CreateSpaceOnSpaceCreated/CreateSpaceOnSpaceCreatedHandler
     arguments: ["@Space.CreateSpaceOnSpaceCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
 
-   SpaceMember.Repository:
+  SpaceMember.Repository:
     class: src/Contexts/Threads/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
     arguments: ["@Shared.ORM.Connection"]
 
-   SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.Creator:
+  SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.Creator:
     class: src/Contexts/Threads/SpaceMember/application/CreateSpaceMemberOnSpaceMemberCreated/Creator
     arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
   
-   SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.CreateSpaceMemberOnSpaceMemberCreatedHandler:
+  SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.CreateSpaceMemberOnSpaceMemberCreatedHandler:
     class: src/Contexts/Threads/SpaceMember/application/CreateSpaceMemberOnSpaceMemberCreated/CreateSpaceMemberOnSpaceMemberCreatedHandler
     arguments: ["@SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
 
-   SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.Deleter:
+  SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.Deleter:
     class: src/Contexts/Threads/SpaceMember/application/DeleteSpaceMemberOnSpaceMemberDeleted/Deleter
     arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
   
-   SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.DeleteSpaceMemberOnSpaceMemberDeletedHandler:
+  SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.DeleteSpaceMemberOnSpaceMemberDeletedHandler:
     class: src/Contexts/Threads/SpaceMember/application/DeleteSpaceMemberOnSpaceMemberDeleted/DeleteSpaceMemberOnSpaceMemberDeletedHandler
     arguments: ["@SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
 
 
-   SpaceMember.FindByCriteria.FinderByCriteria:
+  SpaceMember.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Threads/SpaceMember/application/FindByCriteria/FinderByCriteria
     arguments: ['@SpaceMember.Repository']
   
-   SpaceMember.FindByCriteria.FindSpaceMembersByCriteriaQueryHandler:
+  SpaceMember.FindByCriteria.FindSpaceMembersByCriteriaQueryHandler:
     class: src/Contexts/Threads/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQueryHandler
     arguments: ['@SpaceMember.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
       
-   Thread.Repository:
+  Thread.Repository:
     class: src/Contexts/Threads/Thread/infrastructure/persistence/TypeOrmThreadRepository
     arguments: ["@Shared.ORM.Connection"]
 
-   Thread.Create.Creator:
+  Thread.Create.Creator:
     class: src/Contexts/Threads/Thread/application/Create/Creator
     arguments: ['@Thread.Repository', '@Shared.EventBus', '@Shared.QueryBus']
   
-   Thread.Create.CreateThreadCommandHandler:
+  Thread.Create.CreateThreadCommandHandler:
     class: src/Contexts/Threads/Thread/application/Create/CreateThreadCommandHandler
     arguments: ["@Thread.Create.Creator"]
     tags:
       - { name: "commandHandler" }
 
-   Thread.Delete.Deleter:
+  Thread.Delete.Deleter:
     class: src/Contexts/Threads/Thread/application/Delete/Deleter
     arguments: ['@Thread.Repository', '@Shared.EventBus']
   
-   Thread.Delete.DeleteThreadCommandHandler:
+  Thread.Delete.DeleteThreadCommandHandler:
     class: src/Contexts/Threads/Thread/application/Delete/DeleteThreadCommandHandler
     arguments: ["@Thread.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
 
-   ThreadUser.Repository:
+  ThreadUser.Repository:
     class: src/Contexts/Threads/ThreadUser/infrastructure/persistence/TypeOrmThreadUserRepository
     arguments: ["@Shared.ORM.Connection"]
 
-   Like.Repository:
+  Like.Repository:
     class: src/Contexts/Threads/Like/infrastructure/persistence/TypeOrmLikeRepository
     arguments: ["@Shared.ORM.Connection"]
 
-   Thread.Update.Updater:
+  Thread.Update.Updater:
     class: src/Contexts/Threads/Thread/application/Update/Updater
     arguments: ['@Thread.Repository', '@Shared.EventBus', '@Shared.QueryBus']
   
-   Thread.Update.UpdateThreadCommandHandler:
+  Thread.Update.UpdateThreadCommandHandler:
     class: src/Contexts/Threads/Thread/application/Update/UpdateThreadCommandHandler
     arguments: ["@Thread.Update.Updater"]
     tags:
       - { name: "commandHandler" }
   
-   Thread.FindById.FinderById:
+  Thread.FindById.FinderById:
     class: src/Contexts/Threads/Thread/application/FindById/FinderById
     arguments: ['@Thread.Repository']
   
-   Thread.FindById.FindThreadByIdQueryHandler:
+  Thread.FindById.FindThreadByIdQueryHandler:
     class: src/Contexts/Threads/Thread/application/FindById/FindThreadByIdQueryHandler
     arguments: ['@Thread.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
 
-   Like.FindById.FinderById:
+  Like.FindById.FinderById:
     class: src/Contexts/Threads/Like/application/FindById/FinderById
     arguments: ['@Like.Repository']
   
-   Like.FindById.FindLikeByIdQueryHandler:
+  Like.FindById.FindLikeByIdQueryHandler:
     class: src/Contexts/Threads/Like/application/FindById/FindLikeByIdQueryHandler
     arguments: ['@Like.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
   
-   Like.FindByCriteria.FinderByCriteria:
+  Like.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Threads/Like/application/FindByCriteria/FinderByCriteria
     arguments: ['@Like.Repository']
   
-   Like.FindByCriteria.FindLikesByCriteriaQueryHandler:
+  Like.FindByCriteria.FindLikesByCriteriaQueryHandler:
     class: src/Contexts/Threads/Like/application/FindByCriteria/FindLikesByCriteriaQueryHandler
     arguments: ['@Like.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
 
-   Like.Delete.Deleter:
+  Like.Delete.Deleter:
     class: src/Contexts/Threads/Like/application/Delete/Deleter
     arguments: ['@Like.Repository', '@Shared.EventBus']
   
-   Like.Delete.DeleteLikeCommandHandler:
+  Like.Delete.DeleteLikeCommandHandler:
     class: src/Contexts/Threads/Like/application/Delete/DeleteLikeCommandHandler
     arguments: ["@Like.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
 
-   Like.Create.Creator:
+  Like.Create.Creator:
     class: src/Contexts/Threads/Like/application/Create/Creator
     arguments: ['@Like.Repository', '@Shared.QueryBus', '@Shared.EventBus']
   
-   Like.Create.CreateLikeCommandHandler:
+  Like.Create.CreateLikeCommandHandler:
     class: src/Contexts/Threads/Like/application/Create/CreateLikeCommandHandler
     arguments: ["@Like.Create.Creator"]
     tags:
       - { name: "commandHandler" }
 
-   Thread.FindByCriteria.FinderByCriteria:
+  Thread.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Threads/Thread/application/FindByCriteria/FinderByCriteria
     arguments: ['@Thread.Repository']
   
-   Thread.FindByCriteria.FindThreadsByCriteriaQueryHandler:
+  Thread.FindByCriteria.FindThreadsByCriteriaQueryHandler:
     class: src/Contexts/Threads/Thread/application/FindByCriteria/FindThreadsByCriteriaQueryHandler
     arguments: ['@Thread.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
     
-   ThreadUser.CreateThreadUserOnStripeSessionVerified.Creator:
+  ThreadUser.CreateThreadUserOnStripeSessionVerified.Creator:
     class: src/Contexts/Threads/ThreadUser/application/CreateThreadUserOnStripeSessionVerified/Creator
     arguments: ['@ThreadUser.Repository', '@Shared.EventBus']
   
-   ThreadUser.CreateThreadUserOnStripeSessionVerified.CreateThreadUserOnStripeSessionVerifiedHandler:
+  ThreadUser.CreateThreadUserOnStripeSessionVerified.CreateThreadUserOnStripeSessionVerifiedHandler:
     class: src/Contexts/Threads/ThreadUser/application/CreateThreadUserOnStripeSessionVerified/CreateThreadUserOnStripeSessionVerifiedHandler
     arguments: ["@ThreadUser.CreateThreadUserOnStripeSessionVerified.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
 
-   ThreadUser.FindByCriteria.FinderByCriteria:
+  ThreadUser.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Threads/ThreadUser/application/FindByCriteria/FinderByCriteria
     arguments: ['@ThreadUser.Repository']
   
-   ThreadUser.FindByCriteria.FindThreadUsersByCriteriaQueryHandler:
+  ThreadUser.FindByCriteria.FindThreadUsersByCriteriaQueryHandler:
     class: src/Contexts/Threads/ThreadUser/application/FindByCriteria/FindThreadUsersByCriteriaQueryHandler
     arguments: ['@ThreadUser.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
 
-   User.UpdateUserOnUserUpdated.Updater:
+  User.UpdateUserOnUserUpdated.Updater:
     class: src/Contexts/Threads/User/application/UpdateUserOnUserUpdated/Updater
     arguments: ['@User.Repository', '@Shared.EventBus']
   
-   User.UpdateUserOnUserUpdated.UpdateUserOnUserUpdatedHandler:
+  User.UpdateUserOnUserUpdated.UpdateUserOnUserUpdatedHandler:
     class: src/Contexts/Threads/User/application/UpdateUserOnUserUpdated/UpdateUserOnUserUpdatedHandler
     arguments: ["@User.UpdateUserOnUserUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
 
-   User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater:
+  User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater:
     class: src/Contexts/Threads/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/Updater
     arguments: ['@User.Repository', '@Shared.EventBus']
   
-   User.UpdateUserIsAdminOnUserIsAdminUpdated.UpdateUserIsAdminOnUserIsAdminUpdatedHandler:
+  User.UpdateUserIsAdminOnUserIsAdminUpdated.UpdateUserIsAdminOnUserIsAdminUpdatedHandler:
     class: src/Contexts/Threads/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/UpdateUserIsAdminOnUserIsAdminUpdatedHandler
     arguments: ["@User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
 
-   Thread.UpdateThreadOnThreadDeleted.Updater:
+  Thread.UpdateThreadOnThreadDeleted.Updater:
     class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadDeleted/Updater
     arguments: ['@Thread.Repository', '@Shared.EventBus']
   
-   Thread.UpdateThreadOnThreadDeleted.UpdateThreadOnThreadDeletedHandler:
+  Thread.UpdateThreadOnThreadDeleted.UpdateThreadOnThreadDeletedHandler:
     class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadDeleted/UpdateThreadOnThreadDeletedHandler
     arguments: ["@Thread.UpdateThreadOnThreadDeleted.Updater"]
     
-   Thread.UpdateThreadOnLikeCreated.Updater:
+  Thread.UpdateThreadOnLikeCreated.Updater:
     class: src/Contexts/Threads/Thread/application/UpdateThreadOnLikeCreated/Updater
     arguments: ['@Thread.Repository', '@Shared.EventBus']
   
-   Thread.UpdateThreadOnLikeCreated.UpdateThreadOnLikeCreatedHandler:
+  Thread.UpdateThreadOnLikeCreated.UpdateThreadOnLikeCreatedHandler:
     class: src/Contexts/Threads/Thread/application/UpdateThreadOnLikeCreated/UpdateThreadOnLikeCreatedHandler
     arguments: ["@Thread.UpdateThreadOnLikeCreated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
 
-   Thread.UpdateThreadOnLikeDeleted.Updater:
+  Thread.UpdateThreadOnLikeDeleted.Updater:
     class: src/Contexts/Threads/Thread/application/UpdateThreadOnLikeDeleted/Updater
     arguments: ['@Thread.Repository', '@Shared.EventBus']
   
-   Thread.UpdateThreadOnLikeDeleted.UpdateThreadOnLikeDeletedHandler:
+  Thread.UpdateThreadOnLikeDeleted.UpdateThreadOnLikeDeletedHandler:
     class: src/Contexts/Threads/Thread/application/UpdateThreadOnLikeDeleted/UpdateThreadOnLikeDeletedHandler
     arguments: ["@Thread.UpdateThreadOnLikeDeleted.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
 
-   Thread.UpdateThreadOnThreadCreated.Updater:
+  Thread.UpdateThreadOnThreadCreated.Updater:
     class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadCreated/Updater
     arguments: ['@Thread.Repository', '@Shared.EventBus']
   
-   Thread.UpdateThreadOnThreadCreated.UpdateThreadOnThreadCreatedHandler:
+  Thread.UpdateThreadOnThreadCreated.UpdateThreadOnThreadCreatedHandler:
     class: src/Contexts/Threads/Thread/application/UpdateThreadOnThreadCreated/UpdateThreadOnThreadCreatedHandler
     arguments: ["@Thread.UpdateThreadOnThreadCreated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  Community.CreateCommunityOnCommunityCreated.Creator:
+    class: src/Contexts/Threads/Community/application/CreateCommunityOnCommunityCreated/Creator
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.CreateCommunityOnCommunityCreated.CreateCommunityOnCommunityCreatedHandler:
+    class: src/Contexts/Threads/Community/application/CreateCommunityOnCommunityCreated/CreateCommunityOnCommunityCreatedHandler
+    arguments: ["@Community.CreateCommunityOnCommunityCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.DeleteCommunityOnCommunityDeleted.Deleter:
+    class: src/Contexts/Threads/Community/application/DeleteCommunityOnCommunityDeleted/Deleter
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.DeleteCommunityOnCommunityDeleted.DeleteCommunityOnCommunityDeletedHandler:
+    class: src/Contexts/Threads/Community/application/DeleteCommunityOnCommunityDeleted/DeleteCommunityOnCommunityDeletedHandler
+    arguments: ["@Community.DeleteCommunityOnCommunityDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+    
+  Community.FindById.FinderById:
+    class: src/Contexts/Threads/Community/application/FindById/FinderById
+    arguments: ['@Community.Repository']
+  
+  Community.FindById.FindCommunityByIdQueryHandler:
+    class: src/Contexts/Threads/Community/application/FindById/FindCommunityByIdQueryHandler
+    arguments: ['@Community.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }

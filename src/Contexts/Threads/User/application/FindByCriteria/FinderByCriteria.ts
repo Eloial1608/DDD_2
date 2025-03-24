@@ -1,5 +1,5 @@
-import { UserRepository } from 'src/Contexts/Threads/User/domain/UserRepository'
-import { User } from 'src/Contexts/Threads/User/domain/User'
+import { UserRepository } from '@Threads/User/domain/UserRepository'
+import { User } from '@Threads/User/domain/User'
 import { Criteria } from '@Shared/domain/Criteria/Criteria'
 
 export class FinderByCriteria {
