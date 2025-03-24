@@ -59,7 +59,7 @@ describe('UpdateSectionCommandHandler should ', () => {
     expect(handler.handle(command)).rejects.toThrow(SectionNotFound)
   })
 
-  test('Create a new CourseUpdatedDomainEvent', async () => {
+  test('Create a new SectionUpdatedDomainEvent', async () => {
     const course = CourseMother.random()
 
     const section = SectionMother.create({ courseId: course.id })

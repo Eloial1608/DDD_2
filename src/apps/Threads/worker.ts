@@ -10,6 +10,7 @@ export class Worker {
     const subscriberDefinitions = DI.getInstance().getContainer().findTaggedServiceIds('domainEventSubscriber')
 
     console.log('Subscribers: ')
+
     const subscribers = [...subscriberDefinitions].map(k => {
       console.log(k.id)
       return DI.getInstance().resolve<DomainEventSubscriber<DomainEvent>>(k.id)
