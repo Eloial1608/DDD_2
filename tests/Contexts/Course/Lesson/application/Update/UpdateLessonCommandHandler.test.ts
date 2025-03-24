@@ -5,7 +5,7 @@ import { UpdateLessonCommandHandler } from '@Course/Lesson/application/Update/Up
 import { Updater } from '@Course/Lesson/application/Update/Updater'
 import { LessonMother } from '../../domain/LessonMother'
 import { UpdateLessonCommandMother } from './UpdateLessonCommandMother'
-import { LessonUpdatedDomainEvent } from '@Course/Lesson/domain/events/LessonUpdatedDomainEvent'
+import { LessonUpdatedDomainEvent } from '@Course/Lesson/domain/Eventss/LessonUpdatedDomainEvent'
 import { LessonNotFound } from '@Course/Lesson/domain/Errors/LessonNotFound'
 import { SectionMother } from '@Tests/Contexts/Course/Section/domain/SectionMother'
 import { FindSectionByIdQuery } from '@Course/Section/application/FindById/FindSectionByIdQuery'
