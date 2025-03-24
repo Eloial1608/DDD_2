@@ -355,6 +355,18 @@ services:
   Lesson.UpdateLesson.UpdateLessonCommandHandler:
     class: src/Contexts/Course/Lesson/application/Update/UpdateLessonCommandHandler
     arguments: ["@Lesson.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
+  Comment.Delete.Deleter:
+    class: src/Contexts/Course/Comment/application/Delete/Deleter
+    arguments: ['@Comment.Repository', '@Shared.EventBus']
+  
+  Comment.Delete.DeleteCommentCommandHandler:
+    class: src/Contexts/Course/Comment/application/Delete/DeleteCommentCommandHandler
+    arguments: ["@Comment.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
 
   Lesson.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Course/Lesson/application/FindByCriteria/FinderByCriteria
