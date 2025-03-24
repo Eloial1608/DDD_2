@@ -28,7 +28,7 @@ export class Comment extends AggregateRoot {
     author: Author,
     content: Content
   ): Comment {
-    const post = new Comment(
+    const comment = new Comment(
       id,
       courseId,
       userId,
@@ -38,8 +38,8 @@ export class Comment extends AggregateRoot {
       new UpdatedAt(new Date())
     )
 
-    post.record(CommentCreatedDomainEvent.fromAggregate(post))
+    comment.record(CommentCreatedDomainEvent.fromAggregate(comment))
 
-    return post
+    return comment
   }
 }
