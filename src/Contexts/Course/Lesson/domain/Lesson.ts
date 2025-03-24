@@ -8,6 +8,7 @@ import { CreatedAt } from './ValueObjects/CreatedAt'
 import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { Nullable } from '@Shared/domain/Nullable'
 import { DeletedAt } from './ValueObjects/DeletedAt'
+import { LessonUpdatedDomainEvent } from './Events/LessonUpdatedDomainEvent'
 import { LessonDeletedDomainEvent } from './Events/LessonDeletedDomainEvent'
 import { LessonCreatedDomainEvent } from './Events/LessonCreatedDomainEvent'
 
@@ -48,6 +49,28 @@ export class Lesson extends AggregateRoot {
     return lesson
   }
 
+  update (
+    id: Id,
+    title: Title,
+    type: Type,
+    content: Content
+  ): Lesson {
+    const lesson = new Lesson(
+      id,
+      this.sectionId,
+      title,
+      type,
+      content,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      null
+    )
+
+    lesson.record(LessonUpdatedDomainEvent.fromAggregate(lesson))
+
+    return lesson
+  }
+  
   delete (): Lesson {
     const lesson = new Lesson(
       this.id,
