@@ -319,3 +319,7 @@ services:
   Comment.Repository:
     class: src/Contexts/Course/Comment/infrastructure/persistence/TypeOrmCommentRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  Lesson.Repository:
+    class: src/Contexts/Course/Lesson/infrastructure/persistence/TypeOrmLessonRepository
+    arguments: ["@Shared.ORM.Connection"]
