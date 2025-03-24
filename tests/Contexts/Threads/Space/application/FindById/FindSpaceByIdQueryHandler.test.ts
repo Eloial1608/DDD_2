@@ -1,10 +1,10 @@
-import { FindSpaceByIdQueryHandler } from 'src/Contexts/Threads/Space/application/FindById/FindSpaceByIdQueryHandler'
-import { FinderById } from 'src/Contexts/Threads/Space/application/FindById/FinderById'
+import { FindSpaceByIdQueryHandler } from '@Threads/Space/application/FindById/FindSpaceByIdQueryHandler'
+import { FinderById } from '@Threads/Space/application/FindById/FinderById'
 import { SpaceRepositoryMock } from '../../__mocks__/SpaceRepositoryMock'
 import { SpaceMother } from '../../domain/SpaceMother'
-import { FindSpaceByIdQuery } from 'src/Contexts/Threads/Space/application/FindById/FindSpaceByIdQuery'
-import { SpaceResponse } from 'src/Contexts/Threads/Space/application/SpaceResponse'
-import { SpaceNotFound } from 'src/Contexts/Threads/Space/domain/Errors/SpaceNotFound'
+import { FindSpaceByIdQuery } from '@Threads/Space/application/FindById/FindSpaceByIdQuery'
+import { SpaceResponse } from '@Threads/Space/application/SpaceResponse'
+import { SpaceNotFound } from '@Threads/Space/domain/Errors/SpaceNotFound'
 
 let repository: SpaceRepositoryMock
 let finder: FinderById
