@@ -1,5 +1,5 @@
-import { UserRepository } from 'src/Contexts/Threads/User/domain/UserRepository'
-import { Id } from 'src/Contexts/Threads/User/domain/ValueObjects/Id'
+import { UserRepository } from '@Threads/User/domain/UserRepository'
+import { Id } from '@Threads/User/domain/ValueObjects/Id'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 
 export class Deleter {

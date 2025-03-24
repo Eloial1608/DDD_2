@@ -1,9 +1,9 @@
-import { SpaceMember } from 'src/Contexts/Threads/SpaceMember/domain/SpaceMember'
-import { SpaceMemberRepository } from 'src/Contexts/Threads/SpaceMember/domain/SpaceMemberRepository'
+import { SpaceMember } from '@Threads/SpaceMember/domain/SpaceMember'
+import { SpaceMemberRepository } from '@Threads/SpaceMember/domain/SpaceMemberRepository'
 import { TypeOrmRepository } from '@Shared/infrastructure/persistence/typeorm/TypeOrmRepository'
 import { EntitySchema, Equal } from 'typeorm'
 import { SpaceMemberSchema } from './entity/SpaceMemberSchema'
-import { Id } from 'src/Contexts/Threads/SpaceMember/domain/ValueObjects/Id'
+import { Id } from '@Threads/SpaceMember/domain/ValueObjects/Id'
 import { Nullable } from '@Shared/domain/Nullable'
 import { Criteria } from '@Shared/domain/Criteria/Criteria'
 

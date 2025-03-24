@@ -31,17 +31,17 @@ jobs:
           fi
           echo "NOW=$(TZ=':Europe/Madrid' date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_OUTPUT
           case ${GITHUB_REF##*/} in
-            master)
+            main)
               echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
-              echo "ENV=prod" >> $GITHUB_OUTPUT
+              echo "ENV=production" >> $GITHUB_OUTPUT
               ;;
-            staging)
+            test)
               echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
               echo "ENV=staging" >> $GITHUB_OUTPUT
               ;;
             *)
               echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
-              echo "ENV=feature" >> $GITHUB_OUTPUT
+              echo "ENV=test" >> $GITHUB_OUTPUT
               ;;
           esac
 
@@ -92,7 +92,7 @@ jobs:
     needs: [initial, tests]
     if: |
       contains('
-        refs/heads/staging
+        refs/heads/test
         refs/heads/main'
         , github.ref) &&
       success() &&

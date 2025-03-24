@@ -207,7 +207,7 @@ services:
     arguments: ['@Section.Repository']
   
   Section.FindByCriteria.FindSectionsByCriteriaQueryHandler:
-    class: src\Contexts\Course\Section\application\FindByCriteria\FindSectionsByCriteriaQueryHandler
+    class: src/Contexts/Course/Section/application/FindByCriteria/FindSectionsByCriteriaQueryHandler
     arguments: ['@Section.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
@@ -306,9 +306,101 @@ services:
     tags:
       - { name: "queryHandler" }
 
+  Comment.Repository:
+    class: src/Contexts/Course/Comment/infrastructure/persistence/TypeOrmCommentRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
+  Comment.Create.Creator:
+    class: src/Contexts/Course/Comment/application/Create/Creator
+    arguments: ['@Comment.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Comment.Create.CreateCommentCommandHandler:
+    class: src/Contexts/Course/Comment/application/Create/CreateCommentCommandHandler
+    arguments: ["@Comment.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  Comment.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Course/Comment/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Comment.Repository']
+  
+  Comment.FindByCriteria.FindCommentsByCriteriaQueryHandler:
+    class: src/Contexts/Course/Comment/application/FindByCriteria/FindCommentsByCriteriaQueryHandler
+    arguments: ['@Comment.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+  Comment.FindById.FinderById:
+    class: src/Contexts/Course/Comment/application/FindById/FinderById
+    arguments: ['@Comment.Repository']
+  
+  Comment.FindById.FindCommentByIdQueryHandler:
+    class: src/Contexts/Course/Comment/application/FindById/FindCommentByIdQueryHandler
+    arguments: ['@Comment.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
   Lesson.Repository:
     class: src/Contexts/Course/Lesson/infrastructure/persistence/TypeOrmLessonRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  Lesson.Update.Updater:
+    class: src/Contexts/Course/Lesson/application/Update/Updater
+    arguments: ['@Lesson.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Lesson.UpdateLesson.UpdateLessonCommandHandler:
+    class: src/Contexts/Course/Lesson/application/Update/UpdateLessonCommandHandler
+    arguments: ["@Lesson.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
+  Lesson.Delete.Deleter:
+    class: src/Contexts/Course/Lesson/application/Delete/Deleter
+    arguments: ['@Lesson.Repository', '@Shared.EventBus']
+  
+  Lesson.Delete.DeleteLessonCommandHandler:
+    class: src/Contexts/Course/Lesson/application/Delete/DeleteLessonCommandHandler
+    arguments: ["@Lesson.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
+  Comment.Delete.Deleter:
+    class: src/Contexts/Course/Comment/application/Delete/Deleter
+    arguments: ['@Comment.Repository', '@Shared.EventBus']
+  
+  Comment.Delete.DeleteCommentCommandHandler:
+    class: src/Contexts/Course/Comment/application/Delete/DeleteCommentCommandHandler
+    arguments: ["@Comment.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
+  Lesson.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Course/Lesson/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Lesson.Repository']
+  
+  Lesson.FindByCriteria.FindLessonsByCriteriaQueryHandler:
+    class: src/Contexts/Course/Lesson/application/FindByCriteria/FindLessonsByCriteriaQueryHandler
+    arguments: ['@Lesson.FindByCriteria.FinderByCriteria']
+
+  Lesson.FindById.FinderById:
+    class: src/Contexts/Course/Lesson/application/FindById/FinderById
+    arguments: ['@CourseUser.Repository']
+  
+  Lesson.FindById.FindLessonByIdQueryHandler:
+    class: src/Contexts/Course/Lesson/application/FindById/FindLessonByIdQueryHandler
+    arguments: ['@Lesson.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  Comment.Update.Updater:
+    class: src/Contexts/Course/Comment/application/Update/Updater
+    arguments: ['@Comment.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Comment.Update.UpdateCommentCommandHandler:
+    class: src/Contexts/Course/Comment/application/Update/UpdateCommentCommandHandler
+    arguments: ["@Comment.Update.Updater"]
+    tags:
+      - { name: "commandHandler"}
 
   Lesson.Create.Creator:
     class: src/Contexts/Course/Lesson/application/Create/Creator

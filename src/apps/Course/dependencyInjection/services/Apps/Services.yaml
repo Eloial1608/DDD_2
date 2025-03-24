@@ -34,6 +34,10 @@ services:
     class: src/apps/Course/controllers/Section/SectionPostController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
   
+  Apps.Course.Controllers.SectionDeleteController:
+    class: src/apps/Course/controllers/Section/SectionDeleteController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+    
   Apps.Course.Controllers.SectionPutController:
     class: src/apps/Course/controllers/Section/SectionPutController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
@@ -42,3 +46,14 @@ services:
     class: src/apps/Course/controllers/Lesson/LessonPostController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
     
+  Apps.Course.Controllers.LessonGetController:
+    class: src/apps/Course/controllers/Lesson/LessonGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+
+  Apps.Course.Controllers.CommentPutController:
+    class: src/apps/Course/controllers/Comment/CommentPutController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+
+  Apps.Course.Controllers.CommentsGetController:
+    class: src/apps/Course/controllers/Comment/CommentsGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']

@@ -1,8 +1,8 @@
-import { SpaceRepository } from 'src/Contexts/Threads/Space/domain/SpaceRepository'
-import { Accessibility } from 'src/Contexts/Threads/Space/domain/ValueObjects/Accessibility'
-import { Configuration } from 'src/Contexts/Threads/Space/domain/ValueObjects/Configuration'
-import { Id } from 'src/Contexts/Threads/Space/domain/ValueObjects/Id'
-import { Type } from 'src/Contexts/Threads/Space/domain/ValueObjects/Type'
+import { SpaceRepository } from '@Threads/Space/domain/SpaceRepository'
+import { Accessibility } from '@Threads/Space/domain/ValueObjects/Accessibility'
+import { Configuration } from '@Threads/Space/domain/ValueObjects/Configuration'
+import { Id } from '@Threads/Space/domain/ValueObjects/Id'
+import { Type } from '@Threads/Space/domain/ValueObjects/Type'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 
 export class Updater {
