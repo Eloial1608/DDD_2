@@ -319,3 +319,7 @@ services:
     arguments: ['@Lesson.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+
+  Comment.Repository:
+    class: src/Contexts/Course/Comment/infrastructure/persistence/TypeOrmCommentRepository
+    arguments: ["@Shared.ORM.Connection"]
