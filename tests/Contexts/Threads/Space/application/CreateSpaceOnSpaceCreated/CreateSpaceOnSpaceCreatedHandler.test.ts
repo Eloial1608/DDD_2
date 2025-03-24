@@ -1,15 +1,15 @@
-import { CreateSpaceOnSpaceCreatedHandler } from 'src/Contexts/Threads/Space/application/CreateSpaceOnSpaceCreated/CreateSpaceOnSpaceCreatedHandler'
-import { Creator } from 'src/Contexts/Threads/Space/application/CreateSpaceOnSpaceCreated/Creator'
+import { CreateSpaceOnSpaceCreatedHandler } from '@Threads/Space/application/CreateSpaceOnSpaceCreated/CreateSpaceOnSpaceCreatedHandler'
+import { Creator } from '@Threads/Space/application/CreateSpaceOnSpaceCreated/Creator'
 import EventBusMock from '@Tests/Contexts/Shared/infrastructure/EventBus/EventBusMock'
 import { SpaceRepositoryMock } from '../../__mocks__/SpaceRepositoryMock'
 import { SpaceMother } from '../../domain/SpaceMother'
 import { SpaceMother as CoreSpaceMother } from '../../../../Core/Space/domain/SpaceMother'
 import { SpaceCreatedDomainEvent as CoreSpaceCreatedDomainEvent } from '@Core/Space/domain/Events/SpaceCreatedDomainEvent'
 import { ThreadsConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/ThreadsConfiguration'
-import { SpaceCreatedDomainEvent } from 'src/Contexts/Threads/Space/domain/Events/SpaceCreatedDomainEvent'
+import { SpaceCreatedDomainEvent } from '@Threads/Space/domain/Events/SpaceCreatedDomainEvent'
 import { Type } from '@Core/Space/domain/ValueObjects/Type'
 import { AllowedTypes } from '@Shared/domain/SharedValueObjects/Space/AllowedTypes'
-import { Configuration } from 'src/Contexts/Threads/Space/domain/ValueObjects/Configuration'
+import { Configuration } from '@Threads/Space/domain/ValueObjects/Configuration'
 
 let eventBus: EventBusMock
 let repository: SpaceRepositoryMock

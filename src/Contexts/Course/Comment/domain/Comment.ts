@@ -7,6 +7,8 @@ import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { Author } from './ValueObjects/Author'
 import { CourseId } from './ValueObjects/CourseId'
 import { CommentUpdatedDomainEvent } from './Events/CommentUpdatedDomainEvent'
+import { CommentDeletedDomainEvent } from './Events/CommentDeletedDomainEvent'
+import { CommentCreatedDomainEvent } from './Events/CommentCreatedDomainEvent'
 
 export class Comment extends AggregateRoot {
   constructor (
@@ -19,6 +21,28 @@ export class Comment extends AggregateRoot {
     readonly updatedAt: UpdatedAt
   ) {
     super()
+  }
+
+  static create (
+    id: Id,
+    courseId: CourseId,
+    userId: UserId,
+    author: Author,
+    content: Content
+  ): Comment {
+    const comment = new Comment(
+      id,
+      courseId,
+      userId,
+      author,
+      content,
+      new CreatedAt(new Date()),
+      new UpdatedAt(new Date())
+    )
+
+    comment.record(CommentCreatedDomainEvent.fromAggregate(comment))
+
+    return comment
   }
 
   update (
@@ -35,6 +59,22 @@ export class Comment extends AggregateRoot {
     )
 
     comment.record(CommentUpdatedDomainEvent.fromAggregate(comment))
+
+    return comment
+  }
+
+  delete () {
+    const comment = new Comment(
+      this.id,
+      this.courseId,
+      this.userId,
+      this.author,
+      this.content,
+      this.createdAt,
+      this.updatedAt
+    )
+
+    comment.record(CommentDeletedDomainEvent.fromAggregate(comment))
 
     return comment
   }

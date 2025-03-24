@@ -1,5 +1,5 @@
-import { CommunityRepository } from 'src/Contexts/Threads/Community/domain/CommunityRepository'
-import { Id } from 'src/Contexts/Threads/Community/domain/ValueObjects/Id'
+import { CommunityRepository } from '@Threads/Community/domain/CommunityRepository'
+import { Id } from '@Threads/Community/domain/ValueObjects/Id'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 
 export class Deleter {
