@@ -1,5 +1,5 @@
-import { UpdateSpaceOnSpaceUpdatedHandler } from 'src/Contexts/Threads/Space/application/UpdateSpaceOnSpaceUpdated/UpdateSpaceOnSpaceUpdatedHandler'
-import { Updater } from 'src/Contexts/Threads/Space/application/UpdateSpaceOnSpaceUpdated/Updater'
+import { UpdateSpaceOnSpaceUpdatedHandler } from '@Threads/Space/application/UpdateSpaceOnSpaceUpdated/UpdateSpaceOnSpaceUpdatedHandler'
+import { Updater } from '@Threads/Space/application/UpdateSpaceOnSpaceUpdated/Updater'
 import EventBusMock from '@Tests/Contexts/Shared/infrastructure/EventBus/EventBusMock'
 import { SpaceRepositoryMock } from '../../__mocks__/SpaceRepositoryMock'
 import { SpaceMother } from '../../domain/SpaceMother'
@@ -9,7 +9,7 @@ import { ThreadsConfiguration } from '@Shared/domain/SharedValueObjects/Space/Co
 import { Type } from '@Core/Space/domain/ValueObjects/Type'
 import { AllowedTypes } from '@Shared/domain/SharedValueObjects/Space/AllowedTypes'
 import { UpdatedAt } from '@Core/Space/domain/ValueObjects/UpdatedAt'
-import { SpaceUpdatedDomainEvent } from 'src/Contexts/Threads/Space/domain/Events/SpaceUpdatedDomainEvent'
+import { SpaceUpdatedDomainEvent } from '@Threads/Space/domain/Events/SpaceUpdatedDomainEvent'
 
 let eventBus: EventBusMock
 let repository: SpaceRepositoryMock
