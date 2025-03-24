@@ -8,7 +8,7 @@ import { SectionMother } from '@Tests/Contexts/Course/Section/domain/SectionMoth
 import { SectionResponse } from '@Course/Section/application/SectionResponse'
 import { FindSectionByIdQuery } from '@Course/Section/application/FindById/FindSectionByIdQuery'
 import { CreateLessonCommandMother } from './CreateLessonCommandMother'
-import { LessonCreatedDomainEvent } from '@Course/Lesson/domain/Eventss/LessonCreatedDomainEvent'
+import { LessonCreatedDomainEvent } from '@Course/Lesson/domain/Events/LessonCreatedDomainEvent'
 
 let eventBus: EventBusMock
 let repository: LessonRepositoryMock
