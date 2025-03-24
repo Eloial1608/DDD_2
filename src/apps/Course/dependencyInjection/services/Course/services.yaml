@@ -354,6 +354,16 @@ services:
     tags:
       - { name: "commandHandler" }
 
+  Lesson.Delete.Deleter:
+    class: src/Contexts/Course/Lesson/application/Delete/Deleter
+    arguments: ['@Lesson.Repository', '@Shared.EventBus']
+  
+  Lesson.Delete.DeleteLessonCommandHandler:
+    class: src/Contexts/Course/Lesson/application/Delete/DeleteLessonCommandHandler
+    arguments: ["@Lesson.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
   Comment.Delete.Deleter:
     class: src/Contexts/Course/Comment/application/Delete/Deleter
     arguments: ['@Comment.Repository', '@Shared.EventBus']
