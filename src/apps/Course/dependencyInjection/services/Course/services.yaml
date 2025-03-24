@@ -378,6 +378,16 @@ services:
     tags:
       - { name: "queryHandler" }
 
+  Comment.Update.Updater:
+    class: src/Contexts/Course/Comment/application/Update/Updater
+    arguments: ['@Comment.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Comment.Update.UpdateCommentCommandHandler:
+    class: src/Contexts/Course/Comment/application/Update/UpdateCommentCommandHandler
+    arguments: ["@Comment.Update.Updater"]
+    tags:
+      - { name: "commandHandler"}
+
   Lesson.Create.Creator:
     class: src/Contexts/Course/Lesson/application/Create/Creator
     arguments: ['@Lesson.Repository', '@Shared.EventBus', '@Shared.QueryBus']
