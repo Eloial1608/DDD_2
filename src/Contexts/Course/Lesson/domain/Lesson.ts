@@ -49,12 +49,13 @@ export class Lesson extends AggregateRoot {
   }
 
   update (
+    id: Id,
     title: Title,
     type: Type,
     content: Content
   ): Lesson {
     const lesson = new Lesson(
-      this.id,
+      id,
       this.sectionId,
       title,
       type,
