@@ -306,6 +306,7 @@ services:
     tags:
       - { name: "queryHandler" }
 
+
   Comment.FindById.FinderById:
     class: src/Contexts/Course/Comment/application/FindById/FinderById
     arguments: ['@Comment.Repository']
@@ -319,3 +320,8 @@ services:
   Comment.Repository:
     class: src/Contexts/Course/Comment/infrastructure/persistence/TypeOrmCommentRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  Lesson.Repository:
+    class: src/Contexts/Course/Lesson/infrastructure/persistence/TypeOrmLessonRepository
+    arguments: ["@Shared.ORM.Connection"]
+
