@@ -1,5 +1,5 @@
-import { SpaceRepository } from 'src/Contexts/Threads/Space/domain/SpaceRepository'
-import { Id } from 'src/Contexts/Threads/Space/domain/ValueObjects/Id'
+import { SpaceRepository } from '@Threads/Space/domain/SpaceRepository'
+import { Id } from '@Threads/Space/domain/ValueObjects/Id'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 
 export class Deleter {
