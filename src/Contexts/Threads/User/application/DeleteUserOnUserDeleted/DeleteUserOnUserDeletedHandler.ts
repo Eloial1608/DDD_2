@@ -2,7 +2,7 @@ import { UserDeletedDomainEvent } from '@Core/User/domain/Events/UserDeletedDoma
 import { DomainEventClass } from '@Shared/domain/EventBus/DomainEvent'
 import { DomainEventSubscriber } from '@Shared/domain/EventBus/DomainEventSubscriber'
 import { Deleter } from './Deleter'
-import { Id } from 'src/Contexts/Threads/User/domain/ValueObjects/Id'
+import { Id } from '@Threads/User/domain/ValueObjects/Id'
 import { UserBannedDomainEvent } from '@Core/User/domain/Events/UserBannedDoaminEvent'
 
 export class DeleteUserOnUserDeletedHandler implements DomainEventSubscriber <UserDeletedDomainEvent | UserBannedDomainEvent> {
