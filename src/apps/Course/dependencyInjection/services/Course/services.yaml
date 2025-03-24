@@ -333,3 +333,13 @@ services:
   Lesson.Repository:
     class: src/Contexts/Course/Lesson/infrastructure/persistence/TypeOrmLessonRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  Comment.Delete.Deleter:
+    class: src/Contexts/Course/Comment/application/Delete/Deleter
+    arguments: ['@Comment.Repository', '@Shared.EventBus']
+  
+  Comment.Delete.DeleteCommentCommandHandler:
+    class: src/Contexts/Course/Comment/application/Delete/DeleteCommentCommandHandler
+    arguments: ["@Comment.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
