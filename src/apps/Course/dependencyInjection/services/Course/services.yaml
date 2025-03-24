@@ -340,10 +340,6 @@ services:
     tags:
       - { name: "queryHandler" }
       
-  Comment.Repository:
-    class: src/Contexts/Course/Comment/infrastructure/persistence/TypeOrmCommentRepository
-    arguments: ["@Shared.ORM.Connection"]
-
   Lesson.Repository:
     class: src/Contexts/Course/Lesson/infrastructure/persistence/TypeOrmLessonRepository
     arguments: ["@Shared.ORM.Connection"]
@@ -385,10 +381,6 @@ services:
     arguments: ['@Lesson.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
-
-  Comment.Repository:
-    class: src/Contexts/Course/Comment/infrastructure/persistence/TypeOrmCommentRepository
-    arguments: ["@Shared.ORM.Connection"]
 
   Lesson.Create.Creator:
     class: src/Contexts/Course/Lesson/application/Create/Creator
