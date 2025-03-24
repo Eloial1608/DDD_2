@@ -1,12 +1,12 @@
-import { CreateUserOnUserCreatedHandler } from 'src/Contexts/Threads/User/application/CreateUserOnUserCreated/CreateUserOnUserCreatedHandler'
-import { Creator } from 'src/Contexts/Threads/User/application/CreateUserOnUserCreated/Creator'
+import { CreateUserOnUserCreatedHandler } from '@Threads/User/application/CreateUserOnUserCreated/CreateUserOnUserCreatedHandler'
+import { Creator } from '@Threads/User/application/CreateUserOnUserCreated/Creator'
 import EventBusMock from '@Tests/Contexts/Shared/infrastructure/EventBus/EventBusMock'
 import { UserRepositoryMock } from '../../__mocks__/UserRepositoryMock'
 import { UserMother } from '../../domain/UserMother'
 import { UserMother as CoreUserMother } from '@Tests/Contexts/Core/User/domain/UserMother'
 import { UserCreatedDomainEvent as CoreUserCreatedDomainEvent } from '@Core/User/domain/Events/UserCreatedDomainEvent'
-import { UserCreatedDomainEvent } from 'src/Contexts/Threads/User/domain/Events/UserCreatedDomainEvent'
-import { Username } from 'src/Contexts/Threads/User/domain/ValueObjects/Username'
+import { UserCreatedDomainEvent } from '@Threads/User/domain/Events/UserCreatedDomainEvent'
+import { Username } from '@Threads/User/domain/ValueObjects/Username'
 
 let eventBus: EventBusMock
 let repository: UserRepositoryMock
