@@ -3,7 +3,7 @@ import { exec, ChildProcess } from 'child_process'
 
 const startServer = (): Promise<ChildProcess> => {
   return new Promise((resolve, reject) => {
-    const server = exec('npm run start:threads:server:dev')
+    const server = exec('NODE_ENV=test ts-node -r tsconfig-paths/register src/apps/Threads/index.ts')
     server.stdout?.on('data', (data) => {
       console.log(data.toString())
       if (data.includes('is running')) {
@@ -24,16 +24,17 @@ const waitForServer = async (url: string, timeout = 10000): Promise<void> => {
       const response = await fetch(url)
       console.log(response.status)
       if (response.ok) return
-    } catch {
+    } catch (e: unknown) {
+      console.log(e)
       await new Promise((resolve) => setTimeout(resolve, 500))
     }
   }
-  throw new Error('Server did not start in time')
+  throw new Error(`Server did not start in time, url: ${url} `)
 }
 
 const runTests = (): Promise<void> => {
   return new Promise((resolve, reject) => {
-    const tests = exec('test:threads:features')
+    const tests = exec('NODE_ENV=test FORCE_COLOR=1 playwright test --project=threads --pass-with-no-tests')
     tests.stdout?.on('data', (data) => console.log(data.toString()))
     tests.stderr?.on('data', (data) => console.error(data.toString()))
     tests.on('close', (code) => {

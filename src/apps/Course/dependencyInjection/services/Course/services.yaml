@@ -207,7 +207,7 @@ services:
     arguments: ['@Section.Repository']
   
   Section.FindByCriteria.FindSectionsByCriteriaQueryHandler:
-    class: src\Contexts\Course\Section\application\FindByCriteria\FindSectionsByCriteriaQueryHandler
+    class: src/Contexts/Course/Section/application/FindByCriteria/FindSectionsByCriteriaQueryHandler
     arguments: ['@Section.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
