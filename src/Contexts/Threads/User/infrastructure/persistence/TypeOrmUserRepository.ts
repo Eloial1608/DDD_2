@@ -1,9 +1,9 @@
-import { User } from 'src/Contexts/Threads/User/domain/User'
-import { UserRepository } from 'src/Contexts/Threads/User/domain/UserRepository'
+import { User } from '@Threads/User/domain/User'
+import { UserRepository } from '@Threads/User/domain/UserRepository'
 import { TypeOrmRepository } from '@Shared/infrastructure/persistence/typeorm/TypeOrmRepository'
 import { EntitySchema, Equal } from 'typeorm'
 import { UserSchema } from './entity/UserSchema'
-import { Id } from 'src/Contexts/Threads/User/domain/ValueObjects/Id'
+import { Id } from '@Threads/User/domain/ValueObjects/Id'
 import { Nullable } from '@Shared/domain/Nullable'
 import { Criteria } from '@Shared/domain/Criteria/Criteria'
 
