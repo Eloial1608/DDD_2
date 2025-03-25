@@ -413,3 +413,13 @@ services:
     arguments: ["@Lesson.Create.Creator"]
     tags:
       - { name: "commandHandler" }
+
+  Course.UpdateCourseOnUserUpdated.Updater:
+    class: src/Contexts/Course/Course/application/UpdateCourseOnUserUpdated/Updater
+    arguments: ['@Course.Repository', '@Shared.EventBus']
+  
+  Course.UpdateCourseOnUserUpdated.UpdateCourseOnUserUpdatedHandler:
+    class: src/Contexts/Course/Course/application/UpdateCourseOnUserUpdated/UpdateCourseOnUserUpdatedHandler
+    arguments: ["@Course.UpdateCourseOnUserUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
