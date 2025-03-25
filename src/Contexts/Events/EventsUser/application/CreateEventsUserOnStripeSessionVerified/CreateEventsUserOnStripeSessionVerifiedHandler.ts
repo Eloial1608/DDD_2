@@ -5,7 +5,7 @@ import { Creator } from './Creator'
 import { Id } from '@Events/EventsUser/domain/ValueObjects/Id'
 import { ProductTypes } from '@Stripe/StripeProduct/domain/ValueObjects/ProductType'
 import { UserId } from '@Events/EventsUser/domain/ValueObjects/UserId'
-import { EventsId } from '@Events/EventsUser/domain/ValueObjects/EventsId'
+import { EventId } from '@Events/EventsUser/domain/ValueObjects/EventId'
 
 export class CreateEventsUserOnStripeSessionVerifiedHandler implements DomainEventSubscriber<StripeSessionVerifiedDomainEvent> {
   constructor (private readonly creator: Creator) {}
@@ -20,7 +20,7 @@ export class CreateEventsUserOnStripeSessionVerifiedHandler implements DomainEve
     await this.creator.run(
       new Id(domainEvent.id),
       new UserId(domainEvent.customerId),
-      new EventsId(domainEvent.product.id)
+      new EventId(domainEvent.product.id)
     )
   }
 }

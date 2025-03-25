@@ -38,7 +38,7 @@ export class LessonCreatedDomainEvent extends DomainEvent {
       sectionId: lesson.sectionId.valueOf(),
       title: lesson.title.valueOf(),
       type: lesson.type.valueOf(),
-      content: lesson.content.valueOf(),
+      content: lesson.content.valueOf()
     })
   }
 

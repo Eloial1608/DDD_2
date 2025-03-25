@@ -4,7 +4,7 @@ import { ValueObjectTransformer } from '@Shared/domain/ValueObjects/ValueObjectT
 import { EntitySchema } from 'typeorm'
 import { UserId } from '@Events/EventsUser/domain/ValueObjects/UserId'
 import { CreatedAt } from '@Events/EventsUser/domain/ValueObjects/CreatedAt'
-import { EventsId } from '@Events/EventsUser/domain/ValueObjects/EventsId'
+import { EventId } from '@Events/EventsUser/domain/ValueObjects/EventId'
 
 export const EventsUserSchema = new EntitySchema<EventsUser>({
   name: 'EventsUser',
@@ -20,9 +20,9 @@ export const EventsUserSchema = new EntitySchema<EventsUser>({
       type: String,
       transformer: ValueObjectTransformer(UserId)
     },
-    eventsId: {
+    eventId: {
       type: String,
-      transformer: ValueObjectTransformer(EventsId)
+      transformer: ValueObjectTransformer(EventId)
     },
     createdAt: {
       type: Date,
@@ -37,7 +37,7 @@ export const EventsUserSchema = new EntitySchema<EventsUser>({
     },
     {
       name: 'IDX_EVENTS_USER_EVENTS_ID',
-      columns: ['eventsId']
+      columns: ['eventId']
     }
   ]
 })

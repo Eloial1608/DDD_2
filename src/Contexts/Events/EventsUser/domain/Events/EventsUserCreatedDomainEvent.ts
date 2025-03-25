@@ -4,7 +4,7 @@ import { EventsUser } from '../EventsUser'
 type EventsUserCreatedDomainEventBody = {
     readonly id: string
     readonly userId: string
-    readonly eventsId: string
+    readonly eventId: string
     readonly createdAt: Date
 }
 
@@ -13,7 +13,7 @@ export class EventsUserCreatedDomainEvent extends DomainEvent {
 
   readonly id: string
   readonly userId: string
-  readonly eventsId: string
+  readonly eventId: string
   readonly createdAt: Date
 
   static {
@@ -25,7 +25,7 @@ export class EventsUserCreatedDomainEvent extends DomainEvent {
 
     this.id = params.id
     this.userId = params.userId
-    this.eventsId = params.eventsId
+    this.eventId = params.eventId
     this.createdAt = params.createdAt
   }
 
@@ -33,7 +33,7 @@ export class EventsUserCreatedDomainEvent extends DomainEvent {
     return new EventsUserCreatedDomainEvent({
       id: eventsUser.id.valueOf(),
       userId: eventsUser.userId.valueOf(),
-      eventsId: eventsUser.eventsId.valueOf(),
+      eventId: eventsUser.eventId.valueOf(),
       createdAt: eventsUser.createdAt.valueOf()
     })
   }

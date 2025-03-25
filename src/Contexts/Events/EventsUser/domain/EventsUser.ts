@@ -1,6 +1,6 @@
 import { AggregateRoot } from '@Shared/domain/AggregateRoot'
 import { CreatedAt } from './ValueObjects/CreatedAt'
-import { EventsId } from './ValueObjects/EventsId'
+import { EventId } from './ValueObjects/EventId'
 import { UserId } from './ValueObjects/UserId'
 import { Id } from './ValueObjects/Id'
 import { EventsUserCreatedDomainEvent } from './Events/EventsUserCreatedDomainEvent'
@@ -9,7 +9,7 @@ export class EventsUser extends AggregateRoot {
   constructor (
         readonly id: Id,
         readonly userId: UserId,
-        readonly eventsId: EventsId,
+        readonly eventId: EventId,
         readonly createdAt: CreatedAt
   ) {
     super()
@@ -18,12 +18,12 @@ export class EventsUser extends AggregateRoot {
   static create (
     id: Id,
     userId: UserId,
-    eventsId: EventsId
+    eventId: EventId
   ): EventsUser {
     const eventsUser = new EventsUser(
       id,
       userId,
-      eventsId,
+      eventId,
       new CreatedAt(new Date())
     )
 
