@@ -10,6 +10,7 @@ import { DeletedAt } from './ValueObjects/DeletedAt'
 import { SectionCreatedDomainEvent } from './events/SectionCreatedDomainEvent'
 import { SectionUpdatedDomainEvent } from './events/SectionUpdatedDomainEvent'
 import { SectionDeletedDomainEvent } from './events/SectionDeletedDomainEvent'
+import { SectionTotalLessonsUpdatedDomainEvent } from './events/SectionTotalLessonsUpdatedDomainEvent'
 
 export class Section extends AggregateRoot {
   constructor (
@@ -80,7 +81,7 @@ export class Section extends AggregateRoot {
     return section
   }
 
-  updateTotalComments (
+  updateTotalLessons (
     totalLessons: TotalLessons
   ): Section {
     const section = new Section(

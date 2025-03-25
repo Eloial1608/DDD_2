@@ -450,7 +450,7 @@ services:
   
   Section.UpdateSectionOnLessonCreated.UpdateSectionOnLessonCreatedHandler:
     class: src/Contexts/Course/Section/application/UpdateSectionOnLessonCreated/UpdateSectionOnLessonCreatedHandler
-    arguments: ["@Section.UpdateCourseOnUserUpdated.Updater"]
+    arguments: ["@Section.UpdateSectionOnLessonCreated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
 
@@ -460,6 +460,6 @@ services:
   
   Section.UpdateSectionOnLessonDeleted.UpdateSectionOnLessonDeletedHandler:
     class: src/Contexts/Course/Section/application/UpdateSectionOnLessonDeleted/UpdateSectionOnLessonDeletedHandler
-    arguments: ["@Section.UpdateCourseOnUserUpdated.Updater"]
+    arguments: ["@Section.UpdateSectionOnLessonDeleted.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
