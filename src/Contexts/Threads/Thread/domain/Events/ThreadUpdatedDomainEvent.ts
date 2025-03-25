@@ -13,7 +13,7 @@ type ThreadUpdatedDomainEventBody = {
 }
 
 export class ThreadUpdatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.threads.thread.v1.updated'
+  static readonly EVENT_NAME: string = 'app.gathered.threads.thread.v1.updated'
 
   readonly id: string
   readonly communityId: string

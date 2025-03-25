@@ -10,7 +10,7 @@ type ContentDeletedDomainEventBody = {
 }
 
 export class ContentDeletedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.media.content.v1.deleted'
+  static readonly EVENT_NAME: string = 'app.gathered.media.content.v1.deleted'
 
   readonly id: string
   readonly communityId: string

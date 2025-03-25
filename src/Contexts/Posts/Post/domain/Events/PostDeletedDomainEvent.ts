@@ -11,7 +11,7 @@ type PostDeletedDomainEventBody = {
 }
 
 export class PostDeletedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.posts.post.v1.deleted'
+  static readonly EVENT_NAME: string = 'app.gathered.posts.post.v1.deleted'
 
   readonly id: string
   readonly communityId: string

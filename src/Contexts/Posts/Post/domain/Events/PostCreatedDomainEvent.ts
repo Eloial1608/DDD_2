@@ -13,7 +13,7 @@ type PostCreatedDomainEventBody = {
 }
 
 export class PostCreatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.posts.post.v1.created'
+  static readonly EVENT_NAME: string = 'app.gathered.posts.post.v1.created'
 
   readonly id: string
   readonly communityId: string

@@ -9,7 +9,7 @@ type CommentUpdatedDomainEventBody = {
 }
 
 export class CommentUpdatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.courses.comment.v1.updated'
+  static readonly EVENT_NAME: string = 'app.gathered.courses.comment.v1.updated'
 
   readonly id: string
   readonly courseId: string

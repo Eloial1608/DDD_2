@@ -19,7 +19,7 @@ type SpaceDeletedDomainEventBody = {
 }
 
 export class SpaceDeletedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.space.v1.deleted'
+  static readonly EVENT_NAME: string = 'app.gathered.space.v1.deleted'
 
   readonly id: string
   readonly name: string

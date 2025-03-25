@@ -12,7 +12,7 @@ type FormCreatedDomainEventBody = {
 }
 
 export class FormCreatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.form.v1.created'
+  static readonly EVENT_NAME: string = 'app.gathered.form.v1.created'
 
   readonly id: string
   readonly name: string

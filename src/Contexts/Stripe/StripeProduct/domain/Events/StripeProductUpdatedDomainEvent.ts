@@ -13,7 +13,7 @@ type StripeProductUpdatedDomainEventBody = {
 }
 
 export class StripeProductUpdatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.stripe-product.v1.updated'
+  static readonly EVENT_NAME: string = 'app.gathered.stripe-product.v1.updated'
 
   readonly id: string
   readonly name: string

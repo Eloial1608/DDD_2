@@ -1,0 +1,145 @@
+import { Request, Response } from 'express'
+import { Controller } from '../@types/Controller'
+import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
+import { SpaceNotFound } from '@Events/Space/domain/Errors/SpaceNotFound'
+import { TokenDecoder } from '@Shared/domain/TokenDecoder/TokenDecoder'
+import { FindSpaceMembersByCriteriaQuery } from '@Events/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQuery'
+import { SpaceMemberCollectionResponse } from '@Events/SpaceMember/application/SpaceMemberCollectionResponse'
+import { FindSpacesByCriteriaQuery } from '@Events/Space/application/FindByCriteria/FindSpacesByCriteriaQuery'
+import { SpaceCollectionResponse } from '@Events/Space/application/SpaceCollectionResponse'
+import { buildCriteriaFromUri } from '@Shared/infrastructure/Criteria/BuildCriteriaFromUri'
+import { combineCriterias } from '@Shared/infrastructure/Criteria/CombineCriterias'
+import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
+import { FindUsersByCriteriaQuery } from '@Events/User/application/FindByCriteria/FindUsersByCriteriaQuery'
+import { UserCollectionResponse } from '@Events/User/application/UserCollectionResponse'
+import { UserResponseBody } from '@Events/User/application/UserResponse'
+import { AllowedAccessibilities } from '@Shared/domain/SharedValueObjects/Space/SharedAccessibility'
+
+export class SpacesGetController implements Controller {
+  constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
+
+  private user: UserResponseBody | undefined
+
+  async run (req: Request, res: Response): Promise<Response> {
+    try {
+      this.user = undefined
+      let userId: string | undefined
+      let criteria = buildCriteriaFromUri(req.query.criteria as string)
+
+      if (req.headers.authorization) {
+        const data = this.decoder.run(req.headers.authorization)
+
+        userId = data.id
+      } else {
+        criteria = combineCriterias(this.addPublicCriteria(), criteria)
+      }
+
+      const spacesQuery = new FindSpacesByCriteriaQuery(criteria.filters, criteria.inFilters, criteria.orderBy, criteria.orderType, criteria.limit, criteria.offset)
+
+      const spaces = await (await this.queryBus.ask<SpaceCollectionResponse>(spacesQuery)).response
+
+      const spacesToReturn = []
+
+      for (const space of spaces) {
+        if (space.accessibility === AllowedAccessibilities.HIDDEN) {
+          if (await this.checkAccessibility(space.accessibility as AllowedAccessibilities, space.id, userId, space.communityId)) spacesToReturn.push(space)
+        }
+
+        if ([AllowedAccessibilities.PAYMENT, AllowedAccessibilities.PRIVATE].includes(space.accessibility as AllowedAccessibilities)) {
+          const response = {
+            ...space,
+            isLocked: true
+          }
+
+          if (await this.checkAccessibility(space.accessibility as AllowedAccessibilities, space.id, userId, space.communityId)) spacesToReturn.push(space)
+          else spacesToReturn.push(response)
+        }
+
+        if (space.accessibility === AllowedAccessibilities.PUBLIC) spacesToReturn.push(space)
+      }
+
+      return res.status(200).json(spacesToReturn)
+    } catch (e) {
+      console.log(e)
+      if (e instanceof SpaceNotFound) return res.status(404).json({ message: e.getMessage() })
+      if (e instanceof CannotDecode) return res.status(401).json({ message: e.getMessage() })
+
+      return res.status(500).send()
+    }
+  }
+
+  private addPublicCriteria () {
+    return {
+      inFilters: [{
+        field: 'accessibility',
+        operator: 'IN',
+        values: [
+          AllowedAccessibilities.PUBLIC,
+          AllowedAccessibilities.PAYMENT,
+          AllowedAccessibilities.PRIVATE
+        ]
+      }]
+    }
+  }
+
+  private async checkAccessibility (accessibility: AllowedAccessibilities, spaceId: string, userId?: string, communityId?: string): Promise<boolean> {
+    if (accessibility === AllowedAccessibilities.PUBLIC) return true
+
+    if (userId && communityId) {
+      if (!this.user) {
+        this.user = await this.getUser(userId, communityId)
+      }
+
+      if (!this.user) return false
+
+      if (this.user.isAdmin || this.user.isOwner) return true
+
+      const spaceMember = await this.getSpaceMember(this.user.id, communityId, spaceId)
+
+      if (spaceMember) return true
+    }
+
+    return false
+  }
+
+  private async getSpaceMember (userId: string, communityId: string, spaceId: string) {
+    const query = new FindSpaceMembersByCriteriaQuery([
+      new Map<string, string>([
+        ['field', 'userId'],
+        ['operator', '='],
+        ['value', userId]
+      ]),
+      new Map<string, string>([
+        ['field', 'spaceId'],
+        ['operator', '='],
+        ['value', spaceId]
+      ]),
+      new Map<string, string>([
+        ['field', 'communityId'],
+        ['operator', '='],
+        ['value', communityId]
+      ])
+    ])
+
+    return (await this.queryBus.ask<SpaceMemberCollectionResponse>(query)).response.pop()
+  }
+
+  private async getUser (id: string, communityId: string) {
+    const query = new FindUsersByCriteriaQuery([
+      new Map<string, string>([
+        ['field', 'mainId'],
+        ['operator', '='],
+        ['value', id]
+      ]),
+      new Map<string, string>([
+        ['field', 'communityId'],
+        ['operator', '='],
+        ['value', communityId]
+      ])
+    ])
+
+    const user = (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
+
+    return user
+  }
+}

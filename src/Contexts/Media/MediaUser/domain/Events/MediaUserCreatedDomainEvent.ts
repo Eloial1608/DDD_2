@@ -9,7 +9,7 @@ type MediaUserCreatedDomainEventBody = {
 }
 
 export class MediaUserCreatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.Media.media-user.v1.created'
+  static readonly EVENT_NAME: string = 'app.gathered.Media.media-user.v1.created'
 
   readonly id: string
   readonly userId: string

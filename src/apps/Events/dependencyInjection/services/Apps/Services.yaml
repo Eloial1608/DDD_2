@@ -1,0 +1,4 @@
+services:  
+  Apps.Events.Controllers.HealthGetController:
+    class: src/apps/Events/controllers/HealthGetController
+  

@@ -16,7 +16,7 @@ type PlanForUsersUpdatedDomainEventBody = {
 }
 
 export class PlanForUsersUpdatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.plan-for-users.v1.updated'
+  static readonly EVENT_NAME: string = 'app.gathered.plan-for-users.v1.updated'
 
   readonly id: string
   readonly name: string

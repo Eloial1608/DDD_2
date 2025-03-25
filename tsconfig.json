@@ -30,6 +30,9 @@
       "@Core/*": [
         "src/Contexts/Core/*"
       ],
+      "@Events/*": [
+        "src/Contexts/Events/*"
+      ],
       "@Course/*": [
         "src/Contexts/Course/*"
       ],

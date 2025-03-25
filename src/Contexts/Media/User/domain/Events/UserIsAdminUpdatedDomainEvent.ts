@@ -15,7 +15,7 @@ type UserIsAdminUpdatedDomainEventBody = {
 }
 
 export class UserIsAdminUpdatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.media.user.v1.is-admin-updated'
+  static readonly EVENT_NAME: string = 'app.gathered.media.user.v1.is-admin-updated'
 
   readonly id: string
   readonly mainId: string

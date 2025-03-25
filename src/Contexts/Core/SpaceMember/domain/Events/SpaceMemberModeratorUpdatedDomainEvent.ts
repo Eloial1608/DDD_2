@@ -16,7 +16,7 @@ type SpaceMemberModeratorUpdatedDomainEventBody = {
 }
 
 export class SpaceMemberModeratorUpdatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.space-member.v1.is-moderator-updated'
+  static readonly EVENT_NAME: string = 'app.gathered.space-member.v1.is-moderator-updated'
 
   readonly id: string
   readonly userId: string

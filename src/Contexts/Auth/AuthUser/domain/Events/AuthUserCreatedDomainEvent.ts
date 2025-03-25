@@ -10,7 +10,7 @@ type AuthUserCreatedDomainEventBody = {
 }
 
 export class AuthUserCreatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.auth-user.v1.created'
+  static readonly EVENT_NAME: string = 'app.gathered.auth-user.v1.created'
 
   readonly id: string
   readonly email: string
