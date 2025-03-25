@@ -6,6 +6,7 @@ import { CourseMother } from '../../domain/CourseMother'
 import { CommentMother } from '@Tests/Contexts/Course/Comment/domain/CommentMother'
 import { CommentDeletedDomainEvent } from '@Course/Comment/domain/Events/CommentDeletedDomainEvent'
 import { CourseTotalCommentsUpdatedDomainEvent } from '@Course/Course/domain/Events/CourseTotalCommentsUpdatedDomainEvent'
+import { TotalComments } from '@Course/Course/domain/ValueObjects/TotalComments'
 
 let eventBus: EventBusMock
 let repository: CourseRepositoryMock
@@ -25,13 +26,18 @@ describe('UpdateCourseOnCommentDeletedHandler should ', () => {
 
     const comment = CommentMother.random()
 
+    const expectedCourse = CourseMother.create({
+      ...course,
+      totalComments: new TotalComments(course.totalComments.valueOf() - 1)
+    })
+
     repository.returnOnFind(course)
 
     const event = CommentDeletedDomainEvent.fromAggregate(comment)
 
     await handler.on(event)
 
-    repository.assertPersistHasBeenCalledWith(course)
+    repository.assertPersistHasBeenCalledWith(expectedCourse)
   })
 
   test('Create a new CourseTotalCommentsUpdatedDomainEvent', async () => {
@@ -45,7 +51,12 @@ describe('UpdateCourseOnCommentDeletedHandler should ', () => {
 
     await handler.on(event)
 
-    const expectedEvent = CourseTotalCommentsUpdatedDomainEvent.fromAggregate(course)
+    const expectedCourse = CourseMother.create({
+      ...course,
+      totalComments: new TotalComments(course.totalComments.valueOf() - 1)
+    })
+
+    const expectedEvent = CourseTotalCommentsUpdatedDomainEvent.fromAggregate(expectedCourse)
 
     eventBus.assertEventHasBeenPublished(expectedEvent)
   })
