@@ -411,3 +411,23 @@ services:
     arguments: ["@Lesson.Create.Creator"]
     tags:
       - { name: "commandHandler" }
+
+  Course.UpdateCourseOnCommentCreated.Updater:
+    class: src/Contexts/Course/Course/application/UpdateCourseOnCommentCreated/Updater
+    arguments: ['@Course.Repository', '@Shared.EventBus']
+  
+  Course.UpdateCourseOnCommentCreated.UpdateCourseOnCommentCreatedHandler:
+    class: src/Contexts/Course/Course/application/UpdateCourseOnCommentCreated/UpdateCourseOnCommentCreatedHandler
+    arguments: ["@Course.UpdateCourseOnCommentCreated.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Course.UpdateCourseOnCommentDeleted.Updater:
+    class: src/Contexts/Course/Course/application/UpdateCourseOnCommentDeleted/Updater
+    arguments: ['@Course.Repository', '@Shared.EventBus']
+  
+  Course.UpdateCourseOnCommentDeleted.UpdateCourseOnCommentDeletedHandler:
+    class: src/Contexts/Course/Course/application/UpdateCourseOnCommentDeleted/UpdateCourseOnCommentDeletedHandler
+    arguments: ["@Course.UpdateCourseOnCommentCreated.Updater"]
+    tags:
+      - { name: "commandHandler" }
