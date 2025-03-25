@@ -1,13 +1,11 @@
 import { DomainEvent } from '@Shared/domain/EventBus/DomainEvent'
 import { Course } from '../Course'
-import { Nullable } from '@Shared/domain/Nullable'
 
 type CourseTotalCommentsUpdatedDomainEventBody = {
-    readonly id: string
-    readonly communityId: string
-    readonly userId: string
-    readonly title: string
-    readonly bannerUrl: Nullable<string>
+  readonly id: string
+  readonly communityId: string
+  readonly userId: string
+  readonly spaceId: string
 }
 
 export class CourseTotalCommentsUpdatedDomainEvent extends DomainEvent {
@@ -16,8 +14,7 @@ export class CourseTotalCommentsUpdatedDomainEvent extends DomainEvent {
   readonly id: string
   readonly communityId: string
   readonly userId: string
-  readonly title: string
-  readonly bannerUrl: Nullable<string>
+  readonly spaceId: string
 
   static {
     DomainEvent.derived.add(CourseTotalCommentsUpdatedDomainEvent.EVENT_NAME)
@@ -29,8 +26,7 @@ export class CourseTotalCommentsUpdatedDomainEvent extends DomainEvent {
     this.id = params.id
     this.communityId = params.communityId
     this.userId = params.userId
-    this.title = params.title
-    this.bannerUrl = params.bannerUrl
+    this.spaceId = params.spaceId
   }
 
   static fromAggregate (course: Course): CourseTotalCommentsUpdatedDomainEvent {
@@ -38,8 +34,7 @@ export class CourseTotalCommentsUpdatedDomainEvent extends DomainEvent {
       id: course.id.valueOf(),
       communityId: course.communityId.valueOf(),
       userId: course.userId.valueOf(),
-      title: course.title.valueOf(),
-      bannerUrl: course.bannerUrl?.valueOf()
+      spaceId: course.spaceId.valueOf()
 
     })
   }

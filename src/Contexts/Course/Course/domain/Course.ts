@@ -197,12 +197,12 @@ export class Course extends AggregateRoot {
       new UpdatedAt(new Date()),
       null
     )
-    
+
     course.record(CourseAuthorUpdatedDomainEvent.fromAggregate(course))
 
     return course
   }
-  
+
   updateTotalComments (
     totalComments: TotalComments
   ): Course {
