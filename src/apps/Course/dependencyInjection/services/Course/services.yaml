@@ -422,7 +422,7 @@ services:
     class: src/Contexts/Course/Course/application/UpdateCourseOnCommentCreated/UpdateCourseOnCommentCreatedHandler
     arguments: ["@Course.UpdateCourseOnCommentCreated.Updater"]
     tags:
-      - { name: "commandHandler" }
+      - { name: "domainEventSubscriber" }
   
   Course.UpdateCourseOnCommentDeleted.Updater:
     class: src/Contexts/Course/Course/application/UpdateCourseOnCommentDeleted/Updater
@@ -432,7 +432,7 @@ services:
     class: src/Contexts/Course/Course/application/UpdateCourseOnCommentDeleted/UpdateCourseOnCommentDeletedHandler
     arguments: ["@Course.UpdateCourseOnCommentCreated.Updater"]
     tags:
-      - { name: "commandHandler" }
+      - { name: "domainEventSubscriber" }
 
   Course.UpdateCourseOnUserUpdated.Updater:
     class: src/Contexts/Course/Course/application/UpdateCourseOnUserUpdated/Updater
@@ -441,5 +441,25 @@ services:
   Course.UpdateCourseOnUserUpdated.UpdateCourseOnUserUpdatedHandler:
     class: src/Contexts/Course/Course/application/UpdateCourseOnUserUpdated/UpdateCourseOnUserUpdatedHandler
     arguments: ["@Course.UpdateCourseOnUserUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  Section.UpdateSectionOnLessonCreated.Updater:
+    class: src/Contexts/Course/Section/application/UpdateSectionOnLessonCreated/Updater
+    arguments: ['@Section.Repository', '@Shared.EventBus']
+  
+  Section.UpdateSectionOnLessonCreated.UpdateSectionOnLessonCreatedHandler:
+    class: src/Contexts/Course/Section/application/UpdateSectionOnLessonCreated/UpdateSectionOnLessonCreatedHandler
+    arguments: ["@Section.UpdateCourseOnUserUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  Section.UpdateSectionOnLessonDeleted.Updater:
+    class: src/Contexts/Course/Section/application/UpdateSectionOnLessonDeleted/Updater
+    arguments: ['@Section.Repository', '@Shared.EventBus']
+  
+  Section.UpdateSectionOnLessonDeleted.UpdateSectionOnLessonDeletedHandler:
+    class: src/Contexts/Course/Section/application/UpdateSectionOnLessonDeleted/UpdateSectionOnLessonDeletedHandler
+    arguments: ["@Section.UpdateCourseOnUserUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }

@@ -79,4 +79,22 @@ export class Section extends AggregateRoot {
 
     return section
   }
+
+  updateTotalComments (
+    totalLessons: TotalLessons
+  ): Section {
+    const section = new Section(
+      this.id,
+      this.courseId,
+      this.title,
+      totalLessons,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      null
+    )
+
+    section.record(SectionTotalLessonsUpdatedDomainEvent.fromAggregate(section))
+
+    return section
+  }
 }
