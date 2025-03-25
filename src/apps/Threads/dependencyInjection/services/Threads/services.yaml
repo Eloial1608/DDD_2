@@ -325,3 +325,13 @@ services:
     arguments: ['@Community.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+
+  Thread.UpdateThreadOnUserUpdated.Updater:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnUserUpdated/Updater
+    arguments: ['@Thread.Repository', '@Shared.EventBus']
+  
+  Thread.UpdateThreadOnUserUpdated.UpdateThreadOnUserUpdatedHandler:
+    class: src/Contexts/Threads/Thread/application/UpdateThreadOnUserUpdated/UpdateThreadOnUserUpdatedHandler
+    arguments: ["@Thread.UpdateThreadOnUserUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }

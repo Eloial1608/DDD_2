@@ -344,6 +344,16 @@ services:
     class: src/Contexts/Course/Lesson/infrastructure/persistence/TypeOrmLessonRepository
     arguments: ["@Shared.ORM.Connection"]
 
+  Lesson.Update.Updater:
+    class: src/Contexts/Course/Lesson/application/Update/Updater
+    arguments: ['@Lesson.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Lesson.UpdateLesson.UpdateLessonCommandHandler:
+    class: src/Contexts/Course/Lesson/application/Update/UpdateLessonCommandHandler
+    arguments: ["@Lesson.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
   Lesson.Delete.Deleter:
     class: src/Contexts/Course/Lesson/application/Delete/Deleter
     arguments: ['@Lesson.Repository', '@Shared.EventBus']
@@ -351,6 +361,8 @@ services:
   Lesson.Delete.DeleteLessonCommandHandler:
     class: src/Contexts/Course/Lesson/application/Delete/DeleteLessonCommandHandler
     arguments: ["@Lesson.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
 
   Comment.Delete.Deleter:
     class: src/Contexts/Course/Comment/application/Delete/Deleter
@@ -359,6 +371,8 @@ services:
   Comment.Delete.DeleteCommentCommandHandler:
     class: src/Contexts/Course/Comment/application/Delete/DeleteCommentCommandHandler
     arguments: ["@Comment.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
 
   Lesson.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Course/Lesson/application/FindByCriteria/FinderByCriteria
@@ -367,6 +381,8 @@ services:
   Lesson.FindByCriteria.FindLessonsByCriteriaQueryHandler:
     class: src/Contexts/Course/Lesson/application/FindByCriteria/FindLessonsByCriteriaQueryHandler
     arguments: ['@Lesson.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
 
   Lesson.FindById.FinderById:
     class: src/Contexts/Course/Lesson/application/FindById/FinderById
@@ -397,3 +413,33 @@ services:
     arguments: ["@Lesson.Create.Creator"]
     tags:
       - { name: "commandHandler" }
+
+  Course.UpdateCourseOnCommentCreated.Updater:
+    class: src/Contexts/Course/Course/application/UpdateCourseOnCommentCreated/Updater
+    arguments: ['@Course.Repository', '@Shared.EventBus']
+  
+  Course.UpdateCourseOnCommentCreated.UpdateCourseOnCommentCreatedHandler:
+    class: src/Contexts/Course/Course/application/UpdateCourseOnCommentCreated/UpdateCourseOnCommentCreatedHandler
+    arguments: ["@Course.UpdateCourseOnCommentCreated.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Course.UpdateCourseOnCommentDeleted.Updater:
+    class: src/Contexts/Course/Course/application/UpdateCourseOnCommentDeleted/Updater
+    arguments: ['@Course.Repository', '@Shared.EventBus']
+  
+  Course.UpdateCourseOnCommentDeleted.UpdateCourseOnCommentDeletedHandler:
+    class: src/Contexts/Course/Course/application/UpdateCourseOnCommentDeleted/UpdateCourseOnCommentDeletedHandler
+    arguments: ["@Course.UpdateCourseOnCommentCreated.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
+  Course.UpdateCourseOnUserUpdated.Updater:
+    class: src/Contexts/Course/Course/application/UpdateCourseOnUserUpdated/Updater
+    arguments: ['@Course.Repository', '@Shared.EventBus']
+  
+  Course.UpdateCourseOnUserUpdated.UpdateCourseOnUserUpdatedHandler:
+    class: src/Contexts/Course/Course/application/UpdateCourseOnUserUpdated/UpdateCourseOnUserUpdatedHandler
+    arguments: ["@Course.UpdateCourseOnUserUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
