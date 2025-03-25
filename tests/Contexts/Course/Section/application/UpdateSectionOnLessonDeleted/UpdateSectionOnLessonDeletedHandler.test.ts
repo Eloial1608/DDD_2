@@ -28,7 +28,7 @@ describe('UpdateSectionOnLessonDeletedHandler should ', () => {
 
     const expectedSection = SectionMother.create({
       ...section,
-      totalLessons: new TotalLessons(section.totalLessons.valueOf() + 1)
+      totalLessons: new TotalLessons(section.totalLessons.valueOf() - 1)
     })
 
     repository.returnOnFind(section)
@@ -53,7 +53,7 @@ describe('UpdateSectionOnLessonDeletedHandler should ', () => {
 
     const expectedSection = SectionMother.create({
       ...section,
-      totalLessons: new TotalLessons(section.totalLessons.valueOf() + 1)
+      totalLessons: new TotalLessons(section.totalLessons.valueOf() - 1)
     })
 
     const expectedEvent = SectionTotalLessonsUpdatedDomainEvent.fromAggregate(expectedSection)
