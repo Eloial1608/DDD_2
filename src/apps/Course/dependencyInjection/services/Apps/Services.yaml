@@ -66,6 +66,10 @@ services:
     class: src/apps/Course/controllers/Comment/CommentsGetController
     arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
 
+  Apps.Course.Controllers.LessonPutController:
+    class: src/apps/Course/controllers/Lesson/LessonPutController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+    
   Apps.Course.Controllers.CommentDeleteController:
     class: src/apps/Course/controllers/Comment/CommentDeleteController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
