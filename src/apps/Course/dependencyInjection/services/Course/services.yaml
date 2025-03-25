@@ -381,6 +381,8 @@ services:
   Lesson.FindByCriteria.FindLessonsByCriteriaQueryHandler:
     class: src/Contexts/Course/Lesson/application/FindByCriteria/FindLessonsByCriteriaQueryHandler
     arguments: ['@Lesson.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
 
   Lesson.FindById.FinderById:
     class: src/Contexts/Course/Lesson/application/FindById/FinderById
@@ -431,3 +433,13 @@ services:
     arguments: ["@Course.UpdateCourseOnCommentCreated.Updater"]
     tags:
       - { name: "commandHandler" }
+
+  Course.UpdateCourseOnUserUpdated.Updater:
+    class: src/Contexts/Course/Course/application/UpdateCourseOnUserUpdated/Updater
+    arguments: ['@Course.Repository', '@Shared.EventBus']
+  
+  Course.UpdateCourseOnUserUpdated.UpdateCourseOnUserUpdatedHandler:
+    class: src/Contexts/Course/Course/application/UpdateCourseOnUserUpdated/UpdateCourseOnUserUpdatedHandler
+    arguments: ["@Course.UpdateCourseOnUserUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }

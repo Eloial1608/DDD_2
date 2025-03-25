@@ -22,6 +22,7 @@ import { CourseDeletedDomainEvent } from './Events/CourseDeletedDomainEvent'
 import { CourseUpdatedDomainEvent } from './Events/CourseUpdatedDomainEvent'
 import { CourseTotalStudentsUpdatedDomainEvent } from './Events/CourseTotalStudentsUpdatedDomainEvent'
 import { CourseTotalCommentsUpdatedDomainEvent } from './Events/CourseTotalCommentsUpdatedDomainEvent'
+import { CourseAuthorUpdatedDomainEvent } from './Events/CourseAuthorUpdatedDomainEvent'
 
 export class Course extends AggregateRoot {
   constructor (
@@ -174,6 +175,34 @@ export class Course extends AggregateRoot {
     return course
   }
 
+  updateAuthor (
+    author: Author
+  ): Course {
+    const course = new Course(
+      this.id,
+      this.communityId,
+      this.spaceId,
+      this.userId,
+      author,
+      this.title,
+      this.bannerUrl,
+      this.isPaid,
+      this.price,
+      this.startDate,
+      this.endDate,
+      this.maxStudents,
+      this.totalStudents,
+      this.totalComments,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      null
+    )
+    
+    course.record(CourseAuthorUpdatedDomainEvent.fromAggregate(course))
+
+    return course
+  }
+  
   updateTotalComments (
     totalComments: TotalComments
   ): Course {
