@@ -1,194 +1,258 @@
 services:
+  Event.Repository:
+    class: src/Contexts/Events/Event/infrastructure/persistence/TypeOrmEventRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
+  Event.Create.Creator:
+    class: src/Contexts/Events/Event/application/Create/Creator
+    arguments: ['@Event.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Event.Create.CreateEventCommandHandler:
+    class: src/Contexts/Events/Event/application/Create/CreateEventCommandHandler
+    arguments: ["@Event.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Event.Update.Updater:
+    class: src/Contexts/Events/Event/application/Update/Updater
+    arguments: ['@Event.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Event.Update.UpdateEventCommandHandler:
+    class: src/Contexts/Events/Event/application/Update/UpdateEventCommandHandler
+    arguments: ["@Event.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Event.Delete.Deleter:
+    class: src/Contexts/Events/Event/application/Delete/Deleter
+    arguments: ['@Event.Repository', '@Shared.EventBus']
+  
+  Event.Delete.DeleteEventCommandHandler:
+    class: src/Contexts/Events/Event/application/Delete/DeleteEventCommandHandler
+    arguments: ["@Event.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Event.FindById.FinderById:
+    class: src/Contexts/Events/Event/application/FindById/FinderById
+    arguments: ['@Event.Repository']
+  
+  Event.FindById.FindEventByIdQueryHandler:
+    class: src/Contexts/Events/Event/application/FindById/FindEventByIdQueryHandler
+    arguments: ['@Event.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+  
+  Event.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Events/Event/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Event.Repository']
+  
+  Event.FindByCriteria.FindEventByCriteriaQueryHandler:
+    class: src/Contexts/Events/Event/application/FindByCriteria/FindEventByCriteriaQueryHandler
+    arguments: ['@Event.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+  
+  Event.UpdateEventOnUserUpdated.Updater:
+    class: src/Contexts/Events/Event/application/UpdateEventOnUserUpdated/Updater
+    arguments: ['@Event.Repository', '@Shared.EventBus']
+  
+  Event.UpdateEventOnUserUpdated.UpdateEventOnUserUpdatedHandler:
+    class: src/Contexts/Events/Event/application/UpdateEventOnUserUpdated/UpdateEventOnUserUpdatedHandler
+    arguments: ["@Event.UpdateEventOnUserUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
   Space.Repository:
-    class: src/Contexts/Media/Space/infrastructure/persistence/TypeOrmSpaceRepository
+    class: src/Contexts/Events/Space/infrastructure/persistence/TypeOrmSpaceRepository
     arguments: ["@Shared.ORM.Connection"]
 
   Space.CreateSpaceOnSpaceCreated.Creator:
-    class: src/Contexts/Media/Space/application/CreateSpaceOnSpaceCreated/Creator
+    class: src/Contexts/Events/Space/application/CreateSpaceOnSpaceCreated/Creator
     arguments: ['@Space.Repository', '@Shared.EventBus']
   
   Space.CreateSpaceOnSpaceCreated.CreateSpaceOnSpaceCreatedHandler:
-    class: src/Contexts/Media/Space/application/CreateSpaceOnSpaceCreated/CreateSpaceOnSpaceCreatedHandler
+    class: src/Contexts/Events/Space/application/CreateSpaceOnSpaceCreated/CreateSpaceOnSpaceCreatedHandler
     arguments: ["@Space.CreateSpaceOnSpaceCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
   
   Space.DeleteSpaceOnSpaceDeleted.Deleter:
-    class: src/Contexts/Media/Space/application/DeleteSpaceOnSpaceDeleted/Deleter
+    class: src/Contexts/Events/Space/application/DeleteSpaceOnSpaceDeleted/Deleter
     arguments: ['@Space.Repository', '@Shared.EventBus']
   
   Space.DeleteSpaceOnSpaceDeleted.DeleteSpaceOnSpaceDeletedHandler:
-    class: src/Contexts/Media/Space/application/DeleteSpaceOnSpaceDeleted/DeleteSpaceOnSpaceDeletedHandler
+    class: src/Contexts/Events/Space/application/DeleteSpaceOnSpaceDeleted/DeleteSpaceOnSpaceDeletedHandler
     arguments: ["@Space.DeleteSpaceOnSpaceDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
   
   Space.UpdateSpaceOnSpaceUpdated.Updater:
-    class: src/Contexts/Media/Space/application/UpdateSpaceOnSpaceUpdated/Updater
+    class: src/Contexts/Events/Space/application/UpdateSpaceOnSpaceUpdated/Updater
     arguments: ['@Space.Repository', '@Shared.EventBus']
   
   Space.UpdateSpaceOnSpaceUpdated.UpdateSpaceOnSpaceUpdatedHandler:
-    class: src/Contexts/Media/Space/application/UpdateSpaceOnSpaceUpdated/UpdateSpaceOnSpaceUpdatedHandler
+    class: src/Contexts/Events/Space/application/UpdateSpaceOnSpaceUpdated/UpdateSpaceOnSpaceUpdatedHandler
     arguments: ["@Space.UpdateSpaceOnSpaceUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
   
   Space.FindById.FinderById:
-    class: src/Contexts/Media/Space/application/FindById/FinderById
+    class: src/Contexts/Events/Space/application/FindById/FinderById
     arguments: ['@Space.Repository']
   
   Space.FindById.FindSpaceByIdQueryHandler:
-    class: src/Contexts/Media/Space/application/FindById/FindSpaceByIdQueryHandler
+    class: src/Contexts/Events/Space/application/FindById/FindSpaceByIdQueryHandler
     arguments: ['@Space.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
   
   Community.Repository:
-    class: src/Contexts/Media/Community/infrastructure/persistence/TypeOrmCommunityRepository
+    class: src/Contexts/Events/Community/infrastructure/persistence/TypeOrmCommunityRepository
     arguments: ["@Shared.ORM.Connection"]
 
   Like.Repository:
-    class: src/Contexts/Media/Like/infrastructure/persistence/TypeOrmLikeRepository
+    class: src/Contexts/Events/Like/infrastructure/persistence/TypeOrmLikeRepository
     arguments: ["@Shared.ORM.Connection"]
 
   Community.CreateCommunityOnCommunityCreated.Creator:
-    class: src/Contexts/Media/Community/application/CreateCommunityOnCommunityCreated/Creator
+    class: src/Contexts/Events/Community/application/CreateCommunityOnCommunityCreated/Creator
     arguments: ['@Community.Repository', '@Shared.EventBus']
   
   Community.CreateCommunityOnCommunityCreated.CreateCommunityOnCommunityCreatedHandler:
-    class: src/Contexts/Media/Community/application/CreateCommunityOnCommunityCreated/CreateCommunityOnCommunityCreatedHandler
+    class: src/Contexts/Events/Community/application/CreateCommunityOnCommunityCreated/CreateCommunityOnCommunityCreatedHandler
     arguments: ["@Community.CreateCommunityOnCommunityCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
   
   Community.DeleteCommunityOnCommunityDeleted.Deleter:
-    class: src/Contexts/Media/Community/application/DeleteCommunityOnCommunityDeleted/Deleter
+    class: src/Contexts/Events/Community/application/DeleteCommunityOnCommunityDeleted/Deleter
     arguments: ['@Community.Repository', '@Shared.EventBus']
   
   Community.DeleteCommunityOnCommunityDeleted.DeleteCommunityOnCommunityDeletedHandler:
-    class: src/Contexts/Media/Community/application/DeleteCommunityOnCommunityDeleted/DeleteCommunityOnCommunityDeletedHandler
+    class: src/Contexts/Events/Community/application/DeleteCommunityOnCommunityDeleted/DeleteCommunityOnCommunityDeletedHandler
     arguments: ["@Community.DeleteCommunityOnCommunityDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
   
   Community.FindById.FinderById:
-    class: src/Contexts/Media/Community/application/FindById/FinderById
+    class: src/Contexts/Events/Community/application/FindById/FinderById
     arguments: ['@Community.Repository']
   
   Community.FindById.FindCommunityByIdQueryHandler:
-    class: src/Contexts/Media/Community/application/FindById/FindCommunityByIdQueryHandler
+    class: src/Contexts/Events/Community/application/FindById/FindCommunityByIdQueryHandler
     arguments: ['@Community.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
     
   User.Repository:
-    class: src/Contexts/Media/User/infrastructure/persistence/TypeOrmUserRepository
+    class: src/Contexts/Events/User/infrastructure/persistence/TypeOrmUserRepository
     arguments: ["@Shared.ORM.Connection"]
   
   User.CreateUserOnUserCreated.Creator:
-    class: src/Contexts/Media/User/application/CreateUserOnUserCreated/Creator
+    class: src/Contexts/Events/User/application/CreateUserOnUserCreated/Creator
     arguments: ['@User.Repository', '@Shared.EventBus']
   
   User.CreateUserOnUserCreated.CreateUserOnUserCreatedHandler:
-    class: src/Contexts/Media/User/application/CreateUserOnUserCreated/CreateUserOnUserCreatedHandler
+    class: src/Contexts/Events/User/application/CreateUserOnUserCreated/CreateUserOnUserCreatedHandler
     arguments: ["@User.CreateUserOnUserCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
   
   User.DeleteUserOnUserDeleted.Deleter:
-    class: src/Contexts/Media/User/application/DeleteUserOnUserDeleted/Deleter
+    class: src/Contexts/Events/User/application/DeleteUserOnUserDeleted/Deleter
     arguments: ['@User.Repository', '@Shared.EventBus']
   
   User.DeleteUserOnUserDeleted.DeleteUserOnUserDeletedHandler:
-    class: src/Contexts/Media/User/application/DeleteUserOnUserDeleted/DeleteUserOnUserDeletedHandler
+    class: src/Contexts/Events/User/application/DeleteUserOnUserDeleted/DeleteUserOnUserDeletedHandler
     arguments: ["@User.DeleteUserOnUserDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
   
   User.FindByCriteria.FinderByCriteria:
-    class: src/Contexts/Media/User/application/FindByCriteria/FinderByCriteria
+    class: src/Contexts/Events/User/application/FindByCriteria/FinderByCriteria
     arguments: ['@User.Repository']
   
   User.FindByCriteria.FindUsersByCriteriaQueryHandler:
-    class: src/Contexts/Media/User/application/FindByCriteria/FindUsersByCriteriaQueryHandler
+    class: src/Contexts/Events/User/application/FindByCriteria/FindUsersByCriteriaQueryHandler
     arguments: ['@User.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
   
   User.UpdateUserOnUserUpdated.Updater:
-    class: src/Contexts/Media/User/application/UpdateUserOnUserUpdated/Updater
+    class: src/Contexts/Events/User/application/UpdateUserOnUserUpdated/Updater
     arguments: ['@User.Repository', '@Shared.EventBus']
   
   User.UpdateUserOnUserUpdated.UpdateUserOnUserUpdatedHandler:
-    class: src/Contexts/Media/User/application/UpdateUserOnUserUpdated/UpdateUserOnUserUpdatedHandler
+    class: src/Contexts/Events/User/application/UpdateUserOnUserUpdated/UpdateUserOnUserUpdatedHandler
     arguments: ["@User.UpdateUserOnUserUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
   
   User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater:
-    class: src/Contexts/Media/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/Updater
+    class: src/Contexts/Events/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/Updater
     arguments: ['@User.Repository', '@Shared.EventBus']
   
   User.UpdateUserIsAdminOnUserIsAdminUpdated.UpdateUserIsAdminOnUserIsAdminUpdatedHandler:
-    class: src/Contexts/Media/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/UpdateUserIsAdminOnUserIsAdminUpdatedHandler
+    class: src/Contexts/Events/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/UpdateUserIsAdminOnUserIsAdminUpdatedHandler
     arguments: ["@User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
   
   SpaceMember.Repository:
-    class: src/Contexts/Media/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
+    class: src/Contexts/Events/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
     arguments: ["@Shared.ORM.Connection"]
 
   SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.Creator:
-    class: src/Contexts/Media/SpaceMember/application/CreateSpaceMemberOnSpaceMemberCreated/Creator
+    class: src/Contexts/Events/SpaceMember/application/CreateSpaceMemberOnSpaceMemberCreated/Creator
     arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
   
   SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.CreateSpaceMemberOnSpaceMemberCreatedHandler:
-    class: src/Contexts/Media/SpaceMember/application/CreateSpaceMemberOnSpaceMemberCreated/CreateSpaceMemberOnSpaceMemberCreatedHandler
+    class: src/Contexts/Events/SpaceMember/application/CreateSpaceMemberOnSpaceMemberCreated/CreateSpaceMemberOnSpaceMemberCreatedHandler
     arguments: ["@SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
   
   SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.Deleter:
-    class: src/Contexts/Media/SpaceMember/application/DeleteSpaceMemberOnSpaceMemberDeleted/Deleter
+    class: src/Contexts/Events/SpaceMember/application/DeleteSpaceMemberOnSpaceMemberDeleted/Deleter
     arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
   
   SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.DeleteSpaceMemberOnSpaceMemberDeletedHandler:
-    class: src/Contexts/Media/SpaceMember/application/DeleteSpaceMemberOnSpaceMemberDeleted/DeleteSpaceMemberOnSpaceMemberDeletedHandler
+    class: src/Contexts/Events/SpaceMember/application/DeleteSpaceMemberOnSpaceMemberDeleted/DeleteSpaceMemberOnSpaceMemberDeletedHandler
     arguments: ["@SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
   
   SpaceMember.FindByCriteria.FinderByCriteria:
-    class: src/Contexts/Media/SpaceMember/application/FindByCriteria/FinderByCriteria
+    class: src/Contexts/Events/SpaceMember/application/FindByCriteria/FinderByCriteria
     arguments: ['@SpaceMember.Repository']
   
   SpaceMember.FindByCriteria.FindSpaceMembersByCriteriaQueryHandler:
-    class: src/Contexts/Media/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQueryHandler
+    class: src/Contexts/Events/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQueryHandler
     arguments: ['@SpaceMember.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
   
-  MediaUser.Repository:
-    class: src/Contexts/Media/MediaUser/infrastructure/persistence/TypeOrmMediaUserRepository
+  EventsUser.Repository:
+    class: src/Contexts/Events/EventsUser/infrastructure/persistence/TypeOrmEventsUserRepository
     arguments: ["@Shared.ORM.Connection"]
   
-  MediaUser.FindByCriteria.FinderByCriteria:
-    class: src/Contexts/Media/MediaUser/application/FindByCriteria/FinderByCriteria
-    arguments: ['@MediaUser.Repository']
+  EventsUser.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Events/EventsUser/application/FindByCriteria/FinderByCriteria
+    arguments: ['@EventsUser.Repository']
   
-  MediaUser.FindByCriteria.FindMediaUsersByCriteriaQueryHandler:
-    class: src/Contexts/Media/MediaUser/application/FindByCriteria/FindMediaUsersByCriteriaQueryHandler
-    arguments: ['@MediaUser.FindByCriteria.FinderByCriteria']
+  EventsUser.FindByCriteria.FindEventsUsersByCriteriaQueryHandler:
+    class: src/Contexts/Events/EventsUser/application/FindByCriteria/FindEventsUsersByCriteriaQueryHandler
+    arguments: ['@EventsUser.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
   
-  MediaUser.CreateMediaUserOnStripeSessionVerified.Creator:
-    class: src/Contexts/Media/MediaUser/application/CreateMediaUserOnStripeSessionVerified/Creator
-    arguments: ['@MediaUser.Repository', '@Shared.EventBus']
+  EventsUser.CreateEventsUserOnStripeSessionVerified.Creator:
+    class: src/Contexts/Events/EventsUser/application/CreateEventsUserOnStripeSessionVerified/Creator
+    arguments: ['@EventsUser.Repository', '@Shared.EventBus']
   
-  MediaUser.CreateMediaUserOnStripeSessionVerified.CreateMediaUserOnStripeSessionVerifiedHandler:
-    class: src/Contexts/Media/MediaUser/application/CreateMediaUserOnStripeSessionVerified/CreateMediaUserOnStripeSessionVerifiedHandler
-    arguments: ["@MediaUser.CreateMediaUserOnStripeSessionVerified.Creator"]
+  EventsUser.CreateEventsUserOnStripeSessionVerified.CreateEventsUserOnStripeSessionVerifiedHandler:
+    class: src/Contexts/Events/EventsUser/application/CreateEventsUserOnStripeSessionVerified/CreateEventsUserOnStripeSessionVerifiedHandler
+    arguments: ["@EventsUser.CreateEventsUserOnStripeSessionVerified.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
