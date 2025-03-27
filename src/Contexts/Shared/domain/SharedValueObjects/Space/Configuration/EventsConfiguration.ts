@@ -2,7 +2,8 @@ import { SharedConfiguration } from './SharedConfiguration'
 
 const defaultConfiguration = {
   showFutureEvents: true,
-  showPastEvents: true
+  showPastEvents: true,
+  allowsCreation: false
 }
 export class EventsConfiguration extends SharedConfiguration {
   configuration: typeof defaultConfiguration
