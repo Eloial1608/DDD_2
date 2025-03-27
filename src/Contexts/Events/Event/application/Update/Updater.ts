@@ -1,5 +1,7 @@
 import { DataNeeded } from '@Events/Event/domain/Errors/DataNeeded'
 import { EventNotFound } from '@Events/Event/domain/Errors/EventNotFound'
+import { InvalidMaxOnlineMembers } from '@Events/Event/domain/Errors/InvalidMaxOnlineMembers'
+import { InvalidMaxOnSiteMembers } from '@Events/Event/domain/Errors/InvalidMaxOnSiteMembers'
 import { LocationNeeded } from '@Events/Event/domain/Errors/LocationNeeded'
 import { EventRepository } from '@Events/Event/domain/EventRepository'
 import { Accessibility, EventAccessibilities } from '@Events/Event/domain/ValueObjects/Accessibility'
@@ -9,13 +11,14 @@ import { Data } from '@Events/Event/domain/ValueObjects/Data'
 import { Description } from '@Events/Event/domain/ValueObjects/Description'
 import { EndDate } from '@Events/Event/domain/ValueObjects/EndDate'
 import { Id } from '@Events/Event/domain/ValueObjects/Id'
-import { IsPrivate } from '@Events/Event/domain/ValueObjects/IsPrivate'
 import { Location } from '@Events/Event/domain/ValueObjects/Location'
 import { MaxOnlineMembers } from '@Events/Event/domain/ValueObjects/MaxOnlineMembers'
 import { MaxOnSiteMembers } from '@Events/Event/domain/ValueObjects/MaxOnSiteMembers'
 import { SpaceId } from '@Events/Event/domain/ValueObjects/SpaceId'
 import { StartDate } from '@Events/Event/domain/ValueObjects/StartDate'
 import { Title } from '@Events/Event/domain/ValueObjects/Title'
+import { TotalOnlineMembers } from '@Events/Event/domain/ValueObjects/TotalOnlineMembers'
+import { TotalOnSiteMembers } from '@Events/Event/domain/ValueObjects/TotalOnSiteMembers'
 import { Type } from '@Events/Event/domain/ValueObjects/Type'
 import { UserId } from '@Events/Event/domain/ValueObjects/UserId'
 import { FindSpaceByIdQuery } from '@Events/Space/application/FindById/FindSpaceByIdQuery'
@@ -36,8 +39,6 @@ export class Updater {
     userId: UserId,
     startDate: StartDate,
     endDate: EndDate,
-    isPrivate: IsPrivate,
-    accessibility: Accessibility,
     bannerUrl: Nullable<BannerUrl>,
     type: Type,
     data: Nullable<Data>,
@@ -57,15 +58,25 @@ export class Updater {
 
     if (space.communityId.valueOf() !== existing.communityId.valueOf()) return
 
-    this.checkAccessibility(id, accessibility, data, location)
+    this.checkAccessibility(
+      id,
+      existing.accessibility,
+      data,
+      location
+    )
+    this.checkMaxUsersByAccessibility(
+      existing.accessibility,
+      maxOnlineMembers,
+      maxOnSiteMembers,
+      existing.totalOnlineMembers,
+      existing.totalOnSiteMembers
+    )
 
     const event = existing.update(
       title,
       description,
       startDate,
       endDate,
-      isPrivate,
-      accessibility,
       bannerUrl,
       type,
       data,
@@ -108,6 +119,28 @@ export class Updater {
 
     if (accessibility.valueOf() === EventAccessibilities.ONSITE || accessibility.valueOf() === EventAccessibilities.HYBRID) {
       if (!location) throw new LocationNeeded(id)
+    }
+  }
+
+  private checkMaxUsersByAccessibility (
+    accessibility: Accessibility,
+    maxOnlineMembers: Nullable<MaxOnlineMembers>,
+    maxOnSiteMembers: MaxOnSiteMembers,
+    totalOnlineMembers: TotalOnlineMembers,
+    totalOnSiteMembers: TotalOnSiteMembers
+  ) {
+    if (
+      accessibility.valueOf() === EventAccessibilities.ONLINE ||
+      accessibility.valueOf() === EventAccessibilities.HYBRID
+    ) {
+      if (maxOnlineMembers && maxOnlineMembers.valueOf() < totalOnlineMembers.valueOf()) throw new InvalidMaxOnlineMembers()
+    }
+
+    if (
+      accessibility.valueOf() === EventAccessibilities.ONSITE ||
+      accessibility.valueOf() === EventAccessibilities.HYBRID
+    ) {
+      if (maxOnSiteMembers.valueOf() < totalOnSiteMembers.valueOf()) throw new InvalidMaxOnSiteMembers()
     }
   }
 }

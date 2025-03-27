@@ -1,32 +1,32 @@
-import { FindEventsUsersByCriteriaQueryHandler } from '@Events/EventsUser/application/FindByCriteria/FindEventsUsersByCriteriaQueryHandler'
-import { FinderByCriteria } from '@Events/EventsUser/application/FindByCriteria/FinderByCriteria'
-import { EventsUserRepositoryMock } from '../../__mocks__/EventUserRepositoryMock'
-import { EventsUserMother } from '../../domain/EventUserMother'
-import { FindEventsUsersByCriteriaQuery } from '@Events/EventsUser/application/FindByCriteria/FindEventsUsersByCriteriaQuery'
-import { EventsUserCollectionResponse } from '@Events/EventsUser/application/EventsUserCollectionResponse'
+import { FindEventUsersByCriteriaQueryHandler } from '@Events/EventUser/application/FindByCriteria/FindEventUsersByCriteriaQueryHandler'
+import { FinderByCriteria } from '@Events/EventUser/application/FindByCriteria/FinderByCriteria'
+import { EventUserRepositoryMock } from '../../__mocks__/EventUserRepositoryMock'
+import { EventUserMother } from '../../domain/EventUserMother'
+import { FindEventUsersByCriteriaQuery } from '@Events/EventUser/application/FindByCriteria/FindEventUsersByCriteriaQuery'
+import { EventUserCollectionResponse } from '@Events/EventUser/application/EventUserCollectionResponse'
 import { Criteria } from '@Shared/domain/Criteria/Criteria'
 
-let repository: EventsUserRepositoryMock
+let repository: EventUserRepositoryMock
 let finder: FinderByCriteria
-let handler: FindEventsUsersByCriteriaQueryHandler
+let handler: FindEventUsersByCriteriaQueryHandler
 
-describe('FindEventsUsersByCriteriaQueryHandler should', () => {
+describe('FindEventUsersByCriteriaQueryHandler should', () => {
   beforeEach(() => {
-    repository = new EventsUserRepositoryMock()
+    repository = new EventUserRepositoryMock()
     finder = new FinderByCriteria(repository)
-    handler = new FindEventsUsersByCriteriaQueryHandler(finder)
+    handler = new FindEventUsersByCriteriaQueryHandler(finder)
   })
 
-  test('Return a eventsUser collection', async () => {
-    const eventsUser = EventsUserMother.random()
+  test('Return a eventUser collection', async () => {
+    const eventUser = EventUserMother.random()
 
-    repository.returnOnSearch([eventsUser])
+    repository.returnOnSearch([eventUser])
 
-    const query = new FindEventsUsersByCriteriaQuery()
+    const query = new FindEventUsersByCriteriaQuery()
 
     const response = await handler.handle(query)
 
     repository.assertSearchHasBeenCalledWith(new Criteria())
-    expect(response).toEqual(new EventsUserCollectionResponse([eventsUser]))
+    expect(response).toEqual(new EventUserCollectionResponse([eventUser]))
   })
 })

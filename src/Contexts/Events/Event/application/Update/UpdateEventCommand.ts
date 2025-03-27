@@ -1,4 +1,3 @@
-import { EventAccessibilities } from '@Events/Event/domain/ValueObjects/Accessibility'
 import { ValidPlatforms } from '@Events/Event/domain/ValueObjects/Data'
 import { EventTypes } from '@Events/Event/domain/ValueObjects/Type'
 import { Command } from '@Shared/domain/CommandBus/Command'
@@ -12,8 +11,6 @@ export class UpdateEventCommand implements Command {
         readonly userId: string,
         readonly startDate: Date,
         readonly endDate: Date,
-        readonly isPrivate: boolean,
-        readonly accessibility: EventAccessibilities,
         readonly bannerUrl: Nullable<string>,
         readonly type: EventTypes,
         readonly data: Nullable<{

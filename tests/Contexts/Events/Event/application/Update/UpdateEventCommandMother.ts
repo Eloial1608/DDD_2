@@ -1,7 +1,6 @@
 import { UpdateEventCommand } from '@Events/Event/application/Update/UpdateEventCommand'
 import { Event } from '@Events/Event/domain/Event'
 import { Nullable } from '@Shared/domain/Nullable'
-import { EventAccessibilities } from '@Events/Event/domain/ValueObjects/Accessibility'
 import { ValidPlatforms } from '@Events/Event/domain/ValueObjects/Data'
 import { EventTypes } from '@Events/Event/domain/ValueObjects/Type'
 
@@ -13,8 +12,6 @@ export class UpdateEventCommandMother {
     description: Nullable<string>,
     startDate: Date,
     endDate: Date,
-    isPrivate: boolean,
-    accessibility: EventAccessibilities,
     bannerUrl: Nullable<string>,
     type: EventTypes,
     data: Nullable<{
@@ -32,8 +29,6 @@ export class UpdateEventCommandMother {
       userId,
       startDate,
       endDate,
-      isPrivate,
-      accessibility,
       bannerUrl,
       type,
       data,
@@ -51,8 +46,6 @@ export class UpdateEventCommandMother {
       event.description?.valueOf(),
       event.startDate.valueOf(),
       event.endDate.valueOf(),
-      event.isPrivate.valueOf(),
-      event.accessibility.valueOf(),
       event.bannerUrl?.valueOf(),
       event.type.valueOf(),
       event.data?.toPrimitives(),

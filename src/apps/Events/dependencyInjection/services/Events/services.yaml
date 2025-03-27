@@ -1,4 +1,58 @@
 services:
+  Ticket.Repository:
+    class: src/Contexts/Events/Ticket/infrastructure/persistence/TypeOrmTicketRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Ticket.FindById.FinderById:
+    class: src/Contexts/Events/Ticket/application/FindById/FinderById
+    arguments: ['@Ticket.Repository']
+  
+  Ticket.FindById.FindTicketByIdQueryHandler:
+    class: src/Contexts/Events/Ticket/application/FindById/FindTicketByIdQueryHandler
+    arguments: ['@Ticket.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+  
+  Ticket.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Events/Ticket/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Ticket.Repository']
+  
+  Ticket.FindByCriteria.FindTicketsByCriteriaQueryHandler:
+    class: src/Contexts/Events/Ticket/application/FindByCriteria/FindTicketsByCriteriaQueryHandler
+    arguments: ['@Ticket.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+  
+  Ticket.Create.Creator:
+    class: src/Contexts/Events/Ticket/application/Create/Creator
+    arguments: ['@Ticket.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Ticket.Create.CreateTicketCommandHandler:
+    class: src/Contexts/Events/Ticket/application/Create/CreateTicketCommandHandler
+    arguments: ["@Ticket.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Ticket.Update.Updater:
+    class: src/Contexts/Events/Ticket/application/Update/Updater
+    arguments: ['@Ticket.Repository', '@Shared.EventBus']
+  
+  Ticket.Update.UpdateTicketCommandHandler:
+    class: src/Contexts/Events/Ticket/application/Update/UpdateTicketCommandHandler
+    arguments: ["@Ticket.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Ticket.Delete.Deleter:
+    class: src/Contexts/Events/Ticket/application/Delete/Deleter
+    arguments: ['@Ticket.Repository', '@Shared.EventBus']
+  
+  Ticket.Delete.DeleteTicketCommandHandler:
+    class: src/Contexts/Events/Ticket/application/Delete/DeleteTicketCommandHandler
+    arguments: ["@Ticket.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
   Event.Repository:
     class: src/Contexts/Events/Event/infrastructure/persistence/TypeOrmEventRepository
     arguments: ["@Shared.ORM.Connection"]
@@ -233,26 +287,26 @@ services:
     tags:
       - { name: "queryHandler" }
   
-  EventsUser.Repository:
-    class: src/Contexts/Events/EventsUser/infrastructure/persistence/TypeOrmEventsUserRepository
+  EventUser.Repository:
+    class: src/Contexts/Events/EventUser/infrastructure/persistence/TypeOrmEventUserRepository
     arguments: ["@Shared.ORM.Connection"]
   
-  EventsUser.FindByCriteria.FinderByCriteria:
-    class: src/Contexts/Events/EventsUser/application/FindByCriteria/FinderByCriteria
-    arguments: ['@EventsUser.Repository']
+  EventUser.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Events/EventUser/application/FindByCriteria/FinderByCriteria
+    arguments: ['@EventUser.Repository']
   
-  EventsUser.FindByCriteria.FindEventsUsersByCriteriaQueryHandler:
-    class: src/Contexts/Events/EventsUser/application/FindByCriteria/FindEventsUsersByCriteriaQueryHandler
-    arguments: ['@EventsUser.FindByCriteria.FinderByCriteria']
+  EventUser.FindByCriteria.FindEventUsersByCriteriaQueryHandler:
+    class: src/Contexts/Events/EventUser/application/FindByCriteria/FindEventUsersByCriteriaQueryHandler
+    arguments: ['@EventUser.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
   
-  EventsUser.CreateEventsUserOnStripeSessionVerified.Creator:
-    class: src/Contexts/Events/EventsUser/application/CreateEventsUserOnStripeSessionVerified/Creator
-    arguments: ['@EventsUser.Repository', '@Shared.EventBus']
+  EventUser.CreateEventUserOnStripeSessionVerified.Creator:
+    class: src/Contexts/Events/EventUser/application/CreateEventUserOnStripeSessionVerified/Creator
+    arguments: ['@EventUser.Repository', '@Shared.EventBus', '@Shared.QueryBus']
   
-  EventsUser.CreateEventsUserOnStripeSessionVerified.CreateEventsUserOnStripeSessionVerifiedHandler:
-    class: src/Contexts/Events/EventsUser/application/CreateEventsUserOnStripeSessionVerified/CreateEventsUserOnStripeSessionVerifiedHandler
-    arguments: ["@EventsUser.CreateEventsUserOnStripeSessionVerified.Creator"]
+  EventUser.CreateEventUserOnStripeSessionVerified.CreateEventUserOnStripeSessionVerifiedHandler:
+    class: src/Contexts/Events/EventUser/application/CreateEventUserOnStripeSessionVerified/CreateEventUserOnStripeSessionVerifiedHandler
+    arguments: ["@EventUser.CreateEventUserOnStripeSessionVerified.Creator"]
     tags:
       - { name: "domainEventSubscriber" }

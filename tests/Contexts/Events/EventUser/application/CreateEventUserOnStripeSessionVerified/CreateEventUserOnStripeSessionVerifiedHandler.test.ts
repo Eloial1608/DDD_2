@@ -1,57 +1,73 @@
 import EventBusMock from '@Tests/Contexts/Shared/infrastructure/EventBus/EventBusMock'
-import { EventsUserRepositoryMock } from '../../__mocks__/EventUserRepositoryMock'
-import { CreateEventsUserOnStripeSessionVerifiedHandler } from '@Events/EventsUser/application/CreateEventsUserOnStripeSessionVerified/CreateEventsUserOnStripeSessionVerifiedHandler'
-import { Creator } from '@Events/EventsUser/application/CreateEventsUserOnStripeSessionVerified/Creator'
-import { EventsUserMother } from '../../domain/EventUserMother'
+import { EventUserRepositoryMock } from '../../__mocks__/EventUserRepositoryMock'
+import { CreateEventUserOnStripeSessionVerifiedHandler } from '@Events/EventUser/application/CreateEventUserOnStripeSessionVerified/CreateEventUserOnStripeSessionVerifiedHandler'
+import { Creator } from '@Events/EventUser/application/CreateEventUserOnStripeSessionVerified/Creator'
+import { EventUserMother } from '../../domain/EventUserMother'
 import { StripeSessionMother } from '@Tests/Contexts/Stripe/StripeSession/domain/StripeSessionMother'
 import { StripeSessionVerifiedDomainEvent } from '@Stripe/StripeSession/domain/Events/StripeSessionVerifiedDomainEvent'
-import { EventsUserCreatedDomainEvent } from '@Events/EventsUser/domain/Events/EventsUserCreatedDomainEvent'
-import { EventId } from '@Events/EventsUser/domain/ValueObjects/EventId'
+import { EventUserCreatedDomainEvent } from '@Events/EventUser/domain/Events/EventUserCreatedDomainEvent'
+import { EventId } from '@Events/EventUser/domain/ValueObjects/EventId'
 import { ProductTypes } from '@Stripe/StripeProduct/domain/ValueObjects/ProductType'
+import { QueryBusMock } from '@Tests/Contexts/Shared/infrastructure/QueryBus/QueryBusMock'
+import { TicketMother } from '@Tests/Contexts/Events/Ticket/domain/TicketMother'
+import { Id } from '@Events/Ticket/domain/ValueObjects/Id'
+import { TicketResponse } from '@Events/Ticket/application/TicketResponse'
 
-let repository: EventsUserRepositoryMock
+let repository: EventUserRepositoryMock
 let eventBus: EventBusMock
-let handler: CreateEventsUserOnStripeSessionVerifiedHandler
+let queryBus: QueryBusMock
+let handler: CreateEventUserOnStripeSessionVerifiedHandler
 let creator: Creator
 
-describe('CreateEventsUserOnStripeSessionVerifiedHandler should ', () => {
+describe('CreateEventUserOnStripeSessionVerifiedHandler should ', () => {
   beforeEach(() => {
-    repository = new EventsUserRepositoryMock()
+    repository = new EventUserRepositoryMock()
     eventBus = new EventBusMock()
-    creator = new Creator(repository, eventBus)
-    handler = new CreateEventsUserOnStripeSessionVerifiedHandler(creator)
+    queryBus = new QueryBusMock()
+    creator = new Creator(repository, eventBus, queryBus)
+    handler = new CreateEventUserOnStripeSessionVerifiedHandler(creator)
   })
 
   test('Create a user plan', async () => {
     const stripeSession = StripeSessionMother.noNullProduct(ProductTypes.EVENTS)
 
+    const ticket = TicketMother.create({ id: new Id(stripeSession.product.id) })
+
     const event = StripeSessionVerifiedDomainEvent.fromAggregate(stripeSession)
+
+    queryBus.returnOnAsk(new TicketResponse(ticket))
 
     await handler.on(event)
 
-    const expectedEventsUser = EventsUserMother.create({
+    const expectedEventUser = EventUserMother.create({
       id: stripeSession.id,
       userId: stripeSession.customerId,
-      eventId: new EventId(stripeSession.product.id)
+      eventId: new EventId(ticket.eventId.valueOf()),
+      ticketId: ticket.id
     })
 
-    repository.assertPersistHasBeenCalledWith(expectedEventsUser)
+    repository.assertPersistHasBeenCalledWith(expectedEventUser)
   })
 
-  test('create a new EventsUserCreatedDomainEvent', async () => {
+  test('create a new EventUserCreatedDomainEvent', async () => {
     const stripeSession = StripeSessionMother.noNullProduct(ProductTypes.EVENTS)
+
+    const ticket = TicketMother.create({ id: new Id(stripeSession.product.id) })
 
     const event = StripeSessionVerifiedDomainEvent.fromAggregate(stripeSession)
 
+    queryBus.returnOnAsk(new TicketResponse(ticket))
+
     await handler.on(event)
 
-    const expectedEventsUser = EventsUserMother.create({
+    const expectedEventUser = EventUserMother.create({
       id: stripeSession.id,
       userId: stripeSession.customerId,
-      eventId: new EventId(stripeSession.product.id)
+      eventId: new EventId(ticket.eventId.valueOf()),
+      ticketId: ticket.id
     })
 
-    const expectedEvent = EventsUserCreatedDomainEvent.fromAggregate(expectedEventsUser)
+    const expectedEvent = EventUserCreatedDomainEvent.fromAggregate(expectedEventUser)
 
     eventBus.assertLastPublishedEventIs(expectedEvent)
   })

@@ -9,6 +9,7 @@ export type EventResponseBody = {
   readonly communityId: string
   readonly spaceId: string
   readonly title: string
+  readonly accessibility: string
   readonly description: Nullable<string>
   readonly startDate: Date
   readonly endDate: Date
@@ -38,6 +39,7 @@ export class EventResponse implements QueryResponse<EventResponseBody> {
       communityId: event.communityId.valueOf(),
       spaceId: event.spaceId.valueOf(),
       title: event.title.valueOf(),
+      accessibility: event.accessibility.valueOf(),
       description: event.description?.valueOf() ?? null,
       startDate: event.startDate.valueOf(),
       endDate: event.endDate.valueOf(),
