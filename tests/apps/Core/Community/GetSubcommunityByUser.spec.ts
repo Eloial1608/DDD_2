@@ -7,8 +7,8 @@ import { EnvironmentArranger } from '@Tests/Contexts/Shared/infrastructure/Arran
 import { WordMother } from '@Tests/Contexts/Shared/domain/WordMother'
 import { UserRepository } from '@Core/User/domain/UserRepository'
 import { UserMother } from '@Tests/Contexts/Core/User/domain/UserMother'
-import { MainId } from '../../../../src/Contexts/Course/User/domain/ValueObjects/MainId';
-import { IsAdmin } from '../../../../src/Contexts/Course/User/domain/ValueObjects/IsAdmin';
+import { MainId } from '../../../../src/Contexts/Course/User/domain/ValueObjects/MainId'
+import { IsAdmin } from '../../../../src/Contexts/Course/User/domain/ValueObjects/IsAdmin'
 import { IsOwner } from '@Core/User/domain/ValueObjects/IsOwner'
 
 let arranger: EnvironmentArranger
@@ -54,7 +54,6 @@ test('GET Subcommunities By User should return the subcommunities a user Has Acc
 
   await userRepository.persist(user1)
   await userRepository.persist(user2)
-
 
   const r = await request.get(`/v1/communities/sub/user/communityId/${community.id?.valueOf()}`)
 

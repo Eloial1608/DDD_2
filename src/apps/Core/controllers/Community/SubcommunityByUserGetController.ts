@@ -9,9 +9,9 @@ import { FindUsersByCriteriaQuery } from '@Core/User/application/FindByCriteria/
 import { UserCollectionResponse } from '@Core/User/application/UserCollectionResponse'
 
 export class SubcommunityByUserGetController implements Controller {
-  constructor(private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) { }
+  constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) { }
 
-  async run(req: Request, res: Response): Promise<Response> {
+  async run (req: Request, res: Response): Promise<Response> {
     try {
       const communityId = req.params.id
 
@@ -41,7 +41,7 @@ export class SubcommunityByUserGetController implements Controller {
               ['operator', '='],
               ['value', communityId]
             ])]
-          );
+          )
           const allSubcommunities = (await this.queryBus.ask<CommunityCollectionResponse>(subcommunitiesQuery)).response
 
           return res.status(200).json({ communities: allSubcommunities })
@@ -53,9 +53,9 @@ export class SubcommunityByUserGetController implements Controller {
             ['operator', '='],
             ['value', data.id]
           ])
-        ]);
+        ])
 
-        const users = (await this.queryBus.ask<UserCollectionResponse>(usersQuery)).response;
+        const users = (await this.queryBus.ask<UserCollectionResponse>(usersQuery)).response
 
         const subcommunityIds = users.map(u => u.communityId).join(',')
 
@@ -67,13 +67,12 @@ export class SubcommunityByUserGetController implements Controller {
           ])]
         )
 
-        let filteredSubcommunities = (await this.queryBus.ask<CommunityCollectionResponse>(subcommunitiesQuery)).response
+        const filteredSubcommunities = (await this.queryBus.ask<CommunityCollectionResponse>(subcommunitiesQuery)).response
 
         return res.status(200).json({ communities: filteredSubcommunities })
       }
 
       return res.status(200).json({ communities: mainCommunity })
-
     } catch (e) {
       if (e instanceof CommunityNotFound) return res.status(404).json({ message: e.getMessage() })
 
@@ -81,7 +80,7 @@ export class SubcommunityByUserGetController implements Controller {
     }
   }
 
-  private async getUser(userId: string, communityId: string) {
+  private async getUser (userId: string, communityId: string) {
     const query = new FindUsersByCriteriaQuery([
       new Map<string, string>([
         ['field', 'mainId'],
@@ -97,5 +96,4 @@ export class SubcommunityByUserGetController implements Controller {
 
     return (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
   }
-
 }
