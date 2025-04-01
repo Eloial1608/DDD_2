@@ -64,7 +64,7 @@ export class Creator {
 
     if (space.communityId.valueOf() !== communityId.valueOf()) return
 
-    if (!(space.configuration as EventsConfiguration).configuration.allowsCreation && (!user.isAdmin && !user.isOwner)) throw new NotAllowedToPersistEvent(id)
+    if (!(space.configuration as EventsConfiguration['configuration']).allowsCreation && (!user.isAdmin && !user.isOwner)) throw new NotAllowedToPersistEvent(id)
 
     this.checkAccessibility(id, accessibility, data, location)
 

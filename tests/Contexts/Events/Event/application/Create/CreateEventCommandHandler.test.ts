@@ -12,6 +12,7 @@ import { SpaceMother } from '@Tests/Contexts/Events/Space/domain/SpaceMother'
 import { FindUsersByCriteriaQuery } from '@Events/User/application/FindByCriteria/FindUsersByCriteriaQuery'
 import { FindSpaceByIdQuery } from '@Events/Space/application/FindById/FindSpaceByIdQuery'
 import { SpaceResponse } from '@Events/Space/application/SpaceResponse'
+import { IsAdmin } from '@Events/User/domain/ValueObjects/IsAdmin'
 
 let eventBus: EventBusMock
 let repository: EventRepositoryMock
@@ -29,7 +30,9 @@ describe('CreateEventCommandHandler should ', () => {
   })
 
   test('Create a new event', async () => {
-    const user = UserMother.random()
+    const user = UserMother.create({
+      isAdmin: new IsAdmin(true)
+    })
 
     const event = EventMother.forAuthor(user)
 
@@ -46,7 +49,9 @@ describe('CreateEventCommandHandler should ', () => {
   })
 
   test('Fail if a event with the same id already exists', async () => {
-    const user = UserMother.random()
+    const user = UserMother.create({
+      isAdmin: new IsAdmin(true)
+    })
 
     const event = EventMother.forAuthor(user)
 
@@ -67,7 +72,9 @@ describe('CreateEventCommandHandler should ', () => {
   })
 
   test('Create a new EventCreatedDomainEvent', async () => {
-    const user = UserMother.random()
+    const user = UserMother.create({
+      isAdmin: new IsAdmin(true)
+    })
 
     const event = EventMother.forAuthor(user)
 
