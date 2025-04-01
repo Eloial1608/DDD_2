@@ -117,6 +117,16 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
 
+  Event.UpdateEventOnEventUserCreated.Updater:
+    class: src/Contexts/Events/Event/application/UpdateEventOnEventUserCreated/Updater
+    arguments: ['@Event.Repository', '@Shared.EventBus']
+  
+  Event.UpdateEventOnEventUserCreated.UpdateEventOnEventUserCreatedHandler:
+    class: src/Contexts/Events/Event/application/UpdateEventOnEventUserCreated/UpdateEventOnEventUserCreatedHandler
+    arguments: ["@Event.UpdateEventOnEventUserCreated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
   Space.Repository:
     class: src/Contexts/Events/Space/infrastructure/persistence/TypeOrmSpaceRepository
     arguments: ["@Shared.ORM.Connection"]

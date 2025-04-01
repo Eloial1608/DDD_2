@@ -1,5 +1,6 @@
 import { DataNeeded } from '@Events/Event/domain/Errors/DataNeeded'
 import { LocationNeeded } from '@Events/Event/domain/Errors/LocationNeeded'
+import { NotAllowedToPersistEvent } from '@Events/Event/domain/Errors/NotAllowedToPersistEvent'
 import { Event } from '@Events/Event/domain/Event'
 import { EventRepository } from '@Events/Event/domain/EventRepository'
 import { Accessibility, EventAccessibilities } from '@Events/Event/domain/ValueObjects/Accessibility'
@@ -27,6 +28,7 @@ import { UserCollectionResponse } from '@Events/User/application/UserCollectionR
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 import { Nullable } from '@Shared/domain/Nullable'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
+import { EventsConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/EventsConfiguration'
 
 export class Creator {
   constructor (private readonly repository: EventRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
@@ -61,6 +63,8 @@ export class Creator {
     const space = await this.findSpaceById(spaceId)
 
     if (space.communityId.valueOf() !== communityId.valueOf()) return
+
+    if (!(space.configuration as EventsConfiguration).configuration.allowsCreation && (!user.isAdmin && !user.isOwner)) throw new NotAllowedToPersistEvent(id)
 
     this.checkAccessibility(id, accessibility, data, location)
 

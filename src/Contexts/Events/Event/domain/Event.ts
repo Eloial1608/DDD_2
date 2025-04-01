@@ -27,6 +27,7 @@ import { Accessibility } from './ValueObjects/Accessibility'
 import { EventDeletedDomainEvent } from './Events/EventDeletedDomainEvent'
 import { EventUpdatedDomainEvent } from './Events/EventUpdatedDomainEvent'
 import { EventAuthorUpdatedDomainEvent } from './Events/EventAuthorUpdatedDomainEvent'
+import { EventTotalMembersUpdatedDomainEvent } from './Events/EventTotalMembersUpdatedDomainEvent'
 
 export class Event extends AggregateRoot {
   constructor (
@@ -147,6 +148,41 @@ export class Event extends AggregateRoot {
     )
 
     event.record(EventUpdatedDomainEvent.fromAggregate(event))
+
+    return event
+  }
+
+  updateTotalMembers (
+    totalOnSiteMembers: TotalOnSiteMembers,
+    totalOnlineMembers: TotalOnlineMembers
+  ): Event {
+    const event = new Event(
+      this.id,
+      this.communityId,
+      this.spaceId,
+      this.title,
+      this.description,
+      this.userId,
+      this.startDate,
+      this.endDate,
+      this.isPrivate,
+      this.accessibility,
+      this.bannerUrl,
+      this.author,
+      this.isPaid,
+      this.type,
+      this.data,
+      this.maxOnlineMembers,
+      this.maxOnSiteMembers,
+      totalOnlineMembers,
+      totalOnSiteMembers,
+      this.location,
+      this.createdAt,
+      this.updatedAt,
+      null
+    )
+
+    event.record(EventTotalMembersUpdatedDomainEvent.fromAggregate(event))
 
     return event
   }

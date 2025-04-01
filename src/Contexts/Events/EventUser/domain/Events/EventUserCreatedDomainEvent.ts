@@ -5,6 +5,8 @@ type EventUserCreatedDomainEventBody = {
     readonly id: string
     readonly userId: string
     readonly eventId: string
+    readonly isOnline: boolean
+    readonly isOnSite: boolean
     readonly createdAt: Date
 }
 
@@ -14,6 +16,8 @@ export class EventUserCreatedDomainEvent extends DomainEvent {
   readonly id: string
   readonly userId: string
   readonly eventId: string
+  readonly isOnline: boolean
+  readonly isOnSite: boolean
   readonly createdAt: Date
 
   static {
@@ -25,6 +29,8 @@ export class EventUserCreatedDomainEvent extends DomainEvent {
 
     this.id = params.id
     this.userId = params.userId
+    this.isOnSite = params.isOnSite
+    this.isOnline = params.isOnline
     this.eventId = params.eventId
     this.createdAt = params.createdAt
   }
@@ -33,6 +39,8 @@ export class EventUserCreatedDomainEvent extends DomainEvent {
     return new EventUserCreatedDomainEvent({
       id: eventUser.id.valueOf(),
       userId: eventUser.userId.valueOf(),
+      isOnline: eventUser.isOnline.valueOf(),
+      isOnSite: eventUser.isOnSite.valueOf(),
       eventId: eventUser.eventId.valueOf(),
       createdAt: eventUser.createdAt.valueOf()
     })
