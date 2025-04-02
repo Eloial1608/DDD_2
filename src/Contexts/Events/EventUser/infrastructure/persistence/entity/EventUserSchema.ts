@@ -6,6 +6,7 @@ import { UserId } from '@Events/EventUser/domain/ValueObjects/UserId'
 import { CreatedAt } from '@Events/EventUser/domain/ValueObjects/CreatedAt'
 import { EventId } from '@Events/EventUser/domain/ValueObjects/EventId'
 import { TicketId } from '@Events/EventUser/domain/ValueObjects/TicketId'
+import { ValidatedAt } from '@Events/EventUser/domain/ValueObjects/ValidatedAt'
 
 export const EventUserSchema = new EntitySchema<EventUser>({
   name: 'EventUser',
@@ -28,6 +29,11 @@ export const EventUserSchema = new EntitySchema<EventUser>({
     ticketId: {
       type: String,
       transformer: ValueObjectTransformer(TicketId)
+    },
+    validatedAt: {
+      type: Date,
+      nullable: true,
+      transformer: ValueObjectTransformer(ValidatedAt)
     },
     createdAt: {
       type: Date,

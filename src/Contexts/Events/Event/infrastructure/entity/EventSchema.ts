@@ -174,7 +174,7 @@ export const EventSchema = new EntitySchema<Event>({
   },
   indices: [
     {
-      name: 'IDX_EVENTS_USER_USER_ID',
+      name: 'IDX_EVENTS_USER_ID',
       columns: ['userId']
     },
     {

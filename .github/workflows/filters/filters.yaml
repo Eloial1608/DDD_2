@@ -51,3 +51,10 @@ course-service-server:
 - src/Contexts/Course/**
 - tests/apps/Course/**
 - tests/Contexts/Course/**
+
+events-service-server:
+- *shared
+- src/apps/Event/**
+- src/Contexts/Event/**
+- tests/apps/Event/**
+- tests/Contexts/Event/**
