@@ -26,7 +26,7 @@ class DI {
   public async initialize () {
     const loader = new YamlFileLoader(this.container)
 
-    await loader.load(path.resolve(process.cwd(), this.urlPrefix, `src/apps/Core/dependencyInjection/services/services_${process.env.NODE_ENV}.yaml`))
+    await loader.load(path.resolve(process.cwd(), this.urlPrefix, `src/apps/Marketplace/dependencyInjection/services/services_${process.env.NODE_ENV}.yaml`))
   }
 
   public resolve<T> (serviceIdentifier: string): T {
