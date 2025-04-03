@@ -36,6 +36,9 @@
       "@Posts/*": [
         "src/Contexts/Posts/*"
       ],
+      "@Marketplace/*": [
+        "src/Contexts/Marketplace/*"
+      ],
       "@Media/*": [
         "src/Contexts/Media/*"
       ],

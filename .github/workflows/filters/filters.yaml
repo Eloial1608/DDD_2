@@ -51,3 +51,10 @@ course-service-server:
 - src/Contexts/Course/**
 - tests/apps/Course/**
 - tests/Contexts/Course/**
+
+marketplace-service-server:
+- *shared
+- src/apps/Marketplace/**
+- src/Contexts/Marketplace/**
+- tests/apps/Marketplace/**
+- tests/Contexts/Marketplace/**
