@@ -10,6 +10,7 @@ import { UserMother } from '@Tests/Contexts/Core/User/domain/UserMother'
 import { MainId } from '../../../../src/Contexts/Course/User/domain/ValueObjects/MainId'
 import { IsAdmin } from '../../../../src/Contexts/Course/User/domain/ValueObjects/IsAdmin'
 import { IsOwner } from '@Core/User/domain/ValueObjects/IsOwner'
+import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
 
 let arranger: EnvironmentArranger
 let repository: CommunityRepository
@@ -40,13 +41,13 @@ test('GET Subcommunities By User should return the subcommunities a user Has Acc
   await repository.persist(subcommunity2)
 
   const user1 = UserMother.create({
-    mainId: new MainId(WordMother.random()),
+    mainId: new MainId(UuidMother.random()),
     communityId: community.id,
     isAdmin: new IsAdmin(false),
     isOwner: new IsOwner(false)
   })
   const user2 = UserMother.create({
-    mainId: new MainId(WordMother.random()),
+    mainId: new MainId(UuidMother.random()),
     communityId: subcommunity1.id,
     isAdmin: new IsAdmin(false),
     isOwner: new IsOwner(false)
