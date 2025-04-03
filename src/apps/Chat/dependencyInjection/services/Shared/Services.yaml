@@ -17,7 +17,7 @@ services:
   
   Shared.ORM.DataSourceOptions:
     factory:
-      class: src/Contexts/Posts/Shared/infrastructure/persistence/typeorm/TypeOrmConfigFactory
+      class: src/Contexts/Chat/Shared/infrastructure/persistence/typeorm/TypeOrmConfigFactory
       method: "create"
 
   Shared.SyncEventBus:
@@ -36,7 +36,7 @@ services:
     factory:
       class: src/Contexts/Shared/infrastructure/persistence/typeorm/DataSourceFactory
       method: "createPostgres"
-    arguments: ["posts", "@Shared.ORM.DataSourceOptions"]
+    arguments: ["chat", "@Shared.ORM.DataSourceOptions"]
   
   Shared.TokenDecoder.ConfigFactory:
     factory:
