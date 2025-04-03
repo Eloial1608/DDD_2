@@ -11,7 +11,7 @@ type MediaUpdatedDomainEventBody = {
 }
 
 export class MediaUpdatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.Media.media.v1.updated'
+  static readonly EVENT_NAME: string = 'app.gathered.Media.media.v1.updated'
 
   readonly id: string
   readonly communityId: string

@@ -10,7 +10,7 @@ type SpaceCreatedDomainEventBody = {
 }
 
 export class SpaceCreatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.Course.space.v1.created'
+  static readonly EVENT_NAME: string = 'app.gathered.Course.space.v1.created'
 
   readonly id: string
   readonly accessibility: string

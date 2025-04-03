@@ -12,7 +12,7 @@ type FormUpdatedDomainEventBody = {
 }
 
 export class FormUpdatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.form.v1.updated'
+  static readonly EVENT_NAME: string = 'app.gathered.form.v1.updated'
 
   readonly id: string
   readonly name: string

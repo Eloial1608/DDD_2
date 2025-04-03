@@ -11,7 +11,7 @@ type PostTotalCommentsUpdatedDomainEventBody = {
 }
 
 export class PostTotalCommentsUpdatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.posts.post.v1.total-comments-updated'
+  static readonly EVENT_NAME: string = 'app.gathered.posts.post.v1.total-comments-updated'
 
   readonly id: string
   readonly communityId: string

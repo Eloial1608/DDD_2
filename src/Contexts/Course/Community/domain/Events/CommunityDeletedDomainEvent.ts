@@ -7,7 +7,7 @@ type CommunityDeletedDomainEventBody = {
 }
 
 export class CommunityDeletedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.course.community.v1.deleted'
+  static readonly EVENT_NAME: string = 'app.gathered.course.community.v1.deleted'
 
   readonly id: string
   readonly isPrivate: boolean

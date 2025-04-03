@@ -4,6 +4,7 @@ import { AllowedTypes } from '../AllowedTypes'
 import { MediaConfiguration } from './MediaConfiguration'
 import { Configuration } from '@Core/Space/domain/ValueObjects/Configuration'
 import { ThreadsConfiguration } from './ThreadsConfiguration'
+import { EventsConfiguration } from './EventsConfiguration'
 
 export class ConfigurationFactory {
   static create (type: AllowedTypes, configuration: any) {
@@ -16,6 +17,8 @@ export class ConfigurationFactory {
         return new MediaConfiguration(configuration)
       case AllowedTypes.FORUM:
         return new ThreadsConfiguration(configuration)
+      case AllowedTypes.EVENTS:
+        return new EventsConfiguration(configuration)
       case AllowedTypes.GROUP:
         return new Configuration(configuration)
       default:

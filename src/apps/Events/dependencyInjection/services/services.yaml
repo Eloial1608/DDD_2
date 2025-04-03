@@ -1,0 +1,5 @@
+imports:
+    - { resource: ./Events/services.yaml }
+    - { resource: ./Stripe/services.yaml }
+    - { resource: ./Shared/services.yaml }
+    - { resource: ./Apps/Services.yaml }

@@ -12,7 +12,7 @@ type ThreadDeletedDomainEventBody = {
 }
 
 export class ThreadDeletedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.threads.thread.v1.deleted'
+  static readonly EVENT_NAME: string = 'app.gathered.threads.thread.v1.deleted'
 
   readonly id: string
   readonly communityId: string

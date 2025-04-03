@@ -7,7 +7,7 @@ type UserRegisterDataUpdatedDomainEventBody = {
 }
 
 export class UserRegisterDataUpdatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.user.v1.register-data-updated'
+  static readonly EVENT_NAME: string = 'app.gathered.user.v1.register-data-updated'
 
   readonly id: string
   readonly registerData: object

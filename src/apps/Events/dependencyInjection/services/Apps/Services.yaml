@@ -1,0 +1,52 @@
+services:  
+  Apps.Events.Controllers.HealthGetController:
+    class: src/apps/Events/controllers/HealthGetController
+  
+  Apps.Event.Controllers.EventPostController:
+    class: src/apps/Event/controllers/Event/EventPostController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Event.Controllers.EventPutController:
+    class: src/apps/Event/controllers/Event/EventPutController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Event.Controllers.EventsGetController:
+    class: src/apps/Event/controllers/Event/EventsGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Event.Controllers.EventGetController:
+    class: src/apps/Event/controllers/Event/EventGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Event.Controllers.EventDeleteController:
+    class: src/apps/Event/controllers/Event/EventDeleteController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Ticket.Controllers.TicketPostController:
+    class: src/apps/Event/controllers/Ticket/TicketPostController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Ticket.Controllers.TicketPutController:
+    class: src/apps/Event/controllers/Ticket/TicketPutController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Ticket.Controllers.TicketsGetController:
+    class: src/apps/Event/controllers/Ticket/TicketsGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Ticket.Controllers.TicketGetController:
+    class: src/apps/Event/controllers/Ticket/TicketGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Ticket.Controllers.TicketDeleteController:
+    class: src/apps/Event/controllers/Ticket/TicketDeleteController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.EventUser.Controllers.EventUserGetController:
+    class: src/apps/Event/controllers/EventUser/EventUserGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.EventUser.Controllers.EventUserValidatePostController:
+    class: src/apps/Event/controllers/EventUser/EventUserValidatePostController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  

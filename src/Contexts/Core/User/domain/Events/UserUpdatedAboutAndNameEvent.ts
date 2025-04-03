@@ -12,7 +12,7 @@ type UserUpdatedAboutAndNameDomainEventBody = {
 }
 
 export class UserUpdatedAboutAndNameDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.user.v1.about-and-name-updated'
+  static readonly EVENT_NAME: string = 'app.gathered.user.v1.about-and-name-updated'
 
   readonly id: string
   readonly about: Nullable<string>

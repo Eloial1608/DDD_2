@@ -23,7 +23,7 @@ type StripeSessionCreatedDomainEventBody = {
 }
 
 export class StripeSessionCreatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.stripe-session.v1.created'
+  static readonly EVENT_NAME: string = 'app.gathered.stripe-session.v1.created'
 
   readonly id: string
   readonly accountId: string

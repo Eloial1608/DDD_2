@@ -40,3 +40,9 @@ CREATE DATABASE marketplace;
 \c marketplace
 GRANT ALL PRIVILEGES ON DATABASE marketplace TO marketplace_user;
 GRANT ALL ON SCHEMA public TO marketplace_user;
+
+CREATE USER events_user WITH PASSWORD 'events_pass' CREATEDB;
+CREATE DATABASE events;
+\c events
+GRANT ALL PRIVILEGES ON DATABASE events TO events_user;
+GRANT ALL ON SCHEMA public TO events_user;

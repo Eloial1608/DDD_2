@@ -15,7 +15,7 @@ type CalendarDeletedDomainEventBody = {
 }
 
 export class CalendarDeletedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.calendar.v1.deleted'
+  static readonly EVENT_NAME: string = 'app.gathered.calendar.v1.deleted'
 
   readonly id: string
   readonly communityId: string

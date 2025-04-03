@@ -9,7 +9,7 @@ type CourseCreatedDomainEventBody = {
 }
 
 export class CourseCreatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.Course.course.v1.created'
+  static readonly EVENT_NAME: string = 'app.gathered.Course.course.v1.created'
 
   readonly id: string
   readonly communityId: string

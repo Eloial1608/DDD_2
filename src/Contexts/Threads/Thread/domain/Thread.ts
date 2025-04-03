@@ -211,7 +211,7 @@ export class Thread extends AggregateRoot {
       this.updatedAt,
       null
     )
-    
+
     thread.record(ThreadAuthorUpdatedDomainEvent.fromAggregate(thread))
     return thread
   }
