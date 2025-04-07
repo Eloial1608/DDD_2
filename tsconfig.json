@@ -39,6 +39,9 @@
       "@Posts/*": [
         "src/Contexts/Posts/*"
       ],
+      "@Chat/*": [
+        "src/Contexts/Chat/*"
+      ],
       "@Media/*": [
         "src/Contexts/Media/*"
       ],

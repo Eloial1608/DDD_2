@@ -320,3 +320,13 @@ services:
     arguments: ["@EventUser.CreateEventUserOnStripeSessionVerified.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  EventUser.Validate.Validator:
+    class: src/Contexts/Events/EventUser/application/Validate/Validator
+    arguments: ['@EventUser.Repository', '@Shared.EventBus']
+  
+  EventUser.Validate.ValidateEventUserCommandHandler:
+    class: src/Contexts/Events/EventUser/application/Validate/ValidateEventUserCommandHandler
+    arguments: ['@EventUser.Validate.Validator']
+    tags:
+      - { name: "commandHandler" }

@@ -7,6 +7,9 @@ import { EventUserCreatedDomainEvent } from './Events/EventUserCreatedDomainEven
 import { IsOnSite } from './ValueObjects/IsOnSite'
 import { IsOnline } from './ValueObjects/IsOnline'
 import { TicketId } from './ValueObjects/TicketId'
+import { Nullable } from '@Shared/domain/Nullable'
+import { ValidatedAt } from './ValueObjects/ValidatedAt'
+import { EventUserValidatedDomainEvent } from './Events/EventUserValidatedDomainEvent'
 
 export class EventUser extends AggregateRoot {
   constructor (
@@ -16,6 +19,7 @@ export class EventUser extends AggregateRoot {
         readonly isOnline: IsOnline,
         readonly isOnSite: IsOnSite,
         readonly ticketId: TicketId,
+        readonly validatedAt: Nullable<ValidatedAt>,
         readonly createdAt: CreatedAt
   ) {
     super()
@@ -36,10 +40,28 @@ export class EventUser extends AggregateRoot {
       isOnline,
       isOnSite,
       ticketId,
+      null,
       new CreatedAt(new Date())
     )
 
     eventUser.record(EventUserCreatedDomainEvent.fromAggregate(eventUser))
+
+    return eventUser
+  }
+
+  validate (): EventUser {
+    const eventUser = new EventUser(
+      this.id,
+      this.userId,
+      this.eventId,
+      this.isOnline,
+      this.isOnSite,
+      this.ticketId,
+      new ValidatedAt(new Date()),
+      this.createdAt
+    )
+
+    eventUser.record(EventUserValidatedDomainEvent.fromAggregate(eventUser))
 
     return eventUser
   }

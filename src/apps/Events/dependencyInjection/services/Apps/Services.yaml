@@ -42,3 +42,11 @@ services:
     class: src/apps/Event/controllers/Ticket/TicketDeleteController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
   
+  Apps.EventUser.Controllers.EventUserGetController:
+    class: src/apps/Event/controllers/EventUser/EventUserGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.EventUser.Controllers.EventUserValidatePostController:
+    class: src/apps/Event/controllers/EventUser/EventUserValidatePostController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  

@@ -17,6 +17,7 @@ export class EventUserMother {
       params.isOnline ?? new IsOnline(true),
       params.isOnSite ?? new IsOnSite(false),
       params.ticketId ?? new TicketId(UuidMother.random()),
+      params.validatedAt ?? null,
       params.createdAt ?? new CreatedAt(new Date())
     )
   }
