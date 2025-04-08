@@ -46,3 +46,9 @@ CREATE DATABASE events;
 \c events
 GRANT ALL PRIVILEGES ON DATABASE events TO events_user;
 GRANT ALL ON SCHEMA public TO events_user;
+
+CREATE USER chat_user WITH PASSWORD 'chat_pass' CREATEDB;
+CREATE DATABASE chat;
+\c chat
+GRANT ALL PRIVILEGES ON DATABASE chat TO chat_user;
+GRANT ALL ON SCHEMA public TO chat_user;

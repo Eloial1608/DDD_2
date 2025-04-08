@@ -42,6 +42,9 @@
       "@Marketplace/*": [
         "src/Contexts/Marketplace/*"
       ],
+      "@Chat/*": [
+        "src/Contexts/Chat/*"
+      ],
       "@Media/*": [
         "src/Contexts/Media/*"
       ],
