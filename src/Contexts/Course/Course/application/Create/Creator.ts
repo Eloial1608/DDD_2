@@ -56,7 +56,6 @@ export class Creator {
     if (space.communityId.valueOf() !== communityId.valueOf()) return
 
     if (!(space.configuration as CourseConfiguration['configuration']).allowsPaid && isPaid.valueOf()) return
-    if ((space.configuration as CourseConfiguration['configuration']).mustHaveBanner && !bannerUrl?.valueOf()) return
 
     if (endDate && startDate > endDate) return
 

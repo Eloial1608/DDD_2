@@ -57,7 +57,6 @@ export class Updater {
     if (space.communityId.valueOf() !== communityId.valueOf()) throw new NotAllowedToPersistCourse(course.id)
 
     if (!(space.configuration as CourseConfiguration['configuration']).allowsPaid && isPaid.valueOf()) return
-    if ((space.configuration as CourseConfiguration['configuration']).mustHaveBanner && !bannerUrl?.valueOf()) return
 
     const updatedCourse = course.update(
       id,
