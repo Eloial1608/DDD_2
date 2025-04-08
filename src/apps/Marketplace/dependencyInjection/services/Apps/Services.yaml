@@ -1,0 +1,3 @@
+services:
+   Apps.Marketplace.Controllers.HealthGetController:
+    class: src/apps/Marketplace/controllers/HealthGetController

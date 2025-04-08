@@ -124,7 +124,7 @@ services:
         reservations:
           cpus: "0.5"
           memory: "512MB"
-  
+
   events-service-server:
     restart: always
     build:
@@ -137,6 +137,27 @@ services:
     env_file:
       - /etc/gathered/events/.env
     command: ["start:events:server"]
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "1GB"
+        reservations:
+          cpus: "0.5"
+          memory: "512MB"
+
+  marketplace-service-server:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        PORT: 5011
+    ports:
+      - 5011:5011
+    env_file:
+      - /etc/gathered/marketplace/.env
+    command: ["start:marketplace:server"]
     deploy:
       resources:
         limits:

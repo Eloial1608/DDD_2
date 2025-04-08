@@ -1,0 +1,4 @@
+services:
+    Community.Repository:
+    class: src/Contexts/Marketplace/Community/infrastructure/persistence/TypeOrmCommunityRepository
+    arguments: ["@Shared.ORM.Connection"]
