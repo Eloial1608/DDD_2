@@ -9,9 +9,9 @@ import { FindUsersByCriteriaQuery } from '@Core/User/application/FindByCriteria/
 import { UserCollectionResponse } from '@Core/User/application/UserCollectionResponse'
 
 export class SubcommunityByUserGetController implements Controller {
-  constructor(private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) { }
+  constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) { }
 
-  async run(req: Request, res: Response): Promise<Response> {
+  async run (req: Request, res: Response): Promise<Response> {
     try {
       if (!req.headers.authorization) return res.status(401).send()
 
