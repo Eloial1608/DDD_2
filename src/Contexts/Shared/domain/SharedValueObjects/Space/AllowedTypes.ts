@@ -6,4 +6,5 @@ export enum AllowedTypes {
     CHAT = 'chat',
     MEDIA = 'media',
     COURSES = 'courses',
+    MARKETPLACE = 'marketplace'
 }
