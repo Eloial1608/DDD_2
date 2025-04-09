@@ -1,8 +1,18 @@
 services:
-    Community.Repository:
-        class: src/Contexts/Marketplace/Community/infrastructure/persistence/TypeOrmCommunityRepository
-        arguments: ["@Shared.ORM.Connection"]
+  Community.Repository:
+    class: src/Contexts/Marketplace/Community/infrastructure/persistence/TypeOrmCommunityRepository
+    arguments: ["@Shared.ORM.Connection"]
 
-    Space.Repository:
-        class: src/Contexts/Marketplace/Space/infrastructure/persistence/TypeOrmSpaceRepository
-        arguments: ["@Shared.ORM.Connection"]
+  Space.Repository:
+    class: src/Contexts/Marketplace/Space/infrastructure/persistence/TypeOrmSpaceRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Space.DeleteSpaceOnSpaceDeleted.Deleter:
+    class: src/Contexts/Marketplace/Space/application/DeleteSpaceOnSpaceDeleted/Deleter
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.DeleteSpaceOnSpaceDeleted.DeleteSpaceOnSpaceDeletedHandler:
+    class: src/Contexts/Marketplace/Space/application/DeleteSpaceOnSpaceDeleted/DeleteSpaceOnSpaceDeletedHandler
+    arguments: ["@Space.DeleteSpaceOnSpaceDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
