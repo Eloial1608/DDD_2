@@ -1,7 +1,14 @@
+import { ProductTypes } from '@Marketplace/Products/domain/ValueObjects/Type'
 import { SharedConfiguration } from './SharedConfiguration'
 
 const defaultConfiguration = {
   allowsCreation: true,
+  allowedTypes: [
+    ProductTypes.PHYSICAL,
+    ProductTypes.CODE,
+    ProductTypes.FILE,
+    ProductTypes.SERVICE
+  ],
   allowsRatings: true
 
 }
