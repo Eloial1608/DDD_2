@@ -10,6 +10,7 @@ import { MainId } from '../../../../src/Contexts/Course/User/domain/ValueObjects
 import { IsAdmin } from '../../../../src/Contexts/Course/User/domain/ValueObjects/IsAdmin'
 import { IsOwner } from '@Core/User/domain/ValueObjects/IsOwner'
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
+import { Uuid } from '@Shared/domain/ValueObjects/Uuid'
 
 let arranger: EnvironmentArranger
 let repository: CommunityRepository
@@ -24,7 +25,9 @@ test.beforeAll(async () => {
 })
 
 test('GET Subcommunities By User should return the subcommunities a user Has Access', async ({ request }) => {
-  const community = CommunityMother.create({})
+  const community = CommunityMother.create({
+    id: new Uuid("d4d1c20b-5452-44ce-88c2-b0d169cfb561")
+  })
 
   await repository.persist(community)
 
@@ -40,13 +43,13 @@ test('GET Subcommunities By User should return the subcommunities a user Has Acc
   await repository.persist(subcommunity2)
 
   const user1 = UserMother.create({
-    mainId: new MainId(UuidMother.random()),
+    mainId: new Uuid("fef34ccd-b738-4603-ac7c-6f7b9ce1f560"),
     communityId: community.id,
     isAdmin: new IsAdmin(false),
     isOwner: new IsOwner(false)
   })
   const user2 = UserMother.create({
-    mainId: new MainId(UuidMother.random()),
+    mainId: user1.mainId,
     communityId: subcommunity1.id,
     isAdmin: new IsAdmin(false),
     isOwner: new IsOwner(false)
@@ -55,7 +58,9 @@ test('GET Subcommunities By User should return the subcommunities a user Has Acc
   await userRepository.persist(user1)
   await userRepository.persist(user2)
 
-  const r = await request.get(`/v1/communities/sub/user/communityId/${community.id?.valueOf()}`)
+  const r = await request.get(`/v1/communities/sub/user/communityId/${community.id?.valueOf()}`, {
+    headers: { Authorization: "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlZjM0Y2NkLWI3MzgtNDYwMy1hYzdjLTZmN2I5Y2UxZjU2MCIsImNvbW11bml0eUlkIjoiZDRkMWMyMGItNTQ1Mi00NGNlLTg4YzItYjBkMTY5Y2ZiNTYxIiwiaWF0IjoxNzQ0MjIxMDM1LCJleHAiOjE3NTk3NzMwMzV9.UiKU9sZ3ptDF9oSAGXM40gydOroBagCNUIDC0IBP4ZEYljDEjOS07Li2c4XMGVNVInWXvjBgYXZM1_ioVWUUZg" }
+  })
 
   expect(r.status()).toEqual(200)
 })
