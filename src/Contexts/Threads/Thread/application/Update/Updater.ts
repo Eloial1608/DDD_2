@@ -18,6 +18,8 @@ import { EventBus } from '@Shared/domain/EventBus/EventBus'
 import { Nullable } from '@Shared/domain/Nullable'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { ThreadsConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/ThreadsConfiguration'
+import { TitleNotNull } from '@Threads/Thread/domain/Errors/TitleNotNull'
+import { ParentThreadId } from '@Threads/Thread/domain/ValueObjects/ParentThreadId'
 
 export class Updater {
   constructor (private readonly repository: ThreadRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
@@ -27,12 +29,15 @@ export class Updater {
     communityId: CommunityId,
     userId: UserId,
     spaceId: SpaceId,
-    title: Title,
+    title: Nullable<Title>,
+    parentThreadId:Nullable<ParentThreadId>,
     content: Content,
     bannerUrl: Nullable<BannerUrl>,
     isPaid: IsPaid,
     price: Nullable<Price>
   ) {
+    if((parentThreadId && title) || (!parentThreadId && !title)) throw TitleNotNull
+
     if ((isPaid.valueOf() && !price) || (price && !isPaid.valueOf())) return
 
     const thread = await this.repository.find(id)
@@ -55,6 +60,7 @@ export class Updater {
     const updatedThread = thread.update(
       id,
       title,
+      parentThreadId,
       content,
       bannerUrl,
       isPaid,
