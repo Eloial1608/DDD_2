@@ -4,6 +4,7 @@ import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { ThreadsConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/ThreadsConfiguration'
 import { FindSpaceByIdQuery } from '@Threads/Space/application/FindById/FindSpaceByIdQuery'
 import { SpaceResponse } from '@Threads/Space/application/SpaceResponse'
+import { TitleNotNull } from '@Threads/Thread/domain/Errors/TitleNotNull'
 import { Thread } from '@Threads/Thread/domain/Thread'
 import { ThreadRepository } from '@Threads/Thread/domain/ThreadRepository'
 import { Author } from '@Threads/Thread/domain/ValueObjects/Author'
@@ -27,7 +28,7 @@ export class Creator {
     id:Id,
     communityId: CommunityId,
     spaceId: SpaceId,
-    title: Title,
+    title: Nullable<Title>,
     parentThreadId: Nullable<ParentThreadId>,
     userId: UserId,
     content: Content,
@@ -35,6 +36,8 @@ export class Creator {
     isPaid: IsPaid,
     price: Nullable<Price>
   ) {
+    if((parentThreadId && title) || (!parentThreadId && !title)) throw TitleNotNull
+
     if ((isPaid.valueOf() && !price) || (price && !isPaid.valueOf())) return
 
     const existing = await this.repository.find(id)

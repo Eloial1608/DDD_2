@@ -6,3 +6,7 @@ services:
     User.Repository:
       class: src/Contexts/Marketplace/User/infrastructure/persistence/TypeOrmUserRepository
       arguments: ["@Shared.ORM.Connection"]
+
+    Space.Repository:
+      class: src/Contexts/Marketplace/Space/infrastructure/persistence/TypeOrmSpaceRepository
+      arguments: ["@Shared.ORM.Connection"]
