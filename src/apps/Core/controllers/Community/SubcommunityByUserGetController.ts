@@ -9,9 +9,9 @@ import { FindUsersByCriteriaQuery } from '@Core/User/application/FindByCriteria/
 import { UserCollectionResponse } from '@Core/User/application/UserCollectionResponse'
 
 export class SubcommunityByUserGetController implements Controller {
-  constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) { }
+  constructor(private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) { }
 
-  async run (req: Request, res: Response): Promise<Response> {
+  async run(req: Request, res: Response): Promise<Response> {
     try {
       if (!req.headers.authorization) return res.status(401).send()
 
@@ -27,14 +27,14 @@ export class SubcommunityByUserGetController implements Controller {
 
       const users = (await this.queryBus.ask<UserCollectionResponse>(usersQuery)).response
 
-      const communityIds = users.map(u => u.communityId).join(',')
+      const communityIds = users.map(u => u.communityId)
 
-      const communitiesQuery = new FindCommunitiesByCriteriaQuery(
-        [new Map<string, string>([
-          ['field', 'id'],
-          ['operator', 'IN'],
-          ['value', communityIds]
-        ])]
+      const communitiesQuery = new FindCommunitiesByCriteriaQuery(undefined,
+        [{
+          field: 'id',
+          operator: 'IN',
+          values: communityIds
+        }]
       )
 
       const filteredSubcommunities = (await this.queryBus.ask<CommunityCollectionResponse>(communitiesQuery)).response
