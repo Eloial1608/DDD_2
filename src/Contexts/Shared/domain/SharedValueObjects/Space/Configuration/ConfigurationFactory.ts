@@ -21,6 +21,8 @@ export class ConfigurationFactory {
         return new EventsConfiguration(configuration)
       case AllowedTypes.GROUP:
         return new Configuration(configuration)
+      case AllowedTypes.MARKETPLACE:
+        return new Configuration(configuration)
       default:
         throw new InvalidConfigurationType(type)
     }
