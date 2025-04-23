@@ -11,6 +11,7 @@ import { BannerUrl } from '@Threads/Thread/domain/ValueObjects/BannerUrl'
 import { IsPaid } from '@Threads/Thread/domain/ValueObjects/IsPaid'
 import { Price, PriceCurrency, PriceValue } from '@Threads/Thread/domain/ValueObjects/Price'
 import { SpaceId } from '@Threads/Thread/domain/ValueObjects/SpaceId'
+import { ParentThreadId } from '@Threads/Thread/domain/ValueObjects/ParentThreadId'
 
 export class UpdateThreadCommandHandler implements CommandHandler<UpdateThreadCommand> {
   constructor (private readonly updater: Updater) {}
@@ -25,7 +26,8 @@ export class UpdateThreadCommandHandler implements CommandHandler<UpdateThreadCo
       new CommunityId(command.communityId),
       new UserId(command.userId),
       new SpaceId(command.spaceId),
-      new Title(command.title),
+      command.title ? new Title(command.title) : null,
+      command.parentThreadId ? new ParentThreadId(command.parentThreadId) : null,
       new Content(command.content),
       command.bannerUrl ? new BannerUrl(command.bannerUrl) : null,
       new IsPaid(command.isPaid),
