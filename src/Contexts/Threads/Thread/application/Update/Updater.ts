@@ -36,7 +36,7 @@ export class Updater {
     isPaid: IsPaid,
     price: Nullable<Price>
   ) {
-    if((parentThreadId && title) || (!parentThreadId && !title)) throw TitleNotNull
+    if ((parentThreadId && title) || (!parentThreadId && !title)) throw TitleNotNull
 
     if ((isPaid.valueOf() && !price) || (price && !isPaid.valueOf())) return
 

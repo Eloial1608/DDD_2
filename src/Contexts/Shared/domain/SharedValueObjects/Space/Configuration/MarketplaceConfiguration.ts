@@ -10,8 +10,8 @@ const defaultConfiguration = {
     ProductTypes.SERVICE
   ],
   allowsRatings: true
-
 }
+
 export class MarketplaceConfiguration extends SharedConfiguration {
   configuration: typeof defaultConfiguration
 

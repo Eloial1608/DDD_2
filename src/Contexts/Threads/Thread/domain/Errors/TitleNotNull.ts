@@ -7,6 +7,6 @@ export class TitleNotNull extends DomainError {
 
   constructor (id: Id) {
     super()
-    this.message = `A thread without a threadParentId can't be null`
+    this.message = 'A thread without a threadParentId can\'t be null'
   }
 }

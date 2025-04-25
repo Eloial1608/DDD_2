@@ -8,4 +8,3 @@ export const ValueObjectTransformer = <T extends Primitives>(ValueObjectClass: N
   to: (value?: Nullable<ValueObject<T>>): Nullable<T> => isNullOrUndefined(value) ? null : value.valueOf(),
   from: (value: Nullable<T>): Nullable<ValueObject<T>> => isNullOrUndefined(value) ? null : new ValueObjectClass(value.valueOf())
 })
- 
