@@ -50,3 +50,13 @@ services:
     arguments: ["@Space.CreateSpaceOnSpaceCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  User.UpdateUserOnUserUpdated.Updater:
+    class: src/Contexts/Marketplace/User/application/UpdateUserOnUserUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.UpdateUserOnUserUpdated.UpdateUserOnUserUpdatedHandler:
+    class: src/Contexts/Marketplace/User/application/UpdateUserOnUserUpdated/UpdateUserOnUserUpdatedHandler
+    arguments: ["@User.UpdateUserOnUserUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }

@@ -9,6 +9,7 @@ import { BannerUrl } from './ValueObjects/BannerUrl'
 import { IsAdmin } from './ValueObjects/IsAdmin'
 import { IsOwner } from './ValueObjects/IsOwner'
 import { Nullable } from '@Shared/domain/Nullable'
+import { UserUpdatedDomainEvent } from './Events/UserUpdatedDomainEvent'
 
 export class User extends AggregateRoot {
   constructor (
@@ -23,5 +24,28 @@ export class User extends AggregateRoot {
         readonly isOwner: IsOwner
   ) {
     super()
+  }
+
+  update (
+    name: Name,
+    username: Username,
+    pictureUrl: Nullable<PictureUrl>,
+    bannerUrl: Nullable<BannerUrl>
+  ): User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      this.communityId,
+      name,
+      username,
+      pictureUrl,
+      bannerUrl,
+      this.isAdmin,
+      this.isOwner
+    )
+
+    user.record(UserUpdatedDomainEvent.fromAggregate(user))
+
+    return user
   }
 }
