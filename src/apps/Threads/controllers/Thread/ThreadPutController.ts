@@ -9,6 +9,7 @@ import { UserCollectionResponse } from '@Threads/User/application/UserCollection
 import { TokenDecoder } from '@Shared/domain/TokenDecoder/TokenDecoder'
 import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { UpdateThreadCommand } from '@Threads/Thread/application/Update/UpdateThreadCommand'
+import { TitleNotNull } from '@Threads/Thread/domain/Errors/TitleNotNull'
 
 export class ThreadPutController implements Controller {
   constructor (private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
@@ -35,6 +36,7 @@ export class ThreadPutController implements Controller {
         user.id,
         req.body.spaceId,
         req.body.title,
+        req.body.parentThreadId,
         req.body.content,
         req.body.bannerUrl,
         req.body.isPaid,
@@ -46,6 +48,7 @@ export class ThreadPutController implements Controller {
       return res.status(204).send()
     } catch (e) {
       if (e instanceof CannotDecode) return res.status(401).send()
+      if (e instanceof TitleNotNull) return res.status(401).send(e.getMessage())
 
       return res.status(500).send()
     }

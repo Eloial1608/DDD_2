@@ -6,7 +6,7 @@ type ThreadAuthorUpdatedDomainEventBody = {
     readonly id: string
     readonly communityId: string
     readonly userId: string
-    readonly title: string
+    readonly title: Nullable<string>
     readonly bannerUrl: Nullable<string>
 }
 
@@ -16,7 +16,7 @@ export class ThreadAuthorUpdatedDomainEvent extends DomainEvent {
   readonly id: string
   readonly communityId: string
   readonly userId: string
-  readonly title: string
+  readonly title: Nullable<string>
   readonly bannerUrl: Nullable<string>
 
   static {
@@ -38,7 +38,7 @@ export class ThreadAuthorUpdatedDomainEvent extends DomainEvent {
       id: thread.id.valueOf(),
       communityId: thread.communityId.valueOf(),
       userId: thread.userId.valueOf(),
-      title: thread.title.valueOf(),
+      title: thread.title?.valueOf(),
       bannerUrl: thread.bannerUrl?.valueOf()
 
     })

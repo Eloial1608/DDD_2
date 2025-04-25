@@ -6,7 +6,7 @@ export type ThreadResponseBody ={
     readonly id: string
     readonly communityId: string
     readonly userId: string
-    readonly title: string
+    readonly title: Nullable<string>
     readonly parentThreadId:Nullable<string>
     readonly content: string
     readonly bannerUrl: Nullable<string>
@@ -35,7 +35,7 @@ export class ThreadResponse implements QueryResponse<ThreadResponseBody> {
       id: thread.id.valueOf(),
       communityId: thread.communityId.valueOf(),
       userId: thread.userId.valueOf(),
-      title: thread.title.valueOf(),
+      title: thread.title?.valueOf(),
       parentThreadId: thread.parentThreadId?.valueOf(),
       spaceId: thread.spaceId.valueOf(),
       content: thread.content.valueOf(),

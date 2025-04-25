@@ -16,3 +16,23 @@ services:
     arguments: ["@Space.DeleteSpaceOnSpaceDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
+      
+  Space.FindById.FinderById:
+    class: src/Contexts/Marketplace/Space/application/FindById/FinderById
+    arguments: ['@Space.Repository']
+  
+  Space.FindById.FindSpaceByIdQueryHandler:
+    class: src/Contexts/Marketplace/Space/application/FindById/FindSpaceByIdQueryHandler
+    arguments: ['@Space.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  Space.CreateSpaceOnSpaceCreated.Creator:
+    class: src/Contexts/Marketplace/Space/application/CreateSpaceOnSpaceCreated/Creator
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.CreateSpaceOnSpaceCreated.CreateSpaceOnSpaceCreatedHandler:
+    class: src/Contexts/Marketplace/Space/application/CreateSpaceOnSpaceCreated/CreateSpaceOnSpaceCreatedHandler
+    arguments: ["@Space.CreateSpaceOnSpaceCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }

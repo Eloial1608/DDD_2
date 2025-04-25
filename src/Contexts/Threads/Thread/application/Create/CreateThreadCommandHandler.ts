@@ -25,7 +25,7 @@ export class CreateThreadCommandHandler implements CommandHandler<CreateThreadCo
       new Id(command.id),
       new CommunityId(command.communityId),
       new SpaceId(command.spaceId),
-      new Title(command.title),
+      command.title ? new Title(command.title) : null,
       command.parentThreadId ? new ParentThreadId(command.parentThreadId) : null,
       new UserId(command.userId),
       new Content(command.content),

@@ -6,7 +6,7 @@ export class CreateThreadCommand implements Command {
         readonly id:string,
         readonly communityId: string,
         readonly spaceId: string,
-        readonly title: string,
+        readonly title: Nullable<string>,
         readonly parentThreadId: Nullable<string>,
         readonly userId: string,
         readonly content: string,

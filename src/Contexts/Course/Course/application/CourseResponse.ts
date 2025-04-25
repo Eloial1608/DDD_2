@@ -42,7 +42,7 @@ export class CourseResponse implements QueryResponse<CourseResponseBody> {
       title: course.title.valueOf(),
       bannerUrl: course.bannerUrl?.valueOf(),
       isPaid: course.isPaid.valueOf(),
-      price: course.price
+      price: course.price?.value?.valueOf() != null
         ? {
             value: course.price.value.valueOf(),
             currency: course.price.currency.valueOf()
