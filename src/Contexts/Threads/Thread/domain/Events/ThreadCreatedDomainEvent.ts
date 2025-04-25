@@ -6,7 +6,7 @@ type ThreadCreatedDomainEventBody = {
     readonly id: string
     readonly communityId: string
     readonly userId: string
-    readonly title: string
+    readonly title: Nullable<string>
     readonly bannerUrl: Nullable<string>
     readonly threadParentId: Nullable<string>
 }
@@ -17,7 +17,7 @@ export class ThreadCreatedDomainEvent extends DomainEvent {
   readonly id: string
   readonly communityId: string
   readonly userId: string
-  readonly title: string
+  readonly title: Nullable<string>
   readonly bannerUrl: Nullable<string>
   readonly threadParentId: Nullable<string>
 
@@ -41,7 +41,7 @@ export class ThreadCreatedDomainEvent extends DomainEvent {
       id: thread.id.valueOf(),
       communityId: thread.communityId.valueOf(),
       userId: thread.userId.valueOf(),
-      title: thread.title.valueOf(),
+      title: thread.title?.valueOf(),
       bannerUrl: thread.bannerUrl?.valueOf(),
       threadParentId: thread.parentThreadId?.valueOf()
 

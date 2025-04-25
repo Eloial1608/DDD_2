@@ -6,6 +6,7 @@ import { TokenDecoder } from '@Shared/domain/TokenDecoder/TokenDecoder'
 import { FindSpaceMembersByCriteriaQuery } from '@Threads/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQuery'
 import { SpaceMemberCollectionResponse } from '@Threads/SpaceMember/application/SpaceMemberCollectionResponse'
 import { CreateThreadCommand } from '@Threads/Thread/application/Create/CreateThreadCommand'
+import { TitleNotNull } from '@Threads/Thread/domain/Errors/TitleNotNull'
 import { FindUsersByCriteriaQuery } from '@Threads/User/application/FindByCriteria/FindUsersByCriteriaQuery'
 import { UserCollectionResponse } from '@Threads/User/application/UserCollectionResponse'
 import { Request, Response } from 'express'
@@ -48,6 +49,7 @@ export class ThreadPostController implements Controller {
     } catch (e) {
       console.log(e)
       if (e instanceof CannotDecode) return res.status(401).send()
+      if (e instanceof TitleNotNull) return res.status(400).send(e.getMessage())
 
       return res.status(500).send()
     }
