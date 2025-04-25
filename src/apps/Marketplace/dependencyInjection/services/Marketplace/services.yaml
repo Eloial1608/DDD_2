@@ -11,10 +11,6 @@ services:
     class: src/Contexts/Marketplace/Space/infrastructure/persistence/TypeOrmSpaceRepository
     arguments: ["@Shared.ORM.Connection"]
 
-  Community.Repository:
-    class: src/Contexts/Marketplace/Community/infrastructure/persistence/TypeOrmCommunityRepository
-    arguments: ["@Shared.ORM.Connection"]
-
   Space.UpdateSpaceOnSpaceUpdated.Updater:
     class: src/Contexts/Course/Space/application/UpdateSpaceOnSpaceUpdated/Updater
     arguments: ['@Space.Repository', '@Shared.EventBus']
@@ -52,5 +48,15 @@ services:
   Space.CreateSpaceOnSpaceCreated.CreateSpaceOnSpaceCreatedHandler:
     class: src/Contexts/Marketplace/Space/application/CreateSpaceOnSpaceCreated/CreateSpaceOnSpaceCreatedHandler
     arguments: ["@Space.CreateSpaceOnSpaceCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  User.CreateUserOnUserCreated.Creator:
+    class: src/Contexts/Marketplace/User/application/CreateUserOnUserCreated/Creator
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.CreateUserOnUserCreated.CreateUserOnUserCreatedHandler:
+    class: src/Contexts/Marketplace/User/application/CreateUserOnUserCreated/CreateUserOnUserCreatedHandler
+    arguments: ["@User.CreateUserOnUserCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
