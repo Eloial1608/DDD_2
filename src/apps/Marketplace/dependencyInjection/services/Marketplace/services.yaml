@@ -7,6 +7,16 @@ services:
     class: src/Contexts/Marketplace/Space/infrastructure/persistence/TypeOrmSpaceRepository
     arguments: ["@Shared.ORM.Connection"]
 
+  Space.UpdateSpaceOnSpaceUpdated.Updater:
+    class: src/Contexts/Course/Space/application/UpdateSpaceOnSpaceUpdated/Updater
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.UpdateSpaceOnSpaceUpdated.UpdateSpaceOnSpaceUpdatedHandler:
+    class: src/Contexts/Course/Space/application/UpdateSpaceOnSpaceUpdated/UpdateSpaceOnSpaceUpdatedHandler
+    arguments: ["@Space.UpdateSpaceOnSpaceUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+      
   Space.DeleteSpaceOnSpaceDeleted.Deleter:
     class: src/Contexts/Marketplace/Space/application/DeleteSpaceOnSpaceDeleted/Deleter
     arguments: ['@Space.Repository', '@Shared.EventBus']
