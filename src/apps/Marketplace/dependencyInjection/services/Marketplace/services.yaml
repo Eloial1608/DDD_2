@@ -50,3 +50,13 @@ services:
     arguments: ["@Space.CreateSpaceOnSpaceCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  User.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Marketplace/User/application/FindByCriteria/FinderByCriteria
+    arguments: ['@User.Repository']
+  
+  User.FindByCriteria.FindByCriteria:
+    class: src/Contexts/Marketplace/User/application/FindByCriteria/FindUsersByCriteriaQueryHandler
+    arguments: ['@User.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
