@@ -60,3 +60,13 @@ services:
     arguments: ["@User.DeleteUserOnUserDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  User.CreateUserOnUserCreated.Creator:
+    class: src/Contexts/Marketplace/User/application/CreateUserOnUserCreated/Creator
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.CreateUserOnUserCreated.CreateUserOnUserCreatedHandler:
+    class: src/Contexts/Marketplace/User/application/CreateUserOnUserCreated/CreateUserOnUserCreatedHandler
+    arguments: ["@User.CreateUserOnUserCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
