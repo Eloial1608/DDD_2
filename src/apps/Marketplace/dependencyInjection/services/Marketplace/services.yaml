@@ -51,6 +51,16 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
 
+  User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater:
+    class: src/Contexts/Marketplace/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.UpdateUserIsAdminOnUserIsAdminUpdated.UpdateUserIsAdminOnUserIsAdminUpdatedHandler:
+    class: src/Contexts/Marketplace/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/UpdateUserIsAdminOnUserIsAdminUpdatedHandler
+    arguments: ["@User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+      
   User.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Marketplace/User/application/FindByCriteria/FinderByCriteria
     arguments: ['@User.Repository']
