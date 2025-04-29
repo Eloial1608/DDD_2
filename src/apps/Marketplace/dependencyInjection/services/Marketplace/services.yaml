@@ -51,6 +51,16 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
 
+  User.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Marketplace/User/application/FindByCriteria/FinderByCriteria
+    arguments: ['@User.Repository']
+  
+  User.FindByCriteria.FindByCriteria:
+    class: src/Contexts/Marketplace/User/application/FindByCriteria/FindUsersByCriteriaQueryHandler
+    arguments: ['@User.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
   User.DeleteUserOnUserDeleted.Deleter:
     class: src/Contexts/Marketplace/User/application/DeleteUserOnUserDeleted/Deleter
     arguments: ['@User.Repository', '@Shared.EventBus']
