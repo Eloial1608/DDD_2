@@ -9,6 +9,7 @@ import { BannerUrl } from './ValueObjects/BannerUrl'
 import { IsAdmin } from './ValueObjects/IsAdmin'
 import { IsOwner } from './ValueObjects/IsOwner'
 import { Nullable } from '@Shared/domain/Nullable'
+import { UserUpdatedDomainEvent } from './Events/UserUpdatedDomainEvent'
 import { UserIsAdminUpdatedDomainEvent } from './Events/UserIsAdminUpdatedDomainEvent'
 import { UserDeletedDomainEvent } from './Events/UserDeletedDomainEvent'
 import { UserCreatedDomainEvent } from './Events/UserCreatedDomainEvent'
@@ -28,6 +29,28 @@ export class User extends AggregateRoot {
     super()
   }
 
+  update (
+    name: Name,
+    username: Username,
+    pictureUrl: Nullable<PictureUrl>,
+    bannerUrl: Nullable<BannerUrl>
+  ): User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      this.communityId,
+      name,
+      username,
+      pictureUrl,
+      bannerUrl,
+      this.isAdmin,
+      this.isOwner
+    )
+
+    user.record(UserUpdatedDomainEvent.fromAggregate(user))
+
+    return user
+  }
 
   updateIsAdmin (
     isAdmin: IsAdmin
@@ -45,10 +68,10 @@ export class User extends AggregateRoot {
     )
 
     user.record(UserIsAdminUpdatedDomainEvent.fromAggregate(user))
-  
-    return user    
+
+    return user
   }
-      
+
   delete (): User {
     const user = new User(
       this.id,
@@ -63,10 +86,10 @@ export class User extends AggregateRoot {
     )
 
     user.record(UserDeletedDomainEvent.fromAggregate(user))
-    
+
     return user
   }
-  
+
   static create (
     id: Id,
     mainId: MainId,
