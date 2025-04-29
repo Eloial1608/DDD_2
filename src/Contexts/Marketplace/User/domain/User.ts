@@ -29,7 +29,6 @@ export class User extends AggregateRoot {
     super()
   }
 
-
   update (
     name: Name,
     username: Username,
@@ -47,9 +46,9 @@ export class User extends AggregateRoot {
       this.isAdmin,
       this.isOwner
     )
-    
+
     user.record(UserUpdatedDomainEvent.fromAggregate(user))
-    
+
     return user
   }
 
@@ -60,19 +59,19 @@ export class User extends AggregateRoot {
       this.id,
       this.mainId,
       this.communityId,
-      name,
-      username,
-      pictureUrl,
-      bannerUrl,
+      this.name,
+      this.username,
+      this.pictureUrl,
+      this.bannerUrl,
       isAdmin,
       this.isOwner
     )
 
     user.record(UserIsAdminUpdatedDomainEvent.fromAggregate(user))
-  
-    return user    
+
+    return user
   }
-      
+
   delete (): User {
     const user = new User(
       this.id,
@@ -87,10 +86,10 @@ export class User extends AggregateRoot {
     )
 
     user.record(UserDeletedDomainEvent.fromAggregate(user))
-    
+
     return user
   }
-  
+
   static create (
     id: Id,
     mainId: MainId,
