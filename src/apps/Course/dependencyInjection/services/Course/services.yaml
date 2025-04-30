@@ -284,6 +284,16 @@ services:
     class: src/Contexts/Course/CourseUser/application/CreateCourseUserOnStripeSessionVerified/CreateCourseUserOnStripeSessionVerifiedHandler
     arguments: ["@CourseUser.CreateCourseUserOnStripeSessionVerified.Creator"]
     tags:
+      - { name: "domainEventSubscriber" } 
+  
+  CourseUser.CreateWhenNoPrice.Creator:
+    class: src/Contexts/Course/CourseUser/application/CreateWhenNoPrice/Creator
+    arguments: ['@CourseUser.Repository', '@Shared.QueryBus', '@Shared.EventBus']
+  
+  CourseUser.CreateWhenNoPrice.CreateCourseUserWhenNoPriceCommandHandler:
+    class: src/Contexts/Course/CourseUser/application/CreateWhenNoPrice/CreateCourseUserWhenNoPriceCommandHandler
+    arguments: ["@CourseUser.CreateWhenNoPrice.Creator"]
+    tags:
       - { name: "commandHandler" }
 
   Course.UpdateCourseOnCourseUserCreated.Updater:

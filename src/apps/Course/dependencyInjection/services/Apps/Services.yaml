@@ -45,4 +45,19 @@ services:
   Apps.Course.Controllers.CommentsGetController:
     class: src/apps/Course/controllers/Comment/CommentsGetController
     arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
-  
+
+  Apps.Course.Controllers.LessonDeleteController:
+    class: src/apps/Course/controllers/Lesson/LessonDeleteController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+
+  Apps.Course.Controllers.LessonPutController:
+    class: src/apps/Course/controllers/Lesson/LessonPutController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+    
+  Apps.Course.Controllers.CommentDeleteController:
+    class: src/apps/Course/controllers/Comment/CommentDeleteController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+
+  Apps.CourseUser.Controllers.CourseUserPostController:
+    class: src/apps/Course/controllers/CourseUser/CourseUserPostController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
