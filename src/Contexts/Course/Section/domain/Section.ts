@@ -10,6 +10,7 @@ import { DeletedAt } from './ValueObjects/DeletedAt'
 import { SectionCreatedDomainEvent } from './events/SectionCreatedDomainEvent'
 import { SectionUpdatedDomainEvent } from './events/SectionUpdatedDomainEvent'
 import { SectionDeletedDomainEvent } from './events/SectionDeletedDomainEvent'
+import { SectionTotalLessonsUpdatedDomainEvent } from './events/SectionTotalLessonsUpdatedDomainEvent'
 
 export class Section extends AggregateRoot {
   constructor (
@@ -49,7 +50,7 @@ export class Section extends AggregateRoot {
     id: Id,
     title: Title
   ): Section {
-    const course = new Section(
+    const section = new Section(
       id,
       this.courseId,
       title,
@@ -59,9 +60,9 @@ export class Section extends AggregateRoot {
       null
     )
 
-    course.record(SectionUpdatedDomainEvent.fromAggregate(course))
+    section.record(SectionUpdatedDomainEvent.fromAggregate(section))
 
-    return course
+    return section
   }
 
   delete (): Section {
@@ -76,6 +77,24 @@ export class Section extends AggregateRoot {
     )
 
     section.record(SectionDeletedDomainEvent.fromAggregate(section))
+
+    return section
+  }
+
+  updateTotalLessons (
+    totalLessons: TotalLessons
+  ): Section {
+    const section = new Section(
+      this.id,
+      this.courseId,
+      this.title,
+      totalLessons,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      null
+    )
+
+    section.record(SectionTotalLessonsUpdatedDomainEvent.fromAggregate(section))
 
     return section
   }

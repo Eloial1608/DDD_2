@@ -15,7 +15,7 @@ type CalendarUpdatedDomainEventBody = {
 }
 
 export class CalendarUpdatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.calendar.v1.updated'
+  static readonly EVENT_NAME: string = 'app.gathered.calendar.v1.updated'
 
   readonly id: string
   readonly communityId: string

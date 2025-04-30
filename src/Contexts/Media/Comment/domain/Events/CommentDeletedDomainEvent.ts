@@ -9,7 +9,7 @@ type CommentDeletedDomainEventBody = {
 }
 
 export class CommentDeletedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.Media.comment.v1.deleted'
+  static readonly EVENT_NAME: string = 'app.gathered.Media.comment.v1.deleted'
 
   readonly id: string
   readonly mediaId: string

@@ -9,7 +9,7 @@ type LikeCreatedDomainEventBody = {
 }
 
 export class LikeCreatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.Media.like.v1.created'
+  static readonly EVENT_NAME: string = 'app.gathered.Media.like.v1.created'
 
   readonly id: string
   readonly mediaId: string

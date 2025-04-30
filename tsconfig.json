@@ -30,11 +30,20 @@
       "@Core/*": [
         "src/Contexts/Core/*"
       ],
+      "@Events/*": [
+        "src/Contexts/Events/*"
+      ],
       "@Course/*": [
         "src/Contexts/Course/*"
       ],
       "@Posts/*": [
         "src/Contexts/Posts/*"
+      ],
+      "@Marketplace/*": [
+        "src/Contexts/Marketplace/*"
+      ],
+      "@Chat/*": [
+        "src/Contexts/Chat/*"
       ],
       "@Media/*": [
         "src/Contexts/Media/*"

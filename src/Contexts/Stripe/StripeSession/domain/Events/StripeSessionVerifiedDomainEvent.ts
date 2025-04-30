@@ -24,7 +24,7 @@ type StripeSessionVerifiedDomainEventBody = {
 }
 
 export class StripeSessionVerifiedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.stripe-session.v1.verified'
+  static readonly EVENT_NAME: string = 'app.gathered.stripe-session.v1.verified'
 
   readonly id: string
   readonly accountId: string

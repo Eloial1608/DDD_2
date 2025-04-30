@@ -11,7 +11,7 @@ type PostTotalLikesUpdatedDomainEventBody = {
 }
 
 export class PostTotalLikesUpdatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.posts.post.v1.total-likes-updated'
+  static readonly EVENT_NAME: string = 'app.gathered.posts.post.v1.total-likes-updated'
 
   readonly id: string
   readonly communityId: string

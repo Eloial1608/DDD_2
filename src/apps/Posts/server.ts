@@ -37,7 +37,7 @@ export class Server {
     return new Promise(resolve => {
       this.httpServer = this.express.listen(this.port, () => {
         console.info(
-                `  Quid Posts Backend is running at http://localhost:${this.port} in ${this.express.get('env')} mode`
+                `  Gathered Posts Backend is running at http://localhost:${this.port} in ${this.express.get('env')} mode`
         )
         console.info('  Press CTRL-C to stop\n')
         resolve()

@@ -6,17 +6,17 @@ type ThreadTotalLikesUpdatedDomainEventBody = {
     readonly id: string
     readonly communityId: string
     readonly userId: string
-    readonly title: string
+    readonly title: Nullable<string>
     readonly bannerUrl: Nullable<string>
 }
 
 export class ThreadTotalLikesUpdatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.threads.thread.v1.total-likes-updated'
+  static readonly EVENT_NAME: string = 'app.gathered.threads.thread.v1.total-likes-updated'
 
   readonly id: string
   readonly communityId: string
   readonly userId: string
-  readonly title: string
+  readonly title: Nullable<string>
   readonly bannerUrl: Nullable<string>
 
   static {
@@ -38,7 +38,7 @@ export class ThreadTotalLikesUpdatedDomainEvent extends DomainEvent {
       id: thread.id.valueOf(),
       communityId: thread.communityId.valueOf(),
       userId: thread.userId.valueOf(),
-      title: thread.title.valueOf(),
+      title: thread.title?.valueOf(),
       bannerUrl: thread.bannerUrl?.valueOf()
 
     })

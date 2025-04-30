@@ -6,19 +6,19 @@ type ThreadUpdatedDomainEventBody = {
     readonly id: string,
     readonly communityId: string,
     readonly userId: string,
-    readonly title: string,
+    readonly title: Nullable<string>,
     readonly bannerUrl: Nullable<string>,
     readonly isPaid: boolean,
     readonly price: Nullable<{value: number, currency: string}>
 }
 
 export class ThreadUpdatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.threads.thread.v1.updated'
+  static readonly EVENT_NAME: string = 'app.gathered.threads.thread.v1.updated'
 
   readonly id: string
   readonly communityId: string
   readonly userId: string
-  readonly title: string
+  readonly title: Nullable<string>
   readonly bannerUrl: Nullable<string>
   readonly isPaid: boolean
   readonly price: Nullable<{value: number, currency: string}>
@@ -44,7 +44,7 @@ export class ThreadUpdatedDomainEvent extends DomainEvent {
       id: thread.id.valueOf(),
       communityId: thread.communityId.valueOf(),
       userId: thread.userId.valueOf(),
-      title: thread.title.valueOf(),
+      title: thread.title?.valueOf(),
       isPaid: thread.isPaid.valueOf(),
       price: thread.price?.value != null
         ? {

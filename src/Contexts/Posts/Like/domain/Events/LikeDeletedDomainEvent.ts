@@ -9,7 +9,7 @@ type LikeDeletedDomainEventBody = {
 }
 
 export class LikeDeletedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.posts.like.v1.deleted'
+  static readonly EVENT_NAME: string = 'app.gathered.posts.like.v1.deleted'
 
   readonly id: string
   readonly postId: string

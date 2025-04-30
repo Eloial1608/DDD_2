@@ -1,3 +1,3 @@
-import { MediaConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/MediaConfiguration'
+import { CourseConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/CourseConfiguration'
 
-export class Configuration extends MediaConfiguration {}
+export class Configuration extends CourseConfiguration {}

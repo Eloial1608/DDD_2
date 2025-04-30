@@ -1,9 +1,10 @@
 export enum AllowedTypes {
     POST = 'post',
     GROUP = 'group',
-    EVENT = 'event',
+    EVENTS = 'events',
     FORUM = 'forum',
     CHAT = 'chat',
     MEDIA = 'media',
     COURSES = 'courses',
+    MARKETPLACE = 'marketplace'
 }

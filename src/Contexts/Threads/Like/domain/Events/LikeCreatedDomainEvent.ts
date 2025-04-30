@@ -9,7 +9,7 @@ type LikeCreatedDomainEventBody = {
 }
 
 export class LikeCreatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.threads.like.v1.created'
+  static readonly EVENT_NAME: string = 'app.gathered.threads.like.v1.created'
 
   readonly id: string
   readonly threadId: string

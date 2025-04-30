@@ -7,18 +7,18 @@ type ThreadDeletedDomainEventBody = {
     readonly communityId: string
     readonly threadParentId: Nullable<string>
     readonly userId: string
-    readonly title: string
+    readonly title: Nullable<string>
     readonly bannerUrl: Nullable<string>
 }
 
 export class ThreadDeletedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.threads.thread.v1.deleted'
+  static readonly EVENT_NAME: string = 'app.gathered.threads.thread.v1.deleted'
 
   readonly id: string
   readonly communityId: string
   readonly threadParentId: Nullable<string>
   readonly userId: string
-  readonly title: string
+  readonly title: Nullable<string>
   readonly bannerUrl: Nullable<string>
 
   static {
@@ -42,7 +42,7 @@ export class ThreadDeletedDomainEvent extends DomainEvent {
       communityId: thread.communityId.valueOf(),
       threadParentId: thread.parentThreadId?.valueOf(),
       userId: thread.userId.valueOf(),
-      title: thread.title.valueOf(),
+      title: thread.title?.valueOf(),
       bannerUrl: thread.bannerUrl?.valueOf()
     })
   }

@@ -15,7 +15,7 @@ type UserDeletedDomainEventBody = {
 }
 
 export class UserDeletedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.Media.user.v1.deleted'
+  static readonly EVENT_NAME: string = 'app.gathered.Media.user.v1.deleted'
 
   readonly id: string
   readonly mainId: string

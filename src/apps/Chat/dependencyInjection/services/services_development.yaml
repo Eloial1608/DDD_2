@@ -1,0 +1,11 @@
+imports:
+    - { resource: ./services.yaml }
+services:
+  Shared.EventBus:
+    class: src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/RabbitMQEventBus
+    arguments: ['@Shared.EventBus.Config']
+
+  Shared.EventBus.Config:
+    factory:
+      class: src/Contexts/Shared/infrastructure/EventBus/RabbitMQ/RabbitMQEventBusConfigFactory
+      method: 'createConfig'

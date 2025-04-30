@@ -34,3 +34,21 @@ CREATE DATABASE threads;
 \c threads
 GRANT ALL PRIVILEGES ON DATABASE threads TO threads_user;
 GRANT ALL ON SCHEMA public TO threads_user;
+
+CREATE USER marketplace_user WITH PASSWORD 'marketplace_pass' CREATEDB;
+CREATE DATABASE marketplace;
+\c marketplace
+GRANT ALL PRIVILEGES ON DATABASE marketplace TO marketplace_user;
+GRANT ALL ON SCHEMA public TO marketplace_user;
+
+CREATE USER events_user WITH PASSWORD 'events_pass' CREATEDB;
+CREATE DATABASE events;
+\c events
+GRANT ALL PRIVILEGES ON DATABASE events TO events_user;
+GRANT ALL ON SCHEMA public TO events_user;
+
+CREATE USER chat_user WITH PASSWORD 'chat_pass' CREATEDB;
+CREATE DATABASE chat;
+\c chat
+GRANT ALL PRIVILEGES ON DATABASE chat TO chat_user;
+GRANT ALL ON SCHEMA public TO chat_user;

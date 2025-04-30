@@ -1,0 +1,126 @@
+services:
+  Community.Repository:
+    class: src/Contexts/Marketplace/Community/infrastructure/persistence/TypeOrmCommunityRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  User.Repository:
+    class: src/Contexts/Marketplace/User/infrastructure/persistence/TypeOrmUserRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Space.Repository:
+    class: src/Contexts/Marketplace/Space/infrastructure/persistence/TypeOrmSpaceRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Space.UpdateSpaceOnSpaceUpdated.Updater:
+    class: src/Contexts/Course/Space/application/UpdateSpaceOnSpaceUpdated/Updater
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.UpdateSpaceOnSpaceUpdated.UpdateSpaceOnSpaceUpdatedHandler:
+    class: src/Contexts/Course/Space/application/UpdateSpaceOnSpaceUpdated/UpdateSpaceOnSpaceUpdatedHandler
+    arguments: ["@Space.UpdateSpaceOnSpaceUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+      
+  Space.DeleteSpaceOnSpaceDeleted.Deleter:
+    class: src/Contexts/Marketplace/Space/application/DeleteSpaceOnSpaceDeleted/Deleter
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.DeleteSpaceOnSpaceDeleted.DeleteSpaceOnSpaceDeletedHandler:
+    class: src/Contexts/Marketplace/Space/application/DeleteSpaceOnSpaceDeleted/DeleteSpaceOnSpaceDeletedHandler
+    arguments: ["@Space.DeleteSpaceOnSpaceDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+      
+  Space.FindById.FinderById:
+    class: src/Contexts/Marketplace/Space/application/FindById/FinderById
+    arguments: ['@Space.Repository']
+  
+  Space.FindById.FindSpaceByIdQueryHandler:
+    class: src/Contexts/Marketplace/Space/application/FindById/FindSpaceByIdQueryHandler
+    arguments: ['@Space.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  Space.CreateSpaceOnSpaceCreated.Creator:
+    class: src/Contexts/Marketplace/Space/application/CreateSpaceOnSpaceCreated/Creator
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.CreateSpaceOnSpaceCreated.CreateSpaceOnSpaceCreatedHandler:
+    class: src/Contexts/Marketplace/Space/application/CreateSpaceOnSpaceCreated/CreateSpaceOnSpaceCreatedHandler
+    arguments: ["@Space.CreateSpaceOnSpaceCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  SpaceMember.Repository:
+    class: src/Contexts/Marketplace/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.Creator:
+    class: src/Contexts/Marketplace/SpaceMember/application/CreateSpaceMemberOnSpaceMemberCreated/Creator
+    arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
+  
+  SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.CreateSpaceMemberOnSpaceMemberCreatedHandler:
+    class: src/Contexts/Marketplace/SpaceMember/application/CreateSpaceMemberOnSpaceMemberCreated/CreateSpaceMemberOnSpaceMemberCreatedHandler
+    arguments: ["@SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  SpaceMember.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Marketplace/SpaceMember/application/FindByCriteria/FinderByCriteria
+    arguments: ['@SpaceMember.Repository']
+  
+  SpaceMember.FindByCriteria.FindSpaceMembersByCriteriaQueryHandler:
+    class: src/Contexts/Marketplace/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQueryHandler
+    arguments: ['@SpaceMember.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+  User.UpdateUserOnUserUpdated.Updater:
+    class: src/Contexts/Marketplace/User/application/UpdateUserOnUserUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.UpdateUserOnUserUpdated.UpdateUserOnUserUpdatedHandler:
+    class: src/Contexts/Marketplace/User/application/UpdateUserOnUserUpdated/UpdateUserOnUserUpdatedHandler
+    arguments: ["@User.UpdateUserOnUserUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater:
+    class: src/Contexts/Marketplace/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.UpdateUserIsAdminOnUserIsAdminUpdated.UpdateUserIsAdminOnUserIsAdminUpdatedHandler:
+    class: src/Contexts/Marketplace/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/UpdateUserIsAdminOnUserIsAdminUpdatedHandler
+    arguments: ["@User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+      
+  User.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Marketplace/User/application/FindByCriteria/FinderByCriteria
+    arguments: ['@User.Repository']
+  
+  User.FindByCriteria.FindByCriteria:
+    class: src/Contexts/Marketplace/User/application/FindByCriteria/FindUsersByCriteriaQueryHandler
+    arguments: ['@User.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+  User.DeleteUserOnUserDeleted.Deleter:
+    class: src/Contexts/Marketplace/User/application/DeleteUserOnUserDeleted/Deleter
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.DeleteUserOnUserDeleted.DeleteUserOnUserDeletedHandler:
+    class: src/Contexts/Marketplace/User/application/DeleteUserOnUserDeleted/DeleteUserOnUserDeletedHandler
+    arguments: ["@User.DeleteUserOnUserDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  User.CreateUserOnUserCreated.Creator:
+    class: src/Contexts/Marketplace/User/application/CreateUserOnUserCreated/Creator
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.CreateUserOnUserCreated.CreateUserOnUserCreatedHandler:
+    class: src/Contexts/Marketplace/User/application/CreateUserOnUserCreated/CreateUserOnUserCreatedHandler
+    arguments: ["@User.CreateUserOnUserCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }

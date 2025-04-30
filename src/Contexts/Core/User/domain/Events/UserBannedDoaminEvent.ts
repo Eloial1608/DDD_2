@@ -8,7 +8,7 @@ type UserBannedDomainEventBody ={
 }
 
 export class UserBannedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.user.v1.banned'
+  static readonly EVENT_NAME: string = 'app.gathered.user.v1.banned'
 
   readonly id: string
   readonly mainId: string

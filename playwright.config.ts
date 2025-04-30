@@ -25,6 +25,14 @@ export default defineConfig({
     {
       name: 'course',
       testDir: 'tests/apps/Course'
+    },
+    {
+      name: 'events',
+      testDir: 'tests/apps/Events'
+    },
+    {
+      name: 'marketPlace',
+      testDir: 'tests/apps/MarketPlace'
     }
   ],
   use: {

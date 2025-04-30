@@ -6,18 +6,18 @@ type ThreadCreatedDomainEventBody = {
     readonly id: string
     readonly communityId: string
     readonly userId: string
-    readonly title: string
+    readonly title: Nullable<string>
     readonly bannerUrl: Nullable<string>
     readonly threadParentId: Nullable<string>
 }
 
 export class ThreadCreatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.Thread.thread.v1.created'
+  static readonly EVENT_NAME: string = 'app.gathered.Thread.thread.v1.created'
 
   readonly id: string
   readonly communityId: string
   readonly userId: string
-  readonly title: string
+  readonly title: Nullable<string>
   readonly bannerUrl: Nullable<string>
   readonly threadParentId: Nullable<string>
 
@@ -41,7 +41,7 @@ export class ThreadCreatedDomainEvent extends DomainEvent {
       id: thread.id.valueOf(),
       communityId: thread.communityId.valueOf(),
       userId: thread.userId.valueOf(),
-      title: thread.title.valueOf(),
+      title: thread.title?.valueOf(),
       bannerUrl: thread.bannerUrl?.valueOf(),
       threadParentId: thread.parentThreadId?.valueOf()
 

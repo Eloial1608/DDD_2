@@ -7,7 +7,8 @@ export enum ProductTypes {
     MEDIA = 'media',
     SPACE = 'space',
     COURSE = 'course',
-    THREADS = 'threads'
+    THREADS = 'threads',
+    EVENTS = 'events'
 }
 
 export class ProductType extends EnumValueObject<ProductTypes> {

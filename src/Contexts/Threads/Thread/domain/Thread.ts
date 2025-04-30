@@ -21,13 +21,14 @@ import { ThreadDeletedDomainEvent } from './Events/ThreadDeletedDomainEvent'
 import { ThreadUpdatedDomainEvent } from './Events/ThreadUpdatedDomainEvent'
 import { ThreadTotalThreadsUpdatedDomainEvent } from './Events/ThreadTotalThreadsUpdatedDomainEvent'
 import { ThreadTotalLikesUpdatedDomainEvent } from './Events/ThreadTotalLikesUpdatedDomainEvent'
+import { ThreadAuthorUpdatedDomainEvent } from './Events/ThreadAuthorUpdatedDomainEvent'
 
 export class Thread extends AggregateRoot {
   constructor (
         readonly id: Id,
         readonly communityId: CommunityId,
         readonly spaceId: SpaceId,
-        readonly title: Title,
+        readonly title: Nullable<Title>,
         readonly parentThreadId: Nullable<ParentThreadId>,
         readonly userId: UserId,
         readonly content: Content,
@@ -48,7 +49,7 @@ export class Thread extends AggregateRoot {
     id:Id,
     communityId: CommunityId,
     spaceId: SpaceId,
-    title: Title,
+    title: Nullable<Title>,
     parentThreadId: Nullable<ParentThreadId>,
     userId: UserId,
     content: Content,
@@ -107,7 +108,8 @@ export class Thread extends AggregateRoot {
 
   update (
     id: Id,
-    title: Title,
+    title: Nullable<Title>,
+    parentThreadId:Nullable<ParentThreadId>,
     content: Content,
     bannerUrl: Nullable<BannerUrl>,
     isPaid: IsPaid,
@@ -118,7 +120,7 @@ export class Thread extends AggregateRoot {
       this.communityId,
       this.spaceId,
       title,
-      this.parentThreadId,
+      parentThreadId,
       this.userId,
       content,
       bannerUrl,
@@ -186,6 +188,32 @@ export class Thread extends AggregateRoot {
     )
 
     thread.record(ThreadTotalLikesUpdatedDomainEvent.fromAggregate(thread))
+    return thread
+  }
+
+  updateAuthor (
+    author: Author
+  ):Thread {
+    const thread = new Thread(
+      this.id,
+      this.communityId,
+      this.spaceId,
+      this.title,
+      this.parentThreadId,
+      this.userId,
+      this.content,
+      this.bannerUrl,
+      author,
+      this.isPaid,
+      this.price,
+      this.totalLikes,
+      this.totalThreads,
+      this.createdAt,
+      this.updatedAt,
+      null
+    )
+
+    thread.record(ThreadAuthorUpdatedDomainEvent.fromAggregate(thread))
     return thread
   }
 }

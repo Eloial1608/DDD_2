@@ -12,7 +12,7 @@ type FormDeletedDomainEventBody = {
 }
 
 export class FormDeletedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.form.v1.deleted'
+  static readonly EVENT_NAME: string = 'app.gathered.form.v1.deleted'
 
   readonly id: string
   readonly name: string

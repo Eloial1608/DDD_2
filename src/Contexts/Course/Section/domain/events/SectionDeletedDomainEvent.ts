@@ -7,7 +7,7 @@ type SectionDeletedDomainEventBody = {
 }
 
 export class SectionDeletedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.Course.section.v1.deleted'
+  static readonly EVENT_NAME: string = 'app.gathered.Course.section.v1.deleted'
 
   readonly id: string
   readonly courseId: string

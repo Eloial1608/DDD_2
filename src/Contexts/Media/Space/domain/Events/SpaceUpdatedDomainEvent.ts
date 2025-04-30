@@ -10,7 +10,7 @@ type SpaceUpdatedDomainEventBody = {
 }
 
 export class SpaceUpdatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.quid.Media.space.v1.updated'
+  static readonly EVENT_NAME: string = 'app.gathered.Media.space.v1.updated'
 
   readonly id: string
   readonly accessibility: string
