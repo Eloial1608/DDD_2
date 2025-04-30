@@ -3,6 +3,7 @@ import { CourseNotFound } from '@Course/Course/domain/Errors/CourseNotFound'
 import { NotAllowedToPersistCourse } from '@Course/Course/domain/Errors/NotAllowedToPersistCourse'
 import { BannerUrl } from '@Course/Course/domain/ValueObjects/BannerUrl'
 import { CommunityId } from '@Course/Course/domain/ValueObjects/CommunityId'
+import { Description } from '@Course/Course/domain/ValueObjects/Description'
 import { EndDate } from '@Course/Course/domain/ValueObjects/EndDate'
 import { Id } from '@Course/Course/domain/ValueObjects/Id'
 import { IsPaid } from '@Course/Course/domain/ValueObjects/IsPaid'
@@ -29,6 +30,7 @@ export class Updater {
     communityId: CommunityId,
     userId: UserId,
     title: Title,
+    description: Nullable<Description>,
     bannerUrl: Nullable<BannerUrl>,
     isPaid: IsPaid,
     price: Nullable<Price>,
@@ -62,6 +64,7 @@ export class Updater {
     const updatedCourse = course.update(
       id,
       title,
+      description,
       bannerUrl,
       isPaid,
       price,

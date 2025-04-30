@@ -35,6 +35,7 @@ export class CoursePostController implements Controller {
         req.body.spaceId,
         user.id,
         req.body.title,
+        req.body.description,
         req.body.bannerUrl,
         req.body.isPaid,
         req.body.price,

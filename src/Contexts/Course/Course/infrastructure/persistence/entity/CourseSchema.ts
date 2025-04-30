@@ -4,6 +4,7 @@ import { BannerUrl } from '@Course/Course/domain/ValueObjects/BannerUrl'
 import { CommunityId } from '@Course/Course/domain/ValueObjects/CommunityId'
 import { CreatedAt } from '@Course/Course/domain/ValueObjects/CreatedAt'
 import { DeletedAt } from '@Course/Course/domain/ValueObjects/DeletedAt'
+import { Description } from '@Course/Course/domain/ValueObjects/Description'
 import { EndDate } from '@Course/Course/domain/ValueObjects/EndDate'
 import { Id } from '@Course/Course/domain/ValueObjects/Id'
 import { IsPaid } from '@Course/Course/domain/ValueObjects/IsPaid'
@@ -84,6 +85,11 @@ export const CourseSchema = new EntitySchema<Course>({
     title: {
       type: String,
       transformer: ValueObjectTransformer(Title)
+    },
+    description: {
+      type: String,
+      nullable: true,
+      transformer: ValueObjectTransformer(Description)
     },
     userId: {
       type: String,

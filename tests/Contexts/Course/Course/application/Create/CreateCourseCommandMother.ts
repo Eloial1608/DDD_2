@@ -9,6 +9,7 @@ export class CreateCourseCommandMother {
     spaceId: string,
     userId: string,
     title: string,
+    description: Nullable<string>,
     bannerUrl: Nullable<string>,
     isPaid: boolean,
     price: Nullable<{
@@ -25,6 +26,7 @@ export class CreateCourseCommandMother {
       spaceId,
       userId,
       title,
+      description,
       bannerUrl,
       isPaid,
       price,
@@ -41,6 +43,7 @@ export class CreateCourseCommandMother {
       course.spaceId.valueOf(),
       course.userId.valueOf(),
       course.title.valueOf(),
+      course.description?.valueOf(),
       course.bannerUrl ? course.bannerUrl.valueOf() : null,
       course.isPaid.valueOf(),
       course.price

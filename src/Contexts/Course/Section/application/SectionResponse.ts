@@ -7,7 +7,7 @@ export type SectionResponseBody = {
     readonly title: string,
     totalLessons: number,
     readonly createdAt: Date,
-    readonly updatedAt: Date,
+    readonly updatedAt: Date
 }
 
 export class SectionResponse implements QueryResponse<SectionResponseBody> {

@@ -8,6 +8,7 @@ export class UpdateCourseCommandMother {
     communityId: string,
     userId: string,
     title: string,
+    description: Nullable<string>,
     bannerUrl: Nullable<string>,
     isPaid: boolean,
     price: Nullable<{
@@ -23,6 +24,7 @@ export class UpdateCourseCommandMother {
       communityId,
       userId,
       title,
+      description,
       bannerUrl,
       isPaid,
       price,
@@ -38,6 +40,7 @@ export class UpdateCourseCommandMother {
       course.communityId.valueOf(),
       course.userId.valueOf(),
       course.title.valueOf(),
+      course.description?.valueOf(),
       course.bannerUrl?.valueOf(),
       course.isPaid.valueOf(),
       course.price

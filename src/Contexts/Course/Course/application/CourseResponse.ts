@@ -16,6 +16,7 @@ export type CourseResponseBody = {
     pictureUrl: Nullable<string>
   }
   readonly title: string,
+  readonly description: Nullable<string>,
   readonly bannerUrl: Nullable<string>,
   readonly isPaid: boolean,
   readonly price: Nullable<{value: number, currency: string}>
@@ -40,6 +41,7 @@ export class CourseResponse implements QueryResponse<CourseResponseBody> {
       userId: course.userId.valueOf(),
       author: course.author.toPrimitives(),
       title: course.title.valueOf(),
+      description: course.description?.valueOf(),
       bannerUrl: course.bannerUrl?.valueOf(),
       isPaid: course.isPaid.valueOf(),
       price: course.price?.value?.valueOf() != null

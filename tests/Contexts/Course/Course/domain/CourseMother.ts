@@ -32,6 +32,7 @@ export class CourseMother {
         null
       ),
       params.title ?? new Title(WordMother.random()),
+      params.description ?? null,
       params.bannerUrl ?? null,
       params.isPaid ?? new IsPaid(false),
       params.price ?? null,
