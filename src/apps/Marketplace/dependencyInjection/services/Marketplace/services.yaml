@@ -55,6 +55,16 @@ services:
     class: src/Contexts/Marketplace/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
     arguments: ["@Shared.ORM.Connection"]
 
+  SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.Creator:
+    class: src/Contexts/Marketplace/SpaceMember/application/CreateSpaceMemberOnSpaceMemberCreated/Creator
+    arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
+  
+  SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.CreateSpaceMemberOnSpaceMemberCreatedHandler:
+    class: src/Contexts/Marketplace/SpaceMember/application/CreateSpaceMemberOnSpaceMemberCreated/CreateSpaceMemberOnSpaceMemberCreatedHandler
+    arguments: ["@SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
   SpaceMember.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Marketplace/SpaceMember/application/FindByCriteria/FinderByCriteria
     arguments: ['@SpaceMember.Repository']
