@@ -8,6 +8,7 @@ import { CreatedAt } from '@Threads/Thread/domain/ValueObjects/CreatedAt'
 import { DeletedAt } from '@Threads/Thread/domain/ValueObjects/DeletedAt'
 import { Id } from '@Threads/Thread/domain/ValueObjects/Id'
 import { IsPaid } from '@Threads/Thread/domain/ValueObjects/IsPaid'
+import { MainThreadId } from '@Threads/Thread/domain/ValueObjects/MainId'
 import { ParentThreadId } from '@Threads/Thread/domain/ValueObjects/ParentThreadId'
 import { Price, PriceCurrency, PriceValue } from '@Threads/Thread/domain/ValueObjects/Price'
 import { SpaceId } from '@Threads/Thread/domain/ValueObjects/SpaceId'
@@ -92,6 +93,11 @@ export const ThreadSchema = new EntitySchema<Thread>({
       type: String,
       nullable: true,
       transformer: ValueObjectTransformer(ParentThreadId)
+    },
+    mainThreadId:{
+      type:String,
+      nullable: true,
+      transformer: ValueObjectTransformer(MainThreadId)
     },
     content: {
       type: String,

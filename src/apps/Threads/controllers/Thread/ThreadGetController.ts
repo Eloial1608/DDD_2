@@ -27,6 +27,7 @@ type ThreadsGetControllerResponseBody = {
   readonly userId: string
   readonly title: Nullable<string>
   readonly parentThreadId: Nullable<string>
+  readonly mainThreadId: Nullable<string>
   readonly content: Nullable<string>
   readonly likeId: Nullable<string>
   readonly bannerUrl: Nullable<string>

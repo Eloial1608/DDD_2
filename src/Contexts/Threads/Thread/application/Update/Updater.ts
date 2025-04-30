@@ -20,6 +20,7 @@ import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { ThreadsConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/ThreadsConfiguration'
 import { TitleNotNull } from '@Threads/Thread/domain/Errors/TitleNotNull'
 import { ParentThreadId } from '@Threads/Thread/domain/ValueObjects/ParentThreadId'
+import { MainThreadId } from '@Threads/Thread/domain/ValueObjects/MainId'
 
 export class Updater {
   constructor (private readonly repository: ThreadRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
@@ -31,12 +32,13 @@ export class Updater {
     spaceId: SpaceId,
     title: Nullable<Title>,
     parentThreadId:Nullable<ParentThreadId>,
+    mainThreadId: Nullable<MainThreadId>,
     content: Content,
     bannerUrl: Nullable<BannerUrl>,
     isPaid: IsPaid,
     price: Nullable<Price>
   ) {
-    if ((parentThreadId && title) || (!parentThreadId && !title)) throw TitleNotNull
+    if ((parentThreadId && title) || (!parentThreadId && !title)) return TitleNotNull
 
     if ((isPaid.valueOf() && !price) || (price && !isPaid.valueOf())) return
 
@@ -61,6 +63,7 @@ export class Updater {
       id,
       title,
       parentThreadId,
+      mainThreadId,
       content,
       bannerUrl,
       isPaid,

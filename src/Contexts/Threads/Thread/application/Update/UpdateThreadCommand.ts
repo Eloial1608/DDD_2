@@ -9,6 +9,7 @@ export class UpdateThreadCommand implements Command {
         readonly spaceId: string,
         readonly title: Nullable<string>,
         readonly parentThreadId:Nullable<string>,
+        readonly mainThreadId:Nullable<string>,
         readonly content: string,
         readonly bannerUrl: Nullable<string>,
         readonly isPaid: boolean,
