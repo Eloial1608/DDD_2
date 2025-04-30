@@ -34,6 +34,7 @@ export class CoursePutController implements Controller {
         user.communityId,
         user.id,
         req.body.title,
+        req.body.description,
         req.body.bannerUrl,
         req.body.isPaid,
         req.body.price,

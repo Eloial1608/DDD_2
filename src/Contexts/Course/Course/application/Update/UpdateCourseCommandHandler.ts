@@ -12,6 +12,7 @@ import { Price, PriceValue, PriceCurrency } from '@Course/Course/domain/ValueObj
 import { StartDate } from '@Course/Course/domain/ValueObjects/StartDate'
 import { EndDate } from '@Course/Course/domain/ValueObjects/EndDate'
 import { MaxStudents } from '@Course/Course/domain/ValueObjects/MaxStudents'
+import { Description } from '@Course/Course/domain/ValueObjects/Description'
 
 export class UpdateCourseCommandHandler implements CommandHandler<UpdateCourseCommand> {
   constructor (private readonly updater: Updater) {}
@@ -26,6 +27,7 @@ export class UpdateCourseCommandHandler implements CommandHandler<UpdateCourseCo
       new CommunityId(command.communityId),
       new UserId(command.userId),
       new Title(command.title),
+      command.description ? new Description(command.description) : null,
       command.bannerUrl ? new BannerUrl(command.bannerUrl) : null,
       new IsPaid(command.isPaid),
       command.price

@@ -13,6 +13,7 @@ import { Title } from '@Course/Course/domain/ValueObjects/Title'
 import { BannerUrl } from '@Course/Course/domain/ValueObjects/BannerUrl'
 import { IsPaid } from '@Course/Course/domain/ValueObjects/IsPaid'
 import { Price, PriceCurrency, PriceValue } from '@Course/Course/domain/ValueObjects/Price'
+import { Description } from '@Course/Course/domain/ValueObjects/Description'
 
 export class CreateCourseCommandHandler implements CommandHandler<CreateCourseCommand> {
   constructor (private readonly creator: Creator) {}
@@ -28,6 +29,7 @@ export class CreateCourseCommandHandler implements CommandHandler<CreateCourseCo
       new SpaceId(command.spaceId),
       new UserId(command.userId),
       new Title(command.title),
+      command.description ? new Description(command.description) : null,
       command.bannerUrl ? new BannerUrl(command.bannerUrl) : null,
       new IsPaid(command.isPaid),
       command.price

@@ -23,6 +23,7 @@ import { CourseUpdatedDomainEvent } from './Events/CourseUpdatedDomainEvent'
 import { CourseTotalStudentsUpdatedDomainEvent } from './Events/CourseTotalStudentsUpdatedDomainEvent'
 import { CourseTotalCommentsUpdatedDomainEvent } from './Events/CourseTotalCommentsUpdatedDomainEvent'
 import { CourseAuthorUpdatedDomainEvent } from './Events/CourseAuthorUpdatedDomainEvent'
+import { Description } from './ValueObjects/Description'
 
 export class Course extends AggregateRoot {
   constructor (
@@ -32,6 +33,7 @@ export class Course extends AggregateRoot {
     readonly userId: UserId,
     readonly author: Author,
     readonly title: Title,
+    readonly description: Nullable<Description>,
     readonly bannerUrl: Nullable<BannerUrl>,
     readonly isPaid: IsPaid,
     readonly price: Nullable<Price>,
@@ -54,6 +56,7 @@ export class Course extends AggregateRoot {
     userId: UserId,
     author: Author,
     title: Title,
+    description: Nullable<Description>,
     bannerUrl: Nullable<BannerUrl>,
     isPaid: IsPaid,
     price: Nullable<Price>,
@@ -68,6 +71,7 @@ export class Course extends AggregateRoot {
       userId,
       author,
       title,
+      description,
       bannerUrl,
       isPaid,
       price,
@@ -94,6 +98,7 @@ export class Course extends AggregateRoot {
       this.userId,
       this.author,
       this.title,
+      this.description,
       this.bannerUrl,
       this.isPaid,
       this.price,
@@ -115,6 +120,7 @@ export class Course extends AggregateRoot {
   update (
     id: Id,
     title: Title,
+    description: Nullable<Description>,
     bannerUrl: Nullable<BannerUrl>,
     isPaid: IsPaid,
     price: Nullable<Price>,
@@ -129,6 +135,7 @@ export class Course extends AggregateRoot {
       this.userId,
       this.author,
       title,
+      description,
       bannerUrl,
       isPaid,
       price,
@@ -157,6 +164,7 @@ export class Course extends AggregateRoot {
       this.userId,
       this.author,
       this.title,
+      this.description,
       this.bannerUrl,
       this.isPaid,
       this.price,
@@ -185,6 +193,7 @@ export class Course extends AggregateRoot {
       this.userId,
       author,
       this.title,
+      this.description,
       this.bannerUrl,
       this.isPaid,
       this.price,
@@ -213,6 +222,7 @@ export class Course extends AggregateRoot {
       this.userId,
       this.author,
       this.title,
+      this.description,
       this.bannerUrl,
       this.isPaid,
       this.price,

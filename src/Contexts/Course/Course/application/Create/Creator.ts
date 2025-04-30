@@ -20,6 +20,7 @@ import { FindSpaceByIdQuery } from '@Course/Space/application/FindById/FindSpace
 import { SpaceResponse } from '@Course/Space/application/SpaceResponse'
 import { MaxStudents } from '@Course/Course/domain/ValueObjects/MaxStudents'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
+import { Description } from '@Course/Course/domain/ValueObjects/Description'
 
 export class Creator {
   constructor (
@@ -34,6 +35,7 @@ export class Creator {
     spaceId: SpaceId,
     userId: UserId,
     title: Title,
+    description: Nullable<Description>,
     bannerUrl: Nullable<BannerUrl>,
     isPaid: IsPaid,
     price: Nullable<Price>,
@@ -73,6 +75,7 @@ export class Creator {
         user.bannerUrl
       ),
       title,
+      description,
       bannerUrl,
       isPaid,
       price,

@@ -8,6 +8,7 @@ export class CreateCourseCommand implements Command {
     readonly spaceId: string,
     readonly userId: string,
     readonly title: string,
+    readonly description: Nullable<string>,
     readonly bannerUrl: Nullable<string>,
     readonly isPaid: boolean,
     readonly price: Nullable<{
