@@ -77,3 +77,7 @@ services:
   Apps.Course.Controllers.CommentDeleteController:
     class: src/apps/Course/controllers/Comment/CommentDeleteController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+
+  Apps.CourseUser.Controllers.CourseUserPostController:
+    class: src/apps/Course/controllers/CourseUser/CourseUserPostController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
