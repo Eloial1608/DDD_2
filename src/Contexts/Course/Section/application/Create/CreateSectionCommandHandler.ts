@@ -6,6 +6,7 @@ import { Id } from '@Course/Section/domain/ValueObjects/Id'
 import { CourseId } from '@Course/Section/domain/ValueObjects/CourseId'
 import { Title } from '@Course/Section/domain/ValueObjects/Title'
 import { Description } from '@Course/Section/domain/ValueObjects/Description'
+import { Order } from '@Course/Section/domain/ValueObjects/Order'
 
 export class CreateSectionCommandHandler implements CommandHandler<CreateSectionCommand> {
   constructor (private readonly creator: Creator) {}
@@ -19,7 +20,8 @@ export class CreateSectionCommandHandler implements CommandHandler<CreateSection
       new Id(command.id),
       new CourseId(command.courseId),
       new Title(command.title),
-      command.description ? new Description(command.description) : null
+      command.description ? new Description(command.description) : null,
+      new Order(command.order)
     )
   }
 }

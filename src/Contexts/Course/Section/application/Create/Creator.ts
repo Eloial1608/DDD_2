@@ -9,6 +9,7 @@ import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { CourseResponse } from '@Course/Course/application/CourseResponse'
 import { Description } from '@Course/Section/domain/ValueObjects/Description'
 import { Nullable } from '@Shared/domain/Nullable'
+import { Order } from '@Course/Section/domain/ValueObjects/Order'
 
 export class Creator {
   constructor (private readonly reposiotry: SectionRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
@@ -17,7 +18,8 @@ export class Creator {
     id:Id,
     courseId: CourseId,
     title: Title,
-    description: Nullable<Description>
+    description: Nullable<Description>,
+    order: Order
   ) {
     const existing = await this.reposiotry.find(id)
 
@@ -31,7 +33,8 @@ export class Creator {
       id,
       courseId,
       title,
-      description
+      description,
+      order
     )
 
     await this.reposiotry.persist(section)

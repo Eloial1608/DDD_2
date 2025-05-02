@@ -42,7 +42,8 @@ export class LessonPostController implements Controller {
         req.params.id,
         req.body.sectionId,
         req.body.title,
-        req.body.content
+        req.body.content,
+        req.body.order
       )
 
       await this.commandBus.dispatch(command)

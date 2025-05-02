@@ -6,6 +6,7 @@ import { Id } from '@Course/Lesson/domain/ValueObjects/Id'
 import { SectionId } from '@Course/Lesson/domain/ValueObjects/SectionId'
 import { Title } from '@Course/Lesson/domain/ValueObjects/Title'
 import { Content } from '@Course/Lesson/domain/ValueObjects/Content'
+import { Order } from '@Course/Lesson/domain/ValueObjects/Order'
 
 export class CreateLessonCommandHandler implements CommandHandler<CreateLessonCommand> {
   constructor (private readonly creator: Creator) {}
@@ -19,7 +20,8 @@ export class CreateLessonCommandHandler implements CommandHandler<CreateLessonCo
       new Id(command.id),
       new SectionId(command.sectionId),
       new Title(command.title),
-      new Content(command.content)
+      new Content(command.content),
+      new Order(command.order)
     )
   }
 }

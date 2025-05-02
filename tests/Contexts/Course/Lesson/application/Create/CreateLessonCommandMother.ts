@@ -6,13 +6,15 @@ export class CreateLessonCommandMother {
     id: string,
     sectionId: string,
     title: string,
-    content: string
+    content: string,
+    order: number
   ): CreateLessonCommand {
     return new CreateLessonCommand(
       id,
       sectionId,
       title,
-      content
+      content,
+      order
     )
   }
 
@@ -21,7 +23,8 @@ export class CreateLessonCommandMother {
       lesson.id.valueOf(),
       lesson.sectionId.valueOf(),
       lesson.title.valueOf(),
-      lesson.content.valueOf()
+      lesson.content.valueOf(),
+      lesson.order.valueOf()
     )
   }
 }

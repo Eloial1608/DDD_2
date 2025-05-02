@@ -6,6 +6,7 @@ export class CreateSectionCommand implements Command {
         readonly id: string,
         readonly courseId: string,
         readonly title: string,
-        readonly description: Nullable<string>
+        readonly description: Nullable<string>,
+        readonly order: number
   ) {}
 }

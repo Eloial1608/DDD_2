@@ -5,6 +5,7 @@ export class UpdateLessonCommand implements Command {
         readonly id: string,
         readonly sectionId: string,
         readonly title: string,
-        readonly content: string
+        readonly content: string,
+        readonly order: number
   ) {}
 }
