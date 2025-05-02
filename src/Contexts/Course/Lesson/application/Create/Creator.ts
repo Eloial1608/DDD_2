@@ -2,6 +2,7 @@ import { Lesson } from '@Course/Lesson/domain/Lesson'
 import { LessonRepository } from '@Course/Lesson/domain/LessonRepository'
 import { Content } from '@Course/Lesson/domain/ValueObjects/Content'
 import { Id } from '@Course/Lesson/domain/ValueObjects/Id'
+import { Order } from '@Course/Lesson/domain/ValueObjects/Order'
 import { SectionId } from '@Course/Lesson/domain/ValueObjects/SectionId'
 import { Title } from '@Course/Lesson/domain/ValueObjects/Title'
 import { FindSectionByIdQuery } from '@Course/Section/application/FindById/FindSectionByIdQuery'
@@ -16,7 +17,8 @@ export class Creator {
     id: Id,
     sectionId: SectionId,
     title: Title,
-    content: Content
+    content: Content,
+    order: Order
   ) {
     const existing = await this.repository.find(id)
 
@@ -30,7 +32,8 @@ export class Creator {
       id,
       sectionId,
       title,
-      content
+      content,
+      order
     )
 
     await this.repository.persist(lesson)

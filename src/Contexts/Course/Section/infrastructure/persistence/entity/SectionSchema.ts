@@ -9,6 +9,7 @@ import { UpdatedAt } from '@Course/Section/domain/ValueObjects/UpdatedAt'
 import { DeletedAt } from '@Course/Section/domain/ValueObjects/DeletedAt'
 import { EntitySchema } from 'typeorm'
 import { Description } from '@Course/Section/domain/ValueObjects/Description'
+import { Order } from '@Course/Section/domain/ValueObjects/Order'
 
 export const SectionSchema = new EntitySchema<Section>({
   name: 'Section',
@@ -32,6 +33,11 @@ export const SectionSchema = new EntitySchema<Section>({
       type: String,
       nullable: true,
       transformer: ValueObjectTransformer(Description)
+    },
+    order: {
+      type: Number,
+      default: 99,
+      transformer: ValueObjectTransformer(Order)
     },
     totalLessons: {
       type: Number,

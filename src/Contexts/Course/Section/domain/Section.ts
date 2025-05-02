@@ -12,6 +12,7 @@ import { SectionUpdatedDomainEvent } from './events/SectionUpdatedDomainEvent'
 import { SectionDeletedDomainEvent } from './events/SectionDeletedDomainEvent'
 import { SectionTotalLessonsUpdatedDomainEvent } from './events/SectionTotalLessonsUpdatedDomainEvent'
 import { Description } from './ValueObjects/Description'
+import { Order } from './ValueObjects/Order'
 
 export class Section extends AggregateRoot {
   constructor (
@@ -20,6 +21,7 @@ export class Section extends AggregateRoot {
         readonly title: Title,
         readonly description: Nullable<Description>,
         readonly totalLessons: TotalLessons,
+        readonly order: Order,
         readonly createdAt: CreatedAt,
         readonly updatedAt: UpdatedAt,
         readonly deletedAt: Nullable<DeletedAt>
@@ -32,7 +34,8 @@ export class Section extends AggregateRoot {
     id: Id,
     courseId: CourseId,
     title: Title,
-    description: Nullable<Description>
+    description: Nullable<Description>,
+    order: Order
   ): Section {
     const section = new Section(
       id,
@@ -40,6 +43,7 @@ export class Section extends AggregateRoot {
       title,
       description,
       new TotalLessons(0),
+      order,
       new CreatedAt(new Date()),
       new UpdatedAt(new Date()),
       null
@@ -53,7 +57,8 @@ export class Section extends AggregateRoot {
   update (
     id: Id,
     title: Title,
-    description: Nullable<Description>
+    description: Nullable<Description>,
+    order: Order
   ): Section {
     const section = new Section(
       id,
@@ -61,6 +66,7 @@ export class Section extends AggregateRoot {
       title,
       description,
       this.totalLessons,
+      order,
       this.createdAt,
       new UpdatedAt(new Date()),
       null
@@ -78,6 +84,7 @@ export class Section extends AggregateRoot {
       this.title,
       this.description,
       this.totalLessons,
+      this.order,
       this.createdAt,
       this.updatedAt,
       new DeletedAt(new Date())
@@ -97,6 +104,7 @@ export class Section extends AggregateRoot {
       this.title,
       this.description,
       totalLessons,
+      this.order,
       this.createdAt,
       new UpdatedAt(new Date()),
       null

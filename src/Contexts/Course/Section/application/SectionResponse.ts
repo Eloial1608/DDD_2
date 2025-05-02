@@ -8,6 +8,7 @@ export type SectionResponseBody = {
     readonly title: string,
     readonly description: Nullable<string>
     totalLessons: number,
+    readonly order: number
     readonly createdAt: Date,
     readonly updatedAt: Date
 }
@@ -22,6 +23,7 @@ export class SectionResponse implements QueryResponse<SectionResponseBody> {
       title: section.title.valueOf(),
       description: section.description?.valueOf(),
       totalLessons: section.totalLessons.valueOf(),
+      order: section.order.valueOf(),
       createdAt: section.createdAt.valueOf(),
       updatedAt: section.updatedAt.valueOf()
     }

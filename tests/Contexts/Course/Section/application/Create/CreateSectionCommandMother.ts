@@ -7,13 +7,15 @@ export class CreateSectionCommandMother {
     id:string,
     courseId:string,
     title: string,
-    description: Nullable<string>
+    description: Nullable<string>,
+    order: number
   ):CreateSectionCommand {
     return new CreateSectionCommand(
       id,
       courseId,
       title,
-      description
+      description,
+      order
     )
   }
 
@@ -22,7 +24,8 @@ export class CreateSectionCommandMother {
       section.id.valueOf(),
       section.courseId.valueOf(),
       section.title.valueOf(),
-      section.description?.valueOf()
+      section.description?.valueOf(),
+      section.order.valueOf()
     )
   }
 }

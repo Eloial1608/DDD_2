@@ -37,7 +37,8 @@ export class SectionPutController implements Controller {
         req.params.id,
         req.body.courseId,
         req.body.title,
-        req.body.description
+        req.body.description,
+        req.body.order
       )
 
       await this.commandBus.dispatch(command)

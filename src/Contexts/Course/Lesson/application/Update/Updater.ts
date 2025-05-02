@@ -9,6 +9,7 @@ import { Content } from '@Course/Lesson/domain/ValueObjects/Content'
 import { FindSectionByIdQuery } from '@Course/Section/application/FindById/FindSectionByIdQuery'
 import { SectionResponse } from '@Course/Section/application/SectionResponse'
 import { NotAllowedToPersistLesson } from '@Course/Lesson/domain/Errors/NotAllowedToPersistLesson'
+import { Order } from '@Course/Lesson/domain/ValueObjects/Order'
 
 export class Updater {
   constructor (private readonly repository: LessonRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
@@ -17,7 +18,8 @@ export class Updater {
     id: Id,
     sectionId: SectionId,
     title: Title,
-    content: Content
+    content: Content,
+    order: Order
   ) {
     const lesson = await this.repository.find(id)
 
@@ -32,7 +34,8 @@ export class Updater {
     const updatedLesson = lesson.update(
       id,
       title,
-      content
+      content,
+      order
     )
 
     await this.repository.persist(updatedLesson)

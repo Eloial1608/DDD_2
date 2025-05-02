@@ -10,6 +10,7 @@ import { CourseResponse } from '@Course/Course/application/CourseResponse'
 import { FindCourseByIdQuery } from '@Course/Course/application/FindById/FindCourseByIdQuery'
 import { Nullable } from '@Shared/domain/Nullable'
 import { Description } from '@Course/Section/domain/ValueObjects/Description'
+import { Order } from '@Course/Section/domain/ValueObjects/Order'
 
 export class Updater {
   constructor (private readonly repository: SectionRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
@@ -18,7 +19,8 @@ export class Updater {
     id: Id,
     courseId: CourseId,
     title: Title,
-    description: Nullable<Description>
+    description: Nullable<Description>,
+    order: Order
   ) {
     const section = await this.repository.find(id)
 
@@ -33,7 +35,8 @@ export class Updater {
     const updatedSection = section.update(
       id,
       title,
-      description
+      description,
+      order
     )
 
     await this.repository.persist(updatedSection)

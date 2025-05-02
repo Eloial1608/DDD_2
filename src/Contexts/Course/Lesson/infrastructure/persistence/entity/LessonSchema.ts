@@ -3,6 +3,7 @@ import { Content } from '@Course/Lesson/domain/ValueObjects/Content'
 import { CreatedAt } from '@Course/Lesson/domain/ValueObjects/CreatedAt'
 import { DeletedAt } from '@Course/Lesson/domain/ValueObjects/DeletedAt'
 import { Id } from '@Course/Lesson/domain/ValueObjects/Id'
+import { Order } from '@Course/Lesson/domain/ValueObjects/Order'
 import { SectionId } from '@Course/Lesson/domain/ValueObjects/SectionId'
 import { Title } from '@Course/Lesson/domain/ValueObjects/Title'
 import { UpdatedAt } from '@Course/Lesson/domain/ValueObjects/UpdatedAt'
@@ -30,6 +31,11 @@ export const Lessonchema = new EntitySchema<Lesson>({
     content: {
       type: String,
       transformer: ValueObjectTransformer(Content)
+    },
+    order: {
+      type: Number,
+      transformer: ValueObjectTransformer(Order),
+      default: 99
     },
     createdAt: {
       type: Date,

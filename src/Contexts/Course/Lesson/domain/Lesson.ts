@@ -10,6 +10,7 @@ import { DeletedAt } from './ValueObjects/DeletedAt'
 import { LessonDeletedDomainEvent } from './Events/LessonDeletedDomainEvent'
 import { LessonUpdatedDomainEvent } from './Events/LessonUpdatedDomainEvent'
 import { LessonCreatedDomainEvent } from './Events/LessonCreatedDomainEvent'
+import { Order } from './ValueObjects/Order'
 
 export class Lesson extends AggregateRoot {
   constructor (
@@ -17,6 +18,7 @@ export class Lesson extends AggregateRoot {
     readonly sectionId: SectionId,
     readonly title: Title,
     readonly content: Content,
+    readonly order: Order,
     readonly createdAt: CreatedAt,
     readonly updatedAt: UpdatedAt,
     readonly deletedAt: Nullable<DeletedAt>
@@ -28,13 +30,15 @@ export class Lesson extends AggregateRoot {
     id: Id,
     sectionId: SectionId,
     title: Title,
-    content: Content
+    content: Content,
+    order: Order
   ): Lesson {
     const lesson = new Lesson(
       id,
       sectionId,
       title,
       content,
+      order,
       new CreatedAt(new Date()),
       new UpdatedAt(new Date()),
       null
@@ -48,13 +52,15 @@ export class Lesson extends AggregateRoot {
   update (
     id: Id,
     title: Title,
-    content: Content
+    content: Content,
+    order: Order
   ): Lesson {
     const lesson = new Lesson(
       id,
       this.sectionId,
       title,
       content,
+      order,
       this.createdAt,
       new UpdatedAt(new Date()),
       null
@@ -71,6 +77,7 @@ export class Lesson extends AggregateRoot {
       this.sectionId,
       this.title,
       this.content,
+      this.order,
       this.createdAt,
       this.updatedAt,
       new DeletedAt(new Date())

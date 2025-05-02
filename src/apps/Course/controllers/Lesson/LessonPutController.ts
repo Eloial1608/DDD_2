@@ -41,7 +41,8 @@ export class LessonPutController implements Controller {
         req.params.id,
         req.body.courseId,
         req.body.title,
-        req.body.content
+        req.body.content,
+        req.body.order
       )
 
       await this.commandBus.dispatch(command)

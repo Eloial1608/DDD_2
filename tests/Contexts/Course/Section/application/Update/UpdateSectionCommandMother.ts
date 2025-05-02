@@ -7,13 +7,15 @@ export class UpdateSectionCommandMother {
     id: string,
     courseId: string,
     title: string,
-    description: Nullable<string>
+    description: Nullable<string>,
+    order: number
   ): UpdateSectionCommand {
     return new UpdateSectionCommand(
       id,
       courseId,
       title,
-      description
+      description,
+      order
     )
   }
 
@@ -22,7 +24,8 @@ export class UpdateSectionCommandMother {
       section.id.valueOf(),
       section.courseId.valueOf(),
       section.title.valueOf(),
-      section.description?.valueOf()
+      section.description?.valueOf(),
+      section.order.valueOf()
     )
   }
 }
