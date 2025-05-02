@@ -5,6 +5,7 @@ import { UpdateSectionCommand } from './UpdateSectionCommand'
 import { Id } from '@Course/Section/domain/ValueObjects/Id'
 import { CourseId } from '@Course/Section/domain/ValueObjects/CourseId'
 import { Title } from '@Course/Section/domain/ValueObjects/Title'
+import { Description } from '@Course/Section/domain/ValueObjects/Description'
 
 export class UpdateSectionCommandHandler implements CommandHandler<UpdateSectionCommand> {
   constructor (private readonly updater: Updater) {}
@@ -17,7 +18,8 @@ export class UpdateSectionCommandHandler implements CommandHandler<UpdateSection
     await this.updater.run(
       new Id(command.id),
       new CourseId(command.courseId),
-      new Title(command.title)
+      new Title(command.title),
+      command.description ? new Description(command.description) : null
     )
   }
 }

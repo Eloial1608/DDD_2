@@ -42,7 +42,6 @@ export class LessonPostController implements Controller {
         req.params.id,
         req.body.sectionId,
         req.body.title,
-        req.body.type,
         req.body.content
       )
 

@@ -5,7 +5,6 @@ type LessonCreatedDomainEventBody = {
   readonly id: string
   readonly sectionId: string
   readonly title: string
-  readonly type: string
   readonly content: string
 }
 
@@ -15,7 +14,6 @@ export class LessonCreatedDomainEvent extends DomainEvent {
   readonly id: string
   readonly sectionId: string
   readonly title: string
-  readonly type: string
   readonly content: string
 
   static {
@@ -28,7 +26,6 @@ export class LessonCreatedDomainEvent extends DomainEvent {
     this.id = params.id
     this.sectionId = params.sectionId
     this.title = params.title
-    this.type = params.type
     this.content = params.content
   }
 
@@ -37,7 +34,6 @@ export class LessonCreatedDomainEvent extends DomainEvent {
       id: lesson.id.valueOf(),
       sectionId: lesson.sectionId.valueOf(),
       title: lesson.title.valueOf(),
-      type: lesson.type.valueOf(),
       content: lesson.content.valueOf()
     })
   }

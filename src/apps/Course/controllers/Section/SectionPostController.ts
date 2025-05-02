@@ -37,7 +37,8 @@ export class SectionPostController implements Controller {
       const command = new CreateSectionCommand(
         req.params.id,
         req.body.courseId,
-        req.body.title
+        req.body.title,
+        req.body.description
       )
 
       await this.commandBus.dispatch(command)

@@ -4,7 +4,6 @@ import { Content } from '@Course/Lesson/domain/ValueObjects/Content'
 import { Id } from '@Course/Lesson/domain/ValueObjects/Id'
 import { SectionId } from '@Course/Lesson/domain/ValueObjects/SectionId'
 import { Title } from '@Course/Lesson/domain/ValueObjects/Title'
-import { Type } from '@Course/Lesson/domain/ValueObjects/Type'
 import { FindSectionByIdQuery } from '@Course/Section/application/FindById/FindSectionByIdQuery'
 import { SectionResponse } from '@Course/Section/application/SectionResponse'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
@@ -17,7 +16,6 @@ export class Creator {
     id: Id,
     sectionId: SectionId,
     title: Title,
-    type: Type,
     content: Content
   ) {
     const existing = await this.repository.find(id)
@@ -32,7 +30,6 @@ export class Creator {
       id,
       sectionId,
       title,
-      type,
       content
     )
 

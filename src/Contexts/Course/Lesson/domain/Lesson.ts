@@ -2,7 +2,6 @@ import { AggregateRoot } from '@Shared/domain/AggregateRoot'
 import { Id } from './ValueObjects/Id'
 import { SectionId } from './ValueObjects/SectionId'
 import { Title } from './ValueObjects/Title'
-import { Type } from './ValueObjects/Type'
 import { Content } from './ValueObjects/Content'
 import { CreatedAt } from './ValueObjects/CreatedAt'
 import { UpdatedAt } from './ValueObjects/UpdatedAt'
@@ -17,7 +16,6 @@ export class Lesson extends AggregateRoot {
     readonly id: Id,
     readonly sectionId: SectionId,
     readonly title: Title,
-    readonly type: Type,
     readonly content: Content,
     readonly createdAt: CreatedAt,
     readonly updatedAt: UpdatedAt,
@@ -30,14 +28,12 @@ export class Lesson extends AggregateRoot {
     id: Id,
     sectionId: SectionId,
     title: Title,
-    type: Type,
     content: Content
   ): Lesson {
     const lesson = new Lesson(
       id,
       sectionId,
       title,
-      type,
       content,
       new CreatedAt(new Date()),
       new UpdatedAt(new Date()),
@@ -52,14 +48,12 @@ export class Lesson extends AggregateRoot {
   update (
     id: Id,
     title: Title,
-    type: Type,
     content: Content
   ): Lesson {
     const lesson = new Lesson(
       id,
       this.sectionId,
       title,
-      type,
       content,
       this.createdAt,
       new UpdatedAt(new Date()),
@@ -76,7 +70,6 @@ export class Lesson extends AggregateRoot {
       this.id,
       this.sectionId,
       this.title,
-      this.type,
       this.content,
       this.createdAt,
       this.updatedAt,

@@ -5,7 +5,6 @@ import { Title } from '@Course/Lesson/domain/ValueObjects/Title'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { LessonNotFound } from '@Course/Lesson/domain/Errors/LessonNotFound'
-import { Type } from '@Course/Lesson/domain/ValueObjects/Type'
 import { Content } from '@Course/Lesson/domain/ValueObjects/Content'
 import { FindSectionByIdQuery } from '@Course/Section/application/FindById/FindSectionByIdQuery'
 import { SectionResponse } from '@Course/Section/application/SectionResponse'
@@ -18,7 +17,6 @@ export class Updater {
     id: Id,
     sectionId: SectionId,
     title: Title,
-    type: Type,
     content: Content
   ) {
     const lesson = await this.repository.find(id)
@@ -34,7 +32,6 @@ export class Updater {
     const updatedLesson = lesson.update(
       id,
       title,
-      type,
       content
     )
 

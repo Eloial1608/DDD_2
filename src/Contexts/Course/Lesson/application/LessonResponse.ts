@@ -5,7 +5,6 @@ export type LessonResponseBody = {
   readonly id: string,
   readonly sectionId: string,
   readonly title: string,
-  readonly type: string,
   readonly content: string,
   readonly createdAt: Date,
   readonly updatedAt: Date
@@ -19,7 +18,6 @@ export class LessonResponse implements QueryResponse<LessonResponseBody> {
       id: lesson.id.valueOf(),
       sectionId: lesson.sectionId.valueOf(),
       title: lesson.title.valueOf(),
-      type: lesson.type.valueOf(),
       content: lesson.content.valueOf(),
       createdAt: lesson.createdAt.valueOf(),
       updatedAt: lesson.updatedAt.valueOf()

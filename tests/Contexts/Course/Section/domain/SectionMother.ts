@@ -14,6 +14,7 @@ export class SectionMother {
       params.id ?? new Id(UuidMother.random()),
       params.courseId ?? new CourseId(UuidMother.random()),
       params.title ?? new Title(WordMother.random()),
+      params.description ?? null,
       params.totalLessons ?? new TotalLessons(0),
       params.createdAt ?? new CreatedAt(new Date()),
       params.updatedAt ?? new UpdatedAt(new Date()),
