@@ -92,7 +92,6 @@ jobs:
     needs: [initial, tests]
     if: |
       contains('
-        refs/heads/test
         refs/heads/main'
         , github.ref) &&
       success() &&
