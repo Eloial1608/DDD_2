@@ -10,7 +10,7 @@ export class CreateCourseUserWhenNoPriceCommandHandler implements CommandHandler
   constructor (private readonly creator: Creator) {}
 
   subscribedTo (): Command {
-    return [CreateCourseUserWhenNoPriceCommand]
+    return CreateCourseUserWhenNoPriceCommand
   }
 
   async handle (command: CreateCourseUserWhenNoPriceCommand): Promise<void> {
