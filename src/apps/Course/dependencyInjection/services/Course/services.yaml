@@ -304,7 +304,7 @@ services:
     class: src/Contexts/Course/Course/application/UpdateCourseOnCourseUserCreated/UpdateCourseOnCourseUserCreatedHandler
     arguments: ["@Course.UpdateCourseOnCourseUserCreated.Updater"]
     tags:
-      - { name: "commandHandler" }
+      - { name: "domainEventSubscriber" }
 
   CourseUser.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Course/CourseUser/application/FindByCriteria/FinderByCriteria
