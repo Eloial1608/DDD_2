@@ -44,6 +44,7 @@ export const Lessonchema = new EntitySchema<Lesson>({
     deletedAt: {
       type: Date,
       deleteDate: true,
+      nullable: true,
       transformer: ValueObjectTransformer(DeletedAt)
     }
   },
