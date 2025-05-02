@@ -47,6 +47,8 @@ export const SectionSchema = new EntitySchema<Section>({
     },
     deletedAt: {
       type: Date,
+      nullable: true,
+      deleteDate: true,
       transformer: ValueObjectTransformer(DeletedAt)
     }
 
