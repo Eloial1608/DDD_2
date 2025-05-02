@@ -396,7 +396,7 @@ services:
 
   Lesson.FindById.FinderById:
     class: src/Contexts/Course/Lesson/application/FindById/FinderById
-    arguments: ['@CourseUser.Repository']
+    arguments: ['@Lesson.Repository']
   
   Lesson.FindById.FindLessonByIdQueryHandler:
     class: src/Contexts/Course/Lesson/application/FindById/FindLessonByIdQueryHandler
