@@ -16,7 +16,6 @@ export class SpaceMember extends AggregateRoot {
     super()
   }
 
-
   delete (): SpaceMember {
     const spaceMember = new SpaceMember(
       this.id,
@@ -26,7 +25,7 @@ export class SpaceMember extends AggregateRoot {
     )
 
     spaceMember.record(SpaceMemberDeletedDomainEvent.fromAggregate(spaceMember))
-    
+
     return spaceMember
   }
 
