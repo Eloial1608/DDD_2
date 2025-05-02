@@ -36,7 +36,8 @@ export class SectionPutController implements Controller {
       const command = new UpdateSectionCommand(
         req.params.id,
         req.body.courseId,
-        req.body.title
+        req.body.title,
+        req.body.description
       )
 
       await this.commandBus.dispatch(command)

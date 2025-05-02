@@ -7,6 +7,8 @@ import { EventBus } from '@Shared/domain/EventBus/EventBus'
 import { FindCourseByIdQuery } from '@Course/Course/application/FindById/FindCourseByIdQuery'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { CourseResponse } from '@Course/Course/application/CourseResponse'
+import { Description } from '@Course/Section/domain/ValueObjects/Description'
+import { Nullable } from '@Shared/domain/Nullable'
 
 export class Creator {
   constructor (private readonly reposiotry: SectionRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
@@ -14,7 +16,8 @@ export class Creator {
   async run (
     id:Id,
     courseId: CourseId,
-    title: Title
+    title: Title,
+    description: Nullable<Description>
   ) {
     const existing = await this.reposiotry.find(id)
 
@@ -27,7 +30,8 @@ export class Creator {
     const section = Section.create(
       id,
       courseId,
-      title
+      title,
+      description
     )
 
     await this.reposiotry.persist(section)

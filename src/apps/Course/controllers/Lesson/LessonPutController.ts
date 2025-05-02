@@ -41,7 +41,6 @@ export class LessonPutController implements Controller {
         req.params.id,
         req.body.courseId,
         req.body.title,
-        req.body.type,
         req.body.content
       )
 

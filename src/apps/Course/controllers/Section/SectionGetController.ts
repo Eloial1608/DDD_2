@@ -19,11 +19,13 @@ import { AllowedAccessibilities } from '@Shared/domain/SharedValueObjects/Space/
 import { UserCollectionResponse } from '@Course/User/application/UserCollectionResponse'
 import { FindCourseUsersByCriteriaQuery } from '@Course/CourseUser/application/FindByCriteria/FindCourseUsersByCriteriaQuery'
 import { CourseUserCollectionResponse } from '@Course/CourseUser/application/CourseUserCollectionResponse'
+import { Nullable } from '@Shared/domain/Nullable'
 
 type SectionGetControllerResponseBody = {
   readonly id: string
   readonly courseId: string
   readonly title: string
+  readonly description: Nullable<string>
   readonly totalLessons: number
   isLocked: boolean
   readonly createdAt: Date

@@ -6,14 +6,12 @@ export class UpdateLessonCommandMother {
     id: string,
     courseId: string,
     title: string,
-    type: string,
     content: string
   ): UpdateLessonCommand {
     return new UpdateLessonCommand(
       id,
       courseId,
       title,
-      type,
       content
     )
   }
@@ -23,7 +21,6 @@ export class UpdateLessonCommandMother {
       lesson.id.valueOf(),
       lesson.sectionId.valueOf(),
       lesson.title.valueOf(),
-      lesson.type.valueOf(),
       lesson.content.valueOf()
     )
   }

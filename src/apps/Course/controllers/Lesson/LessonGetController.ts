@@ -26,7 +26,6 @@ type LessonGetControllerResponseBody = {
   readonly id: string
   readonly sectionId: string
   readonly title: string
-  readonly type: string
   readonly content: string
   isLocked: boolean
   readonly createdAt: Date

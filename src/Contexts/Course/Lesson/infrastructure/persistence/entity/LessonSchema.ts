@@ -5,7 +5,6 @@ import { DeletedAt } from '@Course/Lesson/domain/ValueObjects/DeletedAt'
 import { Id } from '@Course/Lesson/domain/ValueObjects/Id'
 import { SectionId } from '@Course/Lesson/domain/ValueObjects/SectionId'
 import { Title } from '@Course/Lesson/domain/ValueObjects/Title'
-import { Type } from '@Course/Lesson/domain/ValueObjects/Type'
 import { UpdatedAt } from '@Course/Lesson/domain/ValueObjects/UpdatedAt'
 import { ValueObjectTransformer } from '@Shared/domain/ValueObjects/ValueObjectTransformer'
 import { EntitySchema } from 'typeorm'
@@ -27,10 +26,6 @@ export const Lessonchema = new EntitySchema<Lesson>({
     title: {
       type: String,
       transformer: ValueObjectTransformer(Title)
-    },
-    type: {
-      type: String,
-      transformer: ValueObjectTransformer(Type)
     },
     content: {
       type: String,

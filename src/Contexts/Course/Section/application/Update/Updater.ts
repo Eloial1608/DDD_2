@@ -8,6 +8,8 @@ import { SectionNotFound } from '@Course/Section/domain/Errors/SectionNotFound'
 import { NotAllowedToPersistSection } from '@Course/Section/domain/Errors/NotAllowedToPersistSection'
 import { CourseResponse } from '@Course/Course/application/CourseResponse'
 import { FindCourseByIdQuery } from '@Course/Course/application/FindById/FindCourseByIdQuery'
+import { Nullable } from '@Shared/domain/Nullable'
+import { Description } from '@Course/Section/domain/ValueObjects/Description'
 
 export class Updater {
   constructor (private readonly repository: SectionRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
@@ -15,7 +17,8 @@ export class Updater {
   async run (
     id: Id,
     courseId: CourseId,
-    title: Title
+    title: Title,
+    description: Nullable<Description>
   ) {
     const section = await this.repository.find(id)
 
@@ -29,7 +32,8 @@ export class Updater {
 
     const updatedSection = section.update(
       id,
-      title
+      title,
+      description
     )
 
     await this.repository.persist(updatedSection)

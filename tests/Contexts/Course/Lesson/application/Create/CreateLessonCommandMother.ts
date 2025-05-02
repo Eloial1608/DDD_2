@@ -6,14 +6,12 @@ export class CreateLessonCommandMother {
     id: string,
     sectionId: string,
     title: string,
-    type: string,
     content: string
   ): CreateLessonCommand {
     return new CreateLessonCommand(
       id,
       sectionId,
       title,
-      type,
       content
     )
   }
@@ -23,7 +21,6 @@ export class CreateLessonCommandMother {
       lesson.id.valueOf(),
       lesson.sectionId.valueOf(),
       lesson.title.valueOf(),
-      lesson.type.valueOf(),
       lesson.content.valueOf()
     )
   }
