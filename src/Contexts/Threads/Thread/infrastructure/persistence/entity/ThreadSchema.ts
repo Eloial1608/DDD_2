@@ -86,6 +86,7 @@ export const ThreadSchema = new EntitySchema<Thread>({
     },
     title: {
       type: String,
+      nullable: true,
       transformer: ValueObjectTransformer(Title)
     },
     parentThreadId: {
