@@ -22,6 +22,7 @@ import { ThreadUpdatedDomainEvent } from './Events/ThreadUpdatedDomainEvent'
 import { ThreadTotalThreadsUpdatedDomainEvent } from './Events/ThreadTotalThreadsUpdatedDomainEvent'
 import { ThreadTotalLikesUpdatedDomainEvent } from './Events/ThreadTotalLikesUpdatedDomainEvent'
 import { ThreadAuthorUpdatedDomainEvent } from './Events/ThreadAuthorUpdatedDomainEvent'
+import { MainThreadId } from './ValueObjects/MainId'
 
 export class Thread extends AggregateRoot {
   constructor (
@@ -30,6 +31,7 @@ export class Thread extends AggregateRoot {
         readonly spaceId: SpaceId,
         readonly title: Nullable<Title>,
         readonly parentThreadId: Nullable<ParentThreadId>,
+        readonly mainThreadId: Nullable<MainThreadId>,
         readonly userId: UserId,
         readonly content: Content,
         readonly bannerUrl: Nullable<BannerUrl>,
@@ -51,6 +53,7 @@ export class Thread extends AggregateRoot {
     spaceId: SpaceId,
     title: Nullable<Title>,
     parentThreadId: Nullable<ParentThreadId>,
+    mainThreadId: Nullable<MainThreadId>,
     userId: UserId,
     content: Content,
     bannerUrl: Nullable<BannerUrl>,
@@ -64,6 +67,7 @@ export class Thread extends AggregateRoot {
       spaceId,
       title,
       parentThreadId,
+      mainThreadId,
       userId,
       content,
       bannerUrl,
@@ -88,6 +92,7 @@ export class Thread extends AggregateRoot {
       this.spaceId,
       this.title,
       this.parentThreadId,
+      this.mainThreadId,
       this.userId,
       this.content,
       this.bannerUrl,
@@ -110,6 +115,7 @@ export class Thread extends AggregateRoot {
     id: Id,
     title: Nullable<Title>,
     parentThreadId:Nullable<ParentThreadId>,
+    mainThreadId: Nullable<MainThreadId>,
     content: Content,
     bannerUrl: Nullable<BannerUrl>,
     isPaid: IsPaid,
@@ -121,6 +127,7 @@ export class Thread extends AggregateRoot {
       this.spaceId,
       title,
       parentThreadId,
+      mainThreadId,
       this.userId,
       content,
       bannerUrl,
@@ -148,6 +155,7 @@ export class Thread extends AggregateRoot {
       this.spaceId,
       this.title,
       this.parentThreadId,
+      this.mainThreadId,
       this.userId,
       this.content,
       this.bannerUrl,
@@ -174,6 +182,7 @@ export class Thread extends AggregateRoot {
       this.spaceId,
       this.title,
       this.parentThreadId,
+      this.mainThreadId,
       this.userId,
       this.content,
       this.bannerUrl,
@@ -200,6 +209,7 @@ export class Thread extends AggregateRoot {
       this.spaceId,
       this.title,
       this.parentThreadId,
+      this.mainThreadId,
       this.userId,
       this.content,
       this.bannerUrl,

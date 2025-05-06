@@ -36,6 +36,7 @@ export class ThreadPostController implements Controller {
         req.body.spaceId,
         req.body.title,
         req.body.parentThreadId,
+        req.body.mainThreadId,
         user.id,
         req.body.content,
         req.body.bannerUrl,

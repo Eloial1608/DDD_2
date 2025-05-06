@@ -13,6 +13,7 @@ import { CommunityId } from '@Threads/Thread/domain/ValueObjects/CommunityId'
 import { Content } from '@Threads/Thread/domain/ValueObjects/Content'
 import { Id } from '@Threads/Thread/domain/ValueObjects/Id'
 import { IsPaid } from '@Threads/Thread/domain/ValueObjects/IsPaid'
+import { MainThreadId } from '@Threads/Thread/domain/ValueObjects/MainId'
 import { ParentThreadId } from '@Threads/Thread/domain/ValueObjects/ParentThreadId'
 import { Price } from '@Threads/Thread/domain/ValueObjects/Price'
 import { SpaceId } from '@Threads/Thread/domain/ValueObjects/SpaceId'
@@ -30,13 +31,14 @@ export class Creator {
     spaceId: SpaceId,
     title: Nullable<Title>,
     parentThreadId: Nullable<ParentThreadId>,
+    mainThreadId: Nullable<MainThreadId>,
     userId: UserId,
     content: Content,
     bannerUrl: Nullable<BannerUrl>,
     isPaid: IsPaid,
     price: Nullable<Price>
   ) {
-    if ((parentThreadId && title) || (!parentThreadId && !title)) throw TitleNotNull
+    if ((parentThreadId && title) || (!parentThreadId && !title)) return TitleNotNull
 
     if ((isPaid.valueOf() && !price) || (price && !isPaid.valueOf())) return
 
@@ -61,6 +63,7 @@ export class Creator {
       spaceId,
       title,
       parentThreadId,
+      mainThreadId,
       userId,
       content,
       bannerUrl,

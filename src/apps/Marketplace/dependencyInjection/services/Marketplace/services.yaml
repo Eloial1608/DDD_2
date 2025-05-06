@@ -55,6 +55,17 @@ services:
     class: src/Contexts/Marketplace/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
     arguments: ["@Shared.ORM.Connection"]
 
+
+  SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.Deleter:
+    class: src/Contexts/Marketplace/SpaceMember/application/DeleteSpaceMemberOnSpaceMemberDeleted/Deleter
+    arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
+  
+  SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.DeleteSpaceMemberOnSpaceMemberDeletedHandler:
+    class: src/Contexts/Marketplace/SpaceMember/application/DeleteSpaceMemberOnSpaceMemberDeleted/DeleteSpaceMemberOnSpaceMemberDeletedHandler
+    arguments: ["@SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
   SpaceMember.CreateSpaceMemberOnSpaceMemberCreated.Creator:
     class: src/Contexts/Marketplace/SpaceMember/application/CreateSpaceMemberOnSpaceMemberCreated/Creator
     arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
