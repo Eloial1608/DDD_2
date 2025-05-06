@@ -24,6 +24,7 @@ export class ThreadMother {
       params.spaceId ?? new SpaceId(UuidMother.random()),
       params.title ?? new Title(UuidMother.random()),
       params.parentThreadId ?? null,
+      params.mainThreadId ?? null,
       params.userId ?? new UserId(UuidMother.random()),
       params.content ?? new Content(WordMother.random()),
       params.bannerUrl ?? null,

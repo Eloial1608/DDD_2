@@ -12,6 +12,7 @@ import { Content } from '@Threads/Thread/domain/ValueObjects/Content'
 import { BannerUrl } from '@Threads/Thread/domain/ValueObjects/BannerUrl'
 import { IsPaid } from '@Threads/Thread/domain/ValueObjects/IsPaid'
 import { Price, PriceCurrency, PriceValue } from '@Threads/Thread/domain/ValueObjects/Price'
+import { MainThreadId } from '@Threads/Thread/domain/ValueObjects/MainId'
 
 export class CreateThreadCommandHandler implements CommandHandler<CreateThreadCommand> {
   constructor (private readonly creator: Creator) {}
@@ -27,6 +28,7 @@ export class CreateThreadCommandHandler implements CommandHandler<CreateThreadCo
       new SpaceId(command.spaceId),
       command.title ? new Title(command.title) : null,
       command.parentThreadId ? new ParentThreadId(command.parentThreadId) : null,
+      command.mainThreadId ? new MainThreadId(command.mainThreadId): null,
       new UserId(command.userId),
       new Content(command.content),
       command.bannerUrl ? new BannerUrl(command.bannerUrl) : null,

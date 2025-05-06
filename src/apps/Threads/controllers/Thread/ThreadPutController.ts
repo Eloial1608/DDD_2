@@ -37,6 +37,7 @@ export class ThreadPutController implements Controller {
         req.body.spaceId,
         req.body.title,
         req.body.parentThreadId,
+        req.body.mainThreadId,
         req.body.content,
         req.body.bannerUrl,
         req.body.isPaid,
