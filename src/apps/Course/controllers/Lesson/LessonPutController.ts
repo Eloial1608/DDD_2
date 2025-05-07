@@ -39,7 +39,7 @@ export class LessonPutController implements Controller {
 
       const command = new UpdateLessonCommand(
         req.params.id,
-        req.body.courseId,
+        req.body.sectionId,
         req.body.title,
         req.body.content,
         req.body.order
