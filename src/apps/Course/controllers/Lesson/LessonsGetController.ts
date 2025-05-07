@@ -28,7 +28,6 @@ type LessonGetControllerResponseBody = {
   readonly id: string
   readonly courseId: string
   readonly title: string
-  readonly content: string
   readonly order: number
   isLocked: boolean
   readonly createdAt: Date
@@ -120,8 +119,10 @@ export class LessonsGetController implements Controller {
   }
 
   private async buildResponse (lesson: Partial<LessonGetControllerResponseBody>) : Promise<LessonGetControllerResponseBody> {
+    const { content, ...data } = lesson as any
+
     return {
-      ...lesson as LessonGetControllerResponseBody
+      ...data as LessonGetControllerResponseBody
     }
   }
 
