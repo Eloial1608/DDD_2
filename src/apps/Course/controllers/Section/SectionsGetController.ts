@@ -99,7 +99,7 @@ export class SectionsGetController implements Controller {
       }
     }
 
-    if (course.isPaid && (!user?.isAdmin && !user?.isOwner && !spaceMember?.isModerator)) {
+    if (!user?.isAdmin && !user?.isOwner && !spaceMember?.isModerator) {
       if (!spaceMember) return this.getSectionWithoutContent(section)
       const courseUser = await this.getCourseUser(spaceMember.userId, course.id)
       if (!courseUser) return this.getSectionWithoutContent(section)
