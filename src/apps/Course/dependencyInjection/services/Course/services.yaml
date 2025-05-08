@@ -363,6 +363,16 @@ services:
     arguments: ["@Lesson.Update.Updater"]
     tags:
       - { name: "commandHandler" }
+  
+  Lesson.UpdateLessonOrder.Updater:
+    class: src/Contexts/Course/UpdateOrder/application/Update/Updater
+    arguments: ['@Lesson.Repository', '@Shared.EventBus']
+  
+  Lesson.UpdateLessonOrder.UpdateLessonOrderCommandHandler:
+    class: src/Contexts/Course/Lesson/application/UpdateOrder/UpdateLessonOrderCommandHandler
+    arguments: ["@Lesson.UpdateLessonOrder.Updater"]
+    tags:
+      - { name: "commandHandler" }
 
   Lesson.Delete.Deleter:
     class: src/Contexts/Course/Lesson/application/Delete/Deleter
