@@ -73,6 +73,10 @@ services:
   Apps.Course.Controllers.LessonPutController:
     class: src/apps/Course/controllers/Lesson/LessonPutController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Course.Controllers.LessonOrderPatchController:
+    class: src/apps/Course/controllers/Lesson/LessonOrderPatchController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
     
   Apps.Course.Controllers.CommentDeleteController:
     class: src/apps/Course/controllers/Comment/CommentDeleteController
