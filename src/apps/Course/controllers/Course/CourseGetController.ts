@@ -79,7 +79,7 @@ export class CourseGetController implements Controller {
         }
       }
 
-      if (course.isPaid && (!user?.isAdmin && !user?.isOwner && !spaceMember?.isModerator)) {
+      if (!user?.isAdmin && !user?.isOwner && !spaceMember?.isModerator) {
         if (!spaceMember) {
           return res.status(200).json(this.getCourseWithoutContent(course) as CourseGetControllerResponseBody)
         }
