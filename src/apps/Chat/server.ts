@@ -1,14 +1,17 @@
 import express, { Express, Router } from 'express'
 import cors from 'cors'
+import { Server as SIO } from 'socket.io'
 import bodyParser from 'body-parser'
 import helmet from 'helmet'
 import compress from 'compression'
-import { Server as HTTPServer } from 'http'
-import { registerRoutes } from './routes'
+import { createServer, Server as HTTPServer } from 'http'
+import { registerApiRoutes } from './routes/API'
+import { registerSocketRoutes } from './routes/socket'
 
 export class Server {
   private express: Express
-  private httpServer?: HTTPServer
+  private server: HTTPServer
+  private io: SIO
   private router: Router
   private port: number = Number(process.env.PORT)
 
@@ -24,18 +27,30 @@ export class Server {
     this.express.use(cors())
     this.router = Router()
 
-    this.startRoutes()
+    this.startApiRoutes()
+
+    this.server = createServer(this.express)
+    this.io = new SIO(this.server)
   }
 
-  startRoutes (): void {
-    registerRoutes(this.router)
+  startApiRoutes (): void {
+    registerApiRoutes(this.router)
 
     this.express.use(this.router)
   }
 
+  startSocket (): void {
+    this.io.on('connection', (socket) => {
+      console.log('a user connected')
+      registerSocketRoutes(this.io, socket)
+    })
+  }
+
   start (): Promise<void> {
     return new Promise(resolve => {
-      this.httpServer = this.express.listen(this.port, () => {
+      this.startSocket()
+
+      this.server.listen(this.port, () => {
         console.info(
                 `  Gathered Chat Backend is running at http://localhost:${this.port} in ${this.express.get('env')} mode`
         )
@@ -46,10 +61,10 @@ export class Server {
   }
 
   stop () {
-    this.httpServer?.close()
+    this.server.close()
   }
 
   get getHTTPServer () {
-    return this.httpServer
+    return this.server
   }
 }

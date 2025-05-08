@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express'
 import DI from '@Apps/Chat/dependencyInjection/DI'
-import { HealthGetController } from '@Apps/Chat/controllers/HealthGetController'
+import { HealthGetController } from '@Apps/Chat/controllers/API/HealthGetController'
 
 export const register = (router: Router) => {
   const controller = DI.getInstance().resolve<HealthGetController>('Apps.Chat.Controllers.HealthGetController')
