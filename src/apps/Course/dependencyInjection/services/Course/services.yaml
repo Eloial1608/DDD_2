@@ -365,7 +365,7 @@ services:
       - { name: "commandHandler" }
   
   Lesson.UpdateLessonOrder.Updater:
-    class: src/Contexts/Course/UpdateOrder/application/Update/Updater
+    class: src/Contexts/Course/Lesson/application/UpdateOrder/Updater
     arguments: ['@Lesson.Repository', '@Shared.EventBus']
   
   Lesson.UpdateLessonOrder.UpdateLessonOrderCommandHandler:
