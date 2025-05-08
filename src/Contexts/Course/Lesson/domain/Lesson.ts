@@ -11,6 +11,7 @@ import { LessonDeletedDomainEvent } from './Events/LessonDeletedDomainEvent'
 import { LessonUpdatedDomainEvent } from './Events/LessonUpdatedDomainEvent'
 import { LessonCreatedDomainEvent } from './Events/LessonCreatedDomainEvent'
 import { Order } from './ValueObjects/Order'
+import { LessonOrderUpdatedDomainEvent } from './Events/LessonOrderUpdatedDomainEvent'
 
 export class Lesson extends AggregateRoot {
   constructor (
@@ -67,6 +68,25 @@ export class Lesson extends AggregateRoot {
     )
 
     lesson.record(LessonUpdatedDomainEvent.fromAggregate(lesson))
+
+    return lesson
+  }
+
+  updateOrder (
+    order: Order
+  ): Lesson {
+    const lesson = new Lesson(
+      this.id,
+      this.sectionId,
+      this.title,
+      this.content,
+      order,
+      this.createdAt,
+      this.updatedAt,
+      null
+    )
+
+    lesson.record(LessonOrderUpdatedDomainEvent.fromAggregate(lesson))
 
     return lesson
   }
