@@ -5,7 +5,6 @@ export class TypeOrmConfigFactory {
     const routes = ['staging', 'production'].includes(process.env.NODE_ENV!)
       ? ['dist/src/Contexts/Marketplace/**/*Schema*']
       : ['src/Contexts/Marketplace/**/*Schema*']
-
     return {
       type: 'postgres',
       host: process.env.DB_HOST,

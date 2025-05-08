@@ -55,7 +55,6 @@ services:
     class: src/Contexts/Marketplace/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
     arguments: ["@Shared.ORM.Connection"]
 
-
   SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.Deleter:
     class: src/Contexts/Marketplace/SpaceMember/application/DeleteSpaceMemberOnSpaceMemberDeleted/Deleter
     arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
@@ -135,3 +134,7 @@ services:
     arguments: ["@User.CreateUserOnUserCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  Product.Repository:
+    class: src/Contexts/Marketplace/Product/infrastructure/persistence/TypeOrmProductRepository
+    arguments: ["@Shared.ORM.Connection"]

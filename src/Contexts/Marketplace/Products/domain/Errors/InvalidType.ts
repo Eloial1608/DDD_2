@@ -7,6 +7,6 @@ export class InvalidType extends DomainError {
 
   constructor (feature: Type) {
     super()
-    this.message = `The space type ${feature.valueOf()} isn't valid`
+    this.message = `The product type ${feature.valueOf()} isn't valid`
   }
 }
