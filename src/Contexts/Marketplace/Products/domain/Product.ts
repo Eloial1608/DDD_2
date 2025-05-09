@@ -15,6 +15,7 @@ import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { DeletedAt } from './ValueObjects/DeletedAt'
 import { Nullable } from '@Shared/domain/Nullable'
 import { Type } from './ValueObjects/Type'
+import { ProductMediaType } from './ValueObjects/ProductMediaType'
 
 export class Product extends AggregateRoot {
   constructor (
@@ -25,6 +26,7 @@ export class Product extends AggregateRoot {
     readonly userId: UserId,
     readonly content: Content,
     readonly bannerUrl: Nullable<BannerUrl>,
+    readonly associatedMedia: ProductMediaType[],
     readonly type: Type,
     readonly stock: Nullable<Stock>,
     readonly author: Author,

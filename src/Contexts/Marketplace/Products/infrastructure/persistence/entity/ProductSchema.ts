@@ -7,6 +7,7 @@ import { CreatedAt } from '@Marketplace/Products/domain/ValueObjects/CreatedAt'
 import { DeletedAt } from '@Marketplace/Products/domain/ValueObjects/DeletedAt'
 import { Id } from '@Marketplace/Products/domain/ValueObjects/Id'
 import { Price, PriceCurrency, PriceValue } from '@Marketplace/Products/domain/ValueObjects/Price'
+import { ProductMediaTransformer } from '@Marketplace/Products/domain/ValueObjects/ProductMediaTransformer'
 import { SpaceId } from '@Marketplace/Products/domain/ValueObjects/SpaceId'
 import { Title } from '@Marketplace/Products/domain/ValueObjects/Title'
 import { UpdatedAt } from '@Marketplace/Products/domain/ValueObjects/UpdatedAt'
@@ -92,6 +93,10 @@ export const ProductSchema = new EntitySchema<Product>({
       type: String,
       nullable: true,
       transformer: ValueObjectTransformer(BannerUrl)
+    },
+    associatedMedia: {
+      type: String,
+      transformer: ProductMediaTransformer
     },
     type: {
       type: String,
