@@ -2,14 +2,14 @@ import { Media } from '@Media/Media/domain/Media'
 import { MediaRepository } from '@Media/Media/domain/MediaRepository'
 import { TypeOrmRepository } from '@Shared/infrastructure/persistence/typeorm/TypeOrmRepository'
 import { EntitySchema, Equal } from 'typeorm'
-import { Mediachema } from './entity/MediaSchema'
+import { MediaSchema } from './entity/MediaSchema'
 import { Id } from '@Media/Media/domain/ValueObjects/Id'
 import { Nullable } from '@Shared/domain/Nullable'
 import { Criteria } from '@Shared/domain/Criteria/Criteria'
 
 export class TypeOrmMediaRepository extends TypeOrmRepository<Media> implements MediaRepository {
   protected get entitySchema (): EntitySchema {
-    return Mediachema
+    return MediaSchema
   }
 
   async find (id: Id): Promise<Nullable<Media>> {

@@ -60,7 +60,7 @@ const MediaAuthorSchema = new EntitySchema<Author>({
   }
 })
 
-export const Mediachema = new EntitySchema<Media>({
+export const MediaSchema = new EntitySchema<Media>({
   name: 'Media',
   target: Media,
   tableName: 'media',
