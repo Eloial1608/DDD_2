@@ -3,50 +3,50 @@ services:
     class: src/apps/Events/controllers/HealthGetController
   
   Apps.Event.Controllers.EventPostController:
-    class: src/apps/Event/controllers/Event/EventPostController
+    class: src/apps/Events/controllers/Event/EventPostController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
   
   Apps.Event.Controllers.EventPutController:
-    class: src/apps/Event/controllers/Event/EventPutController
+    class: src/apps/Events/controllers/Event/EventPutController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
   
   Apps.Event.Controllers.EventsGetController:
-    class: src/apps/Event/controllers/Event/EventsGetController
+    class: src/apps/Events/controllers/Event/EventsGetController
     arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
   
   Apps.Event.Controllers.EventGetController:
-    class: src/apps/Event/controllers/Event/EventGetController
+    class: src/apps/Events/controllers/Event/EventGetController
     arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
   
   Apps.Event.Controllers.EventDeleteController:
-    class: src/apps/Event/controllers/Event/EventDeleteController
+    class: src/apps/Events/controllers/Event/EventDeleteController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
   
   Apps.Ticket.Controllers.TicketPostController:
-    class: src/apps/Event/controllers/Ticket/TicketPostController
+    class: src/apps/Events/controllers/Ticket/TicketPostController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
   
   Apps.Ticket.Controllers.TicketPutController:
-    class: src/apps/Event/controllers/Ticket/TicketPutController
+    class: src/apps/Events/controllers/Ticket/TicketPutController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
   
   Apps.Ticket.Controllers.TicketsGetController:
-    class: src/apps/Event/controllers/Ticket/TicketsGetController
+    class: src/apps/Events/controllers/Ticket/TicketsGetController
     arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
   
   Apps.Ticket.Controllers.TicketGetController:
-    class: src/apps/Event/controllers/Ticket/TicketGetController
+    class: src/apps/Events/controllers/Ticket/TicketGetController
     arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
   
   Apps.Ticket.Controllers.TicketDeleteController:
-    class: src/apps/Event/controllers/Ticket/TicketDeleteController
+    class: src/apps/Events/controllers/Ticket/TicketDeleteController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
   
   Apps.EventUser.Controllers.EventUserGetController:
-    class: src/apps/Event/controllers/EventUser/EventUserGetController
+    class: src/apps/Events/controllers/EventUser/EventUserGetController
     arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
   
   Apps.EventUser.Controllers.EventUserValidatePostController:
-    class: src/apps/Event/controllers/EventUser/EventUserValidatePostController
+    class: src/apps/Events/controllers/EventUser/EventUserValidatePostController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
   
