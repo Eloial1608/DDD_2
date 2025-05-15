@@ -5,6 +5,7 @@ import { MediaConfiguration } from './MediaConfiguration'
 import { Configuration } from '@Core/Space/domain/ValueObjects/Configuration'
 import { ThreadsConfiguration } from './ThreadsConfiguration'
 import { EventsConfiguration } from './EventsConfiguration'
+import { MarketplaceConfiguration } from './MarketplaceConfiguration'
 
 export class ConfigurationFactory {
   static create (type: AllowedTypes, configuration: any) {
@@ -22,7 +23,7 @@ export class ConfigurationFactory {
       case AllowedTypes.GROUP:
         return new Configuration(configuration)
       case AllowedTypes.MARKETPLACE:
-        return new Configuration(configuration)
+        return new MarketplaceConfiguration(configuration)
       default:
         throw new InvalidConfigurationType(type)
     }
