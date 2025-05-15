@@ -138,3 +138,7 @@ services:
   Product.Repository:
     class: src/Contexts/Marketplace/Product/infrastructure/persistence/TypeOrmProductRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  Review.Repository:
+    class: src/Contexts/Marketplace/Review/infrastructure/persistence/TypeOrmReviewRepository
+    arguments: ["@Shared.ORM.Connection"]
