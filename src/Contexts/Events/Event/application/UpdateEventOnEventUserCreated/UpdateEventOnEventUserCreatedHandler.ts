@@ -5,7 +5,7 @@ import { EventUserCreatedDomainEvent } from '@Events/EventUser/domain/Events/Eve
 import { Id } from '@Events/Event/domain/ValueObjects/Id'
 import { Accessibility, EventAccessibilities } from '@Events/Event/domain/ValueObjects/Accessibility'
 
-export class UpdateEventOnEventUserUpdatedHandler implements DomainEventSubscriber <EventUserCreatedDomainEvent> {
+export class UpdateEventOnEventUserCreatedHandler implements DomainEventSubscriber <EventUserCreatedDomainEvent> {
   constructor (private readonly updater: Updater) {}
 
   subscribedTo (): Array<DomainEventClass> {

@@ -175,10 +175,6 @@ services:
     class: src/Contexts/Events/Community/infrastructure/persistence/TypeOrmCommunityRepository
     arguments: ["@Shared.ORM.Connection"]
 
-  Like.Repository:
-    class: src/Contexts/Events/Like/infrastructure/persistence/TypeOrmLikeRepository
-    arguments: ["@Shared.ORM.Connection"]
-
   Community.CreateCommunityOnCommunityCreated.Creator:
     class: src/Contexts/Events/Community/application/CreateCommunityOnCommunityCreated/Creator
     arguments: ['@Community.Repository', '@Shared.EventBus']
