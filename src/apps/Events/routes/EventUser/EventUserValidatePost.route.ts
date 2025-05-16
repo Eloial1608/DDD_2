@@ -4,5 +4,5 @@ import { EventUserValidatePostController } from '@Apps/Events/controllers/EventU
 
 export const register = (router: Router) => {
   const controller = DI.getInstance().resolve<EventUserValidatePostController>('Apps.EventUser.Controllers.EventUserValidatePostController')
-  router.post('/v1/events/user/validate/:id', (req: Request, res: Response) => controller.run(req, res))
+  router.post('/v1/events/user/validate', (req: Request, res: Response) => controller.run(req, res))
 }
