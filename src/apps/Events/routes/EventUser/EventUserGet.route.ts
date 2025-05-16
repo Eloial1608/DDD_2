@@ -4,5 +4,5 @@ import { EventUserGetController } from '@Apps/Events/controllers/EventUser/Event
 
 export const register = (router: Router) => {
   const controller = DI.getInstance().resolve<EventUserGetController>('Apps.EventUser.Controllers.EventUserGetController')
-  router.get('/v1/events/user/:id', (req: Request, res: Response) => controller.run(req, res))
+  router.get('/v1/events/user', (req: Request, res: Response) => controller.run(req, res))
 }

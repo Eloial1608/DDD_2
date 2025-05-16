@@ -25,9 +25,14 @@ export class EventUserValidatePostController implements Controller {
 
       const query = new FindEventUsersByCriteriaQuery([
         new Map<string, string>([
-          ['field', 'id'],
+          ['field', 'userId'],
           ['operator', '='],
-          ['value', req.params.id]
+          ['value', req.query.userId as string]
+        ]),
+        new Map<string, string>([
+          ['field', 'eventId'],
+          ['operator', '='],
+          ['value', req.query.eventId as string]
         ])
       ])
 
@@ -45,7 +50,11 @@ export class EventUserValidatePostController implements Controller {
 
       if (!user.isAdmin && !user.isOwner) return res.status(401).send()
 
-      const command = new ValidateEventUserCommand(req.params.id)
+      const gotUser = await this.getUser(response.userId, event.communityId)
+
+      if (gotUser?.isAdmin || gotUser?.isOwner) return res.status(204).send()
+
+      const command = new ValidateEventUserCommand(response.id)
 
       await this.commandBus.dispatch(command)
 
