@@ -22,6 +22,8 @@ import { Location } from '@Events/Event/domain/ValueObjects/Location'
 import { UpdatedAt } from '@Events/Event/domain/ValueObjects/UpdatedAt'
 import { DeletedAt } from '@Events/Event/domain/ValueObjects/DeletedAt'
 import { Accessibility } from '@Events/Event/domain/ValueObjects/Accessibility'
+import { Title } from '@Events/Event/domain/ValueObjects/Title'
+import { Description } from '@Events/Event/domain/ValueObjects/Description'
 
 const EventAuthorSchema = new EntitySchema<Author>({
   name: 'eventAuthor',
@@ -84,11 +86,13 @@ export const EventSchema = new EntitySchema<Event>({
       transformer: ValueObjectTransformer(SpaceId)
     },
     title: {
-      type: String
+      type: String,
+      transformer: ValueObjectTransformer(Title)
     },
     description: {
       type: String,
-      nullable: true
+      nullable: true,
+      transformer: ValueObjectTransformer(Description)
     },
     userId: {
       type: String,
