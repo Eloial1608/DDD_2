@@ -18,6 +18,10 @@ services:
     class: src/apps/Events/controllers/Event/EventGetController
     arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
   
+  Apps.Event.Controllers.EventMeetTokenGetController:
+    class: src/apps/Events/controllers/Event/EventMeetTokenGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+  
   Apps.Event.Controllers.EventDeleteController:
     class: src/apps/Events/controllers/Event/EventDeleteController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
