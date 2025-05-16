@@ -94,6 +94,8 @@ export class EventMeetTokenGetController implements Controller {
 
     if (!room) return null
 
+    console.log(process.env.MEET_PRIVATE_KEY!.replace(/\\n/g, '\n'))
+
     return jwt.sign(
       {
         alg: 'RS256',
@@ -117,7 +119,7 @@ export class EventMeetTokenGetController implements Controller {
         }
         // biome-ignore lint/style/noNonNullAssertion: <explanation>
       },
-      process.env.MEET_PRIVATE_KEY!,
+      process.env.MEET_PRIVATE_KEY!.replace(/\\n/g, '\n'),
       { algorithm: 'RS256' }
     )
   }
