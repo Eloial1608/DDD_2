@@ -13,6 +13,7 @@ import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { DeletedAt } from './ValueObjects/DeletedAt'
 import { IsOnline } from './ValueObjects/IsOnline'
 import { IsOnSite } from './ValueObjects/IsOnSite'
+import { CommunityId } from './ValueObjects/CommunityId'
 
 export class Ticket extends AggregateRoot {
   constructor (
@@ -23,6 +24,7 @@ export class Ticket extends AggregateRoot {
     readonly price: Price,
     readonly isOnline: IsOnline,
     readonly isOnSite: IsOnSite,
+    readonly communityId: CommunityId,
     readonly createdAt: CreatedAt,
     readonly updatedAt: UpdatedAt,
     readonly deletedAt: Nullable<DeletedAt>
@@ -37,7 +39,8 @@ export class Ticket extends AggregateRoot {
     description: Nullable<Description>,
     price: Price,
     isOnline: IsOnline,
-    isOnSite: IsOnSite
+    isOnSite: IsOnSite,
+    communityId: CommunityId
   ): Ticket {
     const ticket = new Ticket(
       id,
@@ -47,6 +50,7 @@ export class Ticket extends AggregateRoot {
       price,
       isOnline,
       isOnSite,
+      communityId,
       new CreatedAt(new Date()),
       new UpdatedAt(new Date()),
       null
@@ -70,6 +74,7 @@ export class Ticket extends AggregateRoot {
       price,
       this.isOnline,
       this.isOnSite,
+      this.communityId,
       this.createdAt,
       new UpdatedAt(new Date()),
       null
@@ -89,6 +94,7 @@ export class Ticket extends AggregateRoot {
       this.price,
       this.isOnline,
       this.isOnSite,
+      this.communityId,
       this.createdAt,
       this.updatedAt,
       new DeletedAt(new Date())

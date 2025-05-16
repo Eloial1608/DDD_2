@@ -9,6 +9,7 @@ export class CreateTicketCommand implements Command {
         readonly description: Nullable<string>,
         readonly price: {value: number, currency: string},
         readonly isOnline: boolean,
-        readonly isOnSite: boolean
+        readonly isOnSite: boolean,
+        readonly communityId: string
   ) {}
 }

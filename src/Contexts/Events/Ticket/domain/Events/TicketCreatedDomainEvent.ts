@@ -7,6 +7,7 @@ type TicketCreatedDomainEventBody = {
     readonly eventId: string
     readonly title: string
     readonly description: Nullable<string>
+    readonly communityId: string
     readonly price: {value: number, currency: string}
     readonly isOnline: boolean
     readonly isOnSite: boolean
@@ -19,6 +20,7 @@ export class TicketCreatedDomainEvent extends DomainEvent {
   readonly eventId: string
   readonly title: string
   readonly description: Nullable<string>
+  readonly communityId: string
   readonly price: {value: number, currency: string}
   readonly isOnline: boolean
   readonly isOnSite: boolean
@@ -35,6 +37,7 @@ export class TicketCreatedDomainEvent extends DomainEvent {
     this.title = params.title
     this.description = params.description
     this.price = params.price
+    this.communityId = params.communityId
     this.isOnSite = params.isOnSite
     this.isOnline = params.isOnline
   }
@@ -50,7 +53,8 @@ export class TicketCreatedDomainEvent extends DomainEvent {
         currency: ticket.price.currency.valueOf()
       },
       isOnline: ticket.isOnline.valueOf(),
-      isOnSite: ticket.isOnSite.valueOf()
+      isOnSite: ticket.isOnSite.valueOf(),
+      communityId: ticket.communityId.valueOf()
     })
   }
 

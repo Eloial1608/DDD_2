@@ -1,4 +1,5 @@
 import { Ticket } from '@Events/Ticket/domain/Ticket'
+import { CommunityId } from '@Events/Ticket/domain/ValueObjects/CommunityId'
 import { CreatedAt } from '@Events/Ticket/domain/ValueObjects/CreatedAt'
 import { DeletedAt } from '@Events/Ticket/domain/ValueObjects/DeletedAt'
 import { Description } from '@Events/Ticket/domain/ValueObjects/Description'
@@ -58,6 +59,10 @@ export const TicketSchema = new EntitySchema<Ticket>({
       type: Boolean,
       transformer: ValueObjectTransformer(IsOnSite)
     },
+    communityId: {
+      type: String,
+      transformer: ValueObjectTransformer(CommunityId)
+    },
     createdAt: {
       type: Date,
       createDate: true,
@@ -85,6 +90,10 @@ export const TicketSchema = new EntitySchema<Ticket>({
     {
       name: 'IDX_TICKET_EVENT_ID',
       columns: ['eventId']
+    },
+    {
+      name: 'IDX_TICKET_COMMUNITY_ID',
+      columns: ['communityId']
     }
   ]
 })

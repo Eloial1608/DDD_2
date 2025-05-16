@@ -9,6 +9,7 @@ import { Description } from '@Events/Ticket/domain/ValueObjects/Description'
 import { Price, PriceCurrency, PriceValue } from '@Events/Ticket/domain/ValueObjects/Price'
 import { IsOnline } from '@Events/Ticket/domain/ValueObjects/IsOnline'
 import { IsOnSite } from '@Events/Ticket/domain/ValueObjects/IsOnSite'
+import { CommunityId } from '@Events/Ticket/domain/ValueObjects/CommunityId'
 
 export class CreateTicketCommandHandler implements CommandHandler<CreateTicketCommand> {
   constructor (private readonly creator: Creator) {}
@@ -28,7 +29,8 @@ export class CreateTicketCommandHandler implements CommandHandler<CreateTicketCo
         new PriceCurrency(command.price.currency)
       ),
       isOnline: new IsOnline(command.isOnline),
-      isOnSite: new IsOnSite(command.isOnSite)
+      isOnSite: new IsOnSite(command.isOnSite),
+      communityId: new CommunityId(command.communityId)
     })
   }
 }

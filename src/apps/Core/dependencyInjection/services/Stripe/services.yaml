@@ -101,6 +101,16 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
   
+  Stripe.CreateStripeProductOnTicketCreated.Creator:
+    class: src/Contexts/Stripe/StripeProduct/application/CreateStripeProductOnTicketCreated/Creator
+    arguments: ["@StripeProduct.Repository", "@StripeProduct.HttpStripeRepository", "@Shared.QueryBus", "@Shared.EventBus"]
+
+  Stripe.CreateStripeProductOnTicketCreated.CreateStripeProductOnTicketCreatedHandler:
+    class: src/Contexts/Stripe/StripeProduct/application/CreateStripeProductOnTicketCreated/CreateStripeProductOnTicketCreatedHandler
+    arguments: ["@Stripe.CreateStripeProductOnTicketCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
   Stripe.UpdateStripeProductOnSpaceUpdated.Updater:
     class: src/Contexts/Stripe/StripeProduct/application/UpdateStripeProductOnSpaceUpdated/Updater
     arguments: ["@StripeProduct.Repository", "@StripeProduct.HttpStripeRepository", "@Shared.QueryBus", "@Shared.EventBus"]
@@ -108,6 +118,16 @@ services:
   Stripe.UpdateStripeProductOnSpaceUpdated.UpdateStripeProductOnSpaceUpdatedHandler:
     class: src/Contexts/Stripe/StripeProduct/application/UpdateStripeProductOnSpaceUpdated/UpdateStripeProductOnSpaceUpdatedHandler
     arguments: ["@Stripe.UpdateStripeProductOnSpaceUpdated.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Stripe.UpdateStripeProductOnTicketUpdated.Updater:
+    class: src/Contexts/Stripe/StripeProduct/application/UpdateStripeProductOnTicketUpdated/Updater
+    arguments: ["@StripeProduct.Repository", "@StripeProduct.HttpStripeRepository", "@Shared.QueryBus", "@Shared.EventBus"]
+
+  Stripe.UpdateStripeProductOnTicketUpdated.UpdateStripeProductOnTicketUpdatedHandler:
+    class: src/Contexts/Stripe/StripeProduct/application/UpdateStripeProductOnTicketUpdated/UpdateStripeProductOnTicketUpdatedHandler
+    arguments: ["@Stripe.UpdateStripeProductOnTicketUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
   
