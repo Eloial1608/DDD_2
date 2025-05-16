@@ -5,6 +5,7 @@ export type EventUserResponseBody = {
     readonly id: string
     readonly userId: string
     readonly eventId: string
+    readonly ticketId: string
     readonly isOnline: boolean
     readonly isOnSite: boolean
     readonly createdAt: Date
@@ -18,6 +19,7 @@ export class EventUserResponse implements QueryResponse<EventUserResponseBody> {
       id: eventUser.id.valueOf(),
       userId: eventUser.userId.valueOf(),
       eventId: eventUser.eventId.valueOf(),
+      ticketId: eventUser.ticketId.valueOf(),
       isOnline: eventUser.isOnline.valueOf(),
       isOnSite: eventUser.isOnSite.valueOf(),
       createdAt: eventUser.createdAt.valueOf()
