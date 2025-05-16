@@ -29,7 +29,7 @@ export class UpdateThreadCommandHandler implements CommandHandler<UpdateThreadCo
       new SpaceId(command.spaceId),
       command.title ? new Title(command.title) : null,
       command.parentThreadId ? new ParentThreadId(command.parentThreadId) : null,
-      command.mainThreadId ? new MainThreadId(command.mainThreadId): null,
+      command.mainThreadId ? new MainThreadId(command.mainThreadId) : null,
       new Content(command.content),
       command.bannerUrl ? new BannerUrl(command.bannerUrl) : null,
       new IsPaid(command.isPaid),

@@ -4,6 +4,7 @@ import { EventAccessibilities } from '@Events/Event/domain/ValueObjects/Accessib
 import { InvalidType } from '@Events/Ticket/domain/Errors/InvalidType'
 import { Ticket } from '@Events/Ticket/domain/Ticket'
 import { TicketRepository } from '@Events/Ticket/domain/TicketRepository'
+import { CommunityId } from '@Events/Ticket/domain/ValueObjects/CommunityId'
 import { Description } from '@Events/Ticket/domain/ValueObjects/Description'
 import { EventId } from '@Events/Ticket/domain/ValueObjects/EventId'
 import { Id } from '@Events/Ticket/domain/ValueObjects/Id'
@@ -22,7 +23,8 @@ type Params = {
     description: Nullable<Description>,
     price: Price,
     isOnline: IsOnline,
-    isOnSite: IsOnSite
+    isOnSite: IsOnSite,
+    communityId: CommunityId
 }
 
 export class Creator {
@@ -52,7 +54,8 @@ export class Creator {
       params.description,
       params.price,
       params.isOnline,
-      params.isOnSite
+      params.isOnSite,
+      params.communityId
     )
 
     await this.repository.persist(ticket)

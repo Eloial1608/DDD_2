@@ -95,8 +95,8 @@ export const ThreadSchema = new EntitySchema<Thread>({
       nullable: true,
       transformer: ValueObjectTransformer(ParentThreadId)
     },
-    mainThreadId:{
-      type:String,
+    mainThreadId: {
+      type: String,
       nullable: true,
       transformer: ValueObjectTransformer(MainThreadId)
     },

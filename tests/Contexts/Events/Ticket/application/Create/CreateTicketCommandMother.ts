@@ -10,7 +10,8 @@ export class CreateTicketCommandMother {
     description: Nullable<string>,
     price: {value: number, currency: string},
     isOnline: boolean,
-    isOnSite: boolean
+    isOnSite: boolean,
+    communityId: string
   ): CreateTicketCommand {
     return new CreateTicketCommand(
       id,
@@ -19,7 +20,8 @@ export class CreateTicketCommandMother {
       description,
       price,
       isOnline,
-      isOnSite
+      isOnSite,
+      communityId
     )
   }
 
@@ -34,7 +36,8 @@ export class CreateTicketCommandMother {
         currency: ticket.price.currency.valueOf()
       },
       ticket.isOnline.valueOf(),
-      ticket.isOnSite.valueOf()
+      ticket.isOnSite.valueOf(),
+      ticket.communityId.valueOf()
     )
   }
 }

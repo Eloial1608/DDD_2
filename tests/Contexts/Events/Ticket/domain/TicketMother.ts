@@ -9,6 +9,7 @@ import { Price, PriceCurrency, PriceValue } from '@Events/Ticket/domain/ValueObj
 import { IsOnline } from '@Events/Ticket/domain/ValueObjects/IsOnline'
 import { IsOnSite } from '@Events/Ticket/domain/ValueObjects/IsOnSite'
 import { UpdatedAt } from '@Events/Ticket/domain/ValueObjects/UpdatedAt'
+import { CommunityId } from '@Events/Ticket/domain/ValueObjects/CommunityId'
 
 export class TicketMother {
   static create (params: Partial<Ticket>): Ticket {
@@ -23,6 +24,7 @@ export class TicketMother {
       ),
       params.isOnline ?? new IsOnline(true),
       params.isOnSite ?? new IsOnSite(false),
+      params.communityId ?? new CommunityId(UuidMother.random()),
       params.createdAt ?? new CreatedAt(new Date()),
       params.updatedAt ?? new UpdatedAt(new Date()),
       params.deletedAt ?? null

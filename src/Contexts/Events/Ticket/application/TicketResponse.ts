@@ -8,6 +8,7 @@ export type TicketResponseBody = {
     readonly title: string
     readonly description: Nullable<string>
     readonly price: {value: number, currency: string}
+    readonly communityId: string
     readonly isOnline: boolean
     readonly isOnSite: boolean
 }
@@ -20,6 +21,7 @@ export class TicketResponse implements QueryResponse<TicketResponseBody> {
       id: ticket.id.valueOf(),
       eventId: ticket.eventId.valueOf(),
       title: ticket.title.valueOf(),
+      communityId: ticket.communityId.valueOf(),
       description: ticket.description?.valueOf(),
       price: {
         value: ticket.price.value.valueOf(),
