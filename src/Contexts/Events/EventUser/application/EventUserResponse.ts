@@ -1,3 +1,4 @@
+import { Nullable } from '@Shared/domain/Nullable'
 import { EventUser } from '../domain/EventUser'
 import { QueryResponse } from '@Shared/domain/QueryBus/QueryResponse'
 
@@ -7,6 +8,7 @@ export type EventUserResponseBody = {
     readonly eventId: string
     readonly isOnline: boolean
     readonly isOnSite: boolean
+    readonly validatedAt: Nullable<Date >
     readonly createdAt: Date
 }
 
@@ -20,6 +22,7 @@ export class EventUserResponse implements QueryResponse<EventUserResponseBody> {
       eventId: eventUser.eventId.valueOf(),
       isOnline: eventUser.isOnline.valueOf(),
       isOnSite: eventUser.isOnSite.valueOf(),
+      validatedAt: eventUser.validatedAt?.valueOf(),
       createdAt: eventUser.createdAt.valueOf()
     }
   }
