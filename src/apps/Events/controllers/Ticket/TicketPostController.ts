@@ -44,7 +44,8 @@ export class TicketPostController implements Controller {
         req.body.description,
         req.body.price,
         req.body.isOnline,
-        req.body.isOnSite
+        req.body.isOnSite,
+        req.body.communityId
       )
 
       await this.commandBus.dispatch(command)
