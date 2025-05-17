@@ -96,11 +96,11 @@ export class EventMeetTokenGetController implements Controller {
 
     console.log(process.env.MEET_PRIVATE_KEY!.replace(/\\n/g, '\n'))
 
+    const exp = new Date()
+    exp.setHours(exp.getHours() + 10)
+
     return jwt.sign(
       {
-        alg: 'RS256',
-        kid: 'vpaas-magic-cookie-6d53f9ffe1dc4dc19723310f865b6f9e/b93283',
-        typ: 'JWT',
         aud: 'jitsi',
         context: {
           user: {
@@ -116,14 +116,21 @@ export class EventMeetTokenGetController implements Controller {
             recording: 'false'
           },
           room,
-          exp: 1696284052,
+          exp: Math.floor(exp.getTime() / 1000),
+          nbf: Math.floor(Date.now() / 1000),
           iss: 'chat',
-          nbf: 1596197652,
           sub: 'vpaas-magic-cookie-6d53f9ffe1dc4dc19723310f865b6f9e'
         }
       },
       process.env.MEET_PRIVATE_KEY!.replace(/\\n/g, '\n'),
-      { algorithm: 'RS256' }
+      {
+        algorithm: 'RS256',
+        header: {
+          alg: 'RS256',
+          kid: 'vpaas-magic-cookie-6d53f9ffe1dc4dc19723310f865b6f9e/b93283',
+          typ: 'JWT'
+        }
+      }
     )
   }
 
