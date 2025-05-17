@@ -114,13 +114,13 @@ export class EventMeetTokenGetController implements Controller {
             'outbound-call': 'false',
             transcription: 'false',
             recording: 'false'
-          },
-          room,
-          exp: Math.floor(exp.getTime() / 1000),
-          nbf: Math.floor(Date.now() / 1000),
-          iss: 'chat',
-          sub: 'vpaas-magic-cookie-6d53f9ffe1dc4dc19723310f865b6f9e'
-        }
+          }
+        },
+        room,
+        exp: Math.floor(exp.getTime() / 1000),
+        nbf: Math.floor(Date.now() / 1000),
+        iss: 'chat',
+        sub: 'vpaas-magic-cookie-6d53f9ffe1dc4dc19723310f865b6f9e'
       },
       process.env.MEET_PRIVATE_KEY!.replace(/\\n/g, '\n'),
       {
