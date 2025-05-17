@@ -99,7 +99,7 @@ export class EventMeetTokenGetController implements Controller {
     return jwt.sign(
       {
         alg: 'RS256',
-        kid: 'vpaas-magic-cookie-1fc542a3e4414a44b2611668195e2bfe/4f4910',
+        kid: 'vpaas-magic-cookie-6d53f9ffe1dc4dc19723310f865b6f9e/b93283',
         typ: 'JWT',
         aud: 'jitsi',
         context: {
@@ -115,9 +115,12 @@ export class EventMeetTokenGetController implements Controller {
             transcription: 'false',
             recording: 'false'
           },
-          room
+          room,
+          exp: 1696284052,
+          iss: 'chat',
+          nbf: 1596197652,
+          sub: 'vpaas-magic-cookie-6d53f9ffe1dc4dc19723310f865b6f9e'
         }
-        // biome-ignore lint/style/noNonNullAssertion: <explanation>
       },
       process.env.MEET_PRIVATE_KEY!.replace(/\\n/g, '\n'),
       { algorithm: 'RS256' }
