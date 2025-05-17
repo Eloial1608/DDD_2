@@ -61,7 +61,7 @@ marketplace-service-server:
 
 events-service-server:
 - *shared
-- src/apps/Event/**
-- src/Contexts/Event/**
-- tests/apps/Event/**
-- tests/Contexts/Event/**
+- src/apps/Events/**
+- src/Contexts/Events/**
+- tests/apps/Events/**
+- tests/Contexts/Events/**
