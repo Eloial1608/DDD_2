@@ -1,3 +1,3 @@
-import { SharedProductId } from "@Marketplace/Shared/domain/Product/SharedProductId";
+import { SharedProductId } from '@Marketplace/Shared/domain/Product/SharedProductId'
 
-export class ProductId extends SharedProductId{}
+export class ProductId extends SharedProductId {}

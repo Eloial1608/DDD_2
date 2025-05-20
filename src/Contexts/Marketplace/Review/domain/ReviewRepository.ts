@@ -8,4 +8,3 @@ export interface ReviewRepository {
     search (criteria: Criteria): Promise<Array<Review>>
     persist (review: Review): Promise<void>
 }
- 

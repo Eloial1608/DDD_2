@@ -1,14 +1,13 @@
-import { Review } from "@Marketplace/Review/domain/Review";
-import { Author } from "@Marketplace/Review/domain/ValueObjects/Author";
-import { Content } from "@Marketplace/Review/domain/ValueObjects/Content";
-import { CreatedAt } from "@Marketplace/Review/domain/ValueObjects/CreatedAt";
-import { Id } from "@Marketplace/Review/domain/ValueObjects/Id";
-import { ProductId } from "@Marketplace/Review/domain/ValueObjects/ProductId";
-import { Rating } from "@Marketplace/Review/domain/ValueObjects/Rating";
-import { UserId } from "@Marketplace/Review/domain/ValueObjects/UserId";
-import { ValueObjectTransformer } from "@Shared/domain/ValueObjects/ValueObjectTransformer";
-import { EntitySchema } from "typeorm";
-
+import { Review } from '@Marketplace/Review/domain/Review'
+import { Author } from '@Marketplace/Review/domain/ValueObjects/Author'
+import { Content } from '@Marketplace/Review/domain/ValueObjects/Content'
+import { CreatedAt } from '@Marketplace/Review/domain/ValueObjects/CreatedAt'
+import { Id } from '@Marketplace/Review/domain/ValueObjects/Id'
+import { ProductId } from '@Marketplace/Review/domain/ValueObjects/ProductId'
+import { Rating } from '@Marketplace/Review/domain/ValueObjects/Rating'
+import { UserId } from '@Marketplace/Review/domain/ValueObjects/UserId'
+import { ValueObjectTransformer } from '@Shared/domain/ValueObjects/ValueObjectTransformer'
+import { EntitySchema } from 'typeorm'
 
 const RatingAuthorSchema = new EntitySchema<Author>({
   name: 'CommentAuthor',
@@ -37,42 +36,41 @@ const RatingAuthorSchema = new EntitySchema<Author>({
   }
 })
 
-
 export const Reviewchema = new EntitySchema<Review>({
   name: 'Review',
   target: Review,
   tableName: 'review',
   columns: {
-    id:{
-        type: String,
-        primary: true,
-        transformer: ValueObjectTransformer(Id)
+    id: {
+      type: String,
+      primary: true,
+      transformer: ValueObjectTransformer(Id)
     },
-    productId:{
-        type: String,
-        transformer: ValueObjectTransformer(ProductId)
+    productId: {
+      type: String,
+      transformer: ValueObjectTransformer(ProductId)
     },
-    content:{
-        type: String,
-        nullable: true,
-        transformer: ValueObjectTransformer(Content)
+    content: {
+      type: String,
+      nullable: true,
+      transformer: ValueObjectTransformer(Content)
     },
-    rating:{
-        type: Number,
-        transformer: ValueObjectTransformer(Rating)
+    rating: {
+      type: Number,
+      transformer: ValueObjectTransformer(Rating)
     },
-    userId:{
-        type:String,
-        transformer: ValueObjectTransformer(UserId)
+    userId: {
+      type: String,
+      transformer: ValueObjectTransformer(UserId)
     },
     createdAt: {
-        type: Date,
-        transformer: ValueObjectTransformer(CreatedAt)
+      type: Date,
+      transformer: ValueObjectTransformer(CreatedAt)
     }
 
   },
-  indices:[
-     {
+  indices: [
+    {
       name: 'IDX_MARKETPLACE_USER_ID',
       columns: ['userId']
     },
@@ -81,11 +79,11 @@ export const Reviewchema = new EntitySchema<Review>({
       columns: ['productId']
     }
   ],
-  embeddeds:{
+  embeddeds: {
     author: {
       schema: RatingAuthorSchema,
       prefix: 'author'
     }
   }
-  
+
 })
