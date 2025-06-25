@@ -52,3 +52,9 @@ CREATE DATABASE chat;
 \c chat
 GRANT ALL PRIVILEGES ON DATABASE chat TO chat_user;
 GRANT ALL ON SCHEMA public TO chat_user;
+
+CREATE USER projects_user WITH PASSWORD 'projects_pass' CREATEDB;
+CREATE DATABASE projects;
+\c projects
+GRANT ALL PRIVILEGES ON DATABASE projects TO projects_user;
+GRANT ALL ON SCHEMA public TO projects_user;

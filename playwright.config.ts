@@ -33,6 +33,10 @@ export default defineConfig({
     {
       name: 'marketPlace',
       testDir: 'tests/apps/MarketPlace'
+    },
+    {
+      name: 'projects',
+      testDir: 'tests/apps/Projects'
     }
   ],
   use: {

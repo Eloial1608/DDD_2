@@ -45,6 +45,9 @@
       "@Chat/*": [
         "src/Contexts/Chat/*"
       ],
+      "@Projects/*": [
+        "src/Contexts/Projects/*"
+      ],
       "@Media/*": [
         "src/Contexts/Media/*"
       ],

@@ -65,3 +65,10 @@ events-service-server:
 - src/Contexts/Events/**
 - tests/apps/Events/**
 - tests/Contexts/Events/**
+
+projects-service-server:
+- *shared
+- src/apps/Projects/**
+- src/Contexts/Projects/**
+- tests/apps/Projects/**
+- tests/Contexts/Projects/**

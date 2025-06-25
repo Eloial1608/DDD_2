@@ -1,0 +1,3 @@
+services:
+  Apps.Projects.Controllers.HealthGetController:
+    class: src/apps/Projects/controllers/HealthGetController
