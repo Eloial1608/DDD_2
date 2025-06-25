@@ -166,3 +166,23 @@ services:
         reservations:
           cpus: "0.5"
           memory: "512MB"
+  projects-service-server:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        PORT: 5012
+    ports:
+      - 5012:5012
+    env_file:
+      - /etc/gathered/projects/.env
+    command: ["start:projects:server"]
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "1GB"
+        reservations:
+          cpus: "0.5"
+          memory: "512MB"

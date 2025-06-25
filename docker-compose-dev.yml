@@ -86,6 +86,17 @@ services:
     ports:
       - 5004:5004
     command: ["start:marketplace:server"]
+  
+  projects-service-server:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        PORT: 5004
+    ports:
+      - 5004:5004
+    command: ["start:projects:server"]
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
