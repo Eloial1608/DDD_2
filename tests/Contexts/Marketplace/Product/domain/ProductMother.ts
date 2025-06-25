@@ -27,7 +27,7 @@ export class ProductMother {
       params.userId ?? new UserId(UuidMother.random()),
       params.content ?? new Content(WordMother.random()),
       params.bannerUrl ?? null,
-      params.associatedMedia ?? [],
+      params.productMedia ?? [],
       params.type ?? new Type(ProductTypes.CODE),
       params.stock ?? null,
       params.author ?? new Author(

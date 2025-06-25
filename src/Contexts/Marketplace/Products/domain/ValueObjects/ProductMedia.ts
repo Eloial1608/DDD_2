@@ -1,5 +1,10 @@
-import { ProductMediaType } from './ProductMediaType'
+import { ProductMediaType, ProductMediaTypes } from './ProductMediaType'
 
+export type ProductMediaPrimitive = {
+  id: string,
+  mediaUrl: string,
+  mediaType: ProductMediaTypes
+}
 export class ProductMedia {
   constructor (
         readonly id: string,
@@ -7,11 +12,23 @@ export class ProductMedia {
         readonly mediaType: ProductMediaType
   ) {}
 
-  toPrimitives () {
+  toPrimitives (): ProductMediaPrimitive {
     return {
       id: this.id,
       mediaUrl: this.mediaUrl,
-      mediaType: this.mediaType
+      mediaType: this.mediaType.valueOf()
     }
+  }
+
+  static fromPrimitives (
+    id: string,
+    mediaUrl: string,
+    mediaType: ProductMediaTypes
+  ): ProductMedia {
+    return new ProductMedia(
+      id,
+      mediaUrl,
+      new ProductMediaType(mediaType)
+    )
   }
 }

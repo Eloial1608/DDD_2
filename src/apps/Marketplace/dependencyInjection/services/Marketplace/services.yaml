@@ -172,3 +172,13 @@ services:
   Review.Repository:
     class: src/Contexts/Marketplace/Review/infrastructure/persistence/TypeOrmReviewRepository
     arguments: ["@Shared.ORM.Connection"]
+  
+  Product.Create.Creator:
+    class: src/Contexts/Marketplace/Product/application/Create/Creator
+    arguments: ['@Product.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Product.Create.CreateProductCommandHandler:
+    class: src/Contexts/Marketplace/Product/application/Create/CreateProductCommandHandler
+    arguments: ["@Product.Create.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }

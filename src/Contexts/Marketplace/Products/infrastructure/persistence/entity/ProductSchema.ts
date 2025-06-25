@@ -94,7 +94,7 @@ export const ProductSchema = new EntitySchema<Product>({
       nullable: true,
       transformer: ValueObjectTransformer(BannerUrl)
     },
-    associatedMedia: {
+    productMedia: {
       type: String,
       transformer: ProductMediaTransformer
     },

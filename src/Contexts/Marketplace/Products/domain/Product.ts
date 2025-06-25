@@ -15,7 +15,8 @@ import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { DeletedAt } from './ValueObjects/DeletedAt'
 import { Nullable } from '@Shared/domain/Nullable'
 import { Type } from './ValueObjects/Type'
-import { ProductMediaType } from './ValueObjects/ProductMediaType'
+import { ProductMedia } from './ValueObjects/ProductMedia'
+import { ProductCreatedDomainEvent } from './Events/ProductCreatedDomainEvent'
 
 export class Product extends AggregateRoot {
   constructor (
@@ -26,7 +27,7 @@ export class Product extends AggregateRoot {
     readonly userId: UserId,
     readonly content: Content,
     readonly bannerUrl: Nullable<BannerUrl>,
-    readonly associatedMedia: ProductMediaType[],
+    readonly productMedia: ProductMedia[],
     readonly type: Type,
     readonly stock: Nullable<Stock>,
     readonly author: Author,
@@ -37,5 +38,43 @@ export class Product extends AggregateRoot {
     readonly deletedAt: Nullable<DeletedAt>
   ) {
     super()
+  }
+
+  static create (
+    id: Id,
+    communityId: CommunityId,
+    spaceId: SpaceId,
+    title: Title,
+    userId: UserId,
+    content: Content,
+    bannerUrl: Nullable<BannerUrl>,
+    productMedia: ProductMedia[],
+    type: Type,
+    stock: Nullable<Stock>,
+    author: Author,
+    price: Price
+  ) {
+    const product = new Product(
+      id,
+      communityId,
+      spaceId,
+      title,
+      userId,
+      content,
+      bannerUrl,
+      productMedia,
+      type,
+      stock,
+      author,
+      price,
+      new TotalRatings(0),
+      new CreatedAt(new Date()),
+      new UpdatedAt(new Date()),
+      null
+    )
+
+    product.record(ProductCreatedDomainEvent.fromAggregate(product))
+
+    return product
   }
 }
