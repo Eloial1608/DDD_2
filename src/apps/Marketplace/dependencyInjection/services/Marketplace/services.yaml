@@ -212,3 +212,13 @@ services:
     arguments: ['@Product.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+  
+  Product.Delete.Deleter:
+    class: src/Contexts/Marketplace/Product/application/Delete/Deleter
+    arguments: ['@Product.Repository', '@Shared.EventBus']
+  
+  Product.Delete.DeleteProductCommandHandler:
+    class: src/Contexts/Marketplace/Product/application/Delete/DeleteProductCommandHandler
+    arguments: ["@Product.Delete.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }

@@ -18,6 +18,7 @@ import { Type } from './ValueObjects/Type'
 import { ProductMedia } from './ValueObjects/ProductMedia'
 import { ProductCreatedDomainEvent } from './Events/ProductCreatedDomainEvent'
 import { ProductUpdatedDomainEvent } from './Events/ProductUpdatedDomainEvent'
+import { ProductDeletedDomainEvent } from './Events/ProductDeletedDomainEvent'
 
 export class Product extends AggregateRoot {
   constructor (
@@ -107,6 +108,31 @@ export class Product extends AggregateRoot {
     )
 
     product.record(ProductUpdatedDomainEvent.fromAggregate(product))
+
+    return product
+  }
+
+  delete () {
+    const product = new Product(
+      this.id,
+      this.communityId,
+      this.spaceId,
+      this.title,
+      this.userId,
+      this.content,
+      this.bannerUrl,
+      this.productMedia,
+      this.type,
+      this.stock,
+      this.author,
+      this.price,
+      this.totalRatings,
+      this.createdAt,
+      this.updatedAt,
+      new DeletedAt(new Date())
+    )
+
+    product.record(ProductDeletedDomainEvent.fromAggregate(product))
 
     return product
   }
