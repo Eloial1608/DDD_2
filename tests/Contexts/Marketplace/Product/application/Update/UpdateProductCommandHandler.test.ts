@@ -20,10 +20,12 @@ describe('UpdateProductCommandHandler should ', () => {
     handler = new UpdateProductCommandHandler(updater)
   })
 
-  test('Update a new product', async () => {
+  test('Update a product', async () => {
     const user = UserMother.random()
 
     const product = ProductMother.forAuthor(user)
+
+    repository.returnOnFind(product)
 
     const command = UpdateProductCommandMother.fromAggregate(product)
 
@@ -32,26 +34,24 @@ describe('UpdateProductCommandHandler should ', () => {
     repository.assertPersistHasBeenCalledWith(product)
   })
 
-  test('Fail if a product with the same id already exists', async () => {
+  test('Fail if a product with the same id doesnt exists', async () => {
     const user = UserMother.random()
 
     const product = ProductMother.forAuthor(user)
 
-    const existingProduct = ProductMother.create({ id: product.id })
-
     const command = UpdateProductCommandMother.fromAggregate(product)
-
-    repository.returnOnFind(existingProduct)
 
     await handler.handle(command)
 
     repository.assertPersistHasNotBeenCalled()
   })
 
-  test('Update a new ProductUpdatedDomainEvent', async () => {
+  test('Create a new ProductUpdatedDomainEvent', async () => {
     const user = UserMother.random()
 
     const product = ProductMother.forAuthor(user)
+
+    repository.returnOnFind(product)
 
     const command = UpdateProductCommandMother.fromAggregate(product)
 
