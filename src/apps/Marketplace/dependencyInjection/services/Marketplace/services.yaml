@@ -182,3 +182,13 @@ services:
     arguments: ["@Product.Create.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+    
+  Product.Update.Updater:
+    class: src/Contexts/Marketplace/Product/application/Update/Updater
+    arguments: ['@Product.Repository', '@Shared.EventBus']
+  
+  Product.Update.UpdateProductCommandHandler:
+    class: src/Contexts/Marketplace/Product/application/Update/UpdateProductCommandHandler
+    arguments: ["@Product.Update.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }

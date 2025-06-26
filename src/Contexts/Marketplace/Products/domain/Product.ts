@@ -17,6 +17,7 @@ import { Nullable } from '@Shared/domain/Nullable'
 import { Type } from './ValueObjects/Type'
 import { ProductMedia } from './ValueObjects/ProductMedia'
 import { ProductCreatedDomainEvent } from './Events/ProductCreatedDomainEvent'
+import { ProductUpdatedDomainEvent } from './Events/ProductUpdatedDomainEvent'
 
 export class Product extends AggregateRoot {
   constructor (
@@ -74,6 +75,38 @@ export class Product extends AggregateRoot {
     )
 
     product.record(ProductCreatedDomainEvent.fromAggregate(product))
+
+    return product
+  }
+
+  update (
+    title: Title,
+    content: Content,
+    bannerUrl: Nullable<BannerUrl>,
+    productMedia: ProductMedia[],
+    stock: Nullable<Stock>,
+    price: Price
+  ) {
+    const product = new Product(
+      this.id,
+      this.communityId,
+      this.spaceId,
+      title,
+      this.userId,
+      content,
+      bannerUrl,
+      productMedia,
+      this.type,
+      stock,
+      this.author,
+      price,
+      this.totalRatings,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      null
+    )
+
+    product.record(ProductUpdatedDomainEvent.fromAggregate(product))
 
     return product
   }
