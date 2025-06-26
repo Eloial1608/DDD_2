@@ -192,3 +192,13 @@ services:
     arguments: ["@Product.Update.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  Product.FindById.FinderById:
+    class: src/Contexts/Marketplace/Products/application/FindById/FinderById
+    arguments: ['@Product.Repository']
+  
+  Product.FindById.FindProductByIdQueryHandler:
+    class: src/Contexts/Marketplace/Products/application/FindById/FindProductByIdQueryHandler
+    arguments: ['@Product.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
