@@ -202,3 +202,13 @@ services:
     arguments: ['@Product.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+  
+  Product.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Marketplace/Products/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Product.Repository']
+  
+  Product.FindByCriteria.FindProductsByCriteriaQueryHandler:
+    class: src/Contexts/Marketplace/Products/application/FindByCriteria/FindProductsByCriteriaQueryHandler
+    arguments: ['@Product.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
