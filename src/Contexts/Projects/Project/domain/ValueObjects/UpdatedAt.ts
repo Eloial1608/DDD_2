@@ -1,3 +1,3 @@
-import { DateValueObject } from "@Shared/domain/ValueObjects/DateValueObject";
+import { DateValueObject } from '@Shared/domain/ValueObjects/DateValueObject'
 
-export class UpdatedAt extends DateValueObject{}
+export class UpdatedAt extends DateValueObject {}

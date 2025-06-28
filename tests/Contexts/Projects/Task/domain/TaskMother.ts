@@ -1,14 +1,14 @@
-import { Task } from "@Projects/Task/domain/Task";
-import { CommunityId } from "@Projects/Task/domain/ValueObjects/CommunityId";
-import { CreatedAt } from "@Projects/Task/domain/ValueObjects/CreatedAt";
-import { Id } from "@Projects/Task/domain/ValueObjects/Id";
-import { ProjectId } from "@Projects/Task/domain/ValueObjects/ProjectId";
-import { Title } from "@Projects/Task/domain/ValueObjects/Title";
-import { UpdatedAt } from "@Projects/Task/domain/ValueObjects/UpdatedAt";
-import { UuidMother } from "@Tests/Contexts/Shared/domain/UuidMother";
+import { Task } from '@Projects/Task/domain/Task'
+import { CommunityId } from '@Projects/Task/domain/ValueObjects/CommunityId'
+import { CreatedAt } from '@Projects/Task/domain/ValueObjects/CreatedAt'
+import { Id } from '@Projects/Task/domain/ValueObjects/Id'
+import { ProjectId } from '@Projects/Task/domain/ValueObjects/ProjectId'
+import { Title } from '@Projects/Task/domain/ValueObjects/Title'
+import { UpdatedAt } from '@Projects/Task/domain/ValueObjects/UpdatedAt'
+import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
 
 export class TaskMother {
-  static create(params: Partial<Task>): Task {
+  static create (params: Partial<Task>): Task {
     return new Task(
       params.id ?? new Id(UuidMother.random()),
       params.title ?? new Title(UuidMother.random()),
@@ -28,7 +28,7 @@ export class TaskMother {
     )
   }
 
-  static random(): Task {
+  static random (): Task {
     return this.create({})
   }
 }

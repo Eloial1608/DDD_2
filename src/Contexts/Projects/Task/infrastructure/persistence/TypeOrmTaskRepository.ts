@@ -8,23 +8,23 @@ import { Nullable } from '@Shared/domain/Nullable'
 import { Criteria } from '@Shared/domain/Criteria/Criteria'
 
 export class TypeOrmTaskRepository extends TypeOrmRepository<Task> implements TaskRepository {
-  protected get entitySchema(): EntitySchema {
+  protected get entitySchema (): EntitySchema {
     return TaskSchema
   }
 
-  async find(id: Id): Promise<Nullable<Task>> {
+  async find (id: Id): Promise<Nullable<Task>> {
     return await (await this.repository()).findOneBy({ id: Equal(id) })
   }
 
-  async search(criteria: Criteria): Promise<Task[]> {
+  async search (criteria: Criteria): Promise<Task[]> {
     return (await this.criteriaToQueryBuilder(criteria)).getMany()
   }
 
-  async persist(task: Task): Promise<void> {
+  async persist (task: Task): Promise<void> {
     await (await this.repository()).save(task)
   }
 
-  async delete(task: Task): Promise<void> {
+  async delete (task: Task): Promise<void> {
     await (await this.repository()).remove(task)
   }
 }

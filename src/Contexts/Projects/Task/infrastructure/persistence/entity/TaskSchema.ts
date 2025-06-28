@@ -1,21 +1,21 @@
-import { Author } from "@Course/Comment/domain/ValueObjects/Author";
-import { Task } from "@Projects/Task/domain/Task";
-import { CommunityId } from "@Projects/Task/domain/ValueObjects/CommunityId";
-import { CreatedAt } from "@Projects/Task/domain/ValueObjects/CreatedAt";
-import { Deadline } from "@Projects/Task/domain/ValueObjects/Deadline";
-import { DeletedAt } from "@Projects/Task/domain/ValueObjects/DeletedAt";
-import { Description } from "@Projects/Task/domain/ValueObjects/Description";
-import { Id } from "@Projects/Task/domain/ValueObjects/Id";
-import { Points } from "@Projects/Task/domain/ValueObjects/Points";
-import { Priority } from "@Projects/Task/domain/ValueObjects/Priority";
-import { ProjectId } from "@Projects/Task/domain/ValueObjects/ProjectId";
-import { TaskStatus } from "@Projects/Task/domain/ValueObjects/TaskStatus";
-import { TaskTypes } from "@Projects/Task/domain/ValueObjects/TaskTypes";
-import { Title } from "@Projects/Task/domain/ValueObjects/Title";
-import { UpdatedAt } from "@Projects/Task/domain/ValueObjects/UpdatedAt";
-import { UserId } from "@Projects/Task/domain/ValueObjects/UserId";
-import { ValueObjectTransformer } from "@Shared/domain/ValueObjects/ValueObjectTransformer";
-import { EntitySchema } from "typeorm";
+import { Author } from '@Course/Comment/domain/ValueObjects/Author'
+import { Task } from '@Projects/Task/domain/Task'
+import { CommunityId } from '@Projects/Task/domain/ValueObjects/CommunityId'
+import { CreatedAt } from '@Projects/Task/domain/ValueObjects/CreatedAt'
+import { Deadline } from '@Projects/Task/domain/ValueObjects/Deadline'
+import { DeletedAt } from '@Projects/Task/domain/ValueObjects/DeletedAt'
+import { Description } from '@Projects/Task/domain/ValueObjects/Description'
+import { Id } from '@Projects/Task/domain/ValueObjects/Id'
+import { Points } from '@Projects/Task/domain/ValueObjects/Points'
+import { Priority } from '@Projects/Task/domain/ValueObjects/Priority'
+import { ProjectId } from '@Projects/Task/domain/ValueObjects/ProjectId'
+import { TaskStatus } from '@Projects/Task/domain/ValueObjects/TaskStatus'
+import { TaskTypes } from '@Projects/Task/domain/ValueObjects/TaskTypes'
+import { Title } from '@Projects/Task/domain/ValueObjects/Title'
+import { UpdatedAt } from '@Projects/Task/domain/ValueObjects/UpdatedAt'
+import { UserId } from '@Projects/Task/domain/ValueObjects/UserId'
+import { ValueObjectTransformer } from '@Shared/domain/ValueObjects/ValueObjectTransformer'
+import { EntitySchema } from 'typeorm'
 
 const PostAuthorSchema = new EntitySchema<Author>({
   name: 'postAuthor',
