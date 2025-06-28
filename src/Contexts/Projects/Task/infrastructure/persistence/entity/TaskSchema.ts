@@ -17,8 +17,8 @@ import { UserId } from '@Projects/Task/domain/ValueObjects/UserId'
 import { ValueObjectTransformer } from '@Shared/domain/ValueObjects/ValueObjectTransformer'
 import { EntitySchema } from 'typeorm'
 
-const PostAuthorSchema = new EntitySchema<Author>({
-  name: 'postAuthor',
+const TaskAuthorSchema = new EntitySchema<Author>({
+  name: 'taskAuthor',
   target: Author,
   columns: {
     id: {
@@ -117,7 +117,7 @@ export const TaskSchema = new EntitySchema<Task>({
   },
   embeddeds: {
     assignedUser: {
-      schema: PostAuthorSchema,
+      schema: TaskAuthorSchema,
       prefix: 'author'
     }
   }
