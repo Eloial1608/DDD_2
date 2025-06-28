@@ -1,10 +1,12 @@
 import { Task } from '@Projects/Task/domain/Task'
+import { Author } from '@Projects/Task/domain/ValueObjects/Author'
 import { CommunityId } from '@Projects/Task/domain/ValueObjects/CommunityId'
 import { CreatedAt } from '@Projects/Task/domain/ValueObjects/CreatedAt'
 import { Id } from '@Projects/Task/domain/ValueObjects/Id'
 import { ProjectId } from '@Projects/Task/domain/ValueObjects/ProjectId'
 import { Title } from '@Projects/Task/domain/ValueObjects/Title'
 import { UpdatedAt } from '@Projects/Task/domain/ValueObjects/UpdatedAt'
+import { User } from '@Projects/User/domain/User'
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
 
 export class TaskMother {
@@ -30,5 +32,18 @@ export class TaskMother {
 
   static random (): Task {
     return this.create({})
+  }
+
+  static forAuthor (user: User): Task {
+    return this.create({
+      assignedUser: new Author(
+        user.id.valueOf(),
+        user.mainId.valueOf(),
+        user.name.valueOf(),
+        user.username.valueOf(),
+        user.pictureUrl?.valueOf(),
+        user.bannerUrl?.valueOf()
+      )
+    })
   }
 }
