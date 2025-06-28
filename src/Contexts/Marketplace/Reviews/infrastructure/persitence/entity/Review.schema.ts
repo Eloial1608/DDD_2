@@ -1,11 +1,11 @@
-import { Review } from '@Marketplace/Review/domain/Review'
-import { Author } from '@Marketplace/Review/domain/ValueObjects/Author'
-import { Content } from '@Marketplace/Review/domain/ValueObjects/Content'
-import { CreatedAt } from '@Marketplace/Review/domain/ValueObjects/CreatedAt'
-import { Id } from '@Marketplace/Review/domain/ValueObjects/Id'
-import { ProductId } from '@Marketplace/Review/domain/ValueObjects/ProductId'
-import { Rating } from '@Marketplace/Review/domain/ValueObjects/Rating'
-import { UserId } from '@Marketplace/Review/domain/ValueObjects/UserId'
+import { Review } from '@Marketplace/Reviews/domain/Review'
+import { Author } from '@Marketplace/Reviews/domain/ValueObjects/Author'
+import { Content } from '@Marketplace/Reviews/domain/ValueObjects/Content'
+import { CreatedAt } from '@Marketplace/Reviews/domain/ValueObjects/CreatedAt'
+import { Id } from '@Marketplace/Reviews/domain/ValueObjects/Id'
+import { ProductId } from '@Marketplace/Reviews/domain/ValueObjects/ProductId'
+import { Rating } from '@Marketplace/Reviews/domain/ValueObjects/Rating'
+import { UserId } from '@Marketplace/Reviews/domain/ValueObjects/UserId'
 import { ValueObjectTransformer } from '@Shared/domain/ValueObjects/ValueObjectTransformer'
 import { EntitySchema } from 'typeorm'
 
@@ -36,7 +36,7 @@ const RatingAuthorSchema = new EntitySchema<Author>({
   }
 })
 
-export const Reviewchema = new EntitySchema<Review>({
+export const ReviewSchema = new EntitySchema<Review>({
   name: 'Review',
   target: Review,
   tableName: 'review',
