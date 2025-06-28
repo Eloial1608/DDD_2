@@ -1,3 +1,3 @@
-import { StringValueObject } from '@Shared/domain/ValueObjects/StringValueObject'
+import { CommunityId as SharedCommunityId } from '@Shared/domain/SharedValueObjects/Community/CommunityId'
 
-export class CommunityId extends StringValueObject {}
+export class CommunityId extends SharedCommunityId {}
