@@ -172,3 +172,7 @@ services:
   Task.Repository:
     class: src/Contexts/Projects/Task/infrastructure/persistence/TypeOrmTaskRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  Status.Repository:
+    class: src/Contexts/Projects/Status/infrastructure/persistence/TypeOrmStatusRepository
+    arguments: ["@Shared.ORM.Connection"]
