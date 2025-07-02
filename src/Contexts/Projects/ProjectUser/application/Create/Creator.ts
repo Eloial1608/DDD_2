@@ -17,8 +17,8 @@ export class Creator {
     userId: UserId,
     projectId: ProjectId
   ) {
-    const projectQuery = new FindProjectByIdQuery(projectId.valueOf())
-    const project = await (await this.queryBus.ask<ProjectResponse>(projectQuery)).response
+    //const projectQuery = new FindProjectByIdQuery(projectId.valueOf())
+    //const project = await (await this.queryBus.ask<ProjectResponse>(projectQuery)).response
 
     if (await this.existsProjectUserByProjectIdAndUserId(projectId, userId)) return
 
