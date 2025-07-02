@@ -177,3 +177,6 @@ services:
     class: src/Contexts/Projects/Task/infrastructure/persistence/TypeOrmTaskRepository
     arguments: ["@Shared.ORM.Connection"]
 
+  ProjectUser.Repository:
+    class: src/Contexts/Projects/ProjectUser/infrastructure/persistence/TypeOrmProjectUserRepository
+    arguments: ["@Shared.ORM.Connection"]
