@@ -180,3 +180,13 @@ services:
   ProjectUser.Repository:
     class: src/Contexts/Projects/ProjectUser/infrastructure/persistence/TypeOrmProjectUserRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  ProjectUser.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Projects/ProjectUser/application/FindByCriteria/FinderByCriteria
+    arguments: ['@ProjectUser.Repository']
+
+  ProjectUser.FindByCriteria.FindProjectUsersByCriteriaQueryHandler:
+    class: src/Contexts/Projects/ProjectUser/application/FindByCriteria/FindProjectUsersByCriteriaQueryHandler
+    arguments: ['@ProjectUser.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
