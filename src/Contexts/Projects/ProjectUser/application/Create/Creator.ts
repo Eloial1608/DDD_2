@@ -7,10 +7,11 @@ import { Criteria } from '@Shared/domain/Criteria/Criteria'
 import { Filter } from '@Shared/domain/Criteria/Filter'
 import { Filters } from '@Shared/domain/Criteria/Filters'
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
-import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
+//import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 
 export class Creator {
-  constructor (private readonly repository: ProjectUserRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
+  //constructor (private readonly repository: ProjectUserRepository, private readonly eventBus: EventBus, private readonly queryBus: QueryBus) {}
+  constructor (private readonly repository: ProjectUserRepository, private readonly eventBus: EventBus) {}
 
   async run (
     id:Id,
