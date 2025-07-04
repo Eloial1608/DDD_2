@@ -180,3 +180,13 @@ services:
   ProjectUser.Repository:
     class: src/Contexts/Projects/ProjectUser/infrastructure/persistence/TypeOrmProjectUserRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  Project.FindById.FinderById:
+    class: src/Contexts/Projects/Project/application/FindById/FinderById
+    arguments: ['@Project.Repository']
+  
+  Project.FindById.FindSectionByIdQueryHandler:
+    class: src/Contexts/Projects/Project/application/FindById/FindProjectByIdQueryHandler
+    arguments: ['@Project.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
