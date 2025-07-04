@@ -41,8 +41,6 @@ describe('CreateProjectCommandHandler should' ,() =>{
     
         const command = CreateProjectCommandMother.fromAggregate(project)
 
-        console.log(command)
-
         await handler.handle(command)
 
         repository.assertPersistHasBeenCalledWith(project)
