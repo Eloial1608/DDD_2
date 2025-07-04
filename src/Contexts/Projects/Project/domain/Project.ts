@@ -14,6 +14,7 @@ import { UserId } from "./ValueObjects/UserId";
 import { CreatedAt } from "./ValueObjects/CreatedAt";
 import { UpdatedAt } from "./ValueObjects/UpdatedAt";
 import { DeletedAt } from "./ValueObjects/DeletedAt";
+import { ProjectCreatedDomainEvent } from "./Events/ProjectCreatedDomainEvent";
 
 export class Project extends AggregateRoot{
     constructor(
@@ -33,5 +34,39 @@ export class Project extends AggregateRoot{
         readonly deletedAt: Nullable<DeletedAt>
     ){
         super()
+    }
+
+    static create(
+        id: Id,
+        title: Title,
+        description: Nullable<Description>,
+        bannerUrl: Nullable<BannerUrl>,
+        leadUserId: LeadUserId,
+        startDate: Nullable<StartDate>,
+        endDate: Nullable<EndDate>,
+        communityId: CommunityId,
+        spaceId: SpaceId,
+        userId: UserId,
+    ) : Project{
+        const project = new Project(
+            id,
+            title,
+            description,
+            bannerUrl,
+            leadUserId,
+            startDate,
+            endDate,
+            new TotalTasks(0),
+            communityId,
+            spaceId,
+            userId,
+            new CreatedAt(new Date()),
+            new UpdatedAt(new Date()),
+            null
+        )
+
+        project.record(ProjectCreatedDomainEvent.fromAggregate(project))
+
+        return project
     }
 }
