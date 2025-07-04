@@ -168,3 +168,13 @@ services:
   Project.Repository:
     class: src/Contexts/Projects/Project/infrastructure/persistence/TypeOrmProjectRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  Project.Create.Creator:
+    class: src/Contexts/Projects/Project/application/Create/Creator
+    arguments: ['@Project.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Project.Create.CreateProjectCommandHandler:
+    class: src/Contexts/Projects/Project/application/Create/CreateProjectCommandHandler
+    arguments: ["@Project.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
