@@ -190,3 +190,13 @@ services:
     arguments: ['@ProjectUser.Delete.Deleter']
     tags:
       - { name: "commandHandler" }
+
+  ProjectUser.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Projects/ProjectUser/application/FindByCriteria/FinderByCriteria
+    arguments: ['@ProjectUser.Repository']
+
+  ProjectUser.FindByCriteria.FindProjectUsersByCriteriaQueryHandler:
+    class: src/Contexts/Projects/ProjectUser/application/FindByCriteria/FindProjectUsersByCriteriaQueryHandler
+    arguments: ['@ProjectUser.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
