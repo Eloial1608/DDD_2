@@ -181,6 +181,16 @@ services:
     class: src/Contexts/Projects/ProjectUser/infrastructure/persistence/TypeOrmProjectUserRepository
     arguments: ["@Shared.ORM.Connection"]
 
+  ProjectUser.Delete.Deleter:
+    class: src/Contexts/Projects/ProjectUser/application/Delete/Deleter
+    arguments: ['@ProjectUser.Repository']
+
+  ProjectUser.Delete.DeleteProjectUserCommandHandler:
+    class: src/Contexts/Projects/ProjectUser/application/Delete/DeleteProjectUserCommandHandler
+    arguments: ['@ProjectUser.Delete.Deleter']
+    tags:
+      - { name: "commandHandler" }
+
   ProjectUser.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Projects/ProjectUser/application/FindByCriteria/FinderByCriteria
     arguments: ['@ProjectUser.Repository']
