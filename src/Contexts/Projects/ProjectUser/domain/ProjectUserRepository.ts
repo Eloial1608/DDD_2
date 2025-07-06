@@ -7,4 +7,5 @@ export interface ProjectUserRepository {
     find (id: Id): Promise<Nullable<ProjectUser>>
     search (criteria: Criteria): Promise<Array<ProjectUser>>
     persist (projectUser: ProjectUser): Promise<void>
+    delete (projectUser: ProjectUser): Promise<void>
 }

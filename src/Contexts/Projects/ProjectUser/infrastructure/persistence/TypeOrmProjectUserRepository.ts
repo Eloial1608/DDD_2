@@ -23,4 +23,8 @@ export class TypeOrmProjectUserRepository extends TypeOrmRepository<ProjectUser>
   async persist (projectUser: ProjectUser): Promise<void> {
     await (await this.repository()).save(projectUser)
   }
+
+  async delete (projectUser: ProjectUser): Promise<void> {
+    await (await this.repository()).remove(projectUser)
+  }
 }
