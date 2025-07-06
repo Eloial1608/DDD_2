@@ -7,6 +7,7 @@ import { ProjectMother } from '@Tests/Contexts/Projects/Project/domain/ProjectMo
 import { CreateProjectUserCommandMother } from './CreateProjectUserCommandMother'
 import { CreateProjectUserCommandHandler } from '@Projects/ProjectUser/application/Create/CreateProjectCommandHandler'
 import { Creator } from '@Projects/ProjectUser/application/Create/Creator'
+import { ProjectResponse } from '@Projects/Project/application/ProjectResponse'
 
 let repository: ProjectUserRepositoryMock
 let eventBus: EventBusMock
