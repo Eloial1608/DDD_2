@@ -1,3 +1,4 @@
+
 import { AggregateRoot } from "@Shared/domain/AggregateRoot";
 import { Id } from "./ValueObjects/Id";
 import { Title } from "./ValueObjects/Title";
@@ -16,8 +17,8 @@ import { UpdatedAt } from "./ValueObjects/UpdatedAt";
 import { DeletedAt } from "./ValueObjects/DeletedAt";
 import { ProjectCreatedDomainEvent } from "./Events/ProjectCreatedDomainEvent";
 
-export class Project extends AggregateRoot{
-    constructor(
+export class Project extends AggregateRoot {
+  constructor (
         readonly id:Id,
         readonly title:Title,
         readonly description: Nullable<Description>,
@@ -32,6 +33,7 @@ export class Project extends AggregateRoot{
         readonly createdAt: CreatedAt,
         readonly updatedAt: UpdatedAt,
         readonly deletedAt: Nullable<DeletedAt>
+
     ){
         super()
     }

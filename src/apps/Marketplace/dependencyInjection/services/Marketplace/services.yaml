@@ -222,3 +222,33 @@ services:
     arguments: ["@Product.Delete.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
+  
+  Review.Create.Creator:
+    class: src/Contexts/Marketplace/Review/application/Create/Creator
+    arguments: ['@Review.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Review.Create.CreateReviewCommandHandler:
+    class: src/Contexts/Marketplace/Review/application/Create/CreateReviewCommandHandler
+    arguments: ["@Review.Create.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Review.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Marketplace/Reviews/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Review.Repository']
+  
+  Review.FindByCriteria.FindReviewsByCriteriaQueryHandler:
+    class: src/Contexts/Marketplace/Reviews/application/FindByCriteria/FindReviewsByCriteriaQueryHandler
+    arguments: ['@Review.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+  
+  Review.Delete.Deleter:
+    class: src/Contexts/Marketplace/Review/application/Delete/Deleter
+    arguments: ['@Review.Repository', '@Shared.EventBus']
+  
+  Review.Delete.DeleteReviewCommandHandler:
+    class: src/Contexts/Marketplace/Review/application/Delete/DeleteReviewCommandHandler
+    arguments: ["@Review.Delete.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
