@@ -4,5 +4,5 @@ import { ProjectUsersGetController } from '@Apps/Projects/controllers/ProjectUse
 
 export const register = (router: Router) => {
   const controller = DI.getInstance().resolve<ProjectUsersGetController>('Apps.Projects.Controllers.ProjectUsersGetController')
-  router.get('/v1/projects', (req: Request, res: Response) => controller.run(req, res))
+  router.get('/v1/projects/users', (req: Request, res: Response) => controller.run(req, res))
 }

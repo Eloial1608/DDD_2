@@ -46,7 +46,7 @@ export class ProjectUsersGetController implements Controller {
         ])
       ])
 
-      const response = (await this.queryBus.ask<ProjectUserCollectionResponse>(query)).response.pop()
+      const response = (await this.queryBus.ask<ProjectUserCollectionResponse>(query)).response
 
       return res.status(200).send(response)
     } catch (e) {
