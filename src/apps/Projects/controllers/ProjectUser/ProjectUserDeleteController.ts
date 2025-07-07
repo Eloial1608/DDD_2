@@ -83,11 +83,11 @@ export class ProjectUserDeleteController implements Controller {
     return projectUser
   }
 
-  private async getProject (postId: string) {
-    const query = new FindProjectByIdQuery(postId)
+  private async getProject (projectId: string) {
+    const query = new FindProjectByIdQuery(projectId)
 
-    const post = (await this.queryBus.ask<ProjectResponse>(query)).response
+    const project = (await this.queryBus.ask<ProjectResponse>(query)).response
 
-    return post
+    return project
   }
 }
