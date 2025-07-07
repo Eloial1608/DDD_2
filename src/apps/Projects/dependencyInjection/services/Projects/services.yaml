@@ -169,6 +169,21 @@ services:
     class: src/Contexts/Projects/Project/infrastructure/persistence/TypeOrmProjectRepository
     arguments: ["@Shared.ORM.Connection"]
 
+
+  Project.Create.Creator:
+    class: src/Contexts/Projects/Project/application/Create/Creator
+    arguments: ['@Project.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Project.Create.CreateProjectCommandHandler:
+    class: src/Contexts/Projects/Project/application/Create/CreateProjectCommandHandler
+    arguments: ["@Project.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  Type.Repository:
+    class: src/Contexts/Projects/Type/infrastructure/persistence/TypeOrmTypeRepository
+    arguments: ["@Shared.ORM.Connection"]
+    
   Task.Repository:
     class: src/Contexts/Projects/Task/infrastructure/persistence/TypeOrmTaskRepository
     arguments: ["@Shared.ORM.Connection"]
@@ -186,3 +201,37 @@ services:
   Status.Repository:
     class: src/Contexts/Projects/Status/infrastructure/persistence/TypeOrmStatusRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  ProjectUser.Repository:
+    class: src/Contexts/Projects/ProjectUser/infrastructure/persistence/TypeOrmProjectUserRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Project.FindById.FinderById:
+    class: src/Contexts/Projects/Project/application/FindById/FinderById
+    arguments: ['@Project.Repository']
+  
+  Project.FindById.FindSectionByIdQueryHandler:
+    class: src/Contexts/Projects/Project/application/FindById/FindProjectByIdQueryHandler
+    arguments: ['@Project.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  ProjectUser.Delete.Deleter:
+    class: src/Contexts/Projects/ProjectUser/application/Delete/Deleter
+    arguments: ['@ProjectUser.Repository']
+
+  ProjectUser.Delete.DeleteProjectUserCommandHandler:
+    class: src/Contexts/Projects/ProjectUser/application/Delete/DeleteProjectUserCommandHandler
+    arguments: ['@ProjectUser.Delete.Deleter']
+    tags:
+      - { name: "commandHandler" }
+
+  ProjectUser.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Projects/ProjectUser/application/FindByCriteria/FinderByCriteria
+    arguments: ['@ProjectUser.Repository']
+
+  ProjectUser.FindByCriteria.FindProjectUsersByCriteriaQueryHandler:
+    class: src/Contexts/Projects/ProjectUser/application/FindByCriteria/FindProjectUsersByCriteriaQueryHandler
+    arguments: ['@ProjectUser.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
