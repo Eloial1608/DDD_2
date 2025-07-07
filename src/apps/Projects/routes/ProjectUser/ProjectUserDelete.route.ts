@@ -4,5 +4,5 @@ import { ProjectUserDeleteController } from '@Apps/Projects/controllers/ProjectU
 
 export const register = (router: Router) => {
   const controller = DI.getInstance().resolve<ProjectUserDeleteController>('Apps.Projects.Controllers.ProjectUserDeleteController')
-  router.delete('/v1/project/user/:id', (req: Request, res: Response) => controller.run(req, res))
+  router.delete('/v1/project/users/:id', (req: Request, res: Response) => controller.run(req, res))
 }
