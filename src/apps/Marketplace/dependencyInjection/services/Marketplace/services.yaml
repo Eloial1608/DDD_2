@@ -330,3 +330,15 @@ services:
     arguments: ["@DigitalStock.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
+
+  AvailabilityRule.Repository:
+    class: src/Contexts/Marketplace/AvailabilityRule/infrastructure/TypeOrmAvailabilityRuleRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Booking.Repository:
+    class: src/Contexts/Marketplace/Booking/infrastructure/TypeOrmBookingRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  AvailabilityException.Repository:
+    class: src/Contexts/Marketplace/AvailabilityException/infrastructure/TypeOrmAvailabilityExceptionRepository
+    arguments: ["@Shared.ORM.Connection"]
