@@ -286,3 +286,27 @@ services:
     arguments: ["@Action.Delete.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  DigitalStock.Repository:
+    class: src/Contexts/Marketplace/DigitalStock/infrastructure/TypeOrmDigitalStockRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  DigitalStock.Create.Creator:
+    class: src/Contexts/Marketplace/DigitalStock/application/Create/Creator
+    arguments: ['@DigitalStock.Repository', '@Shared.EventBus']
+
+  DigitalStock.Create.CreateDigitalStockCommandHandler:
+    class: src/Contexts/Marketplace/DigitalStock/application/Create/CreateDigitalStockCommandHandler
+    arguments: ["@DigitalStock.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  DigitalStock.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Marketplace/DigitalStock/application/FindByCriteria/FinderByCriteria
+    arguments: ['@DigitalStock.Repository']
+
+  DigitalStock.FindByCriteria.FindDigitalStocksByCriteriaQueryHandler:
+    class: src/Contexts/Marketplace/DigitalStock/application/FindByCriteria/FindDigitalStocksByCriteriaQueryHandler
+    arguments: ['@DigitalStock.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
