@@ -31,7 +31,7 @@ export class TypeCreatedDomainEvent extends DomainEvent {
     return new TypeCreatedDomainEvent({
       id: type.id.valueOf(),
       projectId: type.projectId ? type.projectId.valueOf() : null,
-      createdAt: type.createdAt.valueOf(),
+      createdAt: type.createdAt.valueOf()
 
     })
   }

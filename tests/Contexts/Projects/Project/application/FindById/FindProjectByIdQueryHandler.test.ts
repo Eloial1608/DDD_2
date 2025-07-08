@@ -1,10 +1,10 @@
-import { FinderById } from "@Projects/Project/application/FindById/FinderById";
-import { ProjectRepositoryMock } from "../../__mocks__/ProjectRepositoryMock";
-import { FindProjectByIdQueryHandler } from "@Projects/Project/application/FindById/FindProjectByIdQueryHandler";
-import { ProjectMother } from "../../domain/ProjectMother";
-import { ProjectResponse } from "@Projects/Project/application/ProjectResponse";
-import { FindProjectByIdQuery } from "@Projects/Project/application/FindById/FindProjectByIdQuery";
-import { ProjectNotFound } from "@Projects/Project/domain/Errors/ProjectNotFound";
+import { FinderById } from '@Projects/Project/application/FindById/FinderById'
+import { ProjectRepositoryMock } from '../../__mocks__/ProjectRepositoryMock'
+import { FindProjectByIdQueryHandler } from '@Projects/Project/application/FindById/FindProjectByIdQueryHandler'
+import { ProjectMother } from '../../domain/ProjectMother'
+import { ProjectResponse } from '@Projects/Project/application/ProjectResponse'
+import { FindProjectByIdQuery } from '@Projects/Project/application/FindById/FindProjectByIdQuery'
+import { ProjectNotFound } from '@Projects/Project/domain/Errors/ProjectNotFound'
 
 let repository: ProjectRepositoryMock
 let finder: FinderById

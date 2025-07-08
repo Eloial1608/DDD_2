@@ -252,3 +252,37 @@ services:
     arguments: ["@Review.Delete.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  Action.Repository:
+    class: src/Contexts/Marketplace/Action/infrastructure/persistence/TypeOrmActionRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
+  Action.Create.Creator:
+    class: src/Contexts/Marketplace/Action/application/Create/Creator
+    arguments: ['@Action.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Action.Create.CreateActionCommandHandler:
+    class: src/Contexts/Marketplace/Action/application/Create/CreateActionCommandHandler
+    arguments: ["@Action.Create.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Action.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Marketplace/Actions/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Action.Repository']
+  
+  Action.FindByCriteria.FindActionsByCriteriaQueryHandler:
+    class: src/Contexts/Marketplace/Actions/application/FindByCriteria/FindActionsByCriteriaQueryHandler
+    arguments: ['@Action.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+  
+  Action.Delete.Deleter:
+    class: src/Contexts/Marketplace/Action/application/Delete/Deleter
+    arguments: ['@Action.Repository', '@Shared.EventBus']
+  
+  Action.Delete.DeleteActionCommandHandler:
+    class: src/Contexts/Marketplace/Action/application/Delete/DeleteActionCommandHandler
+    arguments: ["@Action.Delete.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }

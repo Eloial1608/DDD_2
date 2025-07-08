@@ -1,9 +1,9 @@
-import { Nullable } from "@Shared/domain/Nullable";
-import { QueryResponse } from "@Shared/domain/QueryBus/QueryResponse";
-import { Project } from "../domain/Project";
+import { Nullable } from '@Shared/domain/Nullable'
+import { QueryResponse } from '@Shared/domain/QueryBus/QueryResponse'
+import { Project } from '../domain/Project'
 
 export type ProjectResponseBody = {
-  readonly id: string,  
+  readonly id: string,
   readonly title: string,
   readonly description: Nullable<string>,
   readonly bannerUrl: Nullable<string>,
@@ -20,9 +20,9 @@ export type ProjectResponseBody = {
 }
 
 export class ProjectResponse implements QueryResponse<ProjectResponseBody> {
-  response: ProjectResponseBody;
+  response: ProjectResponseBody
 
-  constructor(project: Project) {
+  constructor (project: Project) {
     this.response = {
       id: project.id.valueOf(),
       title: project.title.valueOf(),
@@ -38,6 +38,6 @@ export class ProjectResponse implements QueryResponse<ProjectResponseBody> {
       createdAt: project.createdAt.valueOf(),
       updatedAt: project.updatedAt.valueOf(),
       deletedAt: project.deletedAt?.valueOf()
-    };
+    }
   }
 }
