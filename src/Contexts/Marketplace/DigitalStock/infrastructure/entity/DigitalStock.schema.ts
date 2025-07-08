@@ -41,6 +41,7 @@ export const DigitalStockSchema = new EntitySchema<DigitalStock>({
     },
     purchasedAt: {
       type: Date,
+      nullable: true,
       transformer: ValueObjectTransformer(PurchasedAt)
     }
   }

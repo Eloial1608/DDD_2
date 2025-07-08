@@ -1,6 +1,7 @@
 import { DomainEvent } from '@Shared/domain/EventBus/DomainEvent'
 import type { DigitalStock } from '../DigitalStock'
 import type { AvailableDigitalStockType } from '../ValueObjects/DigitalStockType'
+import type { Nullable } from '@Shared/domain/Nullable'
 
 export type DigitalStockCreatedDomainEventBody = {
   readonly id: string
@@ -9,7 +10,7 @@ export type DigitalStockCreatedDomainEventBody = {
   readonly type: AvailableDigitalStockType
   readonly value: string
   readonly isAvailable: boolean
-  readonly purchasedAt: string
+  readonly purchasedAt: Nullable<Date>
 }
 
 export class DigitalStockCreatedDomainEvent extends DomainEvent {
@@ -21,7 +22,7 @@ export class DigitalStockCreatedDomainEvent extends DomainEvent {
   readonly type: AvailableDigitalStockType
   readonly value: string
   readonly isAvailable: boolean
-  readonly purchasedAt: string
+  readonly purchasedAt: Nullable<Date>
 
   static {
     DomainEvent.derived.add(DigitalStockCreatedDomainEvent.EVENT_NAME)
@@ -46,7 +47,7 @@ export class DigitalStockCreatedDomainEvent extends DomainEvent {
       type: stock.type.valueOf(),
       value: stock.value.valueOf(),
       isAvailable: stock.isAvailable.valueOf(),
-      purchasedAt: stock.purchasedAt.valueOf().toISOString()
+      purchasedAt: stock.purchasedAt?.valueOf()
     })
   }
 

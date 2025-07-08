@@ -24,4 +24,8 @@ export class TypeOrmDigitalStockRepository extends TypeOrmRepository<DigitalStoc
   async persist (stock: DigitalStock): Promise<void> {
     await (await this.repository()).save(stock)
   }
+
+  async delete (stock: DigitalStock): Promise<void> {
+    await (await this.repository()).remove(stock)
+  }
 }

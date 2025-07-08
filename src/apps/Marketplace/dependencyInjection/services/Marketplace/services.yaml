@@ -310,3 +310,23 @@ services:
     arguments: ['@DigitalStock.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+
+  DigitalStock.Update.Updater:
+    class: src/Contexts/Marketplace/DigitalStock/application/Update/Updater
+    arguments: ['@DigitalStock.Repository', '@Shared.EventBus']
+
+  DigitalStock.Update.UpdateDigitalStockCommandHandler:
+    class: src/Contexts/Marketplace/DigitalStock/application/Update/UpdateDigitalStockCommandHandler
+    arguments: ["@DigitalStock.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
+  DigitalStock.Delete.Deleter:
+    class: src/Contexts/Marketplace/DigitalStock/application/Delete/Deleter
+    arguments: ['@DigitalStock.Repository', '@Shared.EventBus']
+
+  DigitalStock.Delete.DeleteDigitalStockCommandHandler:
+    class: src/Contexts/Marketplace/DigitalStock/application/Delete/DeleteDigitalStockCommandHandler
+    arguments: ["@DigitalStock.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }

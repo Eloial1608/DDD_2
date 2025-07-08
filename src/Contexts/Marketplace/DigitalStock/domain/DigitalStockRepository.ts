@@ -7,4 +7,5 @@ export interface DigitalStockRepository {
   find(id: Id): Promise<Nullable<DigitalStock>>
   persist(stock: DigitalStock): Promise<void>
   search(criteria: Criteria): Promise<DigitalStock[]>
+  delete(stock: DigitalStock): Promise<void>
 }

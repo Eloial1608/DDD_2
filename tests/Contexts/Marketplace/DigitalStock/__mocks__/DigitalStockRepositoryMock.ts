@@ -9,6 +9,7 @@ export class DigitalStockRepositoryMock implements DigitalStockRepository {
   private mockFind = mockFn()
   private mockSearch = mockFn()
   private mockPersist = mockFn()
+  private mockDelete = mockFn()
 
   private expectedFind: Nullable<DigitalStock>
   private expectedSearch: Array<DigitalStock> = []
@@ -35,6 +36,10 @@ export class DigitalStockRepositoryMock implements DigitalStockRepository {
     this.mockPersist(stock)
   }
 
+  async delete (stock: DigitalStock): Promise<void> {
+    this.mockDelete(stock)
+  }
+
   assertPersistHasBeenCalledWith (stock: DigitalStock) {
     expect(this.mockPersist).toHaveBeenCalledWith(stock)
   }
@@ -49,5 +54,13 @@ export class DigitalStockRepositoryMock implements DigitalStockRepository {
 
   assertSearchHasBeenCalledWith (criteria: Criteria) {
     expect(this.mockSearch).toHaveBeenCalledWith(criteria)
+  }
+
+  assertDeleteHasBeenCalledWith (stock: DigitalStock) {
+    expect(this.mockDelete).toHaveBeenCalledWith(stock)
+  }
+
+  assertDeleteHasNotBeenCalled () {
+    expect(this.mockDelete).not.toHaveBeenCalled()
   }
 }

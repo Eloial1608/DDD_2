@@ -6,7 +6,6 @@ import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
 import { CommunityId } from '@Marketplace/DigitalStock/domain/ValueObjects/CommunityId'
 import { Value } from '@Marketplace/DigitalStock/domain/ValueObjects/Value'
 import { IsAvailable } from '@Marketplace/DigitalStock/domain/ValueObjects/IsAvailable'
-import { PurchasedAt } from '@Marketplace/DigitalStock/domain/ValueObjects/PurchasedAt'
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class DigitalStockMother {
@@ -18,7 +17,7 @@ export class DigitalStockMother {
       params.type ?? new DigitalStockType(AvailableDigitalStockType.CODE),
       params.value ?? new Value('test-value'),
       params.isAvailable ?? new IsAvailable(true),
-      params.purchasedAt ?? new PurchasedAt(new Date())
+      params.purchasedAt ?? null
     )
   }
 

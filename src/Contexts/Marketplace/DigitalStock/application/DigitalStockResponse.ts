@@ -1,6 +1,7 @@
 import type { DigitalStock } from '../domain/DigitalStock'
 import type { QueryResponse } from '@Shared/domain/QueryBus/QueryResponse'
 import type { AvailableDigitalStockType } from '../domain/ValueObjects/DigitalStockType'
+import type { Nullable } from '@Shared/domain/Nullable'
 
 export type DigitalStockResponseBody = {
   readonly id: string
@@ -9,7 +10,7 @@ export type DigitalStockResponseBody = {
   readonly type: AvailableDigitalStockType
   readonly value: string
   readonly isAvailable: boolean
-  readonly purchasedAt: string
+  readonly purchasedAt: Nullable<Date>
 }
 
 export class DigitalStockResponse implements QueryResponse<DigitalStockResponseBody> {
@@ -23,7 +24,7 @@ export class DigitalStockResponse implements QueryResponse<DigitalStockResponseB
       type: stock.type.valueOf(),
       value: stock.value.valueOf(),
       isAvailable: stock.isAvailable.valueOf(),
-      purchasedAt: stock.purchasedAt.valueOf().toISOString()
+      purchasedAt: stock.purchasedAt?.valueOf()
     }
   }
 }
