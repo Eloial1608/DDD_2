@@ -68,8 +68,7 @@ export class Creator {
       deadline,
       points,
       projectId,
-      communityId,
-      deletedAt
+      communityId
     )
 
     await this.repository.persist(created)

@@ -60,6 +60,16 @@ export const StatusSchema = new EntitySchema<Status>({
       nullable: true,
       transformer: ValueObjectTransformer(DeletedAt)
     }
-  }
+  },
+  indices: [
+    {
+      name: 'IDX_STATUS_COMMUNITY_ID',
+      columns: ['communityId']
+    },
+    {
+      name: 'IDX_STATUS_PROJECT_ID',
+      columns: ['projectId']
+    }
+  ]
 
 })

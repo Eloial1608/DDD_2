@@ -50,8 +50,7 @@ export class Task extends AggregateRoot {
     deadline: Nullable<Deadline>,
     points: Nullable<Points>,
     projectId: ProjectId,
-    communityId: CommunityId,
-    deletedAt: Nullable<DeletedAt>
+    communityId: CommunityId
   ): Task {
     const task = new Task(
       id,
@@ -68,7 +67,7 @@ export class Task extends AggregateRoot {
       communityId,
       new CreatedAt(new Date()),
       new UpdatedAt(new Date()),
-      deletedAt
+      null
     )
 
     task.record(TaskCreatedDomainEvent.fromAggregate(task))
