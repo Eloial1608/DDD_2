@@ -221,3 +221,13 @@ services:
     arguments: ['@ProjectUser.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+
+  Project.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Projects/Project/application/FindByCriteria/FinderByCriteria
+    arguments: ['@ProjectUser.Repository']
+
+  Project.FindByCriteria.FindProjectsByCriteriaQueryHandler:
+    class: src/Contexts/Projects/Projec/application/FindByCriteria/FindProjectsByCriteriaQueryHandler
+    arguments: ['@ProjectUser.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
