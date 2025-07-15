@@ -32,6 +32,16 @@ services:
     arguments: ["@Community.Update.Updater"]
     tags:
       - { name: "commandHandler" }
+
+  Community.UpdateSpaceOrderedIds.Updater:
+    class: src/Contexts/Core/Community/application/UpdateSpaceOrderedIds/Updater
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.UpdateSpaceOrderedIds.UpdateCommunitySpaceOrderedIdsCommandHandler:
+    class: src/Contexts/Core/Community/application/UpdateSpaceOrderedIds/UpdateCommunitySpaceOrderedIdsCommandHandler
+    arguments: ["@Community.UpdateSpaceOrderedIds.Updater"]
+    tags:
+      - { name: "commandHandler" }
   
   Community.FindById.FinderById:
     class: src/Contexts/Core/Community/application/FindById/FinderById

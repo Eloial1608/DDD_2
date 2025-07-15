@@ -24,6 +24,7 @@ export type CommunityResponseBody = {
     readonly allowedUsers: number
     readonly color: string
     readonly isPrivate: boolean
+    readonly spaceOrderedIds: string
     readonly isRegisterOpen: boolean
     readonly allowedSubcommunities: number
     readonly subcommunitiesCount: number
@@ -58,6 +59,7 @@ export class CommunityResponse implements QueryResponse<CommunityResponseBody> {
       registerFormId: community.registerFormId?.valueOf(),
       allowedUsers: community.allowedUsers.valueOf(),
       color: community.color.valueOf(),
+      spaceOrderedIds: community.spaceOrderedIds.valueOf(),
       isPrivate: community.isPrivate.valueOf(),
       isRegisterOpen: community.isRegisterOpen.valueOf(),
       homeSpaceId: community.homeSpaceId?.valueOf(),

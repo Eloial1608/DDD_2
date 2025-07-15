@@ -38,6 +38,8 @@ import { SubcommunitiesCount } from './ValueObjects/SubcommunitiesCount'
 import { CommunitySubcommunitiesCountUpdatedDomainEvent } from './Events/CommunitySubcommunitiesCountUpdatedDomainEvent'
 import { CommunityUpdatedDomainEvent } from './Events/CommunityUpdatedDomainEvent'
 import { CommunityHasFormUpdatedDomainEvent } from './Events/CommunityHasFormUpdatedDomainEvent'
+import { SpaceOrderedIds } from './ValueObjects/SpaceOrderedIds'
+import { CommunitySpaceOrderedIdsUpdatedDomainEvent } from './Events/CommunitySpaceOrderedIdsUpdatedDomainEvent'
 
 export class Community extends AggregateRoot {
   constructor (
@@ -67,6 +69,7 @@ export class Community extends AggregateRoot {
         readonly homeSpaceId: Nullable<HomeSpaceId>,
         readonly allowedSubcommunities: AllowedSubcommunities,
         readonly subcommunitiesCount: SubcommunitiesCount,
+        readonly spaceOrderedIds: SpaceOrderedIds,
         readonly expiresAt: ExpiresAt,
         readonly createdAt: CreatedAt,
         readonly updatedAt: UpdatedAt,
@@ -120,6 +123,7 @@ export class Community extends AggregateRoot {
       null,
       allowedSubcommunities,
       new SubcommunitiesCount(0),
+      new SpaceOrderedIds('[]'),
       expiresAt,
       new CreatedAt(new Date()),
       new UpdatedAt(new Date()),
@@ -171,6 +175,7 @@ export class Community extends AggregateRoot {
       this.homeSpaceId,
       this.allowedSubcommunities,
       this.subcommunitiesCount,
+      this.spaceOrderedIds,
       this.expiresAt,
       this.createdAt,
       new UpdatedAt(new Date()),
@@ -178,6 +183,48 @@ export class Community extends AggregateRoot {
     )
 
     community.record(CommunityUpdatedDomainEvent.fromAggregate(community))
+
+    return community
+  }
+
+  updateSpaceOrderedIds (
+    spaceOrderedIds: SpaceOrderedIds
+  ): Community {
+    const community = new Community(
+      this.id,
+      this.name,
+      this.suffix,
+      this.domain,
+      this.slug,
+      this.parentId,
+      this.mainId,
+      this.logoUrl,
+      this.bannerUrl,
+      this.about,
+      this.membersCount,
+      this.allowsPayments,
+      this.firstPaymentDone,
+      this.spacesCount,
+      this.hasPayment,
+      this.methodId,
+      this.allowedFeatures,
+      this.hasRegisterForm,
+      this.registerFormId,
+      this.allowedUsers,
+      this.color,
+      this.isPrivate,
+      this.isRegisterOpen,
+      this.homeSpaceId,
+      this.allowedSubcommunities,
+      this.subcommunitiesCount,
+      spaceOrderedIds,
+      this.expiresAt,
+      this.createdAt,
+      this.updatedAt,
+      null
+    )
+
+    community.record(CommunitySpaceOrderedIdsUpdatedDomainEvent.fromAggregate(community))
 
     return community
   }
@@ -210,6 +257,7 @@ export class Community extends AggregateRoot {
       this.homeSpaceId,
       this.allowedSubcommunities,
       this.subcommunitiesCount,
+      this.spaceOrderedIds,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,
@@ -249,6 +297,7 @@ export class Community extends AggregateRoot {
       this.homeSpaceId,
       this.allowedSubcommunities,
       this.subcommunitiesCount,
+      this.spaceOrderedIds,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,
@@ -288,6 +337,7 @@ export class Community extends AggregateRoot {
       this.homeSpaceId,
       this.allowedSubcommunities,
       subcommunitiesCount,
+      this.spaceOrderedIds,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,
@@ -327,6 +377,7 @@ export class Community extends AggregateRoot {
       this.homeSpaceId,
       this.allowedSubcommunities,
       this.subcommunitiesCount,
+      this.spaceOrderedIds,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,
@@ -366,6 +417,7 @@ export class Community extends AggregateRoot {
       this.homeSpaceId,
       this.allowedSubcommunities,
       this.subcommunitiesCount,
+      this.spaceOrderedIds,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,
@@ -405,6 +457,7 @@ export class Community extends AggregateRoot {
       this.homeSpaceId,
       this.allowedSubcommunities,
       this.subcommunitiesCount,
+      this.spaceOrderedIds,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,
