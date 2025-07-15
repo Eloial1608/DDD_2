@@ -3,7 +3,7 @@ services:
     class: src/apps/Projects/controllers/HealthGetController
 
   Apps.Projects.Controllers.ProjectUserPostController:
-    class: src/apps/Projects/controllers/Project/ProjectuserPostController
+    class: src/apps/Projects/controllers/ProjectUser/ProjectUserPostController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
 
   Apps.Projects.Controllers.ProjectUserDeleteController:

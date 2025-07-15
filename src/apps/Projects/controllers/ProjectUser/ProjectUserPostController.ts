@@ -11,9 +11,9 @@ import { FindSpaceMembersByCriteriaQuery } from '@Projects/SpaceMember/applicati
 import { SpaceMemberCollectionResponse } from '@Projects/SpaceMember/application/SpaceMemberCollectionResponse'
 import { FindUsersByCriteriaQuery } from '@Projects/User/application/FindByCriteria/FindUsersByCriteriaQuery'
 import { UserCollectionResponse } from '@Projects/User/application/UserCollectionResponse'
-import { CreateProjectUserCommand } from '@Projects/ProjectUser/application/Create/CreateProjectCommand'
 import { ProjectResponse } from '@Projects/Project/application/ProjectResponse'
 import { FindProjectByIdQuery } from '@Projects/Project/application/FindById/FindProjectByIdQuery'
+import { CreateProjectUserCommand } from '@Projects/ProjectUser/application/Create/CreateProjectUserCommand'
 
 export class ProjectUserPostController implements Controller {
   constructor (
