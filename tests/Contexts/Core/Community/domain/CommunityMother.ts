@@ -15,6 +15,7 @@ import { IsRegisterOpen } from '@Core/Community/domain/ValueObjects/IsRegisterOp
 import { MembersCount } from '@Core/Community/domain/ValueObjects/MembersCount'
 import { Name } from '@Core/Community/domain/ValueObjects/Name'
 import { Slug } from '@Core/Community/domain/ValueObjects/Slug'
+import { SpaceOrderedIds } from '@Core/Community/domain/ValueObjects/SpaceOrderedIds'
 import { SpacesCount } from '@Core/Community/domain/ValueObjects/SpacesCount'
 import { SubcommunitiesCount } from '@Core/Community/domain/ValueObjects/SubcommunitiesCount'
 import { Suffix } from '@Core/Community/domain/ValueObjects/Suffix'
@@ -53,6 +54,7 @@ export class CommunityMother {
       params.homeSpaceId ?? null,
       params.allowedSubcommunities ?? new AllowedSubcommunities(10),
       params.subcommunitiesCount ?? new SubcommunitiesCount(0),
+      params.spaceOrderedIds ?? new SpaceOrderedIds('[]'),
       params.expiresAt ?? new ExpiresAt(MotherCreator.random().date.future()),
       params.createdAt ?? new CreatedAt(new Date()),
       params.updatedAt ?? new UpdatedAt(new Date()),

@@ -192,6 +192,17 @@ services:
     class: src/Contexts/Projects/ProjectUser/infrastructure/persistence/TypeOrmProjectUserRepository
     arguments: ["@Shared.ORM.Connection"]
 
+
+  ProjectUser.Create.Creator:
+    class: src/Contexts/Projects/ProjectUser/application/Create/Creator
+    arguments: ['@ProjectUser.Repository', '@Shared.EventBus']
+
+  ProjectUser.Create.CreateProjectUserCommandHandler:
+    class: src/Contexts/Projects/ProjectUser/application/Create/CreateProjectUserCommandHandler
+    arguments: ['@ProjectUser.Create.Creator']
+    tags:
+      - { name: "commandHandler" }
+
   Project.FindById.FinderById:
     class: src/Contexts/Projects/Project/application/FindById/FinderById
     arguments: ['@Project.Repository']
@@ -231,3 +242,13 @@ services:
     arguments: ['@ProjectUser.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+      
+  Type.Create.Creator:
+    class: src/Contexts/Projects/Type/application/Create/Creator
+    arguments: ['@Project.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Type.Create.CreateTypeCommandHandler:
+    class: src/Contexts/Projects/Type/application/Create/CreateTypeCommandHandler
+    arguments: ["@Project.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }

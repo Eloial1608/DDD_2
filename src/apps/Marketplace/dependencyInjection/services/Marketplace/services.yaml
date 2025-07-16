@@ -252,3 +252,93 @@ services:
     arguments: ["@Review.Delete.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  Action.Repository:
+    class: src/Contexts/Marketplace/Action/infrastructure/persistence/TypeOrmActionRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
+  Action.Create.Creator:
+    class: src/Contexts/Marketplace/Action/application/Create/Creator
+    arguments: ['@Action.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Action.Create.CreateActionCommandHandler:
+    class: src/Contexts/Marketplace/Action/application/Create/CreateActionCommandHandler
+    arguments: ["@Action.Create.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Action.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Marketplace/Actions/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Action.Repository']
+  
+  Action.FindByCriteria.FindActionsByCriteriaQueryHandler:
+    class: src/Contexts/Marketplace/Actions/application/FindByCriteria/FindActionsByCriteriaQueryHandler
+    arguments: ['@Action.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+  
+  Action.Delete.Deleter:
+    class: src/Contexts/Marketplace/Action/application/Delete/Deleter
+    arguments: ['@Action.Repository', '@Shared.EventBus']
+  
+  Action.Delete.DeleteActionCommandHandler:
+    class: src/Contexts/Marketplace/Action/application/Delete/DeleteActionCommandHandler
+    arguments: ["@Action.Delete.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  DigitalStock.Repository:
+    class: src/Contexts/Marketplace/DigitalStock/infrastructure/TypeOrmDigitalStockRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  DigitalStock.Create.Creator:
+    class: src/Contexts/Marketplace/DigitalStock/application/Create/Creator
+    arguments: ['@DigitalStock.Repository', '@Shared.EventBus']
+
+  DigitalStock.Create.CreateDigitalStockCommandHandler:
+    class: src/Contexts/Marketplace/DigitalStock/application/Create/CreateDigitalStockCommandHandler
+    arguments: ["@DigitalStock.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  DigitalStock.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Marketplace/DigitalStock/application/FindByCriteria/FinderByCriteria
+    arguments: ['@DigitalStock.Repository']
+
+  DigitalStock.FindByCriteria.FindDigitalStocksByCriteriaQueryHandler:
+    class: src/Contexts/Marketplace/DigitalStock/application/FindByCriteria/FindDigitalStocksByCriteriaQueryHandler
+    arguments: ['@DigitalStock.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+  DigitalStock.Update.Updater:
+    class: src/Contexts/Marketplace/DigitalStock/application/Update/Updater
+    arguments: ['@DigitalStock.Repository', '@Shared.EventBus']
+
+  DigitalStock.Update.UpdateDigitalStockCommandHandler:
+    class: src/Contexts/Marketplace/DigitalStock/application/Update/UpdateDigitalStockCommandHandler
+    arguments: ["@DigitalStock.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
+  DigitalStock.Delete.Deleter:
+    class: src/Contexts/Marketplace/DigitalStock/application/Delete/Deleter
+    arguments: ['@DigitalStock.Repository', '@Shared.EventBus']
+
+  DigitalStock.Delete.DeleteDigitalStockCommandHandler:
+    class: src/Contexts/Marketplace/DigitalStock/application/Delete/DeleteDigitalStockCommandHandler
+    arguments: ["@DigitalStock.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
+  AvailabilityRule.Repository:
+    class: src/Contexts/Marketplace/AvailabilityRule/infrastructure/TypeOrmAvailabilityRuleRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Booking.Repository:
+    class: src/Contexts/Marketplace/Booking/infrastructure/TypeOrmBookingRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  AvailabilityException.Repository:
+    class: src/Contexts/Marketplace/AvailabilityException/infrastructure/TypeOrmAvailabilityExceptionRepository
+    arguments: ["@Shared.ORM.Connection"]

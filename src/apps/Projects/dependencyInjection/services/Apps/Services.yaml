@@ -1,3 +1,15 @@
 services:
   Apps.Projects.Controllers.HealthGetController:
     class: src/apps/Projects/controllers/HealthGetController
+
+  Apps.Projects.Controllers.ProjectUserPostController:
+    class: src/apps/Projects/controllers/Project/ProjectuserPostController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+
+  Apps.Projects.Controllers.ProjectUserDeleteController:
+    class: src/apps/Projects/controllers/ProjectUser/ProjectUserDeleteController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+  
+  Apps.Projects.Controllers.ProjectUsersGetController:
+    class: src/apps/Projects/controllers/ProjectUser/ProjectUsersGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
