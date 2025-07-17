@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express'
 import DI from '@Apps/Projects/dependencyInjection/DI'
-import { ProjectGetController } from '@Apps/Events/controllers/Event/EventGetController'
+import { ProjectGetController } from '@Apps/Projects/controllers/Project/ProjectGetController'
 
 export const register = (router: Router) => {
   const controller = DI.getInstance().resolve<ProjectGetController>('Apps.Projects.Controllers.ProjectGetController')
