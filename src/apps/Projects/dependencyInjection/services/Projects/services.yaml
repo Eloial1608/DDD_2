@@ -215,7 +215,7 @@ services:
 
   ProjectUser.Delete.Deleter:
     class: src/Contexts/Projects/ProjectUser/application/Delete/Deleter
-    arguments: ['@ProjectUser.Repository']
+    arguments: ['@ProjectUser.Repository', '@Shared.EventBus']
 
   ProjectUser.Delete.DeleteProjectUserCommandHandler:
     class: src/Contexts/Projects/ProjectUser/application/Delete/DeleteProjectUserCommandHandler
@@ -233,6 +233,16 @@ services:
     tags:
       - { name: "queryHandler" }
 
+  Project.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Projects/Project/application/FindByCriteria/FinderByCriteria
+    arguments: ['@ProjectUser.Repository']
+
+  Project.FindByCriteria.FindProjectsByCriteriaQueryHandler:
+    class: src/Contexts/Projects/Projec/application/FindByCriteria/FindProjectsByCriteriaQueryHandler
+    arguments: ['@ProjectUser.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+      
   Type.Create.Creator:
     class: src/Contexts/Projects/Type/application/Create/Creator
     arguments: ['@Project.Repository', '@Shared.EventBus', '@Shared.QueryBus']
@@ -250,5 +260,15 @@ services:
   Project.Update.UpdateProjectCommandHandler:
     class: src/Contexts/Projects/Project/application/Update/UpdateProjectCommandHandler
     arguments: ['@Project.Update.Updater']
+    tags:
+      - { name: "commandHandler" }
+
+  Project.Delete.Deleter:
+    class: src/Contexts/Projects/Project/application/Delete/Deleter
+    arguments: ['@Project.Repository', '@Shared.EventBus']
+
+  Project.Delete.DeleteProjectCommandHandler:
+    class: src/Contexts/Projects/Project/application/Delete/DeleteProjectCommandHandler
+    arguments: ['@Project.Delete.Deleter']
     tags:
       - { name: "commandHandler" }

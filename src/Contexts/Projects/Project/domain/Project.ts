@@ -16,6 +16,7 @@ import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { DeletedAt } from './ValueObjects/DeletedAt'
 import { ProjectCreatedDomainEvent } from './Events/ProjectCreatedDomainEvent'
 import { ProjectUpdatedDomainEvent } from './Events/ProjectUpdatedDomainEvent'
+import { ProjectDeletedDomainEvent } from './Events/ProjectDeletedDomainEvent'
 
 export class Project extends AggregateRoot {
   constructor (
@@ -98,6 +99,29 @@ export class Project extends AggregateRoot {
     )
 
     project.record(ProjectUpdatedDomainEvent.fromAggregate(project))
+
+    return project
+  }
+
+  delete (): Project {
+    const project = new Project(
+      this.id,
+      this.title,
+      this.description,
+      this.bannerUrl,
+      this.leadUserId,
+      this.startDate,
+      this.endDate,
+      this.totalTasks,
+      this.communityId,
+      this.spaceId,
+      this.userId,
+      this.createdAt,
+      this.updatedAt,
+      new DeletedAt(new Date())
+    )
+
+    project.record(ProjectDeletedDomainEvent.fromAggregate(project))
 
     return project
   }
