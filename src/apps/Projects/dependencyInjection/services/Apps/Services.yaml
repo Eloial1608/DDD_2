@@ -13,3 +13,7 @@ services:
   Apps.Projects.Controllers.ProjectUsersGetController:
     class: src/apps/Projects/controllers/ProjectUser/ProjectUsersGetController
     arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
+
+  Apps.Projects.Controllers.ProjectGetController:
+    class: src/apps/Projects/controllers/Project/ProjectGetController
+    arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']

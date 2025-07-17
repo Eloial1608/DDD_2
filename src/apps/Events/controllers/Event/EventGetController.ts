@@ -1,33 +1,33 @@
 import { Request, Response } from 'express'
 import { Controller } from '../@types/Controller'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
-import { FindSpaceMembersByCriteriaQuery } from '@Events/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQuery'
-import { SpaceMemberCollectionResponse } from '@Events/SpaceMember/application/SpaceMemberCollectionResponse'
-import { FindUsersByCriteriaQuery } from '@Events/User/application/FindByCriteria/FindUsersByCriteriaQuery'
-import { UserCollectionResponse } from '@Events/User/application/UserCollectionResponse'
+import { FindSpaceMembersByCriteriaQuery } from '@Projects/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQuery'
+import { SpaceMemberCollectionResponse } from '@Projects/SpaceMember/application/SpaceMemberCollectionResponse'
+import { FindUsersByCriteriaQuery } from '@Projects/User/application/FindByCriteria/FindUsersByCriteriaQuery'
+import { UserCollectionResponse } from '@Projects/User/application/UserCollectionResponse'
 import { TokenDecoder } from '@Shared/domain/TokenDecoder/TokenDecoder'
 import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
-import { FindEventByIdQuery } from '@Events/Event/application/FindById/FindEventByIdQuery'
-import { EventResponse, EventResponseBody } from '@Events/Event/application/EventResponse'
-import { FindSpaceByIdQuery } from '@Events/Space/application/FindById/FindSpaceByIdQuery'
-import { SpaceResponse } from '@Events/Space/application/SpaceResponse'
+import { FindProjectByIdQuery } from '@Projects/Project/application/FindById/FindProjectByIdQuery'
+import { FindSpaceByIdQuery } from '@Projects/Space/application/FindById/FindSpaceByIdQuery'
+import { SpaceResponse } from '@Projects/Space/application/SpaceResponse'
 import { AllowedAccessibilities } from '@Shared/domain/SharedValueObjects/Space/SharedAccessibility'
-import { EventNotFound } from '@Events/Event/domain/Errors/EventNotFound'
-import { FindEventUsersByCriteriaQuery } from '@Events/EventUser/application/FindByCriteria/FindEventUsersByCriteriaQuery'
-import { EventUserCollectionResponse } from '@Events/EventUser/application/EventUserCollectionResponse'
-import { SpaceMemberResponseBody } from '@Events/SpaceMember/application/SpaceMemberResponse'
-import { UserResponseBody } from '@Events/User/application/UserResponse'
+import { ProjectNotFound } from '@Projects/Project/domain/Errors/ProjectNotFound'
+import { FindProjectUsersByCriteriaQuery } from '@Projects/ProjectUser/application/FindByCriteria/FindProjectUsersByCriteriaQuery'
+import { ProjectUserCollectionResponse } from '@Projects/ProjectUser/application/ProjectUserCollectionResponse'
+import { SpaceMemberResponseBody } from '@Projects/SpaceMember/application/SpaceMemberResponse'
+import { UserResponseBody } from '@Projects/User/application/UserResponse'
+import { ProjectResponse, ProjectResponseBody } from '@Projects/Project/application/ProjectResponse'
 
-export class EventGetController implements Controller {
+export class ProjectGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
 
   async run (req: Request, res: Response): Promise<Response> {
     try {
-      const query = new FindEventByIdQuery(req.params.id)
+      const query = new FindProjectByIdQuery(req.params.id)
 
-      const event = (await this.queryBus.ask<EventResponse>(query)).response
+      const project = (await this.queryBus.ask<ProjectResponse>(query)).response
 
-      const spaceQuery = new FindSpaceByIdQuery(event.spaceId)
+      const spaceQuery = new FindSpaceByIdQuery(project.spaceId)
 
       const space = await (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
       let spaceMember: SpaceMemberResponseBody | undefined
@@ -36,7 +36,7 @@ export class EventGetController implements Controller {
       if (req.headers.authorization) {
         const data = await this.decoder.run(req.headers.authorization)
 
-        user = await this.getUser(data.id, event.communityId)
+        user = await this.getUser(data.id, project.communityId)
       }
 
       if (space.accessibility !== AllowedAccessibilities.PUBLIC) {
@@ -49,49 +49,49 @@ export class EventGetController implements Controller {
         }
       }
 
-      if (event.isPaid && (!user?.isAdmin && !user?.isOwner && !spaceMember?.isModerator)) {
+      if ((!user?.isAdmin && !user?.isOwner && !spaceMember?.isModerator)) {
         if (!spaceMember) {
-          return res.status(200).json(this.getEventWithoutContent(event))
+          return res.status(200).json(this.getProjectWithoutContent(project))
         }
-        const eventUser = await this.getEventUser(spaceMember.userId, event.id)
-        if (!eventUser) {
-          return res.status(200).json(this.getEventWithoutContent(event))
+        const projectUser = await this.getProjectUser(spaceMember.userId, project.id)
+        if (!projectUser) {
+          return res.status(200).json(this.getProjectWithoutContent(project))
         }
       }
 
-      return res.status(200).json(event)
+      return res.status(200).json(project)
     } catch (e) {
       console.log(e)
       if (e instanceof CannotDecode) return res.status(401).send()
-      if (e instanceof EventNotFound) return res.status(404).send(e.getMessage())
+      if (e instanceof ProjectNotFound) return res.status(404).send(e.getMessage())
 
       return res.status(500).send()
     }
   }
 
-  private getEventWithoutContent (event: EventResponseBody) {
+  private getProjectWithoutContent (project: ProjectResponseBody) {
     return {
-      ...event,
+      ...project,
       data: undefined,
       isLocked: true
     }
   }
 
-  private async getEventUser (userId: string, eventId: string) {
-    const query = new FindEventUsersByCriteriaQuery([
+  private async getProjectUser (userId: string, projectId: string) {
+    const query = new FindProjectUsersByCriteriaQuery([
       new Map<string, string>([
         ['field', 'userId'],
         ['operator', '='],
         ['value', userId]
       ]),
       new Map<string, string>([
-        ['field', 'eventId'],
+        ['field', 'projectId'],
         ['operator', '='],
-        ['value', eventId]
+        ['value', projectId]
       ])
     ])
 
-    const user = (await this.queryBus.ask<EventUserCollectionResponse>(query)).response.pop()
+    const user = (await this.queryBus.ask<ProjectUserCollectionResponse>(query)).response.pop()
 
     return user
   }
