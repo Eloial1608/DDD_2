@@ -215,7 +215,7 @@ services:
 
   ProjectUser.Delete.Deleter:
     class: src/Contexts/Projects/ProjectUser/application/Delete/Deleter
-    arguments: ['@ProjectUser.Repository']
+    arguments: ['@ProjectUser.Repository', '@Shared.EventBus']
 
   ProjectUser.Delete.DeleteProjectUserCommandHandler:
     class: src/Contexts/Projects/ProjectUser/application/Delete/DeleteProjectUserCommandHandler
@@ -250,5 +250,15 @@ services:
   Type.Create.CreateTypeCommandHandler:
     class: src/Contexts/Projects/Type/application/Create/CreateTypeCommandHandler
     arguments: ["@Project.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  Project.Delete.Deleter:
+    class: src/Contexts/Projects/Project/application/Delete/Deleter
+    arguments: ['@Project.Repository', '@Shared.EventBus']
+
+  Project.Delete.DeleteProjectCommandHandler:
+    class: src/Contexts/Projects/Project/application/Delete/DeleteProjectCommandHandler
+    arguments: ['@Project.Delete.Deleter']
     tags:
       - { name: "commandHandler" }
