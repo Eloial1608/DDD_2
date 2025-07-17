@@ -242,3 +242,13 @@ services:
     arguments: ["@Project.Create.Creator"]
     tags:
       - { name: "commandHandler" }
+
+  Project.Update.Updater:
+    class: src/Contexts/Projects/Project/application/Update/Updater
+    arguments: ['@ProjectUser.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+
+  Project.Update.UpdateProjectCommandHandler:
+    class: src/Contexts/Projects/Project/application/Update/UpdateProjectCommandHandler
+    arguments: ['@Project.Update.Updater']
+    tags:
+      - { name: "commandHandler" }

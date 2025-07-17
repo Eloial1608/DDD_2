@@ -17,6 +17,7 @@ import { UserCollectionResponse } from '@Projects/User/application/UserCollectio
 import { EventBus } from '@Shared/domain/EventBus/EventBus'
 import { Nullable } from '@Shared/domain/Nullable'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
+import { ProjectConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/ProjectConfiguration'
 
 export class Creator {
   constructor (
@@ -45,11 +46,17 @@ export class Creator {
 
     if (!user) return
 
+    const leadUser = await this.findUserByIdAndCommunityId(leadUserId, communityId)
+
+    if (!leadUser) return
+
     const space = await this.findSpaceById(spaceId)
 
     if (space.communityId.valueOf() !== communityId.valueOf()) return
 
     if ((endDate && startDate) && startDate > endDate) return
+
+    if ((space.configuration as ProjectConfiguration['configuration']).allowsCreation) return
 
     const project = Project.create(
       id,
