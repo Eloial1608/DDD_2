@@ -238,7 +238,7 @@ services:
     arguments: ['@ProjectUser.Repository']
 
   Project.FindByCriteria.FindProjectsByCriteriaQueryHandler:
-    class: src/Contexts/Projects/Projec/application/FindByCriteria/FindProjectsByCriteriaQueryHandler
+    class: src/Contexts/Projects/Project/application/FindByCriteria/FindProjectsByCriteriaQueryHandler
     arguments: ['@ProjectUser.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }

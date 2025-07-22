@@ -7,7 +7,6 @@ import { FindUsersByCriteriaQuery } from '@Projects/User/application/FindByCrite
 import { UserCollectionResponse } from '@Projects/User/application/UserCollectionResponse'
 import { TokenDecoder } from '@Shared/domain/TokenDecoder/TokenDecoder'
 import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
-import { FindProjectByIdQuery } from '@Projects/Project/application/FindById/FindProjectByIdQuery'
 import { FindSpaceByIdQuery } from '@Projects/Space/application/FindById/FindSpaceByIdQuery'
 import { SpaceResponse } from '@Projects/Space/application/SpaceResponse'
 import { AllowedAccessibilities } from '@Shared/domain/SharedValueObjects/Space/SharedAccessibility'
@@ -16,50 +15,37 @@ import { FindProjectUsersByCriteriaQuery } from '@Projects/ProjectUser/applicati
 import { ProjectUserCollectionResponse } from '@Projects/ProjectUser/application/ProjectUserCollectionResponse'
 import { SpaceMemberResponseBody } from '@Projects/SpaceMember/application/SpaceMemberResponse'
 import { UserResponseBody } from '@Projects/User/application/UserResponse'
-import { ProjectResponse, ProjectResponseBody } from '@Projects/Project/application/ProjectResponse'
+import { ProjectResponseBody } from '@Projects/Project/application/ProjectResponse'
+import { buildCriteriaFromUri } from '@Shared/infrastructure/Criteria/BuildCriteriaFromUri'
+import { ProjectCollectionResponse } from '@Projects/Project/application/ProjectCollectionResponse'
+import { FindProjectsByCriteriaQuery } from '@Projects/Project/application/FindByCriteria/FindProjectsByCriteriaQuery'
 
-export class ProjectGetController implements Controller {
+export class ProjectsGetController implements Controller {
   constructor (private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
 
   async run (req: Request, res: Response): Promise<Response> {
     try {
-      const query = new FindProjectByIdQuery(req.params.id)
+      const criteria = buildCriteriaFromUri(req.query.criteria as string)
 
-      const project = (await this.queryBus.ask<ProjectResponse>(query)).response
+      const query = new FindProjectsByCriteriaQuery(
+        criteria.filters,
+        criteria.inFilters,
+        criteria.orderBy,
+        criteria.orderType,
+        criteria.limit,
+        criteria.offset
+      )
 
-      const spaceQuery = new FindSpaceByIdQuery(project.spaceId)
+      const projects = (await this.queryBus.ask<ProjectCollectionResponse>(query)).response
 
-      const space = await (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
-      let spaceMember: SpaceMemberResponseBody | undefined
-      let user: UserResponseBody | undefined
+      const projectToSend = []
 
-      if (req.headers.authorization) {
-        const data = await this.decoder.run(req.headers.authorization)
-
-        user = await this.getUser(data.id, project.communityId)
+      for (const project of projects) {
+        const p = await this.filterProject(project, req.headers.authorization as string)
+        if (p) projectToSend.push(p)
       }
 
-      if (space.accessibility !== AllowedAccessibilities.PUBLIC) {
-        if (!user) return res.status(401).send()
-
-        if (!user.isAdmin && !user.isOwner) {
-          spaceMember = await this.getSpaceMember(user.id, user.communityId, space.id)
-
-          if (!spaceMember) return res.status(401).send()
-        }
-      }
-
-      if ((!user?.isAdmin && !user?.isOwner && !spaceMember?.isModerator)) {
-        if (!spaceMember) {
-          return res.status(200).json(this.getProjectWithoutContent(project))
-        }
-        const projectUser = await this.getProjectUser(spaceMember.userId, project.id)
-        if (!projectUser) {
-          return res.status(200).json(this.getProjectWithoutContent(project))
-        }
-      }
-
-      return res.status(200).json(project)
+      return res.status(200).json(projectToSend)
     } catch (e) {
       console.log(e)
       if (e instanceof CannotDecode) return res.status(401).send()
@@ -67,6 +53,40 @@ export class ProjectGetController implements Controller {
 
       return res.status(500).send()
     }
+  }
+
+  private async filterProject (project: ProjectResponseBody, token: string) {
+    const spaceQuery = new FindSpaceByIdQuery(project.spaceId)
+
+    const space = await (await this.queryBus.ask<SpaceResponse>(spaceQuery)).response
+    let spaceMember: SpaceMemberResponseBody | undefined
+    let user: UserResponseBody | undefined
+
+    if (user == null && token) {
+      const data = await this.decoder.run(token)
+
+      const u = await this.getUser(data.id, project.communityId)
+
+      user = u ?? undefined
+    }
+
+    if (space.accessibility !== AllowedAccessibilities.PUBLIC) {
+      if (!user) return null
+
+      if (!user.isAdmin && !user.isOwner) {
+        spaceMember = await this.getSpaceMember(user.id, user.communityId, space.id)
+
+        if (!spaceMember) return null
+      }
+    }
+
+    if (!user?.isAdmin && !user?.isOwner && !spaceMember?.isModerator) {
+      if (!spaceMember) return this.getProjectWithoutContent(project)
+      const projectUser = await this.getProjectUser(spaceMember.userId, project.id)
+      if (!projectUser) return this.getProjectWithoutContent(project)
+    }
+
+    return project
   }
 
   private getProjectWithoutContent (project: ProjectResponseBody) {
