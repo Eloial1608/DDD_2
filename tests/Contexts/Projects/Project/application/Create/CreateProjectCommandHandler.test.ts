@@ -12,6 +12,7 @@ import { ProjectCreatedDomainEvent } from '@Projects/Project/domain/Events/Proje
 import { FindUsersByCriteriaQuery } from '@Projects/User/application/FindByCriteria/FindUsersByCriteriaQuery'
 import { UserCollectionResponse } from '@Projects/User/application/UserCollectionResponse'
 import { UserMother } from '@Tests/Contexts/Projects/User/domain/UserMother'
+import { ProjectsConfiguration } from '@Shared/domain/SharedValueObjects/Space/Configuration/ProjectsConfiguration'
 
 let eventBus : EventBusMock
 let queryBus: QueryBusMock
@@ -30,12 +31,13 @@ describe('CreateProjectCommandHandler should', () => {
 
   test(' Create a new Project', async () => {
     const user = UserMother.random()
+    const leadUser = UserMother.random()
 
-    const project = ProjectMother.create({ userId: user.id })
+    const project = ProjectMother.create({ userId: user.id, leadUserId: leadUser.id })
 
-    const space = SpaceMother.create({ communityId: project.communityId })
+    const space = SpaceMother.create({ communityId: project.communityId, configuration: new ProjectsConfiguration() })
 
-    queryBus.returnOnQuery(new FindUsersByCriteriaQuery(), new UserCollectionResponse([user]))
+    queryBus.returnOnQuery(new FindUsersByCriteriaQuery(), new UserCollectionResponse([user, leadUser]))
     queryBus.returnOnQuery(new FindSpaceByIdQuery(space.id.valueOf()), new SpaceResponse(space))
 
     const command = CreateProjectCommandMother.fromAggregate(project)
@@ -47,12 +49,13 @@ describe('CreateProjectCommandHandler should', () => {
 
   test('Create a new ProjectCreateDomainEvent', async () => {
     const user = UserMother.random()
+    const leadUser = UserMother.random()
 
-    const project = ProjectMother.create({ userId: user.id })
+    const project = ProjectMother.create({ userId: user.id, leadUserId: leadUser.id })
 
-    const space = SpaceMother.create({ communityId: project.communityId })
+    const space = SpaceMother.create({ communityId: project.communityId, configuration: new ProjectsConfiguration() })
 
-    queryBus.returnOnQuery(new FindUsersByCriteriaQuery(), new UserCollectionResponse([user]))
+    queryBus.returnOnQuery(new FindUsersByCriteriaQuery(), new UserCollectionResponse([user, leadUser]))
     queryBus.returnOnQuery(new FindSpaceByIdQuery(space.id.valueOf()), new SpaceResponse(space))
 
     const command = CreateProjectCommandMother.fromAggregate(project)

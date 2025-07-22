@@ -15,6 +15,7 @@ import { CreatedAt } from './ValueObjects/CreatedAt'
 import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { DeletedAt } from './ValueObjects/DeletedAt'
 import { ProjectCreatedDomainEvent } from './Events/ProjectCreatedDomainEvent'
+import { ProjectUpdatedDomainEvent } from './Events/ProjectUpdatedDomainEvent'
 import { ProjectDeletedDomainEvent } from './Events/ProjectDeletedDomainEvent'
 
 export class Project extends AggregateRoot {
@@ -68,6 +69,36 @@ export class Project extends AggregateRoot {
     )
 
     project.record(ProjectCreatedDomainEvent.fromAggregate(project))
+
+    return project
+  }
+
+  update (
+    title: Title,
+    description: Nullable<Description>,
+    bannerUrl: Nullable<BannerUrl>,
+    leadUserId: LeadUserId,
+    startDate: Nullable<StartDate>,
+    endDate: Nullable<EndDate>
+  ) : Project {
+    const project = new Project(
+      this.id,
+      title,
+      description,
+      bannerUrl,
+      leadUserId,
+      startDate,
+      endDate,
+      this.totalTasks,
+      this.communityId,
+      this.spaceId,
+      this.userId,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      null
+    )
+
+    project.record(ProjectUpdatedDomainEvent.fromAggregate(project))
 
     return project
   }
