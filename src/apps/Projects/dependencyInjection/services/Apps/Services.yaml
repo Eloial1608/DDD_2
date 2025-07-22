@@ -14,6 +14,10 @@ services:
     class: src/apps/Projects/controllers/ProjectUser/ProjectUsersGetController
     arguments: ['@Shared.QueryBus', '@Shared.TokenDecoder']
 
+  Apps.Projects.Controllers.ProjectDeleteController:
+    class: src/apps/Projects/controllers/Project/ProjectDeleteController
+    arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
+
   Apps.Projects.Controllers.ProjectPostController:
     class: src/apps/Projects/controllers/Project/ProjectPostController
     arguments: ['@Shared.CommandBus', '@Shared.QueryBus', '@Shared.TokenDecoder']
