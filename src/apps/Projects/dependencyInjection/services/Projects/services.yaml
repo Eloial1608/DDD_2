@@ -188,6 +188,20 @@ services:
     class: src/Contexts/Projects/Task/infrastructure/persistence/TypeOrmTaskRepository
     arguments: ["@Shared.ORM.Connection"]
 
+  Task.Create.Creator:
+    class: src/Contexts/Projects/Task/application/Create/Creator
+    arguments: ['@Task.Repository', '@Shared.QueryBus', '@Shared.EventBus']
+
+  Task.Create.CreatePostCommandHandler:
+    class: src/Contexts/Projects/Task/application/Create/CreateTaskCommandHandler
+    arguments: ["@Task.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  Status.Repository:
+    class: src/Contexts/Projects/Status/infrastructure/persistence/TypeOrmStatusRepository
+    arguments: ["@Shared.ORM.Connection"]
+
   ProjectUser.Repository:
     class: src/Contexts/Projects/ProjectUser/infrastructure/persistence/TypeOrmProjectUserRepository
     arguments: ["@Shared.ORM.Connection"]

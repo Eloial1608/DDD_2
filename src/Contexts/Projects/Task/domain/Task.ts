@@ -15,6 +15,7 @@ import { DeletedAt } from './ValueObjects/DeletedAt'
 import { CommunityId } from './ValueObjects/CommunityId'
 import { ProjectId } from './ValueObjects/ProjectId'
 import { Author } from './ValueObjects/Author'
+import { TaskCreatedDomainEvent } from './Events/TaskCreatedDomainEvent'
 
 export class Task extends AggregateRoot {
   constructor (
@@ -35,5 +36,42 @@ export class Task extends AggregateRoot {
     readonly deletedAt: Nullable<DeletedAt>
   ) {
     super()
+  }
+
+  static create (
+    id: Id,
+    title: Title,
+    description: Nullable<Description>,
+    assignedUserId: Nullable<UserId>,
+    assignedUser: Nullable<Author>,
+    priority: Nullable<Priority>,
+    status: Nullable<TaskStatus>,
+    type: Nullable<TaskTypes>,
+    deadline: Nullable<Deadline>,
+    points: Nullable<Points>,
+    projectId: ProjectId,
+    communityId: CommunityId
+  ): Task {
+    const task = new Task(
+      id,
+      title,
+      description,
+      assignedUserId,
+      assignedUser,
+      priority,
+      status,
+      type,
+      deadline,
+      points,
+      projectId,
+      communityId,
+      new CreatedAt(new Date()),
+      new UpdatedAt(new Date()),
+      null
+    )
+
+    task.record(TaskCreatedDomainEvent.fromAggregate(task))
+
+    return task
   }
 }
