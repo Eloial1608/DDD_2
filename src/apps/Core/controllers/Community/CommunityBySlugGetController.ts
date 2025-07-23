@@ -31,7 +31,7 @@ export class CommunityBySlugGetController implements Controller {
 
       if (!community) return res.status(404).send()
 
-      return res.status(200).json(community)
+      return res.status(200).json({ ...community, spaceOrderedIds: JSON.parse(community.spaceOrderedIds) })
     } catch (e) {
       return res.status(500).send()
     }

@@ -33,4 +33,8 @@ export class ProjectMother {
   static random (): Project {
     return this.create({})
   }
+
+  static forLeadUser (userId: LeadUserId): Project {
+    return this.create({ leadUserId: userId })
+  }
 }
