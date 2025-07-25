@@ -286,3 +286,13 @@ services:
     arguments: ['@Project.Delete.Deleter']
     tags:
       - { name: "commandHandler" }
+
+  Status.FindById.FinderById:
+    class: src/Contexts/Projects/Status/application/FindById/FinderById
+    arguments: ['@Status.Repository']
+  
+  Status.FindById.FindSectionByIdQueryHandler:
+    class: src/Contexts/Projects/Status/application/FindById/FindStatusByIdQueryHandler
+    arguments: ['@Status.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
