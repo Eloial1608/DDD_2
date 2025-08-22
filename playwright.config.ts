@@ -37,6 +37,10 @@ export default defineConfig({
     {
       name: 'projects',
       testDir: 'tests/apps/Projects'
+    },
+    {
+      name: 'metrics',
+      testDir: 'tests/apps/Metrics'
     }
   ],
   use: {

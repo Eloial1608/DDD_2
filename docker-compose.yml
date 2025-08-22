@@ -186,3 +186,24 @@ services:
         reservations:
           cpus: "0.5"
           memory: "512MB"
+
+    metrics-service-server:
+      restart: always
+      build:
+        context: ./
+        dockerfile: ./Dockerfile
+        args:
+          PORT: 50013
+      ports:
+        - 5013:5013
+      env_file:
+        - /etc/gathered/metrics/.env
+      command: ["start:metrics:server"]
+      deploy:
+        resources:
+          limits:
+            cpus: "1"
+            memory: "1GB"
+          reservations:
+            cpus: "0.5"
+            memory: "512MB" 

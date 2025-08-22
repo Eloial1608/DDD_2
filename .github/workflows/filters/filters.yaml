@@ -72,3 +72,10 @@ projects-service-server:
 - src/Contexts/Projects/**
 - tests/apps/Projects/**
 - tests/Contexts/Projects/**
+
+metrics-service-server:
+- *shared
+- src/apps/Metrics/**
+- src/Contexts/Metrics/**
+- tests/apps/Metrics/**
+- tests/Contexts/Metrics/**
