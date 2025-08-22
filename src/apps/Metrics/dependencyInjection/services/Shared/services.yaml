@@ -17,17 +17,8 @@ services:
   
   Shared.ORM.DataSourceOptions:
     factory:
-      class: src/Contexts/Core/Shared/infrastructure/persistence/typeorm/TypeOrmConfigFactory
+      class: src/Contexts/Metrics/Shared/infrastructure/persistence/typeorm/TypeOrmConfigFactory
       method: "create"
-  
-  Shared.Stripe.ClientFactory:
-    factory:
-      class: src/Contexts/Core/Shared/infrastructure/Stripe/StripeClientFactory
-      method: "create"
-  
-  Shared.Stripe.HttpSessionRepository:
-    class: src/Contexts/Core/Shared/infrastructure/Stripe/HttpSessionRepository
-    arguments: ['@Shared.Stripe.ClientFactory']
 
   Shared.SyncEventBus:
     class: src/Contexts/Shared/infrastructure/EventBus/InMemory/InMemoryAsyncEventBus
@@ -45,7 +36,7 @@ services:
     factory:
       class: src/Contexts/Shared/infrastructure/persistence/typeorm/DataSourceFactory
       method: "createPostgres"
-    arguments: ["core", "@Shared.ORM.DataSourceOptions"]
+    arguments: ["metrics", "@Shared.ORM.DataSourceOptions"]
   
   Shared.TokenDecoder.ConfigFactory:
     factory:
