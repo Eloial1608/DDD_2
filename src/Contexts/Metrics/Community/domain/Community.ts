@@ -1,6 +1,7 @@
 import { AggregateRoot } from "@Shared/domain/AggregateRoot"
 import { Id } from "./ValueObjects/Id"
 import { IsPrivate } from "./ValueObjects/IsPrivate"
+import { CommunityCreatedDomainEvent } from "./Events/CommunityCreatedDomainEvent"
 
 export class Community extends AggregateRoot {
   constructor (
@@ -19,7 +20,7 @@ export class Community extends AggregateRoot {
       isPrivate
     )
 
-    //community.record(CommunityCreatedDomainEvent.fromAggregate(community))
+    community.record(CommunityCreatedDomainEvent.fromAggregate(community))
 
     return community
   }
