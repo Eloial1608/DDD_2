@@ -59,7 +59,10 @@
       ],
       "@Auth/*": [
         "src/Contexts/Auth/*"
-      ]
+      ],
+       "@Metrics/*": [
+        "src/Contexts/Metrics/*"
+      ],
     }
   },
   "include": [
