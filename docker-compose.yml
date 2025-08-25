@@ -193,7 +193,7 @@ services:
         context: ./
         dockerfile: ./Dockerfile
         args:
-          PORT: 50013
+          PORT: 5013
       ports:
         - 5013:5013
       env_file:
