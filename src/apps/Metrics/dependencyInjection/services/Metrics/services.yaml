@@ -36,4 +36,9 @@ Community.FindById.FindCommunityByIdQueryHandler:
 User.Repository:
     class: src/Contexts/Metrics/User/infrastructure/persistence/TypeOrmUserRepository
     arguments: ["@Shared.ORM.Connection"]
+
+Space.Repository:
+    class: src/Contexts/Metrics/Space/infrastructure/persistence/TypeOrmSpaceRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
   
