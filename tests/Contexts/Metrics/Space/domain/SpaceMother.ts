@@ -11,7 +11,7 @@ export class SpaceMother {
     return new Space(
       params.id ?? new Id(UuidMother.random()),
       params.communityId ?? new CommunityId(UuidMother.random()),
-      params.type ?? new Type(AllowedTypes.POST)
+      params.type ?? new Type(AllowedTypes.POST))
   }
 
   static random (): Space {
