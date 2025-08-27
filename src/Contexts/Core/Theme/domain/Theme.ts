@@ -10,6 +10,7 @@ import { PreviewPicUrl } from './ValueObjects/PreviewPicUrl'
 import { Name } from './ValueObjects/Name'
 import { CommunityId } from './ValueObjects/CommunityId'
 import { Layout } from './ValueObjects/Layout'
+import { ThemeUpdatedDomainEvent } from './Events/ThemeUpdatedDomainEvent'
 
 export class Theme extends AggregateRoot {
   constructor (
@@ -64,6 +65,32 @@ export class Theme extends AggregateRoot {
     )
 
     theme.record(ThemeDeletedDomainEvent.fromAggregate(theme))
+
+    return theme
+  }
+
+  update (
+    id: Id,
+    communityId: Nullable<CommunityId>,
+    name: Name,
+    previewPicUrl: PreviewPicUrl,
+    colors: Colors,
+    typography: Typography,
+    components: Nullable<Components>,
+    layout: Nullable<Layout>
+  ): Theme {
+    const theme = new Theme(
+      id,
+      communityId,
+      name,
+      previewPicUrl,
+      colors,
+      typography,
+      components,
+      layout
+    )
+
+    theme.record(ThemeUpdatedDomainEvent.fromAggregate(theme))
 
     return theme
   }
