@@ -32,4 +32,8 @@ Community.FindById.FindCommunityByIdQueryHandler:
     arguments: ['@Community.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
+
+User.Repository:
+    class: src/Contexts/Metrics/User/infrastructure/persistence/TypeOrmUserRepository
+    arguments: ["@Shared.ORM.Connection"]
   
