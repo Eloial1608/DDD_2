@@ -1,8 +1,8 @@
-import { AggregateRoot } from "@Shared/domain/AggregateRoot"
-import { Id } from "./ValueObjects/Id"
-import { IsPrivate } from "./ValueObjects/IsPrivate"
-import { CommunityCreatedDomainEvent } from "./Events/CommunityCreatedDomainEvent"
-import { CommunityDeletedDomainEvent } from "./Events/CommunityDeletedDomainEvent"
+import { AggregateRoot } from '@Shared/domain/AggregateRoot'
+import { Id } from './ValueObjects/Id'
+import { IsPrivate } from './ValueObjects/IsPrivate'
+import { CommunityCreatedDomainEvent } from './Events/CommunityCreatedDomainEvent'
+import { CommunityDeletedDomainEvent } from './Events/CommunityDeletedDomainEvent'
 
 export class Community extends AggregateRoot {
   constructor (
