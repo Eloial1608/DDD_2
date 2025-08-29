@@ -62,6 +62,4 @@ export class TitlePatchController implements Controller {
 
     return !!user && (user.isAdmin || user.isOwner)
   }
-
-  
 }

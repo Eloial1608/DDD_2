@@ -6,6 +6,6 @@ export class CreateTitleCommand implements Command {
         readonly id: string,
         readonly name: string,
         readonly communityId: string,
-        readonly titleImageUrl: Nullable<string>,
+        readonly titleImageUrl: Nullable<string>
   ) {}
 }

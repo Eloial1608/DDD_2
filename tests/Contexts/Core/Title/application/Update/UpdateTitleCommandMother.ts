@@ -7,7 +7,7 @@ export class UpdateTitleCommandMother {
     id: string,
     name: string,
     communityId: string,
-    titleImageUrl: Nullable<string>,
+    titleImageUrl: Nullable<string>
   ): UpdateTitleCommand {
     return new UpdateTitleCommand(
       id,
@@ -22,7 +22,7 @@ export class UpdateTitleCommandMother {
       title.id.valueOf(),
       title.name.valueOf(),
       title.communityId.valueOf(),
-      title.titleImageUrl ? title.titleImageUrl.valueOf() : null,
+      title.titleImageUrl ? title.titleImageUrl.valueOf() : null
     )
   }
 }

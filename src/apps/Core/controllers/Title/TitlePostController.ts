@@ -6,8 +6,8 @@ import { TokenDecoder } from '@Shared/domain/TokenDecoder/TokenDecoder'
 import { CreateTitleCommand } from '@Core/Title/application/Create/CreateTitleCommand'
 import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { TitleAlreadyExistsById } from '@Core/Title/domain/Errors/TitleAlreadyExistsById'
-//import { FindCommunityByIdQuery } from '@Core/Community/application/FindById/FindCommunityByIdQuery'
-//import { CommunityResponse } from '@Core/Community/application/CommunityResponse'
+// import { FindCommunityByIdQuery } from '@Core/Community/application/FindById/FindCommunityByIdQuery'
+// import { CommunityResponse } from '@Core/Community/application/CommunityResponse'
 import { TitleAlreadyExistsByName } from '@Core/Title/domain/Errors/TitleAlreadyExistsByName'
 import { FindUsersByCriteriaQuery } from '@Chat/User/application/FindByCriteria/FindUsersByCriteriaQuery'
 import { UserCollectionResponse } from '@Chat/User/application/UserCollectionResponse'
@@ -23,10 +23,9 @@ export class TitlePostController implements Controller {
 
       if (!await this.isAdmin(tokenData.id, tokenData.communityId)) return res.status(401).send()
 
-
-      /*const communityQuery = new FindCommunityByIdQuery(tokenData.communityId)
+      /* const communityQuery = new FindCommunityByIdQuery(tokenData.communityId)
       const community = (await this.queryBus.ask<CommunityResponse>(communityQuery)).response
-      if (community.membersCount >= community.allowedTitles) return res.status(401).send()*/
+      if (community.membersCount >= community.allowedTitles) return res.status(401).send() */
 
       if (!req.body.name) return res.status(400).send()
 
@@ -49,21 +48,21 @@ export class TitlePostController implements Controller {
   }
 
   private async isAdmin (id: string, communityId: string): Promise<boolean> {
-      const query = new FindUsersByCriteriaQuery([
-        new Map<string, string>([
-          ['field', 'mainId'],
-          ['operator', '='],
-          ['value', id]
-        ]),
-        new Map<string, string>([
-          ['field', 'communityId'],
-          ['operator', '='],
-          ['value', communityId]
-        ])
+    const query = new FindUsersByCriteriaQuery([
+      new Map<string, string>([
+        ['field', 'mainId'],
+        ['operator', '='],
+        ['value', id]
+      ]),
+      new Map<string, string>([
+        ['field', 'communityId'],
+        ['operator', '='],
+        ['value', communityId]
       ])
-  
-      const user = (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
-  
-      return !!user && (user.isAdmin || user.isOwner)
-    }
+    ])
+
+    const user = (await this.queryBus.ask<UserCollectionResponse>(query)).response.pop()
+
+    return !!user && (user.isAdmin || user.isOwner)
+  }
 }

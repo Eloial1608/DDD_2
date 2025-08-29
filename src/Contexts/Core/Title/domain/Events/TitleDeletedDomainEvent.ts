@@ -28,7 +28,7 @@ export class TitleDeletedDomainEvent extends DomainEvent {
   static fromAggregate (title:Title): TitleDeletedDomainEvent {
     return new TitleDeletedDomainEvent({
       id: title.id.valueOf(),
-      communityId: title.communityId.valueOf(),
+      communityId: title.communityId.valueOf()
     })
   }
 

@@ -55,5 +55,4 @@ export class TitlesGetController implements Controller {
       return res.status(500).send()
     }
   }
-
 }

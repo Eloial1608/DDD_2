@@ -43,9 +43,10 @@ export class TitleUpdatedDomainEvent extends DomainEvent {
       titleImageUrl: title.titleImageUrl?.valueOf(),
       communityId: title.communityId.valueOf(),
       createdAt: title.createdAt.valueOf(),
-      updatedAt: title.updatedAt.valueOf(),
+      updatedAt: title.updatedAt.valueOf()
     })
   }
+
   toPrimitive (): TitleUpdatedDomainEventBody {
     return { ...this }
   }

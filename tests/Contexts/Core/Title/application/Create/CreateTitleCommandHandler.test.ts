@@ -33,7 +33,7 @@ describe('CreateTitleCommandHandler should ', () => {
 
   test('Fail if a title with the same id already exists', async () => {
     const title = TitleMother.random()
-    const existingTitle = TitleMother.create({ id: title.id})
+    const existingTitle = TitleMother.create({ id: title.id })
 
     const command = CreateTitleCommandMother.fromAggregate(title)
 

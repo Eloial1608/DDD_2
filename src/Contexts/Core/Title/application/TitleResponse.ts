@@ -17,7 +17,7 @@ export class TitleResponse implements QueryResponse<TitleResponseBody> {
       id: title.id.valueOf(),
       name: title.name.valueOf(),
       communityId: title.communityId.valueOf(),
-      titleImageUrl: title.titleImageUrl?.valueOf(),
+      titleImageUrl: title.titleImageUrl?.valueOf()
     }
   }
 }

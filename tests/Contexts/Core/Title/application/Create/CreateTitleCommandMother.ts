@@ -7,13 +7,13 @@ export class CreateTitleCommandMother {
     id: string,
     name: string,
     communityId: string,
-    titleImageUrl: Nullable<string>,
+    titleImageUrl: Nullable<string>
   ): CreateTitleCommand {
     return new CreateTitleCommand(
       id,
       name,
       communityId,
-      titleImageUrl,
+      titleImageUrl
     )
   }
 
@@ -22,7 +22,7 @@ export class CreateTitleCommandMother {
       title.id.valueOf(),
       title.name.valueOf(),
       title.communityId.valueOf(),
-      title.titleImageUrl ? title.titleImageUrl.valueOf() : null,
+      title.titleImageUrl ? title.titleImageUrl.valueOf() : null
     )
   }
 }

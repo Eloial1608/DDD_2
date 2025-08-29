@@ -14,7 +14,7 @@ export class Updater {
     id: Id,
     name: Name,
     communityId: CommunityId,
-    titleImageUrl: Nullable<TitleImageUrl>,
+    titleImageUrl: Nullable<TitleImageUrl>
   ) {
     const title = await this.repository.find(id)
 
@@ -22,7 +22,7 @@ export class Updater {
 
     const updatedTitle = title.update(
       name,
-      titleImageUrl,
+      titleImageUrl
     )
 
     await this.repository.persist(updatedTitle)

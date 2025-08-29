@@ -19,7 +19,7 @@ export class CreateTitleCommandHandler implements CommandHandler<CreateTitleComm
       new Id(command.id),
       new Name(command.name),
       new CommunityId(command.communityId),
-      command.titleImageUrl ? new TitleImageUrl(command.titleImageUrl)  : null,
+      command.titleImageUrl ? new TitleImageUrl(command.titleImageUrl) : null
     )
   }
 }

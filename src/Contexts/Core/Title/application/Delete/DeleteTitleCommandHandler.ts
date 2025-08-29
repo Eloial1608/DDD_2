@@ -15,7 +15,7 @@ export class DeleteTitleCommandHandler implements CommandHandler<DeleteTitleComm
   async handle (command: DeleteTitleCommand): Promise<void> {
     await this.deleter.run(
       new Id(command.id),
-      new CommunityId(command.communityId),
+      new CommunityId(command.communityId)
     )
   }
 }

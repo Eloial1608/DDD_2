@@ -22,7 +22,7 @@ export class Creator {
       id,
       name,
       communityId,
-      titleImageUrl,
+      titleImageUrl
     )
 
     await this.repository.persist(title)
@@ -46,6 +46,5 @@ export class Creator {
     )).pop()
 
     if (existingTitleByName) throw new TitleAlreadyExistsByName(existingTitleByName.name)
-
   }
 }

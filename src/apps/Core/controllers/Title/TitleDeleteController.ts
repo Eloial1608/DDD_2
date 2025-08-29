@@ -11,7 +11,6 @@ import { TitleNotFound } from '@Core/Title/domain/Errors/TitleNotFound'
 import { UserCollectionResponse } from '@Core/User/application/UserCollectionResponse'
 import { FindUsersByCriteriaQuery } from '@Chat/User/application/FindByCriteria/FindUsersByCriteriaQuery'
 
-
 export class TitleDeleteController implements Controller {
   constructor (private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
 
@@ -39,7 +38,6 @@ export class TitleDeleteController implements Controller {
       return res.status(500).send()
     }
   }
-
 
   private async isAdmin (id: string, communityId: string): Promise<boolean> {
     const query = new FindUsersByCriteriaQuery([

@@ -1,3 +1,3 @@
-import { UrlValueObject } from "@Shared/domain/ValueObjects/UrlValueObject";
+import { UrlValueObject } from '@Shared/domain/ValueObjects/UrlValueObject'
 
-export class TitleImageUrl extends UrlValueObject{}
+export class TitleImageUrl extends UrlValueObject {}
