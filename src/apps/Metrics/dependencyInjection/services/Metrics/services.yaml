@@ -1,39 +1,43 @@
 services:
- Community.Repository:
+  Community.Repository:
     class: src/Contexts/Metrics/Community/infrastructure/persistence/TypeOrmCommunityRepository
     arguments: ["@Shared.ORM.Connection"]
 
-Community.CreateCommunityOnCommunityCreated.Creator:
+  Community.CreateCommunityOnCommunityCreated.Creator:
     class: src/Contexts/Metrics/Community/application/CreateCommunityOnCommunityCreated/Creator
     arguments: ['@Community.Repository', '@Shared.EventBus']
   
-Community.CreateCommunityOnCommunityCreated.CreateCommunityOnCommunityCreatedHandler:
+  Community.CreateCommunityOnCommunityCreated.CreateCommunityOnCommunityCreatedHandler:
     class: src/Contexts/Metrics/Community/application/CreateCommunityOnCommunityCreated/CreateCommunityOnCommunityCreatedHandler
     arguments: ["@Community.CreateCommunityOnCommunityCreated.Creator"]
     tags:
-      - { name: "domainEventSubscriber" }
+     - { name: "domainEventSubscriber" }
   
-Community.DeleteCommunityOnCommunityDeleted.Deleter:
+  Community.DeleteCommunityOnCommunityDeleted.Deleter:
     class: src/Contexts/Metrics/Community/application/DeleteCommunityOnCommunityDeleted/Deleter
     arguments: ['@Community.Repository', '@Shared.EventBus']
   
-Community.DeleteCommunityOnCommunityDeleted.DeleteCommunityOnCommunityDeletedHandler:
+  Community.DeleteCommunityOnCommunityDeleted.DeleteCommunityOnCommunityDeletedHandler:
     class: src/Contexts/Metrics/Community/application/DeleteCommunityOnCommunityDeleted/DeleteCommunityOnCommunityDeletedHandler
     arguments: ["@Community.DeleteCommunityOnCommunityDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
   
-Community.FindById.FinderById:
+  Community.FindById.FinderById:
     class: src/Contexts/Metrics/Community/application/FindById/FinderById
     arguments: ['@Community.Repository']
   
-Community.FindById.FindCommunityByIdQueryHandler:
+  Community.FindById.FindCommunityByIdQueryHandler:
     class: src/Contexts/Metrics/Community/application/FindById/FindCommunityByIdQueryHandler
     arguments: ['@Community.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
 
-User.Repository:
+  User.Repository:
     class: src/Contexts/Metrics/User/infrastructure/persistence/TypeOrmUserRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  NewUser.Repository:
+    class: src/Contexts/Metrics/NewUser/infrastructure/persistence/TypeOrmNewUserRepository
     arguments: ["@Shared.ORM.Connection"]
   
