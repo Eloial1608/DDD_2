@@ -216,11 +216,11 @@ services:
   
   Apps.Core.Controllers.TitleGetController:
     class: src/apps/Core/controllers/Title/TitleGetController
-    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
   
   Apps.Core.Controllers.TitlesGetController:
     class: src/apps/Core/controllers/Title/TitlesGetController
-    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
   
   Apps.Core.Controllers.TitlePostController:
     class: src/apps/Core/controllers/Title/TitlePostController

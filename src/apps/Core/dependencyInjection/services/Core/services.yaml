@@ -732,3 +732,23 @@ services:
     arguments: ["@Title.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
+
+  Title.FindById.FinderById:
+    class: src/Contexts/Core/Title/application/FindById/FinderById
+    arguments: ['@Title.Repository', '@Shared.EventBus']
+  
+  Title.FindById.FindTitleByIdQueryHandler:
+    class: src/Contexts/Core/Title/application/FindById/FindTitleByIdQueryHandler
+    arguments: ['@Title.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  Title.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/Title/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Title.Repository', '@Shared.EventBus']
+
+  Title.FindByCriteria.FindTitlesByCriteriaQueryHandler:
+    class: src/Contexts/Core/Title/application/FindByCriteria/FindTitlesByCriteriaQueryHandler
+    arguments: ['@Title.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
