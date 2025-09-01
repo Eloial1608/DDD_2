@@ -5,9 +5,9 @@ import { Type } from "./ValueObjects/Type";
 
 export class Space extends AggregateRoot {
   constructor(
-    public readonly id: Id,
+    readonly id: Id,
     readonly communityId: CommunityId,
-    public readonly type: Type
+    readonly type: Type
   ) {
     super();
   }
