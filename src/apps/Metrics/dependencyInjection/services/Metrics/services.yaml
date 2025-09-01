@@ -41,3 +41,12 @@ services:
     class: src/Contexts/Metrics/NewUser/infrastructure/persistence/TypeOrmNewUserRepository
     arguments: ["@Shared.ORM.Connection"]
   
+  User.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Metrics/User/application/FindByCriteria/FinderByCriteria
+    arguments: ['@User.Repository']
+  
+  User.FindByCriteria.FindUsersByCriteriaQueryHandler:
+    class: src/Contexts/Metrics/User/application/FindByCriteria/FindUsersByCriteriaQueryHandler
+    arguments: ['@User.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
