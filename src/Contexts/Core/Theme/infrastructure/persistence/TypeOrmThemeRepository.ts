@@ -23,8 +23,4 @@ export class TypeOrmThemeRepository extends TypeOrmRepository<Theme> implements 
   async persist (theme: Theme): Promise<void> {
     await (await this.repository()).save(theme)
   }
-
-  async delete (theme: Theme): Promise<void> {
-    await (await this.repository()).remove(theme)
-  }
 }

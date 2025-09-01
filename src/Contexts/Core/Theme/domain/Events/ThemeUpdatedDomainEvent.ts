@@ -5,13 +5,15 @@ import { LayoutType } from '../ValueObjects/Layout'
 
 type ThemeUpdatedDomainEventBody = {
     readonly id: string,
-    readonly communityId: Nullable<string>,
-    readonly name: string,
-    readonly previewPicUrl: string,
-    readonly colors: string,
-    readonly typography: string,
-    readonly components: Nullable<string>,
+    readonly communityId: Nullable<string>
+    readonly name: string
+    readonly previewPicUrl: string
+    readonly colors: string
+    readonly typography: string
+    readonly components: Nullable<string>
     readonly layout: Nullable<LayoutType>
+    readonly createdAt: Date
+    readonly updatedAt: Date
 }
 
 export class ThemeUpdatedDomainEvent extends DomainEvent {
@@ -25,6 +27,8 @@ export class ThemeUpdatedDomainEvent extends DomainEvent {
   readonly typography: string
   readonly components: Nullable<string>
   readonly layout: Nullable<LayoutType>
+  readonly createdAt: Date
+  readonly updatedAt: Date
 
   static {
     DomainEvent.derived.add(ThemeUpdatedDomainEvent.EVENT_NAME)
@@ -41,6 +45,8 @@ export class ThemeUpdatedDomainEvent extends DomainEvent {
     this.typography = params.typography
     this.components = params.components
     this.layout = params.layout
+    this.createdAt = params.createdAt
+    this.updatedAt = params.updatedAt
   }
 
   static fromAggregate (theme: Theme): ThemeUpdatedDomainEvent {
@@ -59,7 +65,9 @@ export class ThemeUpdatedDomainEvent extends DomainEvent {
             footer: theme.layout.footer.valueOf(),
             content: theme.layout.content.valueOf()
           }
-        : null
+        : null,
+      createdAt: theme.createdAt.valueOf(),
+      updatedAt: theme.updatedAt.valueOf()
     })
   }
 

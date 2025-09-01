@@ -15,7 +15,7 @@ export class Deleter {
 
     const theme = existingTheme.delete()
 
-    await this.repository.delete(theme)
+    await this.repository.persist(theme)
 
     await this.eventBus.publish(theme.pullDomainEvents())
   }

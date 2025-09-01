@@ -11,7 +11,9 @@ type ThemeCreatedDomainEventBody = {
     readonly colors: string,
     readonly typography: string,
     readonly components: Nullable<string>,
-    readonly layout: Nullable<LayoutType>
+    readonly layout: Nullable<LayoutType>,
+    readonly createdAt: Date
+    readonly updatedAt: Date
 }
 
 export class ThemeCreatedDomainEvent extends DomainEvent {
@@ -25,6 +27,8 @@ export class ThemeCreatedDomainEvent extends DomainEvent {
   readonly typography: string
   readonly components: Nullable<string>
   readonly layout: Nullable<LayoutType>
+  readonly createdAt: Date
+  readonly updatedAt: Date
 
   static {
     DomainEvent.derived.add(ThemeCreatedDomainEvent.EVENT_NAME)
@@ -41,6 +45,8 @@ export class ThemeCreatedDomainEvent extends DomainEvent {
     this.typography = params.typography
     this.components = params.components
     this.layout = params.layout
+    this.createdAt = params.createdAt
+    this.updatedAt = params.updatedAt
   }
 
   static fromAggregate (theme: Theme): ThemeCreatedDomainEvent {
@@ -59,7 +65,9 @@ export class ThemeCreatedDomainEvent extends DomainEvent {
             footer: theme.layout.footer.valueOf(),
             content: theme.layout.content.valueOf()
           }
-        : null
+        : null,
+      createdAt: theme.createdAt.valueOf(),
+      updatedAt: theme.updatedAt.valueOf()
     })
   }
 

@@ -12,6 +12,9 @@ export type ThemeResponseBody = {
     readonly typography: string
     readonly components: Nullable<string>
     readonly layout: Nullable<LayoutType>
+    readonly createdAt: Date
+    readonly updatedAt: Date
+    readonly deletedAt: Nullable<Date>
 }
 
 export class ThemeResponse implements QueryResponse<ThemeResponseBody> {
@@ -33,7 +36,10 @@ export class ThemeResponse implements QueryResponse<ThemeResponseBody> {
             footer: theme.layout.footer.valueOf(),
             content: theme.layout.content.valueOf()
           }
-        : null
+        : null,
+      createdAt: theme.createdAt.valueOf(),
+      updatedAt: theme.updatedAt.valueOf(),
+      deletedAt: theme.deletedAt ? theme.deletedAt.valueOf() : null
     }
   }
 }

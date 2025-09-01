@@ -7,5 +7,4 @@ export interface ThemeRepository{
         find (id: Id): Promise<Nullable<Theme>>
         search (criteria: Criteria): Promise<Array<Theme>>
         persist (theme: Theme): Promise<void>
-        delete (theme: Theme): Promise<void>
 }

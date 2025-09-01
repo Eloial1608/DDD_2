@@ -11,6 +11,9 @@ import { Name } from './ValueObjects/Name'
 import { CommunityId } from './ValueObjects/CommunityId'
 import { Layout } from './ValueObjects/Layout'
 import { ThemeUpdatedDomainEvent } from './Events/ThemeUpdatedDomainEvent'
+import { CreatedAt } from './ValueObjects/CreatedAt'
+import { UpdatedAt } from './ValueObjects/UpdatedAt'
+import { DeletedAt } from './ValueObjects/DeletedAt'
 
 export class Theme extends AggregateRoot {
   constructor (
@@ -21,7 +24,11 @@ export class Theme extends AggregateRoot {
         readonly colors: Colors,
         readonly typography: Typography,
         readonly components: Nullable<Components>,
-        readonly layout: Nullable<Layout>
+        readonly layout: Nullable<Layout>,
+        readonly createdAt: CreatedAt,
+        readonly updatedAt: UpdatedAt,
+        readonly deletedAt: Nullable<DeletedAt>
+
   ) {
     super()
   }
@@ -44,7 +51,10 @@ export class Theme extends AggregateRoot {
       colors,
       typography,
       components,
-      layout
+      layout,
+      new CreatedAt(new Date()),
+      new UpdatedAt(new Date()),
+      null
     )
 
     theme.record(ThemeCreatedDomainEvent.fromAggregate(theme))
@@ -61,7 +71,10 @@ export class Theme extends AggregateRoot {
       this.colors,
       this.typography,
       this.components,
-      this.layout
+      this.layout,
+      this.createdAt,
+      this.updatedAt,
+      new DeletedAt(new Date())
     )
 
     theme.record(ThemeDeletedDomainEvent.fromAggregate(theme))
@@ -87,7 +100,10 @@ export class Theme extends AggregateRoot {
       colors,
       typography,
       components,
-      layout
+      layout,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      this.deletedAt
     )
 
     theme.record(ThemeUpdatedDomainEvent.fromAggregate(theme))

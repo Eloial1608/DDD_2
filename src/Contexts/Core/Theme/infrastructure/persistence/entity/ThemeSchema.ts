@@ -9,6 +9,9 @@ import { Colors } from '@Core/Theme/domain/ValueObjects/Colors'
 import { Typography } from '@Core/Theme/domain/ValueObjects/Typography'
 import { Components } from '@Core/Theme/domain/ValueObjects/Components'
 import { Layout, LayoutSection } from '@Core/Theme/domain/ValueObjects/Layout'
+import { CreatedAt } from '@Core/Theme/domain/ValueObjects/CreatedAt'
+import { UpdatedAt } from '@Core/Theme/domain/ValueObjects/UpdatedAt'
+import { DeletedAt } from '@Core/Theme/domain/ValueObjects/DeletedAt'
 
 const ThemeLayoutSchema = new EntitySchema<Layout>({
   name: 'themeLayout',
@@ -68,6 +71,22 @@ export const ThemeSchema = new EntitySchema<Theme>({
       type: String,
       nullable: true,
       transformer: ValueObjectTransformer(Components)
+    },
+    createdAt: {
+      type: Date,
+      updateDate: true,
+      transformer: ValueObjectTransformer(CreatedAt)
+    },
+    updatedAt: {
+      type: Date,
+      updateDate: true,
+      transformer: ValueObjectTransformer(UpdatedAt)
+    },
+    deletedAt: {
+      type: Date,
+      nullable: true,
+      deleteDate: true,
+      transformer: ValueObjectTransformer(DeletedAt)
     }
 
   },
