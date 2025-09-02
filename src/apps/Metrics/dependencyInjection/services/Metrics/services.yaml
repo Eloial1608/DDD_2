@@ -50,3 +50,7 @@ services:
     arguments: ['@User.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+
+  UserRetention.Repository:
+    class: src/Contexts/Metrics/UserRetention/infrastructure/persistence/TypeOrmUserRetentionRepository
+    arguments: ["@Shared.ORM.Connection"]
