@@ -50,3 +50,8 @@ services:
     arguments: ['@User.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+
+  CreatedEntity.Repository:
+    class: src/Contexts/Metrics/CreatedEntity/infrastructure/persistence/TypeOrmCreatedEntityRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
