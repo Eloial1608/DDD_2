@@ -11,7 +11,7 @@ services:
     class: src/Contexts/Metrics/Community/application/CreateCommunityOnCommunityCreated/CreateCommunityOnCommunityCreatedHandler
     arguments: ["@Community.CreateCommunityOnCommunityCreated.Creator"]
     tags:
-      - { name: "domainEventSubscriber" }
+     - { name: "domainEventSubscriber" }
   
   Community.DeleteCommunityOnCommunityDeleted.Deleter:
     class: src/Contexts/Metrics/Community/application/DeleteCommunityOnCommunityDeleted/Deleter
@@ -37,6 +37,10 @@ services:
     class: src/Contexts/Metrics/User/infrastructure/persistence/TypeOrmUserRepository
     arguments: ["@Shared.ORM.Connection"]
 
+  NewUser.Repository:
+    class: src/Contexts/Metrics/NewUser/infrastructure/persistence/TypeOrmNewUserRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
   User.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Metrics/User/application/FindByCriteria/FinderByCriteria
     arguments: ['@User.Repository']
