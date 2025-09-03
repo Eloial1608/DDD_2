@@ -50,6 +50,10 @@ services:
     arguments: ['@User.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+
+  Session.Repository:
+    class: src/Contexts/Metrics/Session/infrastructure/persistence/TypeOrmSessionRepository
+    arguments: ["@Shared.ORM.Connection"]
     
   UniqueDailyLogin.Repository:
     class: src/Contexts/Metrics/UniqueDailyLogin/infrastructure/persistence/TypeOrmUniqueDailyLoginRepository
