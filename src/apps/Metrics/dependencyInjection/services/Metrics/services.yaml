@@ -54,4 +54,11 @@ services:
   CreatedEntity.Repository:
     class: src/Contexts/Metrics/CreatedEntity/infrastructure/persistence/TypeOrmCreatedEntityRepository
     arguments: ["@Shared.ORM.Connection"]
-  
+
+  UserRetention.Repository:
+    class: src/Contexts/Metrics/UserRetention/infrastructure/persistence/TypeOrmUserRetentionRepository
+    arguments: ["@Shared.ORM.Connection"]
+    
+  PageView.Repository:
+    class: src/Contexts/Metrics/PageView/infrastructure/persistence/TypeOrmPageViewRepository
+    arguments: ["@Shared.ORM.Connection"]
