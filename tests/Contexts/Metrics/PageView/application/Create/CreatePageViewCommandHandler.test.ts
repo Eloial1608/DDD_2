@@ -18,7 +18,7 @@ describe('CreatePageViewCommandHandler should ', () => {
     eventBus = new EventBusMock()
     repository = new PageViewRepositoryMock()
     queryBus = new QueryBusMock()
-    creator = new Creator(repository, eventBus, queryBus)
+    creator = new Creator(repository, eventBus)
     handler = new CreatePageViewCommandHandler(creator)
   })
 
