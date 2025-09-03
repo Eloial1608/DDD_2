@@ -17,7 +17,6 @@ export class SpaceUserTitleCreatedDomainEvent extends DomainEvent {
   readonly titleId: string
   readonly userId: string
   readonly spaceId: string
-  
 
   static {
     DomainEvent.derived.add(SpaceUserTitleCreatedDomainEvent.EVENT_NAME)

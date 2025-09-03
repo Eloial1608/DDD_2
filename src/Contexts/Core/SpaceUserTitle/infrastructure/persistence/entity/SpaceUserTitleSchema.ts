@@ -9,7 +9,6 @@ import { UserId } from '@Core/SpaceUserTitle/domain/ValueObjects/UserId'
 import { SpaceId } from '@Core/SpaceUserTitle/domain/ValueObjects/SpaceId'
 import { TitleId } from '@Core/SpaceUserTitle/domain/ValueObjects/TitleId'
 
-
 export const SpaceUserTitleSchema = new EntitySchema<SpaceUserTitle>({
   name: 'SpaceUserTitle',
   target: SpaceUserTitle,

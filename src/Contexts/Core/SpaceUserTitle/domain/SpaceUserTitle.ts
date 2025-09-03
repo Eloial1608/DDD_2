@@ -18,7 +18,7 @@ export class SpaceUserTitle extends AggregateRoot {
         readonly userId: UserId,
         readonly spaceId: SpaceId,
         readonly createdAt: CreatedAt,
-        readonly updatedAt: UpdatedAt,
+        readonly updatedAt: UpdatedAt
   ) {
     super()
   }
@@ -37,7 +37,7 @@ export class SpaceUserTitle extends AggregateRoot {
       userId,
       spaceId,
       new CreatedAt(new Date()),
-      new UpdatedAt(new Date()),
+      new UpdatedAt(new Date())
     )
 
     spaceUserTitle.record(SpaceUserTitleCreatedDomainEvent.fromAggregate(spaceUserTitle))
@@ -46,8 +46,8 @@ export class SpaceUserTitle extends AggregateRoot {
   }
 
   update (
-    id: Id,
-    
+    id: Id
+
   ): SpaceUserTitle {
     const spaceUserTitle = new SpaceUserTitle(
       id,
@@ -56,7 +56,7 @@ export class SpaceUserTitle extends AggregateRoot {
       this.userId,
       this.spaceId,
       this.createdAt,
-      new UpdatedAt(new Date()),
+      new UpdatedAt(new Date())
     )
 
     spaceUserTitle.record(SpaceUserTitleUpdatedDomainEvent.fromAggregate(spaceUserTitle))
@@ -72,7 +72,7 @@ export class SpaceUserTitle extends AggregateRoot {
       this.userId,
       this.spaceId,
       this.createdAt,
-      this.updatedAt,
+      this.updatedAt
     )
 
     spaceUserTitle.record(SpaceUserTitleDeletedDomainEvent.fromAggregate(spaceUserTitle))

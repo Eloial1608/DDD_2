@@ -5,7 +5,6 @@ import { Type } from '@Metrics/Space/domain/ValueObjects/Type'
 import { AllowedTypes } from '@Shared/domain/SharedValueObjects/Space/AllowedTypes'
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
 
-
 export class SpaceMother {
   static create (params: Partial<Space>): Space {
     return new Space(

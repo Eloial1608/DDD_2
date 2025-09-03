@@ -17,7 +17,7 @@ export class SpaceUserTitleMother {
       params.userId ?? new UserId(UuidMother.random()),
       params.spaceId ?? new SpaceId(UuidMother.random()),
       params.createdAt ?? new CreatedAt(new Date()),
-      params.updatedAt ?? new UpdatedAt(new Date()),
+      params.updatedAt ?? new UpdatedAt(new Date())
     )
   }
 

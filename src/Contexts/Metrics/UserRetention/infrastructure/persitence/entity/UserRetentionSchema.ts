@@ -40,5 +40,5 @@ export const UserRetentionSchema = new EntitySchema<UserRetention>({
       type: Date,
       transformer: ValueObjectTransformer(CreatedAt)
     }
-}
+  }
 })

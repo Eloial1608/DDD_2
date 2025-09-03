@@ -38,5 +38,5 @@ export const SessionSchema = new EntitySchema<Session>({
       type: Date,
       transformer: ValueObjectTransformer(CreatedAt)
     }
-}
+  }
 })

@@ -6,7 +6,6 @@ import { TotalMedia } from '@Metrics/CreatedEntity/domain/ValueObjects/TotalMedi
 import { TotalPost } from '@Metrics/CreatedEntity/domain/ValueObjects/TotalPost'
 import { TotalThread } from '@Metrics/CreatedEntity/domain/ValueObjects/TotalThread'
 
-
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
 
 export class CreatedEntityMother {
@@ -16,7 +15,7 @@ export class CreatedEntityMother {
       params.communityId ?? new CommunityId(UuidMother.random()),
       params.totalPost ?? new TotalPost(0),
       params.totalMedia ?? new TotalMedia(0),
-      params.totalThread ?? new TotalThread(0),  
+      params.totalThread ?? new TotalThread(0),
       params.createdAt ?? new CreatedAt(new Date())
     )
   }
