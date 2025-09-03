@@ -698,3 +698,13 @@ services:
     arguments: ["@SpaceMember.CreateSpaceMemberOnStripeSessionVerified.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  Community.UpdateOnboardingStep.Updater:
+    class: src/Contexts/Core/Community/application/UpdateOnboardingStep/Updater
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.UpdateOnboardingStep.UpdateOnboardingStepCommandHandler:
+    class: src/Contexts/Core/User/application/UpdateOnboardingStep/UpdateOnboardingStepCommandHandler
+    arguments: ["@User.UpdateOnboardingStep.Updater"]
+    tags:
+      - { name: "commandHandler" }
