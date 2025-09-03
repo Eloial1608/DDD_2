@@ -9,6 +9,7 @@ export class SpaceUserTitleRepositoryMock implements SpaceUserTitleRepository {
   private mockFind = mockFn()
   private mockSearch = mockFn()
   private mockPersist = mockFn()
+  private mockDelete = mockFn()
 
   private expectedFind: Nullable<SpaceUserTitle>
   private expectedSearch: Array<SpaceUserTitle> = []
@@ -35,10 +36,14 @@ export class SpaceUserTitleRepositoryMock implements SpaceUserTitleRepository {
     this.mockPersist(spaceUserTitle)
   }
 
+  async delete (spaceUserTitle: SpaceUserTitle): Promise<void> {
+    this.mockDelete(spaceUserTitle)
+  }
+  
   assertPersistHasBeenCalledWith (spaceUserTitle: SpaceUserTitle) {
     expect(this.mockPersist).toHaveBeenCalledWith(spaceUserTitle)
   }
-
+  
   assertFindHasBeenCalledWith (id: Id) {
     expect(this.mockFind).toHaveBeenCalledWith(id)
   }

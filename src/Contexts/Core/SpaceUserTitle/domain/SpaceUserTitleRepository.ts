@@ -7,4 +7,5 @@ export interface SpaceUserTitleRepository {
     find (id: Id): Promise<Nullable<SpaceUserTitle>>
     search (criteria: Criteria): Promise<Array<SpaceUserTitle>>
     persist (space: SpaceUserTitle): Promise<void>
+    delete (space: SpaceUserTitle): Promise<void>
 }
