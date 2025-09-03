@@ -34,7 +34,7 @@ describe('DeleteSpaceUserTitleCommandHandler should ', () => {
 
   test('Delete a new SpaceUserTitleDeletedDomainEvent', async () => {
     const spaceUserTitle = SpaceUserTitleMother.random()
-    const existing = SpaceUserTitleMother.create({ ...spaceUserTitle})
+    const existing = SpaceUserTitleMother.create({ ...spaceUserTitle })
 
     repository.returnOnFind(existing)
 

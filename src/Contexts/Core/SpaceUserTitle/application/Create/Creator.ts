@@ -18,7 +18,6 @@ export class Creator {
     userId: UserId,
     spaceId: SpaceId
   ) {
-    
     await this.checkIfExists(id, communityId)
 
     const spaceUserTitle = SpaceUserTitle.create(

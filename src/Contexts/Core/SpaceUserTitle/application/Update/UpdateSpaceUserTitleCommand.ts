@@ -4,6 +4,6 @@ export class UpdateSpaceUserTitleCommand implements Command {
   constructor (
     readonly id: string,
     readonly communityId: string,
-    readonly titleId: string,
+    readonly titleId: string
   ) {}
 }

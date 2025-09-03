@@ -11,7 +11,7 @@ export class Updater {
   async run (
     id: Id,
     communityId: CommunityId,
-    titleId: TitleId,
+    titleId: TitleId
   ) {
     const spaceUserTitle = await this.repository.find(id)
 

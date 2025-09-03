@@ -39,7 +39,7 @@ describe('DeleteSpaceUserTitleOnSpaceDeletedHandler should ', () => {
     await handler.on(event)
 
     const expectedSpace = SpaceUserTitleMother.create({
-      ...existingSpaceUserTitle,
+      ...existingSpaceUserTitle
     })
 
     repository.assertPersistHasBeenCalledWith(expectedSpace)
@@ -62,7 +62,7 @@ describe('DeleteSpaceUserTitleOnSpaceDeletedHandler should ', () => {
     await handler.on(event)
 
     const expectedSpace = SpaceUserTitleMother.create({
-      ...existingSpaceUserTitle,
+      ...existingSpaceUserTitle
     })
 
     const expectedEvent = SpaceUserTitleDeletedDomainEvent.fromAggregate(expectedSpace)
