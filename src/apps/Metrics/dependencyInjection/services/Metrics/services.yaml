@@ -51,6 +51,10 @@ services:
     tags:
       - { name: "queryHandler" }
 
+  CreatedEntity.Repository:
+    class: src/Contexts/Metrics/CreatedEntity/infrastructure/persistence/TypeOrmCreatedEntityRepository
+    arguments: ["@Shared.ORM.Connection"]
+
   UserRetention.Repository:
     class: src/Contexts/Metrics/UserRetention/infrastructure/persistence/TypeOrmUserRetentionRepository
     arguments: ["@Shared.ORM.Connection"]
