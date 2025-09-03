@@ -752,3 +752,7 @@ services:
     arguments: ['@Title.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+  
+  SpaceUserTitle.Repository:
+    class: src/Contexts/Core/SpaceUserTitle/infrastructure/persistence/TypeOrmSpaceUserTitleRepository
+    arguments: ["@Shared.ORM.Connection"]
