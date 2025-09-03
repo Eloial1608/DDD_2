@@ -11,7 +11,7 @@ import { UpdateTitleCommand } from '@Core/Title/application/Update/UpdateTitleCo
 import { FindUsersByCriteriaQuery } from '@Threads/User/application/FindByCriteria/FindUsersByCriteriaQuery'
 import { UserCollectionResponse } from '@Core/User/application/UserCollectionResponse'
 
-export class TitlePatchController implements Controller {
+export class TitlePutController implements Controller {
   constructor (private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
 
   async run (req: Request, res: Response): Promise<Response> {
