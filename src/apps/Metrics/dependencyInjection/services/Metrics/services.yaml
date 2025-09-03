@@ -84,3 +84,13 @@ services:
     arguments: ["@User.CreateUserOnUserCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+    
+  PageView.Create.Creator:
+    class: src/Contexts/Media/PageView/application/Create/Creator
+    arguments: ['@PageView.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  PageView.Create.CreatePageViewCommandHandler:
+    class: src/Contexts/Media/PageView/application/Create/CreatePageViewCommandHandler
+    arguments: ["@PageView.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
