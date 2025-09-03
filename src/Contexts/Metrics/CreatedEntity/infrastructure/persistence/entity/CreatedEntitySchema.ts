@@ -38,5 +38,5 @@ export const CreatedEntitySchema = new EntitySchema<CreatedEntity>({
       type: Date,
       transformer: ValueObjectTransformer(CreatedAt)
     }
-}
+  }
 })
