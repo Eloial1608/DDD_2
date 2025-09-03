@@ -46,13 +46,13 @@ export class SpaceUserTitle extends AggregateRoot {
   }
 
   update (
-    id: Id
-
+    id: Id,
+    titleId: TitleId
   ): SpaceUserTitle {
     const spaceUserTitle = new SpaceUserTitle(
       id,
       this.communityId,
-      this.titleId,
+      titleId,
       this.userId,
       this.spaceId,
       this.createdAt,

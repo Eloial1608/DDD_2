@@ -1,11 +1,11 @@
 import { SpaceUserTitle } from '@Core/SpaceUserTitle/domain/SpaceUserTitle'
-import { CommunityId } from '@Core/SpaceUserTitle/domain/ValueObjects/CommunityId'
-import { CreatedAt } from '@Core/SpaceUserTitle/domain/ValueObjects/CreatedAt'
 import { Id } from '@Core/SpaceUserTitle/domain/ValueObjects/Id'
-import { SpaceId } from '@Core/SpaceUserTitle/domain/ValueObjects/SpaceId'
+import { CommunityId } from '@Core/SpaceUserTitle/domain/ValueObjects/CommunityId'
 import { TitleId } from '@Core/SpaceUserTitle/domain/ValueObjects/TitleId'
-import { UpdatedAt } from '@Core/SpaceUserTitle/domain/ValueObjects/UpdatedAt'
 import { UserId } from '@Core/SpaceUserTitle/domain/ValueObjects/UserId'
+import { SpaceId } from '@Core/SpaceUserTitle/domain/ValueObjects/SpaceId'
+import { UpdatedAt } from '@Core/SpaceUserTitle/domain/ValueObjects/UpdatedAt'
+import { CreatedAt } from '@Core/SpaceUserTitle/domain/ValueObjects/CreatedAt'
 import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
 
 export class SpaceUserTitleMother {
