@@ -23,4 +23,8 @@ export class TypeOrmSpaceUserTitleRepository extends TypeOrmRepository<SpaceUser
   async persist (spaceUserTitle: SpaceUserTitle): Promise<void> {
     await (await this.repository()).save(spaceUserTitle)
   }
+
+  async delete (spaceUserTitle: SpaceUserTitle): Promise<void> {
+    await (await this.repository()).remove(spaceUserTitle)
+  }
 }
