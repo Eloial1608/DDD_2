@@ -1,5 +1,5 @@
 import { InvalidArgumentError } from '@Shared/domain/ValueObjects/InvalidArgumentError'
 
-export class InvalidTitlenameFormat extends InvalidArgumentError {
-  code = 'invalid-titlename-format'
+export class InvalidNameFormat extends InvalidArgumentError {
+  code = 'invalid-name-format'
 }

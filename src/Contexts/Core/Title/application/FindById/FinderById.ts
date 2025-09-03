@@ -7,10 +7,10 @@ export class FinderById {
   constructor (private readonly repository: TitleRepository) {}
 
   async find (id: Id): Promise<Title> {
-    const space = await this.repository.find(id)
+    const title = await this.repository.find(id)
 
-    if (!space) throw new TitleNotFound(id)
+    if (!title) throw new TitleNotFound(id)
 
-    return space
+    return title
   }
 }
