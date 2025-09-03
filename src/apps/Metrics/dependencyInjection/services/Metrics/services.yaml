@@ -50,3 +50,6 @@ services:
     arguments: ['@User.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+  PageView.Repository:
+    class: src/Contexts/Metrics/PageView/infrastructure/persistence/TypeOrmPageViewRepository
+    arguments: ["@Shared.ORM.Connection"]
