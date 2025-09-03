@@ -7,6 +7,7 @@ import { IsAdmin } from './ValueObjects/IsAdmin'
 import { IsOwner } from './ValueObjects/IsOwner'
 import { Username } from './ValueObjects/Username'
 import { UserCreatedDomainEvent } from './Events/UserCreatedDomainEvent'
+import { UserUpdatedDomainEvent } from './Events/UserUpdatedDomainEvent'
 
 export class User extends AggregateRoot {
   constructor (
@@ -41,4 +42,23 @@ export class User extends AggregateRoot {
     user.record(UserCreatedDomainEvent.fromAggregate(user))
     return user
   }
+
+  update (
+      name: Name,
+      username: Username,
+    ): User {
+      const user = new User(
+        this.id,
+        this.mainId,
+        this.communityId,
+        name,
+        username,
+        this.isAdmin,
+        this.isOwner
+      )
+  
+      user.record(UserUpdatedDomainEvent.fromAggregate(user))
+  
+      return user
+    }
 }
