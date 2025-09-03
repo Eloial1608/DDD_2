@@ -26,7 +26,7 @@ export class TitleCreatedDomainEvent extends DomainEvent {
   static fromAggregate (title: Title): TitleCreatedDomainEvent {
     return new TitleCreatedDomainEvent({
       id: title.id.valueOf(),
-      communityId: title.communityId.valueOf(),
+      communityId: title.communityId.valueOf()
     })
   }
 
