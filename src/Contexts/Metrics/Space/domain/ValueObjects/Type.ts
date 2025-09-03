@@ -1,13 +1,9 @@
-import { EnumValueObject } from '@Shared/domain/ValueObjects/EnumValueObject'
-import { InvalidType } from '../Errors/InvalidType'
-import { AllowedTypes } from '@Shared/domain/SharedValueObjects/Space/AllowedTypes'
 
-export class Type extends EnumValueObject<AllowedTypes> {
-  constructor (value: AllowedTypes) {
-    super(value, Object.values(AllowedTypes))
-  }
+import { StringValueObject } from '@Shared/domain/ValueObjects/StringValueObject'
 
-  protected throwErrorForInvalidValue (): void {
-    throw new InvalidType(this)
-  }
+
+export class Type extends StringValueObject {
+    constructor (value: string) {
+      super(value)
+    }
 }
