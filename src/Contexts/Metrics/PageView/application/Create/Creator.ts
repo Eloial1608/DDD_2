@@ -5,10 +5,9 @@ import { Id } from "@Metrics/PageView/domain/ValueObjects/Id";
 import { SpaceID } from "@Metrics/PageView/domain/ValueObjects/SpaceId";
 import { UserId } from "@Metrics/PageView/domain/ValueObjects/UserId";
 import { EventBus } from "@Shared/domain/EventBus/EventBus";
-import { QueryBus } from "@Shared/domain/QueryBus/QueryBus";
 
 export class Creator{
-    constructor(private readonly repository: PageViewRepository, private readonly eventBus: EventBus,private readonly queryBus: QueryBus) {}
+    constructor(private readonly repository: PageViewRepository, private readonly eventBus: EventBus) {}
 
     async run(id : Id, userId: UserId, communityId: CommunityId, spaceId: SpaceID) {
         
