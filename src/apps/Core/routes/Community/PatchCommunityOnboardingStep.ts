@@ -4,5 +4,5 @@ import { CommunityOnboardingStepPatchController } from '@Apps/Core/controllers/C
 
 export const register = (router: Router) => {
   const controller = DI.getInstance().resolve<CommunityOnboardingStepPatchController>('Apps.Core.Controllers.CommunityOnboardingStepPatchController')
-  router.patch('/v1/communities/:id/onboarding-step', (req: Request, res: Response) => controller.run(req, res))
+  router.patch('/v1/communities/onboarding-step/:id', (req: Request, res: Response) => controller.run(req, res))
 }
