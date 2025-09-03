@@ -65,3 +65,13 @@ services:
     
   PageView.Repository:
     class: src/Contexts/Metrics/PageView/infrastructure/persistence/TypeOrmPageViewRepository
+    
+  User.CreateUserOnUserCreated.Creator:
+    class: src/Contexts/Metrics/User/application/CreateUserOnUserCreated/Creator
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.CreateUserOnUserCreated.CreateUserOnUserCreatedHandler:
+    class: src/Contexts/Metrics/User/application/CreateUserOnUserCreated/CreateUserOnUserCreatedHandler
+    arguments: ["@User.CreateUserOnUserCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
