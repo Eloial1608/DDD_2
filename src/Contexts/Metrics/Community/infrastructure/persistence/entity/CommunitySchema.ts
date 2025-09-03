@@ -1,8 +1,8 @@
-import { Community } from "@Metrics/Community/domain/Community";
-import { Id } from "@Metrics/Community/domain/ValueObjects/Id";
-import { IsPrivate } from "@Metrics/Community/domain/ValueObjects/IsPrivate";
-import { ValueObjectTransformer } from "@Shared/domain/ValueObjects/ValueObjectTransformer";
-import { EntitySchema } from "typeorm";
+import { Community } from '@Metrics/Community/domain/Community'
+import { Id } from '@Metrics/Community/domain/ValueObjects/Id'
+import { IsPrivate } from '@Metrics/Community/domain/ValueObjects/IsPrivate'
+import { ValueObjectTransformer } from '@Shared/domain/ValueObjects/ValueObjectTransformer'
+import { EntitySchema } from 'typeorm'
 
 export const CommunitySchema = new EntitySchema<Community>({
   name: 'Community',
