@@ -4,8 +4,6 @@ import { Title } from '../Title'
 type TitleDeletedDomainEventBody = {
     readonly id: string
     readonly communityId:string
-    readonly createdAt?: Date
-    readonly updatedAt?: Date
 }
 
 export class TitleDeletedDomainEvent extends DomainEvent {
