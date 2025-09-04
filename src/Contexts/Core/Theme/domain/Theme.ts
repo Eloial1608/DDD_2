@@ -103,7 +103,7 @@ export class Theme extends AggregateRoot {
       layout,
       this.createdAt,
       new UpdatedAt(new Date()),
-      this.deletedAt
+      null
     )
 
     theme.record(ThemeUpdatedDomainEvent.fromAggregate(theme))
