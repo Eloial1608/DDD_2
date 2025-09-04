@@ -1,7 +1,6 @@
 import { DomainEvent } from '@Shared/domain/EventBus/DomainEvent'
 import { Theme } from '../Theme'
 import { Nullable } from '@Shared/domain/Nullable'
-import { LayoutType } from '../ValueObjects/Layout'
 
 type ThemeCreatedDomainEventBody = {
     readonly id: string,
