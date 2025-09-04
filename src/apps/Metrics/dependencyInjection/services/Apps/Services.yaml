@@ -1,0 +1,3 @@
+services:
+    Apps.Metrics.Controllers.HealthGetController:
+    class: src/apps/Metrics/controllers/HealthGetController

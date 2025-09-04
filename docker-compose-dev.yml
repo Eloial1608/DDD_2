@@ -10,6 +10,17 @@ services:
       - 5004:5004
     command: ["start:core:server"]
 
+  metrics-service-server:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        PORT: 5004
+    ports:
+      - 5004:5004
+    command: ["start:metrics:server"]    
+
   threads-service-server:
     restart: always
     build:

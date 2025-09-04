@@ -1,0 +1,107 @@
+services:
+  Community.Repository:
+    class: src/Contexts/Metrics/Community/infrastructure/persistence/TypeOrmCommunityRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Community.CreateCommunityOnCommunityCreated.Creator:
+    class: src/Contexts/Metrics/Community/application/CreateCommunityOnCommunityCreated/Creator
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.CreateCommunityOnCommunityCreated.CreateCommunityOnCommunityCreatedHandler:
+    class: src/Contexts/Metrics/Community/application/CreateCommunityOnCommunityCreated/CreateCommunityOnCommunityCreatedHandler
+    arguments: ["@Community.CreateCommunityOnCommunityCreated.Creator"]
+    tags:
+     - { name: "domainEventSubscriber" }
+  
+  Community.DeleteCommunityOnCommunityDeleted.Deleter:
+    class: src/Contexts/Metrics/Community/application/DeleteCommunityOnCommunityDeleted/Deleter
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.DeleteCommunityOnCommunityDeleted.DeleteCommunityOnCommunityDeletedHandler:
+    class: src/Contexts/Metrics/Community/application/DeleteCommunityOnCommunityDeleted/DeleteCommunityOnCommunityDeletedHandler
+    arguments: ["@Community.DeleteCommunityOnCommunityDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.FindById.FinderById:
+    class: src/Contexts/Metrics/Community/application/FindById/FinderById
+    arguments: ['@Community.Repository']
+  
+  Community.FindById.FindCommunityByIdQueryHandler:
+    class: src/Contexts/Metrics/Community/application/FindById/FindCommunityByIdQueryHandler
+    arguments: ['@Community.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  User.Repository:
+    class: src/Contexts/Metrics/User/infrastructure/persistence/TypeOrmUserRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Space.Repository:
+    class: src/Contexts/Metrics/Space/infrastructure/persistence/TypeOrmSpaceRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
+  NewUser.Repository:
+    class: src/Contexts/Metrics/NewUser/infrastructure/persistence/TypeOrmNewUserRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
+  User.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Metrics/User/application/FindByCriteria/FinderByCriteria
+    arguments: ['@User.Repository']
+  
+  User.FindByCriteria.FindUsersByCriteriaQueryHandler:
+    class: src/Contexts/Metrics/User/application/FindByCriteria/FindUsersByCriteriaQueryHandler
+    arguments: ['@User.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+  Session.Repository:
+    class: src/Contexts/Metrics/Session/infrastructure/persistence/TypeOrmSessionRepository
+    arguments: ["@Shared.ORM.Connection"]
+    
+  UniqueDailyLogin.Repository:
+    class: src/Contexts/Metrics/UniqueDailyLogin/infrastructure/persistence/TypeOrmUniqueDailyLoginRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  CreatedEntity.Repository:
+    class: src/Contexts/Metrics/CreatedEntity/infrastructure/persistence/TypeOrmCreatedEntityRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  UserRetention.Repository:
+    class: src/Contexts/Metrics/UserRetention/infrastructure/persistence/TypeOrmUserRetentionRepository
+    arguments: ["@Shared.ORM.Connection"]
+    
+  PageView.Repository:
+    class: src/Contexts/Metrics/PageView/infrastructure/persistence/TypeOrmPageViewRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+
+  Space.CreateSpaceOnSpaceCreated.Creator:
+    class: src/Contexts/Metrics/Space/application/CreateSpaceOnSpaceCreated/Creator
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.CreateSpaceOnSpaceCreated.CreateSpaceOnSpaceCreatedHandler:
+    class: src/Contexts/Metrics/Space/application/CreateSpaceOnSpaceCreated/CreateSpaceOnSpaceCreatedHandler
+    arguments: ["@Space.CreateSpaceOnSpaceCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+    
+  User.CreateUserOnUserCreated.Creator:
+    class: src/Contexts/Metrics/User/application/CreateUserOnUserCreated/Creator
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.CreateUserOnUserCreated.CreateUserOnUserCreatedHandler:
+    class: src/Contexts/Metrics/User/application/CreateUserOnUserCreated/CreateUserOnUserCreatedHandler
+    arguments: ["@User.CreateUserOnUserCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  User.UpdateUserOnUserUpdated.Creator:
+    class: src/Contexts/Metrics/User/application/UpdateUserOnUserUpdated/Creator
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.UpdateUserOnUserUpdated.UpdateUserOnUserUpdatedHandler:
+    class: src/Contexts/Metrics/User/application/UpdateUserOnUserUpdated/UpdateUserOnUserUpdatedHandler
+    arguments: ["@User.UpdateUserOnUserUpdated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
