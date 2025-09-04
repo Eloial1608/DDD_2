@@ -33,5 +33,5 @@ export const PageViewSchema = new EntitySchema<PageView>({
       type: Date,
       transformer: ValueObjectTransformer(CreatedAt)
     }
-}
+  }
 })

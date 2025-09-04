@@ -29,5 +29,5 @@ export const UniqueDailyLoginSchema = new EntitySchema<UniqueDailyLogin>({
       type: Date,
       transformer: ValueObjectTransformer(CreatedAt)
     }
-}
+  }
 })

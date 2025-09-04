@@ -5,14 +5,14 @@ import { Type } from "./ValueObjects/Type";
 import { SpaceCreatedDomainEvent } from "./Events/SpaceCreatedDomainEvent";
 
 export class Space extends AggregateRoot {
-  constructor(
+  constructor (
     readonly id: Id,
     readonly communityId: CommunityId,
     readonly type: Type
   ) {
-    super();
+    super()
   }
-
+  
   static create(id: Id, communityId: CommunityId, type: Type): Space {
     const space = new Space(id, communityId, type);
 
@@ -20,3 +20,4 @@ export class Space extends AggregateRoot {
     return space;}
   
   }
+

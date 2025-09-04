@@ -698,3 +698,61 @@ services:
     arguments: ["@SpaceMember.CreateSpaceMemberOnStripeSessionVerified.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  Title.Repository:
+    class: src/Contexts/Core/Title/infrastructure/persistence/TypeOrmTitleRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Title.Create.Creator:
+    class: src/Contexts/Core/Title/application/Create/Creator
+    arguments: ['@Title.Repository', '@Shared.EventBus']
+
+  Title.Create.CreateTitleCommandHandler:
+    class: src/Contexts/Core/Title/application/Create/CreateTitleCommandHandler
+    arguments: ["@Title.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Title.Update.Updater:
+    class: src/Contexts/Core/Title/application/Update/Updater
+    arguments: ['@Title.Repository', '@Shared.EventBus']
+  
+  Title.Update.UpdateTitleCommandHandler:
+    class: src/Contexts/Core/Title/application/Update/UpdateTitleCommandHandler
+    arguments: ["@Title.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Title.Delete.Deleter:
+    class: src/Contexts/Core/Title/application/Delete/Deleter
+    arguments: ['@Title.Repository', '@Shared.EventBus']
+  
+  Title.Delete.DeleteTitleCommandHandler:
+    class: src/Contexts/Core/Title/application/Delete/DeleteTitleCommandHandler
+    arguments: ["@Title.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
+  Title.FindById.FinderById:
+    class: src/Contexts/Core/Title/application/FindById/FinderById
+    arguments: ['@Title.Repository', '@Shared.EventBus']
+  
+  Title.FindById.FindTitleByIdQueryHandler:
+    class: src/Contexts/Core/Title/application/FindById/FindTitleByIdQueryHandler
+    arguments: ['@Title.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  Title.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/Title/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Title.Repository', '@Shared.EventBus']
+
+  Title.FindByCriteria.FindTitlesByCriteriaQueryHandler:
+    class: src/Contexts/Core/Title/application/FindByCriteria/FindTitlesByCriteriaQueryHandler
+    arguments: ['@Title.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+  
+  SpaceUserTitle.Repository:
+    class: src/Contexts/Core/SpaceUserTitle/infrastructure/persistence/TypeOrmSpaceUserTitleRepository
+    arguments: ["@Shared.ORM.Connection"]
