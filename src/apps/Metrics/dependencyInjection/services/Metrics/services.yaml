@@ -105,3 +105,13 @@ services:
     arguments: ["@User.UpdateUserOnUserUpdated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  Space.FindById.FinderById:
+    class: src/Contexts/Metrics/Space/application/FindById/FinderById
+    arguments: ['@Space.Repository']
+  
+  Space.FindById.FindSpaceByIdQueryHandler:
+    class: src/Contexts/Metrics/Space/application/FindById/FindSpaceByIdQueryHandler
+    arguments: ['@Space.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
