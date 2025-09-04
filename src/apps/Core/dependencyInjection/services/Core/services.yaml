@@ -699,6 +699,16 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
 
+  Community.UpdateOnboardingStep.Updater:
+    class: src/Contexts/Core/Community/application/UpdateOnboardingStep/Updater
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.UpdateOnboardingStep.UpdateOnboardingStepCommandHandler:
+    class: src/Contexts/Core/User/application/UpdateOnboardingStep/UpdateOnboardingStepCommandHandler
+    arguments: ["@User.UpdateOnboardingStep.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
   Title.Repository:
     class: src/Contexts/Core/Title/infrastructure/persistence/TypeOrmTitleRepository
     arguments: ["@Shared.ORM.Connection"]
@@ -756,3 +766,4 @@ services:
   SpaceUserTitle.Repository:
     class: src/Contexts/Core/SpaceUserTitle/infrastructure/persistence/TypeOrmSpaceUserTitleRepository
     arguments: ["@Shared.ORM.Connection"]
+
