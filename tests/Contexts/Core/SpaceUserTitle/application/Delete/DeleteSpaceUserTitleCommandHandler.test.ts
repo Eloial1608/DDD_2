@@ -29,7 +29,7 @@ describe('DeleteSpaceUserTitleCommandHandler should ', () => {
 
     await handler.handle(command)
 
-    repository.assertPersistHasBeenCalledWith(spaceUserTitle)
+    repository.assertDeleteHasBeenCalledWith(spaceUserTitle)
   })
 
   test('Delete a new SpaceUserTitleDeletedDomainEvent', async () => {

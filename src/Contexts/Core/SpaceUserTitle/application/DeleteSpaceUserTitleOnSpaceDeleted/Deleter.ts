@@ -19,7 +19,7 @@ export class Deleter {
       for (const spaceUserTitle of spaceUserTitles) {
         const updatedSpaceUserTitle = spaceUserTitle.delete()
 
-        await this.repository.persist(updatedSpaceUserTitle)
+        await this.repository.delete(updatedSpaceUserTitle)
 
         await this.eventBus.publish(updatedSpaceUserTitle.pullDomainEvents())
       }

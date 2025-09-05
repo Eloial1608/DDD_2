@@ -39,11 +39,15 @@ export class SpaceUserTitleRepositoryMock implements SpaceUserTitleRepository {
   async delete (spaceUserTitle: SpaceUserTitle): Promise<void> {
     this.mockDelete(spaceUserTitle)
   }
-  
+
   assertPersistHasBeenCalledWith (spaceUserTitle: SpaceUserTitle) {
     expect(this.mockPersist).toHaveBeenCalledWith(spaceUserTitle)
   }
-  
+
+  assertDeleteHasBeenCalledWith (spaceUserTitle: SpaceUserTitle) {
+    expect(this.mockDelete).toHaveBeenCalledWith(spaceUserTitle)
+  }
+
   assertFindHasBeenCalledWith (id: Id) {
     expect(this.mockFind).toHaveBeenCalledWith(id)
   }

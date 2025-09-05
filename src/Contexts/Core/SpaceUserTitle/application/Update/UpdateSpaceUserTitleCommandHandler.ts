@@ -3,7 +3,7 @@ import { UpdateSpaceUserTitleCommand } from './UpdateSpaceUserTitleCommand'
 import { Updater } from './Updater'
 import { Command } from '@Shared/domain/CommandBus/Command'
 import { Id } from '@Core/Space/domain/ValueObjects/Id'
-import { CommunityId } from '@Core/Space/domain/ValueObjects/CommunityId'
+import { CommunityId } from '@Core/SpaceUserTitle/domain/ValueObjects/CommunityId'
 import { TitleId } from '@Core/SpaceUserTitle/domain/ValueObjects/TitleId'
 
 export class UpdateSpaceUserTitleCommandHandler implements CommandHandler<UpdateSpaceUserTitleCommand> {

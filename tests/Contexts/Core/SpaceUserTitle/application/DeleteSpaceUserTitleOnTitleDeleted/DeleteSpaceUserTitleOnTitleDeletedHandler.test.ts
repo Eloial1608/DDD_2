@@ -44,7 +44,7 @@ describe('DeleteSpaceUserTitleOnTitleDeletedHandler should ', () => {
       ...existingSpaceUserTitle
     })
 
-    repository.assertPersistHasBeenCalledWith(expectedSpace)
+    repository.assertDeleteHasBeenCalledWith(expectedSpace)
   })
 
   test('update a new SpaceUserTitleDeletedDomainEvent', async () => {

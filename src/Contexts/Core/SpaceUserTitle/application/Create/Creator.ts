@@ -6,7 +6,7 @@ import { CommunityId } from '@Core/SpaceUserTitle/domain/ValueObjects/CommunityI
 import { TitleId } from '@Core/SpaceUserTitle/domain/ValueObjects/TitleId'
 import { UserId } from '@Core/SpaceUserTitle/domain/ValueObjects/UserId'
 import { SpaceId } from '@Core/SpaceUserTitle/domain/ValueObjects/SpaceId'
-import { Id } from '@Auth/AuthUser/domain/ValueObjects/Id'
+import { Id } from '@Core/SpaceUserTitle/domain/ValueObjects/Id'
 
 export class Creator {
   constructor (private readonly repository: SpaceUserTitleRepository, private readonly eventBus: EventBus) {}

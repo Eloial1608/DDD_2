@@ -11,7 +11,7 @@ export class Deleter {
 
     const space = existingSpace.delete()
 
-    await this.repository.persist(space)
+    await this.repository.delete(space)
 
     await this.eventBus.publish(space.pullDomainEvents())
   }
