@@ -28,5 +28,5 @@ export const NewUserSchema = new EntitySchema<NewUser>({
       type: Date,
       transformer: ValueObjectTransformer(CreatedAt)
     }
-}
+  }
 })

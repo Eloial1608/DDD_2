@@ -74,6 +74,17 @@ services:
   PageView.Repository:
     class: src/Contexts/Metrics/PageView/infrastructure/persistence/TypeOrmPageViewRepository
     arguments: ["@Shared.ORM.Connection"]
+
+
+  Space.CreateSpaceOnSpaceCreated.Creator:
+    class: src/Contexts/Metrics/Space/application/CreateSpaceOnSpaceCreated/Creator
+    arguments: ['@Space.Repository', '@Shared.EventBus']
+  
+  Space.CreateSpaceOnSpaceCreated.CreateSpaceOnSpaceCreatedHandler:
+    class: src/Contexts/Metrics/Space/application/CreateSpaceOnSpaceCreated/CreateSpaceOnSpaceCreatedHandler
+    arguments: ["@Space.CreateSpaceOnSpaceCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
     
   User.CreateUserOnUserCreated.Creator:
     class: src/Contexts/Metrics/User/application/CreateUserOnUserCreated/Creator
@@ -94,3 +105,13 @@ services:
     arguments: ["@PageView.Create.Creator"]
     tags:
       - { name: "commandHandler" }
+
+  User.UpdateUserOnUserUpdated.Creator:
+    class: src/Contexts/Metrics/User/application/UpdateUserOnUserUpdated/Creator
+    arguments: ['@User.Repository', '@Shared.EventBus']
+  
+  User.UpdateUserOnUserUpdated.UpdateUserOnUserUpdatedHandler:
+    class: src/Contexts/Metrics/User/application/UpdateUserOnUserUpdated/UpdateUserOnUserUpdatedHandler
+    arguments: ["@User.UpdateUserOnUserUpdated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }

@@ -7,14 +7,14 @@ import { CreatedAt } from "./ValueObjects/CreatedAt";
 import { PageViewCreatedDomainEvent } from "./Events/PageViewCreatedDomainEvent";
 
 export class PageView extends AggregateRoot {
-  constructor(
+  constructor (
     readonly id: Id,
     readonly userId: UserId,
     readonly communityId: CommunityId,
     readonly spaceId: SpaceID,
     readonly createdAt: CreatedAt
   ) {
-    super();
+    super()
   }
 
   static create(
