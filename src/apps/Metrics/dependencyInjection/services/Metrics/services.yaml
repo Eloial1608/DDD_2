@@ -116,6 +116,16 @@ services:
     tags:
       - { name: "domainEventSubscriber" }
 
+  Space.FindById.FinderById:
+    class: src/Contexts/Metrics/Space/application/FindById/FinderById
+    arguments: ['@Space.Repository']
+  
+  Space.FindById.FindSpaceByIdQueryHandler:
+    class: src/Contexts/Metrics/Space/application/FindById/FindSpaceByIdQueryHandler
+    arguments: ['@Space.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
   User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater:
     class: src/Contexts/Metrics/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/Updater
     arguments: ['@User.Repository', '@Shared.EventBus']
