@@ -106,15 +106,23 @@ services:
     tags:
       - { name: "commandHandler" }
 
-  User.UpdateUserOnUserUpdated.Creator:
-    class: src/Contexts/Metrics/User/application/UpdateUserOnUserUpdated/Creator
+  User.UpdateUserOnUserUpdated.Updater:
+    class: src/Contexts/Metrics/User/application/UpdateUserOnUserUpdated/Updater
     arguments: ['@User.Repository', '@Shared.EventBus']
   
   User.UpdateUserOnUserUpdated.UpdateUserOnUserUpdatedHandler:
     class: src/Contexts/Metrics/User/application/UpdateUserOnUserUpdated/UpdateUserOnUserUpdatedHandler
-    arguments: ["@User.UpdateUserOnUserUpdated.Creator"]
+    arguments: ["@User.UpdateUserOnUserUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater:
+    class: src/Contexts/Metrics/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+
+  User.UpdateUserIsAdminOnUserIsAdminUpdated.UpdateUserIsAdminOnUserIsAdminUpdatedHandler:
+    class: src/Contexts/Metrics/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/UpdateUserIsAdminOnUserIsAdminUpdatedHandler
+    arguments: ["@User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater"]
 
   UserRetention.Create.Creator:
     class: src/Contexts/Metrics/UserRetention/application/Create/Creator
@@ -125,4 +133,3 @@ services:
     arguments: ['@UserRetention.Create.Creator']
     tags:
       - { name: "commandHandler" }
-
