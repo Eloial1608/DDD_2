@@ -95,6 +95,16 @@ services:
     arguments: ["@User.CreateUserOnUserCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+    
+  PageView.Create.Creator:
+    class: src/Contexts/Media/PageView/application/Create/Creator
+    arguments: ['@PageView.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  PageView.Create.CreatePageViewCommandHandler:
+    class: src/Contexts/Media/PageView/application/Create/CreatePageViewCommandHandler
+    arguments: ["@PageView.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
 
   User.UpdateUserOnUserUpdated.Updater:
     class: src/Contexts/Metrics/User/application/UpdateUserOnUserUpdated/Updater
@@ -113,3 +123,13 @@ services:
   User.UpdateUserIsAdminOnUserIsAdminUpdated.UpdateUserIsAdminOnUserIsAdminUpdatedHandler:
     class: src/Contexts/Metrics/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/UpdateUserIsAdminOnUserIsAdminUpdatedHandler
     arguments: ["@User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater"]
+
+  UserRetention.Create.Creator:
+    class: src/Contexts/Metrics/UserRetention/application/Create/Creator
+    arguments: ['@UserRetention.Repository', '@Shared.EventBus']
+
+  UserRetention.Create.CreateUserRetentionCommandHandler:
+    class: src/Contexts/Metrics/UserRetention/application/Create/CreateUserRetentionCommandHandler
+    arguments: ['@UserRetention.Create.Creator']
+    tags:
+      - { name: "commandHandler" }
