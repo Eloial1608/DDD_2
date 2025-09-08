@@ -20,7 +20,6 @@ describe('CreateUserRetentionCommandHandler should ', () => {
   })
 
   test('Create a new userretention', async () => {
-
     const userretention = UserRetentionMother.random()
 
     const command = CreateUserRetentionCommandMother.fromAggregate(userretention)
@@ -31,7 +30,6 @@ describe('CreateUserRetentionCommandHandler should ', () => {
   })
 
   test('Create a new UserRetentionCreatedDomainEvent', async () => {
-
     const userretention = UserRetentionMother.random()
 
     const command = CreateUserRetentionCommandMother.fromAggregate(userretention)

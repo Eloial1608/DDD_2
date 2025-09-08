@@ -17,7 +17,7 @@ export class UpdateUserOnUserUpdatedHandler implements DomainEventSubscriber <Us
     await this.updater.run(
       new Id(domainEvent.id),
       new Name(domainEvent.name),
-      new Username(domainEvent.username),
+      new Username(domainEvent.username)
     )
   }
 }

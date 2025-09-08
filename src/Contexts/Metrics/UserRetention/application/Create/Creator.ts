@@ -11,13 +11,13 @@ export class Creator {
   async run (
     id: Id,
     userId: UserId,
-    communityId: CommunityId,
+    communityId: CommunityId
   ) {
     const userretention = await this.repository.find(id)
 
     if (userretention) return
 
-    const created = UserRetention.create(id,userId,communityId,)
+    const created = UserRetention.create(id, userId, communityId)
 
     await this.repository.persist(created)
     await this.eventBus.publish(created.pullDomainEvents())

@@ -14,7 +14,6 @@ export class CreateSpaceOnSpaceCreatedHandler implements DomainEventSubscriber <
   }
 
   async on (domainEvent: SpaceCreatedDomainEvent): Promise<void> {
-
     await this.creator.run(
       new Id(domainEvent.id),
       new CommunityId(domainEvent.communityId),

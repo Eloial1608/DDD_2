@@ -20,7 +20,7 @@ export class UserRetention extends AggregateRoot {
     super()
   }
 
-  static create(id: Id, userId: UserId, communityId: CommunityId): UserRetention {
+  static create (id: Id, userId: UserId, communityId: CommunityId): UserRetention {
     const userRetention = new UserRetention(
       id,
       userId,

@@ -10,7 +10,7 @@ export class Updater {
   async run (
     id: Id,
     name: Name,
-    username: Username,
+    username: Username
   ) {
     const user = await this.repository.find(id)
 
@@ -18,7 +18,7 @@ export class Updater {
 
     const updatedUser = user.update(
       name,
-      username,
+      username
     )
 
     await this.repository.persist(updatedUser)

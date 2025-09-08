@@ -1,7 +1,6 @@
 import { DomainEvent } from '@Shared/domain/EventBus/DomainEvent'
 import { User } from '../User'
 
-
 type UserIsAdminUpdatedDomainEventBody = {
   readonly id: string
   readonly mainId: string
