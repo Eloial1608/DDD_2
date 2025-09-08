@@ -32,6 +32,7 @@ import { AllowsPayments } from '@Core/Community/domain/ValueObjects/AllowsPaymen
 import { AllowedSubcommunities } from '@Core/Community/domain/ValueObjects/AllowedSubcommunities'
 import { SubcommunitiesCount } from '@Core/Community/domain/ValueObjects/SubcommunitiesCount'
 import { SpaceOrderedIds } from '@Core/Community/domain/ValueObjects/SpaceOrderedIds'
+import { OnboardingStep } from '@Core/Community/domain/ValueObjects/OnboardingStep'
 
 export const CommunitySchema = new EntitySchema<Community>({
   name: 'Community',
@@ -172,6 +173,11 @@ export const CommunitySchema = new EntitySchema<Community>({
       type: String,
       default: '[]',
       transformer: ValueObjectTransformer(SpaceOrderedIds)
+    },
+    onboardingStep: {
+      type: String,
+      default: 'profile',
+      transformer: ValueObjectTransformer(OnboardingStep)
     },
     expiresAt: {
       type: Date,

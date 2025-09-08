@@ -30,10 +30,10 @@ services:
     class: src/apps/Core/controllers/Community/CommunityPostController
     arguments: ["@Shared.CommandBus"]
 
-  Apps.Core.Controllers.CommunityPutController:
-    class: src/apps/Core/controllers/Community/CommunityPutController
+  Apps.Core.Controllers.CommunityPatchController:
+    class: src/apps/Core/controllers/Community/CommunityPatchController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.CommunitySpaceOrderedIdsPatchController:
     class: src/apps/Core/controllers/Community/CommunitySpaceOrderedIdsPatchController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
@@ -212,6 +212,29 @@ services:
 
   Apps.Core.Controllers.FormPutController:
     class: src/apps/Core/controllers/Form/FormPutController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.ThemeGetController:
+    class: src/apps/Core/controllers/Theme/ThemeGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.ThemesGetController:
+    class: src/apps/Core/controllers/Theme/ThemesGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.ThemePostController:
+    class: src/apps/Core/controllers/Theme/ThemePostController
+    arguments: ["@Shared.CommandBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.ThemePutController:
+    class: src/apps/Core/controllers/Theme/ThemePutController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.ThemeDeleteController:
+    class: src/apps/Core/controllers/Theme/ThemeDeleteController
+
+  Apps.Core.Controllers.CommunityOnboardingStepPatchController:
+    class: src/apps/Core/controllers/Community/CommunityOnboardingStepPatchController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
   
   Apps.Core.Controllers.TitleGetController:
