@@ -115,3 +115,14 @@ services:
     arguments: ["@User.UpdateUserOnUserUpdated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  UserRetention.Create.Creator:
+    class: src/Contexts/Metrics/UserRetention/application/Create/Creator
+    arguments: ['@UserRetention.Repository', '@Shared.EventBus']
+
+  UserRetention.Create.CreateUserRetentionCommandHandler:
+    class: src/Contexts/Metrics/UserRetention/application/Create/CreateUserRetentionCommandHandler
+    arguments: ['@UserRetention.Create.Creator']
+    tags:
+      - { name: "commandHandler" }
+
