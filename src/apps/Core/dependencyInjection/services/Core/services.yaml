@@ -758,8 +758,8 @@ services:
     arguments: ['@Community.Repository', '@Shared.EventBus']
 
   Community.UpdateOnboardingStep.UpdateOnboardingStepCommandHandler:
-    class: src/Contexts/Core/User/application/UpdateOnboardingStep/UpdateOnboardingStepCommandHandler
-    arguments: ["@User.UpdateOnboardingStep.Updater"]
+    class: src/Contexts/Core/Community/application/UpdateOnboardingStep/UpdateOnboardingStepCommandHandler
+    arguments: ["@Community.UpdateOnboardingStep.Updater"]
     tags:
       - { name: "commandHandler" }
 
