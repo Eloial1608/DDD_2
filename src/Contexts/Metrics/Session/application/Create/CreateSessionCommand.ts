@@ -1,4 +1,4 @@
-import { Command } from "@Shared/domain/CommandBus/Command";
+import { Command } from '@Shared/domain/CommandBus/Command'
 
 export class CreateSessionCommand implements Command {
   constructor (

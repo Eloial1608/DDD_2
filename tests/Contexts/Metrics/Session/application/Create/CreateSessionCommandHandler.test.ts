@@ -1,10 +1,10 @@
-import EventBusMock from "@Tests/Contexts/Shared/infrastructure/EventBus/EventBusMock"
-import { SessionRepositoryMock } from "../../__mocks__/SessionRepositoryMock"
-import { CreateSessionCommandHandler } from "@Metrics/Session/application/Create/CreateSessionCommandHandler"
-import { Creator } from "@Metrics/Session/application/Create/Creator"
-import { SessionMother } from "../../domain/SessionMother"
-import { CreateSessionCommandMother } from "./CreateSessionCommandMother"
-import { SessionCreatedDomainEvent } from "@Metrics/Session/domain/Events/CreatedSessionDomainEvent"
+import EventBusMock from '@Tests/Contexts/Shared/infrastructure/EventBus/EventBusMock'
+import { SessionRepositoryMock } from '../../__mocks__/SessionRepositoryMock'
+import { CreateSessionCommandHandler } from '@Metrics/Session/application/Create/CreateSessionCommandHandler'
+import { Creator } from '@Metrics/Session/application/Create/Creator'
+import { SessionMother } from '../../domain/SessionMother'
+import { CreateSessionCommandMother } from './CreateSessionCommandMother'
+import { SessionCreatedDomainEvent } from '@Metrics/Session/domain/Events/CreatedSessionDomainEvent'
 
 let eventBus: EventBusMock
 let repository: SessionRepositoryMock
@@ -54,6 +54,4 @@ describe('CreateSessionCommandHandler should ', () => {
 
     eventBus.assertEventHasBeenPublished(expectedEvent)
   })
-
-
 })

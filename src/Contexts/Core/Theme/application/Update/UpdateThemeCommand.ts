@@ -1,4 +1,4 @@
-import { LayoutType } from '@Core/Theme/domain/ValueObjects/Layout'
+import { LayoutType } from '@Core/Shared/domain/Theme/LayoutType'
 import { Command } from '@Shared/domain/CommandBus/Command'
 import { Nullable } from '@Shared/domain/Nullable'
 
