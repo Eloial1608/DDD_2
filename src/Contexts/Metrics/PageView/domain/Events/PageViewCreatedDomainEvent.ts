@@ -3,7 +3,7 @@ import { PageView } from '../PageView'
 
 type PageViewCreatedDomainEventBody = {
   readonly id: string
-  readonly userId: string   
+  readonly userId: string
   readonly communityId: string
   readonly spaceId: string
   readonly createdAt: Date
@@ -13,7 +13,7 @@ export class PageViewCreatedDomainEvent extends DomainEvent {
   static readonly EVENT_NAME: string = 'app.gathered.Metrics.pageview.v1.created'
 
   readonly id: string
-  readonly userId: string   
+  readonly userId: string
   readonly communityId: string
   readonly spaceId: string
   readonly createdAt: Date

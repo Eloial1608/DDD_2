@@ -45,40 +45,39 @@ export class User extends AggregateRoot {
   }
 
   update (
-      name: Name,
-      username: Username,
-    ): User {
-      const user = new User(
-        this.id,
-        this.mainId,
-        this.communityId,
-        name,
-        username,
-        this.isAdmin,
-        this.isOwner
-      )
-  
-      user.record(UserUpdatedDomainEvent.fromAggregate(user))
-  
-      return user
-    }
+    name: Name,
+    username: Username
+  ): User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      this.communityId,
+      name,
+      username,
+      this.isAdmin,
+      this.isOwner
+    )
 
-    updateIsAdmin (
-        isAdmin: IsAdmin
-      ): User {
-        const user = new User(
-          this.id,
-          this.mainId,
-          this.communityId,
-          this.name,
-          this.username,
-          isAdmin,
-          this.isOwner
-        )
-    
-        user.record(UserIsAdminUpdatedDomainEvent.fromAggregate(user))
-    
-        return user
-      }
-    
+    user.record(UserUpdatedDomainEvent.fromAggregate(user))
+
+    return user
+  }
+
+  updateIsAdmin (
+    isAdmin: IsAdmin
+  ): User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      this.communityId,
+      this.name,
+      this.username,
+      isAdmin,
+      this.isOwner
+    )
+
+    user.record(UserIsAdminUpdatedDomainEvent.fromAggregate(user))
+
+    return user
+  }
 }
