@@ -143,3 +143,13 @@ services:
     arguments: ['@UserRetention.Create.Creator']
     tags:
       - { name: "commandHandler" }
+
+  Session.Create.Creator:
+    class: src/Contexts/Metrics/Session/application/Create/Creator
+    arguments: ['@Session.Repository', '@Shared.EventBus']
+
+  Session.Create.CreateSessionCommandHandler:
+    class: src/Contexts/Metrics/Session/application/Create/CreateSessionCommandHandler
+    arguments: ['@Session.Create.Creator']
+    tags:
+      - { name: "commandHandler" }
