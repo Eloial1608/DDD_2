@@ -19,10 +19,10 @@ export class Session extends AggregateRoot {
   }
 
   static create (id:Id, communityId:CommunityId, userId:UserId, country:Country, city:City): Session {
-    const session = new Session(id, communityId, userId, country, city,new CreatedAt(new Date()))
-     
+    const session = new Session(id, communityId, userId, country, city, new CreatedAt(new Date()))
+
     session.record(SessionCreatedDomainEvent.fromAggregate(session))
-    
+
     return session
   }
 }
