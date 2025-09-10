@@ -15,7 +15,8 @@ export class UserTitleMother {
       params.titleId ?? new TitleId(UuidMother.random()),
       params.userId ?? new UserId(UuidMother.random()),
       params.createdAt ?? new CreatedAt(new Date()),
-      params.updatedAt ?? new UpdatedAt(new Date())
+      params.updatedAt ?? new UpdatedAt(new Date()),
+      params.deletedAt ?? null
     )
   }
 

@@ -7,11 +7,12 @@ import { UpdatedAt } from '@Core/UserTitle/domain/ValueObjects/UpdatedAt'
 import { CommunityId } from '@Core/UserTitle/domain/ValueObjects/CommunityId'
 import { UserId } from '@Core/UserTitle/domain/ValueObjects/UserId'
 import { TitleId } from '@Core/UserTitle/domain/ValueObjects/TitleId'
+import { DeletedAt } from '@Core/UserTitle/domain/ValueObjects/DeletedAt'
 
 export const UserTitleSchema = new EntitySchema<UserTitle>({
   name: 'UserTitle',
   target: UserTitle,
-  tableName: '_user_title',
+  tableName: 'user_title',
   columns: {
     id: {
       type: String,
@@ -39,19 +40,25 @@ export const UserTitleSchema = new EntitySchema<UserTitle>({
       type: Date,
       updateDate: true,
       transformer: ValueObjectTransformer(UpdatedAt)
+    },
+    deletedAt: {
+      type: Date,
+      nullable: true,
+      deleteDate: true,
+      transformer: ValueObjectTransformer(DeletedAt)
     }
   },
   indices: [
     {
-      name: 'IDX__USER_TITLE_COMMUNITY_ID',
+      name: 'IDX_USER_TITLE_COMMUNITY_ID',
       columns: ['communityId']
     },
     {
-      name: 'IDX__USER_TITLE_USER_ID',
+      name: 'IDX_USER_TITLE_USER_ID',
       columns: ['userId']
     },
     {
-      name: 'IDX__USER_TITLE_TITLE_ID',
+      name: 'IDX_USER_TITLE_TITLE_ID',
       columns: ['titleId']
     }
   ]
