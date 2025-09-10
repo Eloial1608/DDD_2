@@ -19,12 +19,12 @@ export class SpaceUserTitleRepositoryMock implements SpaceUserTitleRepository {
     return this.expectedFind
   }
 
-  returnOnFind (space: Nullable<SpaceUserTitle>): void {
-    this.expectedFind = space
+  returnOnFind (spaceUserTitle: Nullable<SpaceUserTitle>): void {
+    this.expectedFind = spaceUserTitle
   }
 
-  returnOnSearch (space: Array<SpaceUserTitle>): void {
-    this.expectedSearch = space
+  returnOnSearch (spaceUserTitle: Array<SpaceUserTitle>): void {
+    this.expectedSearch = spaceUserTitle
   }
 
   async search (criteria: Criteria): Promise<Array<SpaceUserTitle>> {
@@ -32,16 +32,20 @@ export class SpaceUserTitleRepositoryMock implements SpaceUserTitleRepository {
     return this.expectedSearch
   }
 
-  async persist (space: SpaceUserTitle): Promise<void> {
-    this.mockPersist(space)
+  async persist (spaceUserTitle: SpaceUserTitle): Promise<void> {
+    this.mockPersist(spaceUserTitle)
   }
 
-  async delete (space: SpaceUserTitle): Promise<void> {
-    this.mockDelete(space)
+  async delete (spaceUserTitle: SpaceUserTitle): Promise<void> {
+    this.mockDelete(spaceUserTitle)
   }
 
-  assertPersistHasBeenCalledWith (space: SpaceUserTitle) {
-    expect(this.mockPersist).toHaveBeenCalledWith(space)
+  assertPersistHasBeenCalledWith (spaceUserTitle: SpaceUserTitle) {
+    expect(this.mockPersist).toHaveBeenCalledWith(spaceUserTitle)
+  }
+
+  assertDeleteHasBeenCalledWith (spaceUserTitle: SpaceUserTitle) {
+    expect(this.mockDelete).toHaveBeenCalledWith(spaceUserTitle)
   }
 
   assertFindHasBeenCalledWith (id: Id) {
