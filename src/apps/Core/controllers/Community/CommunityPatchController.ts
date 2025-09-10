@@ -10,7 +10,7 @@ import { TokenDecoder } from '@Shared/domain/TokenDecoder/TokenDecoder'
 import { UpdateCommunityCommand } from '@Core/Community/application/Update/UpdateCommunityCommand'
 import { CommunityAlreadyExistsByDomain } from '@Core/Community/domain/Errors/CommunityAlreadyExistsByDomain'
 
-export class CommunityPutController implements Controller {
+export class CommunityPatchController implements Controller {
   constructor (private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
 
   async run (req: Request, res: Response): Promise<Response> {

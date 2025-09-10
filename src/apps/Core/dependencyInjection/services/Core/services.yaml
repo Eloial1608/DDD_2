@@ -2,31 +2,31 @@ services:
   Community.Repository:
     class: src/Contexts/Core/Community/infrastructure/persistence/TypeOrmCommunityRepository
     arguments: ["@Shared.ORM.Connection"]
-  
+
   Community.Create.Creator:
     class: src/Contexts/Core/Community/application/Create/Creator
     arguments: ['@Community.Repository', '@Shared.EventBus']
-  
+
   Community.Create.CreateCommunityCommandHandler:
     class: src/Contexts/Core/Community/application/Create/CreateCommunityCommandHandler
     arguments: ["@Community.Create.Creator"]
     tags:
       - { name: "commandHandler" }
-    
+
   Community.CreateSubcommunity.Creator:
     class: src/Contexts/Core/Community/application/CreateSubcommunity/Creator
     arguments: ['@Community.Repository', '@Shared.EventBus']
-  
+
   Community.CreateSubcommunity.CreateSubcommunityCommandHandler:
     class: src/Contexts/Core/Community/application/CreateSubcommunity/CreateSubcommunityCommandHandler
     arguments: ["@Community.CreateSubcommunity.Creator"]
     tags:
       - { name: "commandHandler" }
-  
+
   Community.Update.Updater:
     class: src/Contexts/Core/Community/application/Update/Updater
     arguments: ['@Community.Repository', '@Shared.EventBus']
-  
+
   Community.Update.UpdateCommunityCommandHandler:
     class: src/Contexts/Core/Community/application/Update/UpdateCommunityCommandHandler
     arguments: ["@Community.Update.Updater"]
@@ -36,51 +36,51 @@ services:
   Community.UpdateSpaceOrderedIds.Updater:
     class: src/Contexts/Core/Community/application/UpdateSpaceOrderedIds/Updater
     arguments: ['@Community.Repository', '@Shared.EventBus']
-  
+
   Community.UpdateSpaceOrderedIds.UpdateCommunitySpaceOrderedIdsCommandHandler:
     class: src/Contexts/Core/Community/application/UpdateSpaceOrderedIds/UpdateCommunitySpaceOrderedIdsCommandHandler
     arguments: ["@Community.UpdateSpaceOrderedIds.Updater"]
     tags:
       - { name: "commandHandler" }
-  
+
   Community.FindById.FinderById:
     class: src/Contexts/Core/Community/application/FindById/FinderById
     arguments: ['@Community.Repository']
-  
+
   Community.FindById.FindCommunityByIdQueryHandler:
     class: src/Contexts/Core/Community/application/FindById/FindCommunityByIdQueryHandler
     arguments: ['@Community.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
-  
+
   Community.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Core/Community/application/FindByCriteria/FinderByCriteria
     arguments: ['@Community.Repository']
-  
+
   Community.FindByCriteria.FindCommunitiesByCriteriaQueryHandler:
     class: src/Contexts/Core/Community/application/FindByCriteria/FindCommunitiesByCriteriaQueryHandler
     arguments: ['@Community.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
-  
+
   Community.Delete.Deleter:
     class: src/Contexts/Core/Community/application/Delete/Deleter
     arguments: ['@Community.Repository', '@Shared.EventBus']
-  
+
   Community.Delete.DeleteCommunityCommandHandler:
     class: src/Contexts/Core/Community/application/Delete/DeleteCommunityCommandHandler
     arguments: ["@Community.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
-  
+
   Plan.Repository:
     class: src/Contexts/Core/Plan/infrastructure/persistence/TypeOrmPlanRepository
     arguments: ["@Shared.ORM.Connection"]
-  
+
   Plan.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Core/Plan/application/FindByCriteria/FinderByCriteria
     arguments: ['@Plan.Repository']
-  
+
   Plan.FindByCriteria.FindPlansByCriteriaQueryHandler:
     class: src/Contexts/Core/Plan/application/FindByCriteria/FindPlansByCriteriaQueryHandler
     arguments: ['@Plan.FindByCriteria.FinderByCriteria']
@@ -90,7 +90,7 @@ services:
   Plan.FindById.FinderById:
     class: src/Contexts/Core/Plan/application/FindById/FinderById
     arguments: ['@Plan.Repository']
-  
+
   Plan.FindById.FindPlanyByIdQueryHandler:
     class: src/Contexts/Core/Plan/application/FindById/FindPlanByIdQueryHandler
     arguments: ['@Plan.FindById.FinderById']
@@ -100,25 +100,25 @@ services:
   CommunityPlan.Repository:
     class: src/Contexts/Core/CommunityPlan/infrastructure/persistence/TypeOrmCommunityPlanRepository
     arguments: ["@Shared.ORM.Connection"]
-  
+
   User.Repository:
     class: src/Contexts/Core/User/infrastructure/persistence/TypeOrmUserRepository
     arguments: ["@Shared.ORM.Connection"]
-  
+
   User.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Core/User/application/FindByCriteria/FinderByCriteria
     arguments: ['@User.Repository']
-  
+
   User.FindByCriteria.FindUsersByCriteriaQueryHandler:
     class: src/Contexts/Core/User/application/FindByCriteria/FindUsersByCriteriaQueryHandler
     arguments: ['@User.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
-  
+
   User.FindById.FinderById:
     class: src/Contexts/Core/User/application/FindById/FinderById
     arguments: ['@User.Repository']
-  
+
   User.FindById.FindUserByIdQueryHandler:
     class: src/Contexts/Core/User/application/FindById/FindUserByIdQueryHandler
     arguments: ['@User.FindById.FinderById']
@@ -128,23 +128,23 @@ services:
   User.Create.Creator:
     class: src/Contexts/Core/User/application/Create/Creator
     arguments: ['@User.Repository', '@Shared.EventBus']
-  
+
   User.Create.CreateUserCommandHandler:
     class: src/Contexts/Core/User/application/Create/CreateUserCommandHandler
     arguments: ["@User.Create.Creator"]
     tags:
       - { name: "commandHandler" }
-  
+
   User.Unban.Updater:
     class: src/Contexts/Core/User/application/Unban/Updater
     arguments: ['@User.Repository', '@Shared.EventBus']
-  
+
   User.Unban.UnbanUserCommandHandler:
     class: src/Contexts/Core/User/application/Unban/UnbanUserCommandHandler
     arguments: ["@User.Unban.Updater"]
     tags:
       - { name: "commandHandler" }
-  
+
   Community.UpdateTotalMembersOnUserCreated.Updater:
     class: src/Contexts/Core/Community/application/UpdateTotalMembersOnUserCreated/Updater
     arguments: ["@Community.Repository", "@Shared.EventBus"]
@@ -154,7 +154,7 @@ services:
     arguments: ["@Community.UpdateTotalMembersOnUserCreated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
-    
+
   Community.UpdateTotalSubcommunitiesOnCommunityCreated.Updater:
     class: src/Contexts/Core/Community/application/UpdateTotalSubcommunitiesOnCommunityCreated/Updater
     arguments: ["@Community.Repository", "@Shared.EventBus"]
@@ -164,7 +164,7 @@ services:
     arguments: ["@Community.UpdateTotalSubcommunitiesOnCommunityCreated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
-  
+
   Community.UpdateTotalSubcommunitiesOnCommunityDeleted.Updater:
     class: src/Contexts/Core/Community/application/UpdateTotalSubcommunitiesOnCommunityDeleted/Updater
     arguments: ["@Community.Repository", "@Shared.EventBus"]
@@ -174,7 +174,7 @@ services:
     arguments: ["@Community.UpdateTotalSubcommunitiesOnCommunityDeleted.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
-  
+
   Community.UpdateTotalMembersOnUserDeleted.Updater:
     class: src/Contexts/Core/Community/application/UpdateTotalMembersOnUserDeleted/Updater
     arguments: ["@Community.Repository", "@Shared.EventBus"]
@@ -184,7 +184,7 @@ services:
     arguments: ["@Community.UpdateTotalMembersOnUserDeleted.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
-  
+
   Community.UpdateTotalSpacesOnSpaceCreated.Updater:
     class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnSpaceCreated/Updater
     arguments: ["@Community.Repository", "@Shared.EventBus"]
@@ -194,7 +194,7 @@ services:
     arguments: ["@Community.UpdateTotalSpacesOnSpaceCreated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
-  
+
   Community.UpdateTotalSpacesOnSpaceDeleted.Updater:
     class: src/Contexts/Core/Community/application/UpdateTotalSpacesOnSpaceDeleted/Updater
     arguments: ["@Community.Repository", "@Shared.EventBus"]
@@ -204,7 +204,7 @@ services:
     arguments: ["@Community.UpdateTotalSpacesOnSpaceDeleted.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
-  
+
   Space.Repository:
     class: src/Contexts/Core/Space/infrastructure/persistence/TypeOrmSpaceRepository
     arguments: ["@Shared.ORM.Connection"]
@@ -212,53 +212,53 @@ services:
   Space.Create.Creator:
     class: src/Contexts/Core/Space/application/Create/Creator
     arguments: ['@Space.Repository', '@Shared.EventBus']
-  
+
   Space.Create.CreateSpaceCommandHandler:
     class: src/Contexts/Core/Space/application/Create/CreateSpaceCommandHandler
     arguments: ["@Space.Create.Creator"]
     tags:
       - { name: "commandHandler" }
-  
+
   Space.FindById.FinderById:
     class: src/Contexts/Core/Space/application/FindById/FinderById
     arguments: ['@Space.Repository']
-  
+
   Space.FindById.FindSpaceByIdQueryHandler:
     class: src/Contexts/Core/Space/application/FindById/FindSpaceByIdQueryHandler
     arguments: ['@Space.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
-  
+
   Space.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Core/Space/application/FindByCriteria/FinderByCriteria
     arguments: ['@Space.Repository']
-  
+
   Space.FindByCriteria.FindSpacesByCriteriaQueryHandler:
     class: src/Contexts/Core/Space/application/FindByCriteria/FindSpacesByCriteriaQueryHandler
     arguments: ['@Space.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
-  
+
   Space.Update.Updater:
     class: src/Contexts/Core/Space/application/Update/Updater
     arguments: ['@Space.Repository', '@Shared.EventBus']
-  
+
   Space.Update.UpdateSpaceCommandHandler:
     class: src/Contexts/Core/Space/application/Update/UpdateSpaceCommandHandler
     arguments: ["@Space.Update.Updater"]
     tags:
       - { name: "commandHandler" }
-  
+
   Space.Delete.Deleter:
     class: src/Contexts/Core/Space/application/Delete/Deleter
     arguments: ['@Space.Repository', '@Shared.EventBus']
-  
+
   Space.Delete.DeleteSpaceCommandHandler:
     class: src/Contexts/Core/Space/application/Delete/DeleteSpaceCommandHandler
     arguments: ["@Space.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
-  
+
   SpaceMember.Repository:
     class: src/Contexts/Core/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
     arguments: ["@Shared.ORM.Connection"]
@@ -266,37 +266,37 @@ services:
   SpaceMember.Create.Creator:
     class: src/Contexts/Core/SpaceMember/application/Create/Creator
     arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
-  
+
   SpaceMember.Create.CreateSpaceMemberCommandHandler:
     class: src/Contexts/Core/SpaceMember/application/Create/CreateSpaceMemberCommandHandler
     arguments: ["@SpaceMember.Create.Creator"]
     tags:
       - { name: "commandHandler" }
-  
+
   SpaceMember.Find.FinderById:
     class: src/Contexts/Core/SpaceMember/application/Find/FinderById
     arguments: ['@SpaceMember.Repository']
-  
+
   SpaceMember.Find.FindSpaceMemberQueryHandler:
     class: src/Contexts/Core/SpaceMember/application/Find/FindSpaceMemberQueryHandler
     arguments: ['@SpaceMember.Find.FinderById']
     tags:
       - { name: "queryHandler" }
-  
+
   SpaceMember.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Core/SpaceMember/application/FindByCriteria/FinderByCriteria
     arguments: ['@SpaceMember.Repository']
-  
+
   SpaceMember.FindByCriteria.FindSpaceMembersByCriteriaQueryHandler:
     class: src/Contexts/Core/SpaceMember/application/FindByCriteria/FindSpaceMembersByCriteriaQueryHandler
     arguments: ['@SpaceMember.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
-  
+
   SpaceMember.Delete.Deleter:
     class: src/Contexts/Core/SpaceMember/application/Delete/Deleter
     arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
-  
+
   SpaceMember.Delete.DeleteSpaceMemberCommandHandler:
     class: src/Contexts/Core/SpaceMember/application/Delete/DeleteSpaceMemberCommandHandler
     arguments: ["@SpaceMember.Delete.Deleter"]
@@ -306,117 +306,117 @@ services:
   User.UpdateIsAdmin.UpdaterIsAdmin:
     class: src/Contexts/Core/User/application/UpdateIsAdmin/UpdaterIsAdmin
     arguments: ['@User.Repository', '@Shared.EventBus']
-  
+
   User.UpdateIsAdmin.UpdateIsAdminUserCommandHandler:
     class: src/Contexts/Core/User/application/UpdateIsAdmin/UpdateIsAdminUserCommandHandler
     arguments: ["@User.UpdateIsAdmin.UpdaterIsAdmin"]
     tags:
       - { name: "commandHandler" }
-  
+
   User.UpdateChildIsAdminOnUserIsAdminUpdated.Updater:
     class: src/Contexts/Core/User/application/UpdateChildIsAdminOnUserIsAdminUpdated/Updater
     arguments: ['@User.Repository', '@Shared.EventBus', '@Shared.QueryBus']
-  
+
   User.UpdateChildIsAdminOnUserIsAdminUpdated.UpdateChildIsAdminOnUserIsAdminUpdatedHandler:
     class: src/Contexts/Core/User/application/UpdateChildIsAdminOnUserIsAdminUpdated/UpdateChildIsAdminOnUserIsAdminUpdatedHandler
     arguments: ["@User.UpdateChildIsAdminOnUserIsAdminUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
-  
+
   User.Delete.Deleter:
     class: src/Contexts/Core/User/application/Delete/Deleter
     arguments: ['@User.Repository', '@Shared.EventBus']
-  
+
   User.Delete.DeleteUserCommandHandler:
     class: src/Contexts/Core/User/application/Delete/DeleteUserCommandHandler
     arguments: ["@User.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
-  
+
   User.DeleteUserOnCommunityDeleted.Deleter:
     class: src/Contexts/Core/User/application/DeleteUserOnCommunityDeleted/Deleter
     arguments: ['@User.Repository', '@Shared.EventBus']
-  
+
   User.DeleteUserOnCommunityDeleted.DeleteUserOnCommunityDeletedHandler:
     class: src/Contexts/Core/User/application/DeleteUserOnCommunityDeleted/DeleteUserOnCommunityDeletedHandler
     arguments: ["@User.DeleteUserOnCommunityDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
-  
+
   User.DeleteUserOnParentUserDeleted.Deleter:
     class: src/Contexts/Core/User/application/DeleteUserOnParentUserDeleted/Deleter
     arguments: ['@User.Repository', '@Shared.EventBus', '@Shared.QueryBus']
-  
+
   User.DeleteUserOnParentUserDeleted.DeleteUserOnParentUserDeletedHandler:
     class: src/Contexts/Core/User/application/DeleteUserOnParentUserDeleted/DeleteUserOnParentUserDeletedHandler
     arguments: ["@User.DeleteUserOnParentUserDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
-  
+
   User.BanUserOnParentUserBanned.Updater:
     class: src/Contexts/Core/User/application/BanUserOnParentUserBanned/Updater
     arguments: ['@User.Repository', '@Shared.EventBus', '@Shared.QueryBus']
-  
+
   User.BanUserOnParentUserBanned.BanUserOnParentUserBannedHandler:
     class: src/Contexts/Core/User/application/BanUserOnParentUserBanned/BanUserOnParentUserBannedHandler
     arguments: ["@User.BanUserOnParentUserBanned.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
-  
+
   Community.DeleteCommunitiesOnParentCommunityDeleted.Deleter:
     class: src/Contexts/Core/Community/application/DeleteCommunitiesOnParentCommunityDeleted/Deleter
     arguments: ['@Community.Repository', '@Shared.EventBus']
-  
+
   Community.DeleteCommunitiesOnParentCommunityDeleted.DeleteCommunitiesOnParentCommunityDeletedHandler:
     class: src/Contexts/Core/Community/application/DeleteCommunitiesOnParentCommunityDeleted/DeleteCommunitiesOnParentCommunityDeletedHandler
     arguments: ["@Community.DeleteCommunitiesOnParentCommunityDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
-  
+
   Space.DeleteSpaceOnCommunityDeleted.Deleter:
     class: src/Contexts/Core/Space/application/DeleteSpaceOnCommunityDeleted/Deleter
     arguments: ['@Space.Repository', '@Shared.EventBus']
-  
+
   Space.DeleteSpaceOnCommunityDeleted.DeleteSpaceOnCommunityDeletedHandler:
     class: src/Contexts/Core/Space/application/DeleteSpaceOnCommunityDeleted/DeleteSpaceOnCommunityDeletedHandler
     arguments: ["@Space.DeleteSpaceOnCommunityDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
-  
+
   Space.DeleteSpaceOnSpaceDeleted.Deleter:
     class: src/Contexts/Core/Space/application/DeleteSpaceOnSpaceDeleted/Deleter
     arguments: ['@Space.Repository', '@Shared.EventBus']
-  
+
   Space.DeleteSpaceOnSpaceDeleted.DeleteSpaceOnSpaceDeletedHandler:
     class: src/Contexts/Core/Space/application/DeleteSpaceOnSpaceDeleted/DeleteSpaceOnSpaceDeletedHandler
     arguments: ["@Space.DeleteSpaceOnSpaceDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
-  
+
   SpaceMember.DeleteSpaceMemberOnSpaceDeleted.Deleter:
     class: src/Contexts/Core/SpaceMember/application/DeleteSpaceMemberOnSpaceDeleted/Deleter
     arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
-  
+
   SpaceMember.DeleteSpaceMemberOnSpaceDeleted.DeleteSpaceMemberOnSpaceDeletedHandler:
     class: src/Contexts/Core/SpaceMember/application/DeleteSpaceMemberOnSpaceDeleted/DeleteSpaceMemberOnSpaceDeletedHandler
     arguments: ["@SpaceMember.DeleteSpaceMemberOnSpaceDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
-  
+
   SpaceMember.UpdateSpaceMemberModerator.Updater:
     class: src/Contexts/Core/SpaceMember/application/UpdateSpaceMemberModerator/Updater
     arguments: ['@SpaceMember.Repository', '@Shared.EventBus']
-  
+
   SpaceMember.UpdateSpaceMemberModerator.UpdateSpaceMemberModeratorCommandHandler:
     class: src/Contexts/Core/SpaceMember/application/UpdateSpaceMemberModerator/UpdateSpaceMemberModeratorCommandHandler
     arguments: ["@SpaceMember.UpdateSpaceMemberModerator.Updater"]
     tags:
       - { name: "commandHandler" }
-  
+
   User.UnbanUserOnParentUserUnbanned.Updater:
     class: src/Contexts/Core/User/application/UnbanUserOnParentUserUnbanned/Updater
     arguments: ['@User.Repository', '@Shared.EventBus', '@Shared.QueryBus']
-  
+
   User.UnbanUserOnParentUserUnbanned.UnbanUserOnParentUserUnbannedHandler:
     class: src/Contexts/Core/User/application/UnbanUserOnParentUserUnbanned/UnbanUserOnParentUserUnbannedHandler
     arguments: ["@User.UnbanUserOnParentUserUnbanned.Updater"]
@@ -426,13 +426,13 @@ services:
   User.Ban.Updater:
     class: src/Contexts/Core/User/application/Ban/Updater
     arguments: ['@User.Repository', '@Shared.EventBus']
-  
+
   User.Ban.BanUserCommandHandler:
     class: src/Contexts/Core/User/application/Ban/BanUserCommandHandler
     arguments: ["@User.Ban.Updater"]
     tags:
       - { name: "commandHandler" }
-  
+
   PlanForUsers.Repository:
     class: src/Contexts/Core/PlanForUsers/infrastructure/persistence/TypeOrmPlanForUsersRepository
     arguments: ["@Shared.ORM.Connection"]
@@ -440,7 +440,7 @@ services:
   PlanForUsers.Create.Creator:
     class: src/Contexts/Core/PlanForUsers/application/Create/Creator
     arguments: ['@PlanForUsers.Repository', '@Shared.EventBus']
-  
+
   PlanForUsers.Create.CreatePlanForUsersCommandHandler:
     class: src/Contexts/Core/PlanForUsers/application/Create/CreatePlanForUsersCommandHandler
     arguments: ["@PlanForUsers.Create.Creator"]
@@ -450,7 +450,7 @@ services:
   PlanForUsers.Update.Updater:
     class: src/Contexts/Core/PlanForUsers/application/Update/Updater
     arguments: ['@PlanForUsers.Repository', '@Shared.EventBus']
-  
+
   PlanForUsers.Update.UpdatePlanForUsersCommandHandler:
     class: src/Contexts/Core/PlanForUsers/application/Update/UpdatePlanForUsersCommandHandler
     arguments: ["@PlanForUsers.Update.Updater"]
@@ -460,7 +460,7 @@ services:
   PlanForUsers.Delete.Deleter:
     class: src/Contexts/Core/PlanForUsers/application/Delete/Deleter
     arguments: ['@PlanForUsers.Repository', '@Shared.EventBus']
-  
+
   PlanForUsers.Delete.DeletePlanForUsersCommandHandler:
     class: src/Contexts/Core/PlanForUsers/application/Delete/DeletePlanForUsersCommandHandler
     arguments: ["@PlanForUsers.Delete.Deleter"]
@@ -480,7 +480,7 @@ services:
     arguments: ["@User.UpdateAboutAndName.UpdaterAboutAndName"]
     tags:
       - { name: "commandHandler" }
-  
+
   User.UpdateUserRegisterData.UpdaterUserRegisterData:
     class: src/Contexts/Core/User/application/UpdateUserRegisterData/UpdaterUserRegisterData
     arguments: ['@User.Repository', '@Shared.EventBus']
@@ -490,7 +490,7 @@ services:
     arguments: ["@User.UpdateUserRegisterData.UpdaterUserRegisterData"]
     tags:
       - { name: "commandHandler" }
-  
+
   Community.UpdateAllowsPaymentsOnStripeAccountCreated.Updater:
     class: src/Contexts/Core/Community/application/UpdateAllowsPaymentsOnStripeAccountCreated/Updater
     arguments: ["@Community.Repository", "@Shared.EventBus"]
@@ -500,21 +500,21 @@ services:
     arguments: ["@Community.UpdateAllowsPaymentsOnStripeAccountCreated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
-  
+
   UserPlan.Find.FinderById:
     class: src/Contexts/Core/UserPlan/application/Find/FinderById
     arguments: ['@UserPlan.Repository']
-  
+
   UserPlan.Find.FindUserPlanQueryHandler:
     class: src/Contexts/Core/UserPlan/application/Find/FindUserPlanQueryHandler
     arguments: ['@UserPlan.Find.FinderById']
     tags:
       - { name: "queryHandler" }
-  
+
   UserPlan.CreateUserPlanOnStripeSessionVerified.Creator:
     class: src/Contexts/Core/UserPlan/application/CreateUserPlanOnStripeSessionVerified/Creator
     arguments: ['@UserPlan.Repository', '@Shared.EventBus']
-  
+
   UserPlan.CreateUserPlanOnStripeSessionVerified.CreateUserPlanOnStripeSessionVerifiedHandler:
     class: src/Contexts/Core/UserPlan/application/CreateUserPlanOnStripeSessionVerified/CreateUserPlanOnStripeSessionVerifiedHandler
     arguments: ["@UserPlan.CreateUserPlanOnStripeSessionVerified.Creator"]
@@ -524,13 +524,13 @@ services:
   User.UpdateUserOnUserPlanCreated.Updater:
     class: src/Contexts/Core/User/application/UpdateUserOnUserPlanCreated/Updater
     arguments: ['@User.Repository', '@Shared.EventBus']
-  
+
   User.UpdateUserOnUserPlanCreated.UpdateUserOnUserPlanCreatedHandler:
     class: src/Contexts/Core/User/application/UpdateUserOnUserPlanCreated/UpdateUserOnUserPlanCreatedHandler
     arguments: ["@User.UpdateUserOnUserPlanCreated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
-  
+
   Calendar.Repository:
     class: src/Contexts/Core/Calendar/infrastructure/persistence/TypeOrmCalendarRepository
     arguments: ["@Shared.ORM.Connection"]
@@ -538,83 +538,83 @@ services:
   Calendar.FindById.FinderById:
     class: src/Contexts/Core/Calendar/application/FindById/FinderById
     arguments: ['@Calendar.Repository']
-  
+
   Calendar.FindById.FindCalendarByIdQueryHandler:
     class: src/Contexts/Core/Calendar/application/FindById/FindCalendarByIdQueryHandler
     arguments: ['@Calendar.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
-  
+
   Calendar.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Core/Calendar/application/FindByCriteria/FinderByCriteria
     arguments: ['@Calendar.Repository']
-  
+
   Calendar.FindByCriteria.FindCalendarsByCriteriaQueryHandler:
     class: src/Contexts/Core/Calendar/application/FindByCriteria/FindCalendarsByCriteriaQueryHandler
     arguments: ['@Calendar.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
-  
+
   Calendar.Create.Creator:
     class: src/Contexts/Core/Calendar/application/Create/Creator
     arguments: ['@Calendar.Repository', '@Shared.EventBus']
-  
+
   Calendar.Create.CreateCalendarCommandHandler:
     class: src/Contexts/Core/Calendar/application/Create/CreateCalendarCommandHandler
     arguments: ["@Calendar.Create.Creator"]
     tags:
       - { name: "commandHandler" }
-  
+
   Calendar.Update.Updater:
     class: src/Contexts/Core/Calendar/application/Update/Updater
     arguments: ['@Calendar.Repository', '@Shared.EventBus']
-  
+
   Calendar.Update.UpdateCalendarCommandHandler:
     class: src/Contexts/Core/Calendar/application/Update/UpdateCalendarCommandHandler
     arguments: ["@Calendar.Update.Updater"]
     tags:
       - { name: "commandHandler" }
-  
+
   Calendar.Delete.Deleter:
     class: src/Contexts/Core/Calendar/application/Delete/Deleter
     arguments: ['@Calendar.Repository', '@Shared.EventBus']
-  
+
   Calendar.Delete.DeleteCalendarCommandHandler:
     class: src/Contexts/Core/Calendar/application/Delete/DeleteCalendarCommandHandler
     arguments: ["@Calendar.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
-  
+
   UserPlan.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Core/UserPlan/application/FindByCriteria/FinderByCriteria
     arguments: ['@UserPlan.Repository']
-  
+
   UserPlan.FindByCriteria.FindUserPlansByCriteriaQueryHandler:
     class: src/Contexts/Core/UserPlan/application/FindByCriteria/FindUserPlansByCriteriaQueryHandler
     arguments: ['@UserPlan.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
-  
+
   PlanForUsers.Find.FinderById:
     class: src/Contexts/Core/PlanForUsers/application/Find/FinderById
     arguments: ['@PlanForUsers.Repository']
-  
+
   PlanForUsers.Find.FindPlanForUsersQueryHandler:
     class: src/Contexts/Core/PlanForUsers/application/Find/FindPlanForUsersQueryHandler
     arguments: ['@PlanForUsers.Find.FinderById']
     tags:
       - { name: "queryHandler" }
-  
+
   PlanForUsers.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Core/PlanForUsers/application/FindByCriteria/FinderByCriteria
     arguments: ['@PlanForUsers.Repository']
-  
+
   PlanForUsers.FindByCriteria.FindPlanForUsersByCriteriaQueryHandler:
     class: src/Contexts/Core/PlanForUsers/application/FindByCriteria/FindPlanForUsersByCriteriaQueryHandler
     arguments: ['@PlanForUsers.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
-  
+
   Form.Repository:
     class: src/Contexts/Core/Form/infrastructure/persistence/TypeOrmFormRepository
     arguments: ["@Shared.ORM.Connection"]
@@ -622,53 +622,53 @@ services:
   Form.FindById.FinderById:
     class: src/Contexts/Core/Form/application/FindById/FinderById
     arguments: ['@Form.Repository']
-  
+
   Form.FindById.FindFormByIdQueryHandler:
     class: src/Contexts/Core/Form/application/FindById/FindFormByIdQueryHandler
     arguments: ['@Form.FindById.FinderById']
     tags:
       - { name: "queryHandler" }
-  
+
   Form.FindByCriteria.FinderByCriteria:
     class: src/Contexts/Core/Form/application/FindByCriteria/FinderByCriteria
     arguments: ['@Form.Repository']
-  
+
   Form.FindByCriteria.FindFormsByCriteriaQueryHandler:
     class: src/Contexts/Core/Form/application/FindByCriteria/FindFormsByCriteriaQueryHandler
     arguments: ['@Form.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
-  
+
   Form.Create.Creator:
     class: src/Contexts/Core/Form/application/Create/Creator
     arguments: ['@Form.Repository', '@Shared.EventBus']
-  
+
   Form.Create.CreateFormCommandHandler:
     class: src/Contexts/Core/Form/application/Create/CreateFormCommandHandler
     arguments: ["@Form.Create.Creator"]
     tags:
       - { name: "commandHandler" }
-  
+
   Form.Update.Updater:
     class: src/Contexts/Core/Form/application/Update/Updater
     arguments: ['@Form.Repository', '@Shared.EventBus']
-  
+
   Form.Update.UpdateFormCommandHandler:
     class: src/Contexts/Core/Form/application/Update/UpdateFormCommandHandler
     arguments: ["@Form.Update.Updater"]
     tags:
       - { name: "commandHandler" }
-  
+
   Form.Delete.Deleter:
     class: src/Contexts/Core/Form/application/Delete/Deleter
     arguments: ['@Form.Repository', '@Shared.EventBus']
-  
+
   Form.Delete.DeleteFormCommandHandler:
     class: src/Contexts/Core/Form/application/Delete/DeleteFormCommandHandler
     arguments: ["@Form.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
-  
+
   Community.UpdateHasFormOnFormCreated.Updater:
     class: src/Contexts/Core/Community/application/UpdateHasFormOnFormCreated/Updater
     arguments: ["@Community.Repository", "@Shared.EventBus"]
@@ -678,7 +678,7 @@ services:
     arguments: ["@Community.UpdateHasFormOnFormCreated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
-  
+
   Community.UpdateHasFormOnFormDeleted.Updater:
     class: src/Contexts/Core/Community/application/UpdateHasFormOnFormDeleted/Updater
     arguments: ["@Community.Repository", "@Shared.EventBus"]
@@ -688,7 +688,7 @@ services:
     arguments: ["@Community.UpdateHasFormOnFormDeleted.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
-  
+
   SpaceMember.CreateSpaceMemberOnStripeSessionVerified.Creator:
     class: src/Contexts/Core/SpaceMember/application/CreateSpaceMemberOnStripeSessionVerified/Creator
     arguments: ["@SpaceMember.Repository", '@Shared.QueryBus', "@Shared.EventBus"]
@@ -698,6 +698,70 @@ services:
     arguments: ["@SpaceMember.CreateSpaceMemberOnStripeSessionVerified.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  Theme.Repository:
+    class: src/Contexts/Core/Theme/infrastructure/persistence/TypeOrmThemeRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Theme.Create.Creator:
+    class: src/Contexts/Core/Theme/application/Create/Creator
+    arguments: ['@Theme.Repository', '@Shared.EventBus']
+
+  Theme.Create.CreateThemeCommandHandler:
+    class: src/Contexts/Core/Theme/application/Create/CreateThemeCommandHandler
+    arguments: ["@Theme.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  Theme.Update.Updater:
+    class: src/Contexts/Core/Theme/application/Update/Updater
+    arguments: ['@Theme.Repository', '@Shared.EventBus']
+
+  Theme.Update.UpdateThemeCommandHandler:
+    class: src/Contexts/Core/Theme/application/Update/UpdateThemeCommandHandler
+    arguments: ["@Theme.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
+  Theme.Delete.Deleter:
+    class: src/Contexts/Core/Theme/application/Delete/Deleter
+    arguments: ['@Theme.Repository', '@Shared.EventBus']
+
+  Theme.Delete.DeleteThemeCommandHandler:
+    class: src/Contexts/Core/Theme/application/Delete/DeleteThemeCommandHandler
+    arguments: ["@Theme.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
+  Theme.FindById.FinderById:
+    class: src/Contexts/Core/Theme/application/FindById/FinderById
+    arguments: ['@Theme.Repository']
+
+  Theme.FindById.FindThemeByIdQueryHandler:
+    class: src/Contexts/Core/Theme/application/FindById/FindThemeByIdQueryHandler
+    arguments: ['@Theme.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  Theme.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/Theme/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Theme.Repository']
+
+  Theme.FindByCriteria.FindThemesByCriteriaQueryHandler:
+    class: src/Contexts/Core/Theme/application/FindByCriteria/FindThemesByCriteriaQueryHandler
+    arguments: ['@Theme.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+  Community.UpdateOnboardingStep.Updater:
+    class: src/Contexts/Core/Community/application/UpdateOnboardingStep/Updater
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+
+  Community.UpdateOnboardingStep.UpdateOnboardingStepCommandHandler:
+    class: src/Contexts/Core/User/application/UpdateOnboardingStep/UpdateOnboardingStepCommandHandler
+    arguments: ["@User.UpdateOnboardingStep.Updater"]
+    tags:
+      - { name: "commandHandler" }
 
   Title.Repository:
     class: src/Contexts/Core/Title/infrastructure/persistence/TypeOrmTitleRepository
@@ -712,21 +776,21 @@ services:
     arguments: ["@Title.Create.Creator"]
     tags:
       - { name: "commandHandler" }
-  
+
   Title.Update.Updater:
     class: src/Contexts/Core/Title/application/Update/Updater
     arguments: ['@Title.Repository', '@Shared.EventBus']
-  
+
   Title.Update.UpdateTitleCommandHandler:
     class: src/Contexts/Core/Title/application/Update/UpdateTitleCommandHandler
     arguments: ["@Title.Update.Updater"]
     tags:
       - { name: "commandHandler" }
-  
+
   Title.Delete.Deleter:
     class: src/Contexts/Core/Title/application/Delete/Deleter
     arguments: ['@Title.Repository', '@Shared.EventBus']
-  
+
   Title.Delete.DeleteTitleCommandHandler:
     class: src/Contexts/Core/Title/application/Delete/DeleteTitleCommandHandler
     arguments: ["@Title.Delete.Deleter"]
@@ -736,7 +800,7 @@ services:
   Title.FindById.FinderById:
     class: src/Contexts/Core/Title/application/FindById/FinderById
     arguments: ['@Title.Repository', '@Shared.EventBus']
-  
+
   Title.FindById.FindTitleByIdQueryHandler:
     class: src/Contexts/Core/Title/application/FindById/FindTitleByIdQueryHandler
     arguments: ['@Title.FindById.FinderById']
@@ -752,7 +816,11 @@ services:
     arguments: ['@Title.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
-  
+
   SpaceUserTitle.Repository:
     class: src/Contexts/Core/SpaceUserTitle/infrastructure/persistence/TypeOrmSpaceUserTitleRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  CommunityConfiguration.Repository:
+    class: src/Contexts/Core/CommunityConfiguration/infrastructure/persistence/TypeOrmCommunityConfigurationRepository
     arguments: ["@Shared.ORM.Connection"]
