@@ -821,6 +821,86 @@ services:
     class: src/Contexts/Core/SpaceUserTitle/infrastructure/persistence/TypeOrmSpaceUserTitleRepository
     arguments: ["@Shared.ORM.Connection"]
 
+  SpaceUserTitle.Create.Creator:
+    class: src/Contexts/Core/SpaceUserTitle/application/Create/Creator
+    arguments: ['@SpaceUserTitle.Repository', '@Shared.EventBus']
+
+  SpaceUserTitle.Create.CreateSpaceUserTitleCommandHandler:
+    class: src/Contexts/Core/SpaceUserTitle/application/Create/CreateSpaceUserTitleCommandHandler
+    arguments: ["@SpaceUserTitle.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  SpaceUserTitle.Update.Updater:
+    class: src/Contexts/Core/SpaceUserTitle/application/Update/Updater
+    arguments: ['@SpaceUserTitle.Repository', '@Shared.EventBus']
+
+  SpaceUserTitle.Update.UpdateSpaceUserTitleCommandHandler:
+    class: src/Contexts/Core/SpaceUserTitle/application/Update/UpdateSpaceUserTitleCommandHandler
+    arguments: ["@SpaceUserTitle.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
+  SpaceUserTitle.Delete.Deleter:
+    class: src/Contexts/Core/SpaceUserTitle/application/Delete/Deleter
+    arguments: ['@SpaceUserTitle.Repository', '@Shared.EventBus']
+
+  SpaceUserTitle.Delete.DeleteSpaceUserTitleCommandHandler:
+    class: src/Contexts/Core/SpaceUserTitle/application/Delete/DeleteSpaceUserTitleCommandHandler
+    arguments: ["@SpaceUserTitle.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
+  SpaceUserTitle.DeleteSpaceUserTitleOnCommunityDeleted.Deleter:
+    class: src/Contexts/Core/SpaceUserTitle/application/DeleteSpaceUserTitleOnCommunityDeleted/Deleter
+    arguments: ['@SpaceUserTitle.Repository', '@Shared.EventBus']
+
+  SpaceUserTitle.DeleteSpaceUserTitleOnCommunityDeleted.DeleteSpaceUserTitleOnCommunityDeletedCommandHandler:
+    class: src/Contexts/Core/SpaceUserTitle/application/DeleteSpaceUserTitleOnCommunityDeleted/DeleteSpaceUserTitleOnCommunityDeletedCommandHandler
+    arguments: ["@SpaceUserTitle.DeleteSpaceUserTitleOnCommunityDeleted.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
+  SpaceUserTitle.DeleteSpaceUserTitleOnSpaceDeleted.Deleter:
+    class: src/Contexts/Core/SpaceUserTitle/application/DeleteSpaceUserTitleOnSpaceDeleted/Deleter
+    arguments: ['@SpaceUserTitle.Repository', '@Shared.EventBus']
+
+  SpaceUserTitle.DeleteSpaceUserTitleOnSpaceDeleted.DeleteSpaceUserTitleOnSpaceDeletedCommandHandler:
+    class: src/Contexts/Core/SpaceUserTitle/application/DeleteSpaceUserTitleOnSpaceDeleted/DeleteSpaceUserTitleOnSpaceDeletedCommandHandler
+    arguments: ["@SpaceUserTitle.DeleteSpaceUserTitleOnSpaceDeleted.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
+  SpaceUserTitle.DeleteSpaceUserTitleOnTitleDeleted.Deleter:
+    class: src/Contexts/Core/SpaceUserTitle/application/DeleteSpaceUserTitleOnTitleDeleted/Deleter
+    arguments: ['@SpaceUserTitle.Repository', '@Shared.EventBus']
+
+  SpaceUserTitle.DeleteSpaceUserTitleOnTitleDeleted.DeleteSpaceUserTitleOnTitleDeletedCommandHandler:
+    class: src/Contexts/Core/SpaceUserTitle/application/DeleteSpaceUserTitleOnTitleDeleted/DeleteSpaceUserTitleOnTitleDeletedCommandHandler
+    arguments: ["@SpaceUserTitle.DeleteSpaceUserTitleOnTitleDeleted.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
+  SpaceUserTitle.FindById.FinderById:
+    class: src/Contexts/Core/SpaceUserTitle/application/FindById/FinderById
+    arguments: ['@SpaceUserTitle.Repository', '@Shared.EventBus']
+
+  SpaceUserTitle.FindById.FindSpaceUserTitleByIdQueryHandler:
+    class: src/Contexts/Core/SpaceUserTitle/application/FindById/FindSpaceUserTitleByIdQueryHandler
+    arguments: ['@SpaceUserTitle.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  SpaceUserTitle.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/SpaceUserTitle/application/FindByCriteria/FinderByCriteria
+    arguments: ['@SpaceUserTitle.Repository', '@Shared.EventBus']
+
+  SpaceUserTitle.FindByCriteria.FindSpaceUserTitlesByCriteriaQueryHandler:
+    class: src/Contexts/Core/SpaceUserTitle/application/FindByCriteria/FindSpaceUserTitlesByCriteriaQueryHandler
+    arguments: ['@SpaceUserTitle.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
   CommunityConfiguration.Repository:
     class: src/Contexts/Core/CommunityConfiguration/infrastructure/persistence/TypeOrmCommunityConfigurationRepository
     arguments: ["@Shared.ORM.Connection"]
