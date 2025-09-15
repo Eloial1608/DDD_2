@@ -11,7 +11,7 @@ type LevelCreatedDomainEventBody = {
 }
 
 export class LevelCreatedDomainEvent extends DomainEvent {
-  static readonly EVENT_NAME: string = 'app.gathered.user-plan.v1.created'
+  static readonly EVENT_NAME: string = 'app.gathered.level.v1.created'
 
   readonly id: string
   readonly communityId: string

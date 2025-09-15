@@ -11,7 +11,7 @@ import { MinimumExp } from '@Core/Level/domain/ValueObjects/MinimumExp'
 export const LevelSchema = new EntitySchema<Level>({
   name: 'Level',
   target: Level,
-  tableName: 'user_plan',
+  tableName: 'level',
   columns: {
     id: {
       type: String,
