@@ -758,8 +758,8 @@ services:
     arguments: ['@Community.Repository', '@Shared.EventBus']
 
   Community.UpdateOnboardingStep.UpdateOnboardingStepCommandHandler:
-    class: src/Contexts/Core/User/application/UpdateOnboardingStep/UpdateOnboardingStepCommandHandler
-    arguments: ["@User.UpdateOnboardingStep.Updater"]
+    class: src/Contexts/Core/Community/application/UpdateOnboardingStep/UpdateOnboardingStepCommandHandler
+    arguments: ["@Community.UpdateOnboardingStep.Updater"]
     tags:
       - { name: "commandHandler" }
 
@@ -904,3 +904,23 @@ services:
   CommunityConfiguration.Repository:
     class: src/Contexts/Core/CommunityConfiguration/infrastructure/persistence/TypeOrmCommunityConfigurationRepository
     arguments: ["@Shared.ORM.Connection"]
+
+  CommunityConfiguration.Create.Creator:
+    class: src/Contexts/Core/CommunityConfiguration/application/Create/Creator
+    arguments: ['@CommunityConfiguration.Repository', '@Shared.EventBus']
+
+  CommunityConfiguration.Create.CreateTitleCommandHandler:
+    class: src/Contexts/Core/CommunityConfiguration/application/Create/CreateCommunityConfigurationCommandHandler
+    arguments: ["@CommunityConfiguration.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  CommunityConfiguration.Update.Updater:
+    class: src/Contexts/Core/CommunityConfiguration/application/Update/Updater
+    arguments: ['@CommunityConfiguration.Repository', '@Shared.EventBus']
+
+  CommunityConfiguration.Update.UpdateCommunityConfigurationCommandHandler:
+    class: src/Contexts/Core/CommunityConfiguration/application/Update/UpdateCommunityConfigurationCommandHandler
+    arguments: ["@CommunityConfiguration.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }

@@ -6,6 +6,8 @@ import { CreatedAt } from './ValueObjects/CreatedAt'
 import { UpdatedAt } from './ValueObjects/UpdatedAt'
 import { DeletedAt } from './ValueObjects/DeletedAt'
 import { CurrentTheme } from './ValueObjects/CurrentTheme'
+import { CommunityConfigurationUpdatedDomainEvent } from './Events/CommunityConfigurationUpdatedDomainEvent'
+import { CommunityConfigurationCreatedDomainEvent } from './Events/CommunityConfigurationCreatedDomainEvent'
 
 export class CommunityConfiguration extends AggregateRoot {
   constructor (
@@ -34,7 +36,7 @@ export class CommunityConfiguration extends AggregateRoot {
       null
     )
 
-    //  communityconfiguration.record(CommunityConfigurationCreatedDomainEvent.fromAggregate(communityconfiguration))
+    communityconfiguration.record(CommunityConfigurationCreatedDomainEvent.fromAggregate(communityconfiguration))
 
     return communityconfiguration
   }
@@ -68,7 +70,7 @@ export class CommunityConfiguration extends AggregateRoot {
       null
     )
 
-    // communityconfiguration.record(CommunityConfigurationUpdatedDomainEvent.fromAggregate(communityconfiguration))
+    communityconfiguration.record(CommunityConfigurationUpdatedDomainEvent.fromAggregate(communityconfiguration))
 
     return communityconfiguration
   }
