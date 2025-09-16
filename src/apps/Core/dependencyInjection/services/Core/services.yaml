@@ -924,3 +924,23 @@ services:
     arguments: ["@CommunityConfiguration.Update.Updater"]
     tags:
       - { name: "commandHandler" }
+
+  CommunityConfiguration.FindById.FinderById:
+    class: src/Contexts/Core/CommunityConfiguration/application/FindById/FinderById
+    arguments: ['@CommunityConfiguration.Repository']
+
+  CommunityConfiguration.FindById.FindCommunityConfigurationByIdQueryHandler:
+    class: src/Contexts/Core/CommunityConfiguration/application/FindById/FindCommunityConfigurationByIdQueryHandler
+    arguments: ['@CommunityConfiguration.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  CommunityConfiguration.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/CommunityConfiguration/application/FindByCriteria/FinderByCriteria
+    arguments: ['@CommunityConfiguration.Repository']
+
+  CommunityConfiguration.FindByCriteria.FindCommunityConfigurationByCriteriaQueryHandler:
+    class: src/Contexts/Core/CommunityConfiguration/application/FindByCriteria/FindCommunityConfigurationByCriteriaQueryHandler
+    arguments: ['@CommunityConfiguration.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
