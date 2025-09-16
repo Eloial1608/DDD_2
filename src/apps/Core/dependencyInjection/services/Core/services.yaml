@@ -924,3 +924,13 @@ services:
     arguments: ["@CommunityConfiguration.Update.Updater"]
     tags:
       - { name: "commandHandler" }
+
+  CommunityConfiguration.Delete.Deleter:
+    class: src/Contexts/Core/CommunityConfiguration/application/Delete/Deleter
+    arguments: ['@CommunityConfiguration.Repository', '@Shared.EventBus']
+
+  CommunityConfiguration.Delete.DeleteCommunityConfigurationCommandHandler:
+    class: src/Contexts/Core/CommunityConfiguration/application/Delete/DeleteCommunityConfigurationCommandHandler
+    arguments: ["@CommunityConfiguration.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
