@@ -10,6 +10,7 @@ import { Colors } from '@Core/Theme/domain/ValueObjects/Colors'
 import { Typography } from '@Core/Theme/domain/ValueObjects/Typography'
 import { Layout } from '@Core/Theme/domain/ValueObjects/Layout'
 import { LayoutSection } from '../../domain/ValueObjects/Layout'
+import { Components } from '@Core/Theme/domain/ValueObjects/Components'
 
 export class UpdateThemeCommandHandler implements CommandHandler<UpdateThemeCommand> {
   constructor (private readonly updater: Updater) {}
@@ -26,7 +27,7 @@ export class UpdateThemeCommandHandler implements CommandHandler<UpdateThemeComm
       new PreviewPicUrl(command.previewPicUrl),
       new Colors(command.colors),
       new Typography(command.typography),
-      command.colors ? new Colors(command.colors) : null,
+      command.components ? new Components(command.components) : null,
       command.layout
         ? new Layout(
           new LayoutSection(command.layout.header),
