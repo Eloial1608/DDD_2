@@ -2,10 +2,8 @@ import { UserCreatedDomainEvent } from "@Core/User/domain/Events/UserCreatedDoma
 import { DomainEventSubscriber } from "@Shared/domain/EventBus/DomainEventSubscriber";
 import { Creator } from "./Creator";
 import { DomainEventClass } from "@Shared/domain/EventBus/DomainEvent";
-import { Id } from "@Metrics/NewUser/domain/ValueObjects/Id";
 import { UserId } from "@Metrics/NewUser/domain/ValueObjects/UserId";
 import { CommunityId } from "@Metrics/NewUser/domain/ValueObjects/CommunityId";
-import { v4 } from "uuid";
 
 export class CreateNewUserOnUserCreateHandler implements DomainEventSubscriber<UserCreatedDomainEvent>  {
    
@@ -17,7 +15,6 @@ export class CreateNewUserOnUserCreateHandler implements DomainEventSubscriber<U
 
   async on(domainEvent: UserCreatedDomainEvent): Promise<void> {
     await this.creator.run(
-        new Id(v4()),
         new UserId(domainEvent.id) ,
         new CommunityId(domainEvent.communityId),
     )

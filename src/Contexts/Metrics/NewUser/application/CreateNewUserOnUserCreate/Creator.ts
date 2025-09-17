@@ -4,15 +4,18 @@ import { CommunityId } from "@Metrics/NewUser/domain/ValueObjects/CommunityId";
 import { Id } from "@Metrics/NewUser/domain/ValueObjects/Id";
 import { UserId } from "@Metrics/NewUser/domain/ValueObjects/UserId";
 import { EventBus } from "@Shared/domain/EventBus/EventBus";
+import { v4 } from "uuid";
+
+export type IdGenerator = () => Id;
 
 export class Creator{
-    constructor (private readonly repository: NewUserRepository, private readonly eventBus: EventBus) {}
+    constructor (private readonly repository: NewUserRepository, private readonly eventBus: EventBus,private idGenerator: IdGenerator = () => new Id(v4())) {}
 
     async run(
-        id: Id,
         userId: UserId,
         communityId: CommunityId,
     ) {
+        const id = this.idGenerator();
         const existing = await this.repository.find(id)
 
         if(existing) return
