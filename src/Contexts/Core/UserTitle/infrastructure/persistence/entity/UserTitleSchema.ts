@@ -11,7 +11,7 @@ import { TitleId } from '@Core/UserTitle/domain/ValueObjects/TitleId'
 export const UserTitleSchema = new EntitySchema<UserTitle>({
   name: 'UserTitle',
   target: UserTitle,
-  tableName: '_user_title',
+  tableName: 'user_title',
   columns: {
     id: {
       type: String,
@@ -43,15 +43,15 @@ export const UserTitleSchema = new EntitySchema<UserTitle>({
   },
   indices: [
     {
-      name: 'IDX__USER_TITLE_COMMUNITY_ID',
+      name: 'IDX_USER_TITLE_COMMUNITY_ID',
       columns: ['communityId']
     },
     {
-      name: 'IDX__USER_TITLE_USER_ID',
+      name: 'IDX_USER_TITLE_USER_ID',
       columns: ['userId']
     },
     {
-      name: 'IDX__USER_TITLE_TITLE_ID',
+      name: 'IDX_USER_TITLE_TITLE_ID',
       columns: ['titleId']
     }
   ]
