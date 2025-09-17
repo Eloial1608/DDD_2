@@ -4,7 +4,7 @@ import { LevelNumber } from '@Core/Level/domain/ValueObjects/LevelNumber'
 import { CreatedAt } from '@Core/Level/domain/ValueObjects/CreatedAt'
 import { UpdatedAt } from '@Core/Level/domain/ValueObjects/UpdatedAt'
 import { LevelCreatedDomainEvent } from './Events/LevelCreatedDomainEvent'
-import { CommunityId } from'@Core/Level/domain/ValueObjects/CommunityId'
+import { CommunityId } from '@Core/Level/domain/ValueObjects/CommunityId'
 import { MinimumExp } from './ValueObjects/MinimumExp'
 
 export class Level extends AggregateRoot {
@@ -24,7 +24,7 @@ export class Level extends AggregateRoot {
     id: Id,
     communityId: CommunityId,
     levelNumber: LevelNumber,
-    minimumExp: MinimumExp,
+    minimumExp: MinimumExp
   ): Level {
     const level = new Level(
       id,

@@ -5,7 +5,7 @@ import { Id } from '@Core/Level/domain/ValueObjects/Id'
 import { CreatedAt } from '@Core/Level/domain/ValueObjects/CreatedAt'
 import { UpdatedAt } from '@Core/Level/domain/ValueObjects/UpdatedAt'
 import { LevelNumber } from '@Core/Level/domain/ValueObjects/LevelNumber'
-import { CommunityId } from'@Core/Level/domain/ValueObjects/CommunityId'
+import { CommunityId } from '@Core/Level/domain/ValueObjects/CommunityId'
 import { MinimumExp } from '@Core/Level/domain/ValueObjects/MinimumExp'
 
 export const LevelSchema = new EntitySchema<Level>({
