@@ -7,5 +7,4 @@ export interface UserTitleRepository {
     find (id: Id): Promise<Nullable<UserTitle>>
     search (criteria: Criteria): Promise<Array<UserTitle>>
     persist (userTitle: UserTitle): Promise<void>
-    delete (userTitle: UserTitle): Promise<void>
 }

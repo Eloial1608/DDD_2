@@ -15,6 +15,7 @@ export class UserTitleDeletedDomainEvent extends DomainEvent {
   readonly communityId: string
   readonly titleId: string
   readonly userId: string
+  readonly deletedAt: Date
 
   static {
     DomainEvent.derived.add(UserTitleDeletedDomainEvent.EVENT_NAME)
@@ -27,6 +28,7 @@ export class UserTitleDeletedDomainEvent extends DomainEvent {
     this.communityId = params.communityId
     this.titleId = params.titleId
     this.userId = params.userId
+    this.deletedAt = new Date()
   }
 
   static fromAggregate (space: UserTitle): UserTitleDeletedDomainEvent {
