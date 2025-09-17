@@ -1,7 +1,7 @@
 import { Nullable } from '@Shared/domain/Nullable'
 import { Theme } from '../domain/Theme'
 import { QueryResponse } from '@Shared/domain/QueryBus/QueryResponse'
-import { LayoutType } from '../domain/ValueObjects/Layout'
+import { LayoutType } from '@Core/Shared/domain/Theme/LayoutType'
 
 export type ThemeResponseBody = {
     readonly id: string

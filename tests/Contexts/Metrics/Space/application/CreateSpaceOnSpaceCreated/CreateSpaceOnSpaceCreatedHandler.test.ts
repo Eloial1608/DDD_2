@@ -7,7 +7,6 @@ import { SpaceMother as CoreSpaceMother } from '../../../../Core/Space/domain/Sp
 import { SpaceCreatedDomainEvent as CoreSpaceCreatedDomainEvent } from '@Core/Space/domain/Events/SpaceCreatedDomainEvent'
 import { SpaceCreatedDomainEvent } from '@Metrics/Space/domain/Events/SpaceCreatedDomainEvent'
 
-
 let eventBus: EventBusMock
 let repository: SpaceRepositoryMock
 let handler: CreateSpaceOnSpaceCreatedHandler
@@ -42,7 +41,8 @@ describe('CreateSpaceOnSpaceCreatedHandler should ', () => {
     const existingSpace = SpaceMother.create({
       id: coreSpace.id,
       type: coreSpace.type,
-      communityId: coreSpace.communityId,    })
+      communityId: coreSpace.communityId
+    })
 
     repository.returnOnFind(existingSpace)
 
@@ -59,7 +59,7 @@ describe('CreateSpaceOnSpaceCreatedHandler should ', () => {
     const existingSpace = SpaceMother.create({
       id: coreSpace.id,
       type: coreSpace.type,
-      communityId: coreSpace.communityId,
+      communityId: coreSpace.communityId
     })
 
     const event = CoreSpaceCreatedDomainEvent.fromAggregate(coreSpace)

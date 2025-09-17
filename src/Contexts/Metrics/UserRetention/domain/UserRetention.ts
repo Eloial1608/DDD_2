@@ -6,6 +6,7 @@ import { StartDate } from './ValueObjects/StartDate'
 import { EndDate } from './ValueObjects/EndDate'
 import { CreatedAt } from './ValueObjects/CreatedAt'
 import { Nullable } from '@Shared/domain/Nullable'
+import { UserRetentionCreatedDomainEvent } from './Events/UserRetentionCreatedDomainEvent'
 
 export class UserRetention extends AggregateRoot {
   constructor (
@@ -17,5 +18,19 @@ export class UserRetention extends AggregateRoot {
         readonly createdAt: CreatedAt
   ) {
     super()
+  }
+
+  static create (id: Id, userId: UserId, communityId: CommunityId): UserRetention {
+    const userRetention = new UserRetention(
+      id,
+      userId,
+      communityId,
+      new StartDate(new Date()),
+      null,
+      new CreatedAt(new Date())
+    )
+    userRetention.record(UserRetentionCreatedDomainEvent.fromAggregate(userRetention))
+
+    return userRetention
   }
 }

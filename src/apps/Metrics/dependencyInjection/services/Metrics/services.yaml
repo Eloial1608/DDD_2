@@ -106,13 +106,13 @@ services:
     tags:
       - { name: "commandHandler" }
 
-  User.UpdateUserOnUserUpdated.Creator:
-    class: src/Contexts/Metrics/User/application/UpdateUserOnUserUpdated/Creator
+  User.UpdateUserOnUserUpdated.Updater:
+    class: src/Contexts/Metrics/User/application/UpdateUserOnUserUpdated/Updater
     arguments: ['@User.Repository', '@Shared.EventBus']
   
   User.UpdateUserOnUserUpdated.UpdateUserOnUserUpdatedHandler:
     class: src/Contexts/Metrics/User/application/UpdateUserOnUserUpdated/UpdateUserOnUserUpdatedHandler
-    arguments: ["@User.UpdateUserOnUserUpdated.Creator"]
+    arguments: ["@User.UpdateUserOnUserUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
 
@@ -123,5 +123,42 @@ services:
   NewUser.Create.CreateNewUserOnUserCreateHandler:
     class: src/Contexts/Metrics/NewUser/application/Create/CreateNewUserOnUserCreateHandler
     arguments: ["@Metrics.Create.Creator"]
+    - { name: "domainEventSubscriber" }
+
+  Space.FindById.FinderById:
+    class: src/Contexts/Metrics/Space/application/FindById/FinderById
+    arguments: ['@Space.Repository']
+  
+  Space.FindById.FindSpaceByIdQueryHandler:
+    class: src/Contexts/Metrics/Space/application/FindById/FindSpaceByIdQueryHandler
+    arguments: ['@Space.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater:
+    class: src/Contexts/Metrics/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/Updater
+    arguments: ['@User.Repository', '@Shared.EventBus']
+
+  User.UpdateUserIsAdminOnUserIsAdminUpdated.UpdateUserIsAdminOnUserIsAdminUpdatedHandler:
+    class: src/Contexts/Metrics/User/application/UpdateUserIsAdminOnUserIsAdminUpdated/UpdateUserIsAdminOnUserIsAdminUpdatedHandler
+    arguments: ["@User.UpdateUserIsAdminOnUserIsAdminUpdated.Updater"]
+
+  UserRetention.Create.Creator:
+    class: src/Contexts/Metrics/UserRetention/application/Create/Creator
+    arguments: ['@UserRetention.Repository', '@Shared.EventBus']
+
+  UserRetention.Create.CreateUserRetentionCommandHandler:
+    class: src/Contexts/Metrics/UserRetention/application/Create/CreateUserRetentionCommandHandler
+    arguments: ['@UserRetention.Create.Creator']
+    tags:
+      - { name: "commandHandler" }
+
+  Session.Create.Creator:
+    class: src/Contexts/Metrics/Session/application/Create/Creator
+    arguments: ['@Session.Repository', '@Shared.EventBus']
+
+  Session.Create.CreateSessionCommandHandler:
+    class: src/Contexts/Metrics/Session/application/Create/CreateSessionCommandHandler
+    arguments: ['@Session.Create.Creator']
     tags:
       - { name: "commandHandler" }
