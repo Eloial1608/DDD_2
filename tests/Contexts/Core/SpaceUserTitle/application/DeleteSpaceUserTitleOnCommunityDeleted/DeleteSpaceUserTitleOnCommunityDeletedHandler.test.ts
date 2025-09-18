@@ -7,8 +7,7 @@ import { Id } from '@Core/Community/domain/ValueObjects/Id'
 import { DeletedAt } from '@Core/Community/domain/ValueObjects/DeletedAt'
 import { CommunityDeletedDomainEvent } from '@Core/Community/domain/Events/CommunityDeletedDomainEvent'
 import { SpaceUserTitleDeletedDomainEvent } from '@Core/SpaceUserTitle/domain/Events/SpaceUserTitleDeletedDomainEvent'
-import { DeleteSpaceUserTitleOnCommunityDeletedHandler } from '@Core/SpaceUserTitle/application/DeleteSpaceUserTitleOnCommunityDeleted/DeleteSpaceOnCommunityDeletedHandler'
-
+import { DeleteSpaceUserTitleOnCommunityDeletedHandler } from '@Core/SpaceUserTitle/application/DeleteSpaceUserTitleOnCommunityDeleted/DeleteSpaceUserTitleOnCommunityDeletedHandler'
 let eventBus: EventBusMock
 let repository: SpaceUserTitleRepositoryMock
 let handler: DeleteSpaceUserTitleOnCommunityDeletedHandler

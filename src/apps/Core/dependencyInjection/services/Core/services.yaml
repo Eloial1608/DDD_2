@@ -855,8 +855,8 @@ services:
     class: src/Contexts/Core/SpaceUserTitle/application/DeleteSpaceUserTitleOnCommunityDeleted/Deleter
     arguments: ['@SpaceUserTitle.Repository', '@Shared.EventBus']
 
-  SpaceUserTitle.DeleteSpaceUserTitleOnCommunityDeleted.DeleteSpaceUserTitleOnCommunityDeletedCommandHandler:
-    class: src/Contexts/Core/SpaceUserTitle/application/DeleteSpaceUserTitleOnCommunityDeleted/DeleteSpaceUserTitleOnCommunityDeletedCommandHandler
+  SpaceUserTitle.DeleteSpaceUserTitleOnCommunityDeleted.DeleteSpaceUserTitleOnCommunityDeletedHandler:
+    class: src/Contexts/Core/SpaceUserTitle/application/DeleteSpaceUserTitleOnCommunityDeleted/DeleteSpaceUserTitleOnCommunityDeletedHandler
     arguments: ["@SpaceUserTitle.DeleteSpaceUserTitleOnCommunityDeleted.Deleter"]
     tags:
       - { name: "commandHandler" }
@@ -865,8 +865,8 @@ services:
     class: src/Contexts/Core/SpaceUserTitle/application/DeleteSpaceUserTitleOnSpaceDeleted/Deleter
     arguments: ['@SpaceUserTitle.Repository', '@Shared.EventBus']
 
-  SpaceUserTitle.DeleteSpaceUserTitleOnSpaceDeleted.DeleteSpaceUserTitleOnSpaceDeletedCommandHandler:
-    class: src/Contexts/Core/SpaceUserTitle/application/DeleteSpaceUserTitleOnSpaceDeleted/DeleteSpaceUserTitleOnSpaceDeletedCommandHandler
+  SpaceUserTitle.DeleteSpaceUserTitleOnSpaceDeleted.DeleteSpaceUserTitleOnSpaceDeletedHandler:
+    class: src/Contexts/Core/SpaceUserTitle/application/DeleteSpaceUserTitleOnSpaceDeleted/DeleteSpaceUserTitleOnSpaceDeletedHandler
     arguments: ["@SpaceUserTitle.DeleteSpaceUserTitleOnSpaceDeleted.Deleter"]
     tags:
       - { name: "commandHandler" }
@@ -875,8 +875,8 @@ services:
     class: src/Contexts/Core/SpaceUserTitle/application/DeleteSpaceUserTitleOnTitleDeleted/Deleter
     arguments: ['@SpaceUserTitle.Repository', '@Shared.EventBus']
 
-  SpaceUserTitle.DeleteSpaceUserTitleOnTitleDeleted.DeleteSpaceUserTitleOnTitleDeletedCommandHandler:
-    class: src/Contexts/Core/SpaceUserTitle/application/DeleteSpaceUserTitleOnTitleDeleted/DeleteSpaceUserTitleOnTitleDeletedCommandHandler
+  SpaceUserTitle.DeleteSpaceUserTitleOnTitleDeleted.DeleteSpaceUserTitleOnTitleDeletedHandler:
+    class: src/Contexts/Core/SpaceUserTitle/application/DeleteSpaceUserTitleOnTitleDeleted/DeleteSpaceUserTitleOnTitleDeletedHandler
     arguments: ["@SpaceUserTitle.DeleteSpaceUserTitleOnTitleDeleted.Deleter"]
     tags:
       - { name: "commandHandler" }
@@ -944,3 +944,34 @@ services:
     arguments: ["@CommunityConfiguration.DeleteCommunityConfigurationOnCommunityDeleted.Deleter"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  CommunityConfiguration.FindById.FinderById:
+    class: src/Contexts/Core/CommunityConfiguration/application/FindById/FinderById
+    arguments: ['@CommunityConfiguration.Repository']
+
+  CommunityConfiguration.FindById.FindCommunityConfigurationByIdQueryHandler:
+    class: src/Contexts/Core/CommunityConfiguration/application/FindById/FindCommunityConfigurationByIdQueryHandler
+    arguments: ['@CommunityConfiguration.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  CommunityConfiguration.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/CommunityConfiguration/application/FindByCriteria/FinderByCriteria
+    arguments: ['@CommunityConfiguration.Repository']
+
+  CommunityConfiguration.FindByCriteria.FindCommunityConfigurationsByCriteriaQueryHandler:
+    class: src/Contexts/Core/CommunityConfiguration/application/FindByCriteria/FindCommunityConfigurationsByCriteriaQueryHandler
+    arguments: ['@CommunityConfiguration.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+  CommunityConfiguration.Delete.Deleter:
+    class: src/Contexts/Core/CommunityConfiguration/application/Delete/Deleter
+    arguments: ['@CommunityConfiguration.Repository', '@Shared.EventBus']
+
+  CommunityConfiguration.Delete.DeleteCommunityConfigurationCommandHandler:
+    class: src/Contexts/Core/CommunityConfiguration/application/Delete/DeleteCommunityConfigurationCommandHandler
+    arguments: ["@CommunityConfiguration.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+  

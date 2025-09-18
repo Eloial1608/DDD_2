@@ -74,7 +74,7 @@ export const ThemeSchema = new EntitySchema<Theme>({
     },
     createdAt: {
       type: Date,
-      updateDate: true,
+      createDate: true,
       transformer: ValueObjectTransformer(CreatedAt)
     },
     updatedAt: {
