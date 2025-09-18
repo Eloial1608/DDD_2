@@ -8,6 +8,7 @@ import { DeletedAt } from './ValueObjects/DeletedAt'
 import { CurrentTheme } from './ValueObjects/CurrentTheme'
 import { CommunityConfigurationUpdatedDomainEvent } from './Events/CommunityConfigurationUpdatedDomainEvent'
 import { CommunityConfigurationCreatedDomainEvent } from './Events/CommunityConfigurationCreatedDomainEvent'
+import { CommunityConfigurationDeletedDomainEvent } from './Events/CommunityConfigurationDeletedDomainEvent'
 
 export class CommunityConfiguration extends AggregateRoot {
   constructor (
@@ -51,7 +52,7 @@ export class CommunityConfiguration extends AggregateRoot {
       new DeletedAt(new Date())
     )
 
-    // communityconfiguration.record(CommunityConfigurationDeletedDomainEvent.fromAggregate(communityconfiguration))
+    communityconfiguration.record(CommunityConfigurationDeletedDomainEvent.fromAggregate(communityconfiguration))
 
     return communityconfiguration
   }

@@ -6,7 +6,7 @@ export type SpaceUserTitleResponseBody = {
     readonly communityId: string
     readonly titleId: string
     readonly userId: string
-    readonly spaceUserTitleId: string
+    readonly spaceId: string
     readonly createdAt: Date
     readonly updatedAt: Date
 }
@@ -19,7 +19,7 @@ export class SpaceUserTitleResponse implements QueryResponse<SpaceUserTitleRespo
       id: spaceUserTitle.id.valueOf(),
       titleId: spaceUserTitle.titleId.valueOf(),
       userId: spaceUserTitle.userId.valueOf(),
-      spaceUserTitleId: spaceUserTitle.spaceId.valueOf(),
+      spaceId: spaceUserTitle.spaceId.valueOf(),
       communityId: spaceUserTitle.communityId.valueOf(),
       createdAt: spaceUserTitle.createdAt.valueOf(),
       updatedAt: spaceUserTitle.updatedAt.valueOf()
