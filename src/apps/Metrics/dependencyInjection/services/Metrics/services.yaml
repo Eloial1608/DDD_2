@@ -97,11 +97,11 @@ services:
       - { name: "domainEventSubscriber" }
     
   PageView.Create.Creator:
-    class: src/Contexts/Media/PageView/application/Create/Creator
+    class: src/Contexts/Metrics/PageView/application/Create/Creator
     arguments: ['@PageView.Repository', '@Shared.EventBus', '@Shared.QueryBus']
   
   PageView.Create.CreatePageViewCommandHandler:
-    class: src/Contexts/Media/PageView/application/Create/CreatePageViewCommandHandler
+    class: src/Contexts/Metrics/PageView/application/Create/CreatePageViewCommandHandler
     arguments: ["@PageView.Create.Creator"]
     tags:
       - { name: "commandHandler" }
@@ -115,6 +115,15 @@ services:
     arguments: ["@User.UpdateUserOnUserUpdated.Updater"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  NewUser.Create.Creator:
+    class: src/Contexts/Metrics/NewUser/application/Create/Creator
+    arguments: ['@Metrics.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  NewUser.Create.CreateNewUserOnUserCreateHandler:
+    class: src/Contexts/Metrics/NewUser/application/Create/CreateNewUserOnUserCreateHandler
+    arguments: ["@Metrics.Create.Creator"]
+    - { name: "domainEventSubscriber" }
 
   Space.FindById.FinderById:
     class: src/Contexts/Metrics/Space/application/FindById/FinderById
