@@ -14,8 +14,7 @@ export class NewUser extends AggregateRoot {
     super()
   }
 
-  static create (id: Id, userId: UserId, communityId: CommunityId,): NewUser {
-
+  static create (id: Id, userId: UserId, communityId: CommunityId): NewUser {
     const newUser = new NewUser(
       id,
       userId,
