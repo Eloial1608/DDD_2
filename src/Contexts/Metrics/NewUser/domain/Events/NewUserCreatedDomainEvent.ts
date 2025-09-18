@@ -3,7 +3,7 @@ import { NewUser } from '../NewUser'
 
 type NewUserCreatedDomainEventBody = {
   readonly id: string
-  readonly userId: string   
+  readonly userId: string
   readonly communityId: string
 }
 
@@ -11,7 +11,7 @@ export class NewUserCreatedDomainEvent extends DomainEvent {
   static readonly EVENT_NAME: string = 'app.gathered.Metrics.newuser.v1.created'
 
   readonly id: string
-  readonly userId: string   
+  readonly userId: string
   readonly communityId: string
 
   static {
@@ -30,7 +30,7 @@ export class NewUserCreatedDomainEvent extends DomainEvent {
     return new NewUserCreatedDomainEvent({
       id: newuser.id.valueOf(),
       communityId: newuser.communityId.valueOf(),
-      userId: newuser.userId.valueOf(),
+      userId: newuser.userId.valueOf()
     })
   }
 
