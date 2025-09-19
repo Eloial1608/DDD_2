@@ -925,6 +925,26 @@ services:
     tags:
       - { name: "commandHandler" }
 
+  CommunityConfiguration.CreateCommunityConfigurationOnCommunityCreated.Creator:
+    class: src/Contexts/Core/CommunityConfiguration/application/CreateCommunityConfigurationOnCommunityCreated/Creator
+    arguments: ["@CommunityConfiguration.Repository", "@Shared.EventBus"]
+
+  CommunityConfiguration.CreateCommunityConfigurationOnCommunityCreated.CreateCommunityConfigurationOnCommunityCreatedHandler:
+    class: src/Contexts/Core/CommunityConfiguration/application/CreateCommunityConfigurationOnCommunityCreated/CreateCommunityConfigurationOnCommunityCreatedHandler
+    arguments: ["@CommunityConfiguration.CreateCommunityConfigurationOnCommunityCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  CommunityConfiguration.DeleteCommunityConfigurationOnCommunityDeleted.Deleter:
+    class: src/Contexts/Core/CommunityConfiguration/application/DeleteCommunityConfigurationOnCommunityDeleted/Deleter
+    arguments: ["@CommunityConfiguration.Repository", "@Shared.EventBus"]
+
+  CommunityConfiguration.DeleteCommunityConfigurationOnCommunityDeleted.DeleteCommunityConfigurationOnCommunityDeletedHandler:
+    class: src/Contexts/Core/CommunityConfiguration/application/DeleteCommunityConfigurationOnCommunityDeleted/DeleteCommunityConfigurationOnCommunityDeletedHandler
+    arguments: ["@CommunityConfiguration.DeleteCommunityConfigurationOnCommunityDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
   CommunityConfiguration.FindById.FinderById:
     class: src/Contexts/Core/CommunityConfiguration/application/FindById/FinderById
     arguments: ['@CommunityConfiguration.Repository']
@@ -954,4 +974,4 @@ services:
     arguments: ["@CommunityConfiguration.Delete.Deleter"]
     tags:
       - { name: "commandHandler" }
-
+  
