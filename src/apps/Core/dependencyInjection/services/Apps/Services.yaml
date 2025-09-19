@@ -263,7 +263,7 @@ services:
 
   Apps.Core.Controllers.CommunityConfigurationsGetController:
     class: src/apps/Core/controllers/CommunityConfiguration/CommunityConfigurationsGetController
-    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+    arguments: ["@Shared.QueryBus"]
 
   Apps.Core.Controllers.CommunityConfigurationPostController:
     class: src/apps/Core/controllers/CommunityConfiguration/CommunityConfigurationPostController
