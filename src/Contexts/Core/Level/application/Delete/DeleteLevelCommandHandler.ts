@@ -2,8 +2,8 @@ import { CommandHandler } from '@Shared/domain/CommandBus/CommandHandler'
 import { DeleteLevelCommand } from './DeleteLevelCommand'
 import { Deleter } from './Deleter'
 import { Command } from '@Shared/domain/CommandBus/Command'
-import { Id } from '@Core/Space/domain/ValueObjects/Id'
-import { CommunityId } from '@Core/Space/domain/ValueObjects/CommunityId'
+import { Id } from '@Core/Level/domain/ValueObjects/Id'
+import { CommunityId } from '@Core/Level/domain/ValueObjects/CommunityId'
 
 export class DeleteLevelCommandHandler implements CommandHandler<DeleteLevelCommand> {
   constructor (private readonly deleter: Deleter) {}
