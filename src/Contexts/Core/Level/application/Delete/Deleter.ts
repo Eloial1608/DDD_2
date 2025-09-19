@@ -11,7 +11,7 @@ export class Deleter {
 
     const level = existingLevel.delete()
 
-    await this.repository.persist(level)
+    await this.repository.delete(level)
 
     await this.eventBus.publish(level.pullDomainEvents())
   }

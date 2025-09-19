@@ -2,10 +2,10 @@ import { MotherCreator } from './MotherCreator'
 
 export class IntegerMother {
   static random (max?: number): number {
-    return MotherCreator.random().datatype.number(max)
+    return MotherCreator.random().number.int()
   }
 
   static positive (max?: number): number {
-    return MotherCreator.random().datatype.number({ min: 1, max })
+    return MotherCreator.random().number.int({ min: 1, max })
   }
 }

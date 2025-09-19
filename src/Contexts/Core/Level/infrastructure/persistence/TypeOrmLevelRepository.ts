@@ -23,4 +23,8 @@ export class TypeOrmLevelRepository extends TypeOrmRepository<Level> implements 
   async persist (Level: Level): Promise<void> {
     await (await this.repository()).save(Level)
   }
+
+  async delete (level: Level): Promise<void> {
+    await (await this.repository()).remove(level)
+  }
 }

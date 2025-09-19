@@ -1,10 +1,10 @@
-import { CommunityId } from '@Core/UserTitle/domain/ValueObjects/CommunityId'
+import { CommunityId } from '@Core/Level/domain/ValueObjects/CommunityId'
 import { Deleter } from './Deleter'
 import { DomainEventSubscriber } from '@Shared/domain/EventBus/DomainEventSubscriber'
 import { DomainEventClass } from '@Shared/domain/EventBus/DomainEvent'
 import { CommunityDeletedDomainEvent } from '@Core/Community/domain/Events/CommunityDeletedDomainEvent'
 
-export class DeleteUserTitleOnCommunityDeletedHandler implements DomainEventSubscriber<CommunityDeletedDomainEvent> {
+export class DeleteLevelOnCommunityDeletedHandler implements DomainEventSubscriber<CommunityDeletedDomainEvent> {
   constructor (private readonly deleter: Deleter) {}
 
   subscribedTo (): DomainEventClass[] {
