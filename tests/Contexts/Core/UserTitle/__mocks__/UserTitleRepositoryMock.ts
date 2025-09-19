@@ -9,7 +9,6 @@ export class UserTitleRepositoryMock implements UserTitleRepository {
   private mockFind = mockFn()
   private mockSearch = mockFn()
   private mockPersist = mockFn()
-  private mockDelete = mockFn()
 
   private expectedFind: Nullable<UserTitle>
   private expectedSearch: Array<UserTitle> = []
@@ -19,12 +18,12 @@ export class UserTitleRepositoryMock implements UserTitleRepository {
     return this.expectedFind
   }
 
-  returnOnFind (space: Nullable<UserTitle>): void {
-    this.expectedFind = space
+  returnOnFind (userTitle: Nullable<UserTitle>): void {
+    this.expectedFind = userTitle
   }
 
-  returnOnSearch (space: Array<UserTitle>): void {
-    this.expectedSearch = space
+  returnOnSearch (userTitle: Array<UserTitle>): void {
+    this.expectedSearch = userTitle
   }
 
   async search (criteria: Criteria): Promise<Array<UserTitle>> {
@@ -32,16 +31,12 @@ export class UserTitleRepositoryMock implements UserTitleRepository {
     return this.expectedSearch
   }
 
-  async persist (space: UserTitle): Promise<void> {
-    this.mockPersist(space)
+  async persist (userTitle: UserTitle): Promise<void> {
+    this.mockPersist(userTitle)
   }
 
-  async delete (space: UserTitle): Promise<void> {
-    this.mockDelete(space)
-  }
-
-  assertPersistHasBeenCalledWith (space: UserTitle) {
-    expect(this.mockPersist).toHaveBeenCalledWith(space)
+  assertPersistHasBeenCalledWith (userTitle: UserTitle) {
+    expect(this.mockPersist).toHaveBeenCalledWith(userTitle)
   }
 
   assertFindHasBeenCalledWith (id: Id) {

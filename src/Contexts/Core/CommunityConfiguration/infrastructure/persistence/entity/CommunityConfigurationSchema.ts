@@ -30,7 +30,7 @@ export const CommunityConfigurationSchema = new EntitySchema<CommunityConfigurat
     },
     createdAt: {
       type: Date,
-      updateDate: true,
+      createDate: true,
       transformer: ValueObjectTransformer(CreatedAt)
     },
     updatedAt: {
