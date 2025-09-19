@@ -5,6 +5,7 @@ type UserLevelDeletedDomainEventBody = {
     readonly id: string
     readonly communityId: string
     readonly userId: string
+    readonly levelId: string
     readonly currentExp: number
 }
 
@@ -14,6 +15,7 @@ export class UserLevelDeletedDomainEvent extends DomainEvent {
   readonly id: string
   readonly communityId: string
   readonly userId: string
+  readonly levelId: string
   readonly currentExp: number
 
   static {
@@ -26,6 +28,7 @@ export class UserLevelDeletedDomainEvent extends DomainEvent {
     this.id = params.id
     this.communityId = params.communityId
     this.userId = params.userId
+    this.levelId = params.levelId
     this.currentExp = params.currentExp
   }
 
@@ -34,6 +37,7 @@ export class UserLevelDeletedDomainEvent extends DomainEvent {
       id: userLevel.id.valueOf(),
       communityId: userLevel.communityId.valueOf(),
       userId: userLevel.userId.valueOf(),
+      levelId: userLevel.levelId.valueOf(),
       currentExp: userLevel.currentExp.valueOf()
     })
   }

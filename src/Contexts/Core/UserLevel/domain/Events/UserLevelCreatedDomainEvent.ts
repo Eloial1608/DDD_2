@@ -5,6 +5,7 @@ type UserLevelCreatedDomainEventBody = {
     readonly id: string
     readonly communityId: string
     readonly userId: string
+    readonly levelId: string
     readonly currentExp: number
     readonly createdAt: Date
 }
@@ -15,6 +16,7 @@ export class UserLevelCreatedDomainEvent extends DomainEvent {
   readonly id: string
   readonly communityId: string
   readonly userId: string
+  readonly levelId: string
   readonly currentExp: number
   readonly createdAt: Date
 
@@ -28,6 +30,7 @@ export class UserLevelCreatedDomainEvent extends DomainEvent {
     this.id = params.id
     this.communityId = params.communityId
     this.userId = params.userId
+    this.levelId = params.levelId
     this.currentExp = params.currentExp
     this.createdAt = params.createdAt
   }
@@ -35,8 +38,9 @@ export class UserLevelCreatedDomainEvent extends DomainEvent {
   static fromAggregate (userLevel: UserLevel): UserLevelCreatedDomainEvent {
     return new UserLevelCreatedDomainEvent({
       id: userLevel.id.valueOf(),
-      communityId: userLevel.id.valueOf(),
+      communityId: userLevel.communityId.valueOf(),
       userId: userLevel.userId.valueOf(),
+      levelId: userLevel.levelId.valueOf(),
       currentExp: userLevel.currentExp.valueOf(),
       createdAt: userLevel.createdAt.valueOf()
     })

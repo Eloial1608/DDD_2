@@ -6,12 +6,14 @@ import { CommunityId } from '@Core/UserLevel/domain/ValueObjects/CommunityId'
 import { CurrentExp } from './ValueObjects/CurrentExp'
 import { UserLevelDeletedDomainEvent } from './Events/UserLevelDeletedDomainEvent'
 import { UserId } from './ValueObjects/UserId'
+import { LevelId } from './ValueObjects/LevelId'
 
 export class UserLevel extends AggregateRoot {
   constructor (
     readonly id: Id,
     readonly communityId: CommunityId,
     readonly userId: UserId,
+    readonly levelId: LevelId,
     readonly currentExp: CurrentExp,
     readonly createdAt: CreatedAt
   ) {
@@ -22,12 +24,14 @@ export class UserLevel extends AggregateRoot {
     id: Id,
     communityId: CommunityId,
     userId: UserId,
+    levelId: LevelId,
     currentExp: CurrentExp
   ): UserLevel {
     const userLevel = new UserLevel(
       id,
       communityId,
       userId,
+      levelId,
       currentExp,
       new CreatedAt(new Date())
     )
@@ -42,6 +46,7 @@ export class UserLevel extends AggregateRoot {
       this.id,
       this.communityId,
       this.userId,
+      this.levelId,
       this.currentExp,
       this.createdAt
     )

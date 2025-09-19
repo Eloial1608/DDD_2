@@ -5,7 +5,8 @@ import { Id } from '@Core/UserLevel/domain/ValueObjects/Id'
 import { CreatedAt } from '@Core/UserLevel/domain/ValueObjects/CreatedAt'
 import { CommunityId } from '@Core/UserLevel/domain/ValueObjects/CommunityId'
 import { CurrentExp } from '@Core/UserLevel/domain/ValueObjects/CurrentExp'
-import { UserId } from '@Auth/AuthUser/domain/ValueObjects/UserId'
+import { UserId } from '@Core/UserLevel/domain/ValueObjects/UserId'
+import { LevelId } from '@Core/UserLevel/domain/ValueObjects/LevelId'
 
 export const UserLevelSchema = new EntitySchema<UserLevel>({
   name: 'UserLevel',
@@ -24,6 +25,10 @@ export const UserLevelSchema = new EntitySchema<UserLevel>({
     userId: {
       type: String,
       transformer: ValueObjectTransformer(UserId)
+    },
+    levelId: {
+      type: String,
+      transformer: ValueObjectTransformer(LevelId)
     },
     currentExp: {
       type: 'int',
