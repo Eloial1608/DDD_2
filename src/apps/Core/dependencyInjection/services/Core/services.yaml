@@ -975,3 +975,56 @@ services:
     tags:
       - { name: "commandHandler" }
   
+  Level.Repository:
+    class: src/Contexts/Core/Level/infrastructure/persistence/TypeOrmLevelRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Level.Create.Creator:
+    class: src/Contexts/Core/Level/application/Create/Creator
+    arguments: ['@Level.Repository', '@Shared.EventBus']
+
+  Level.Create.CreateTitleCommandHandler:
+    class: src/Contexts/Core/Level/application/Create/CreateLevelCommandHandler
+    arguments: ["@Level.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  Level.Update.Updater:
+    class: src/Contexts/Core/Level/application/Update/Updater
+    arguments: ['@Level.Repository', '@Shared.EventBus']
+
+  Level.Update.UpdateLevelCommandHandler:
+    class: src/Contexts/Core/Level/application/Update/UpdateLevelCommandHandler
+    arguments: ["@Level.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
+  Level.Delete.Deleter:
+    class: src/Contexts/Core/Level/application/Delete/Deleter
+    arguments: ['@Level.Repository', '@Shared.EventBus']
+
+  Level.Delete.DeleteLevelCommandHandler:
+    class: src/Contexts/Core/Level/application/Delete/DeleteLevelCommandHandler
+    arguments: ["@Level.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+  
+  Level.FindById.FinderById:
+    class: src/Contexts/Core/Level/application/FindById/FinderById
+    arguments: ['@Level.Repository', '@Shared.EventBus']
+
+  Level.FindById.FindLevelByIdQueryHandler:
+    class: src/Contexts/Core/Level/application/FindById/FindLevelByIdQueryHandler
+    arguments: ['@Level.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  Level.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/Level/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Level.Repository', '@Shared.EventBus']
+
+  Level.FindByCriteria.FindLevelsByCriteriaQueryHandler:
+    class: src/Contexts/Core/Level/application/FindByCriteria/FindLevelsByCriteriaQueryHandler
+    arguments: ['@Level.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
