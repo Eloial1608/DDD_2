@@ -20,11 +20,11 @@ export class TypeOrmUserLevelRepository extends TypeOrmRepository<UserLevel> imp
     return (await this.criteriaToQueryBuilder(criteria)).getMany()
   }
 
-  async persist (UserLevel: UserLevel): Promise<void> {
-    await (await this.repository()).save(UserLevel)
+  async persist (userLevel: UserLevel): Promise<void> {
+    await (await this.repository()).save(userLevel)
   }
 
-  async delete (userUserLevel: UserLevel): Promise<void> {
-    await (await this.repository()).remove(userUserLevel)
+  async delete (userLevel: UserLevel): Promise<void> {
+    await (await this.repository()).remove(userLevel)
   }
 }
