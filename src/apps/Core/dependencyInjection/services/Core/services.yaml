@@ -1028,3 +1028,77 @@ services:
     arguments: ['@Level.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+  
+  UserLevel.Repository:
+    class: src/Contexts/Core/UserLevel/infrastructure/persistence/TypeOrmUserLevelRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  UserLevel.Create.Creator:
+    class: src/Contexts/Core/UserLevel/application/Create/Creator
+    arguments: ['@UserLevel.Repository', '@Shared.EventBus']
+
+  UserLevel.Create.CreateTitleCommandHandler:
+    class: src/Contexts/Core/UserLevel/application/Create/CreateUserLevelCommandHandler
+    arguments: ["@UserLevel.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  UserLevel.Delete.Deleter:
+    class: src/Contexts/Core/UserLevel/application/Delete/Deleter
+    arguments: ['@UserLevel.Repository', '@Shared.EventBus']
+
+  UserLevel.Delete.DeleteUserLevelCommandHandler:
+    class: src/Contexts/Core/UserLevel/application/Delete/DeleteUserLevelCommandHandler
+    arguments: ["@UserLevel.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+  
+  UserLevel.DeleteUserLevelOnCommunityDeleted.Deleter:
+    class: src/Contexts/Core/UserLevel/application/DeleteUserLevelOnCommunityDeleted/Deleter
+    arguments: ["@UserLevel.Repository", "@Shared.EventBus"]
+
+  UserLevel.DeleteUserLevelOnCommunityDeleted.DeleteUserLevelOnCommunityDeletedHandler:
+    class: src/Contexts/Core/UserLevel/application/DeleteUserLevelOnCommunityDeleted/DeleteUserLevelOnCommunityDeletedHandler
+    arguments: ["@UserLevel.DeleteUserLevelOnCommunityDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  UserLevel.DeleteUserLevelOnLevelDeleted.Deleter:
+    class: src/Contexts/Core/UserLevel/application/DeleteUserLevelOnLevelDeleted/Deleter
+    arguments: ["@UserLevel.Repository", "@Shared.EventBus"]
+
+  UserLevel.DeleteUserLevelOnLevelDeleted.DeleteUserLevelOnLevelDeletedHandler:
+    class: src/Contexts/Core/UserLevel/application/DeleteUserLevelOnLevelDeleted/DeleteUserLevelOnLevelDeletedHandler
+    arguments: ["@UserLevel.DeleteUserLevelOnLevelDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  UserLevel.DeleteUserLevelOnUserDeleted.Deleter:
+    class: src/Contexts/Core/UserLevel/application/DeleteUserLevelOnUserDeleted/Deleter
+    arguments: ["@UserLevel.Repository", "@Shared.EventBus"]
+
+  UserLevel.DeleteUserLevelOnUserDeleted.DeleteUserLevelOnUserDeletedHandler:
+    class: src/Contexts/Core/UserLevel/application/DeleteUserLevelOnUserDeleted/DeleteUserLevelOnUserDeletedHandler
+    arguments: ["@UserLevel.DeleteUserLevelOnUserDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  UserLevel.FindById.FinderById:
+    class: src/Contexts/Core/UserLevel/application/FindById/FinderById
+    arguments: ['@UserLevel.Repository', '@Shared.EventBus']
+
+  UserLevel.FindById.FindUserLevelByIdQueryHandler:
+    class: src/Contexts/Core/UserLevel/application/FindById/FindUserLevelByIdQueryHandler
+    arguments: ['@UserLevel.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  UserLevel.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/UserLevel/application/FindByCriteria/FinderByCriteria
+    arguments: ['@UserLevel.Repository', '@Shared.EventBus']
+
+  UserLevel.FindByCriteria.FindUserLevelsByCriteriaQueryHandler:
+    class: src/Contexts/Core/UserLevel/application/FindByCriteria/FindUserLevelsByCriteriaQueryHandler
+    arguments: ['@UserLevel.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
