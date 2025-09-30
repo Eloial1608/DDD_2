@@ -25,7 +25,7 @@ describe('Delete UserLevelOnLevelDeletedHandler should ', () => {
     const existignUserLevel = UserLevelMother.random()
 
     const level = LevelMother.create({
-      id: new Id(existignUserLevel.levelId.valueOf()),
+      id: new Id(existignUserLevel.levelId.valueOf())
     })
 
     const userlevelCollection = [existignUserLevel]
@@ -47,7 +47,7 @@ describe('Delete UserLevelOnLevelDeletedHandler should ', () => {
     const existignUserLevel = UserLevelMother.random()
 
     const level = LevelMother.create({
-      id: new Id(existignUserLevel.levelId.valueOf()),
+      id: new Id(existignUserLevel.levelId.valueOf())
     })
 
     const userlevelCollection = [existignUserLevel]
