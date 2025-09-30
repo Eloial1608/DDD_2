@@ -20,6 +20,7 @@ type CommunityUpdatedDomainEventBody = {
     readonly color: string
     readonly isPrivate: boolean
     readonly isRegisterOpen: boolean
+    readonly allowsTitles: boolean
     readonly expiresAt: Date
     readonly createdAt: Date
     readonly updatedAt: Date
@@ -45,6 +46,7 @@ export class CommunityUpdatedDomainEvent extends DomainEvent {
   readonly color: string
   readonly isPrivate: boolean
   readonly isRegisterOpen: boolean
+  readonly allowsTitles: boolean
   readonly expiresAt: Date
   readonly createdAt: Date
   readonly updatedAt: Date
@@ -75,6 +77,7 @@ export class CommunityUpdatedDomainEvent extends DomainEvent {
     this.color = params.color
     this.isPrivate = params.isPrivate
     this.isRegisterOpen = params.isRegisterOpen
+    this.allowsTitles = params.allowsTitles
     this.expiresAt = params.expiresAt
   }
 
@@ -95,12 +98,12 @@ export class CommunityUpdatedDomainEvent extends DomainEvent {
       color: community.color.valueOf(),
       isPrivate: community.isPrivate.valueOf(),
       isRegisterOpen: community.isRegisterOpen.valueOf(),
+      allowsTitles: community.allowsTitles.valueOf(),
       expiresAt: community.expiresAt.valueOf(),
       domain: community.domain?.valueOf(),
       registerFormId: community.registerFormId?.valueOf(),
       hasRegisterForm: community.hasRegisterForm.valueOf(),
       allowedUsers: community.allowedUsers.valueOf()
-
     })
   }
 

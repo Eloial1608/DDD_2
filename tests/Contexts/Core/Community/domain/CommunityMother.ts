@@ -3,6 +3,7 @@ import { AllowedFeatures } from '@Core/Community/domain/ValueObjects/AllowedFeat
 import { AllowedSubcommunities } from '@Core/Community/domain/ValueObjects/AllowedSubcommunities'
 import { AllowedUsers } from '@Core/Community/domain/ValueObjects/AllowedUsers'
 import { AllowsPayments } from '@Core/Community/domain/ValueObjects/AllowsPayments'
+import { AllowsTitles } from '@Core/Community/domain/ValueObjects/AllowsTitles'
 import { Color } from '@Core/Community/domain/ValueObjects/Color'
 import { CreatedAt } from '@Core/Community/domain/ValueObjects/CreatedAt'
 import { ExpiresAt } from '@Core/Community/domain/ValueObjects/ExpiresAt'
@@ -57,6 +58,7 @@ export class CommunityMother {
       params.subcommunitiesCount ?? new SubcommunitiesCount(0),
       params.spaceOrderedIds ?? new SpaceOrderedIds('[]'),
       params.onboardingStep ?? new OnboardingStep(ONBOARDING_STEPS.PROFILE),
+      params.allowsTitles ?? new AllowsTitles(true),
       params.expiresAt ?? new ExpiresAt(MotherCreator.random().date.future()),
       params.createdAt ?? new CreatedAt(new Date()),
       params.updatedAt ?? new UpdatedAt(new Date()),

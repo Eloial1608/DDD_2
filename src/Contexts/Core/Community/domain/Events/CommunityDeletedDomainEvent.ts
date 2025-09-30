@@ -21,6 +21,7 @@ type CommunityDeletedDomainEventBody = {
     readonly isPrivate: boolean
     readonly isRegisterOpen: boolean
     readonly homeSpaceId: Nullable<string>
+    readonly allowsTitles: boolean
     readonly expiresAt: Date
     readonly createdAt: Date
     readonly updatedAt: Date
@@ -48,6 +49,7 @@ export class CommunityDeletedDomainEvent extends DomainEvent {
   readonly isPrivate: boolean
   readonly isRegisterOpen: boolean
   readonly homeSpaceId: Nullable<string>
+  readonly allowsTitles: boolean
   readonly expiresAt: Date
   readonly createdAt: Date
   readonly updatedAt: Date
@@ -80,6 +82,7 @@ export class CommunityDeletedDomainEvent extends DomainEvent {
     this.isPrivate = params.isPrivate
     this.isRegisterOpen = params.isRegisterOpen
     this.homeSpaceId = params.homeSpaceId
+    this.allowsTitles = params.allowsTitles
     this.expiresAt = params.expiresAt
     this.deletedAt = params.deletedAt
   }
@@ -107,6 +110,7 @@ export class CommunityDeletedDomainEvent extends DomainEvent {
       registerFormId: community.registerFormId?.valueOf(),
       hasRegisterForm: community.hasRegisterForm.valueOf(),
       allowedUsers: community.allowedUsers.valueOf(),
+      allowsTitles: community.allowsTitles.valueOf(),
       deletedAt: community.deletedAt!.valueOf()
 
     })

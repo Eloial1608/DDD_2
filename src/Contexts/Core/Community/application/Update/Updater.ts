@@ -20,6 +20,7 @@ import { About } from '@Core/Community/domain/ValueObjects/About'
 import { IsPrivate } from '@Core/Community/domain/ValueObjects/IsPrivate'
 import { IsRegisterOpen } from '@Core/Community/domain/ValueObjects/IsRegisterOpen'
 import { CommunityAlreadyExistsByDomain } from '@Core/Community/domain/Errors/CommunityAlreadyExistsByDomain'
+import { AllowsTitles } from '@Core/Community/domain/ValueObjects/AllowsTitles'
 
 type Params = {
     id: Id
@@ -33,6 +34,7 @@ type Params = {
     logoUrl: Nullable<LogoUrl>,
     bannerUrl: Nullable<BannerUrl>,
     color: Color
+    allowsTitles: AllowsTitles
 }
 
 export class Updater {
@@ -56,7 +58,8 @@ export class Updater {
       params.logoUrl,
       params.bannerUrl,
       params.suffix,
-      params.color
+      params.color,
+      params.allowsTitles
     )
 
     await this.repository.persist(modified)

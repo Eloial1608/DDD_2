@@ -13,6 +13,7 @@ import { Domain } from '@Core/Community/domain/ValueObjects/Domain'
 import { About } from '@Core/Community/domain/ValueObjects/About'
 import { IsPrivate } from '@Core/Community/domain/ValueObjects/IsPrivate'
 import { IsRegisterOpen } from '@Core/Community/domain/ValueObjects/IsRegisterOpen'
+import { AllowsTitles } from '@Core/Community/domain/ValueObjects/AllowsTitles'
 
 export class UpdateCommunityCommandHandler implements CommandHandler<UpdateCommunityCommand> {
   constructor (private readonly updater: Updater) {}
@@ -33,7 +34,8 @@ export class UpdateCommunityCommandHandler implements CommandHandler<UpdateCommu
       isRegisterOpen: new IsRegisterOpen(command.isRegisterOpen),
       logoUrl: command.logoUrl ? new LogoUrl(command.logoUrl) : null,
       bannerUrl: command.bannerUrl ? new BannerUrl(command.bannerUrl) : null,
-      color: new Color(command.color)
+      color: new Color(command.color),
+      allowsTitles: new AllowsTitles(command.allowsTitles)
     })
   }
 }
