@@ -35,12 +35,12 @@ export class TitleCreatedDomainEvent extends DomainEvent {
       id: title.id.valueOf(),
       communityId: title.communityId.valueOf(),
       name: title.name.valueOf(),
-      titleImageUrl: title.titleImageUrl?.valueOf(),
+      titleImageUrl: title.titleImageUrl?.valueOf()
     })
   }
 
   toPrimitive (): TitleCreatedDomainEventBody {
-    return { ...this}
+    return { ...this }
   }
 
   static fromPrimitives (id: string, attributes:TitleCreatedDomainEventBody, eventId: string, occurredOn: Date) : TitleCreatedDomainEvent {
