@@ -9,8 +9,8 @@ import { TitleAlreadyExistsById } from '@Core/Title/domain/Errors/TitleAlreadyEx
 // import { FindCommunityByIdQuery } from '@Core/Community/application/FindById/FindCommunityByIdQuery'
 // import { CommunityResponse } from '@Core/Community/application/CommunityResponse'
 import { TitleAlreadyExistsByName } from '@Core/Title/domain/Errors/TitleAlreadyExistsByName'
-import { FindUsersByCriteriaQuery } from '@Chat/User/application/FindByCriteria/FindUsersByCriteriaQuery'
-import { UserCollectionResponse } from '@Chat/User/application/UserCollectionResponse'
+import { FindUsersByCriteriaQuery } from '@Core/User/application/FindByCriteria/FindUsersByCriteriaQuery'
+import { UserCollectionResponse } from '@Core/User/application/UserCollectionResponse'
 
 export class TitlePostController implements Controller {
   constructor (private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly decoder: TokenDecoder) {}
@@ -43,7 +43,10 @@ export class TitlePostController implements Controller {
       if (e instanceof CannotDecode) return res.status(401).send(e.getMessage())
       if (e instanceof TitleAlreadyExistsById) return res.status(400).send(e.getMessage())
       if (e instanceof TitleAlreadyExistsByName) return res.status(400).send(e.getMessage())
-      return res.status(500).send()
+      if (e instanceof Error && typeof (e as any).getMessage === 'function') {
+        return res.status(500).send((e as any).getMessage())
+      }
+      return res.status(500).send((e as Error).message)
     }
   }
 
