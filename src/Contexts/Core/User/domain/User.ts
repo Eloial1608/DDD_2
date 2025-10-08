@@ -31,6 +31,8 @@ import { UserHasPayedUpdatedDomainEvent } from './Events/UserHasPayedUpdatedDoma
 import { PictureUrl } from './ValueObjects/PictureUrl'
 import { BannerUrl } from './ValueObjects/BannerUrl'
 import { UserRegisterDataUpdatedDomainEvent } from './Events/UserRegisterDataUpdatedEvent'
+import { PrincipalTitle } from './ValueObjects/PrincipalTitle'
+import { UserUpdatedPrincipalTitleDomainEvent } from './Events/UserUpdatedPrincipalTitleEvent'
 
 export class User extends AggregateRoot {
   constructor (
@@ -54,6 +56,7 @@ export class User extends AggregateRoot {
     readonly totalThreads: TotalThreads,
     readonly totalThreadResponses: TotalThreadResponses,
     readonly communityId: CommunityId,
+    readonly principalTitle: Nullable<PrincipalTitle>,
     readonly createdAt: CreatedAt,
     readonly updatedAt:UpdatedAt,
     readonly deletedAt: Nullable<DeletedAt>
@@ -92,6 +95,7 @@ export class User extends AggregateRoot {
       new TotalThreads(0),
       new TotalThreadResponses(0),
       communityId,
+      null,
       new CreatedAt(new Date()),
       new UpdatedAt(new Date()),
       null
@@ -125,6 +129,7 @@ export class User extends AggregateRoot {
       this.totalThreads,
       this.totalThreadResponses,
       this.communityId,
+      this.principalTitle,
       this.createdAt,
       this.updatedAt,
       this.deletedAt
@@ -163,6 +168,7 @@ export class User extends AggregateRoot {
       this.totalThreads,
       this.totalThreadResponses,
       this.communityId,
+      this.principalTitle,
       this.createdAt,
       new UpdatedAt(new Date()),
       this.deletedAt
@@ -197,6 +203,7 @@ export class User extends AggregateRoot {
       this.totalThreads,
       this.totalThreadResponses,
       this.communityId,
+      this.principalTitle,
       this.createdAt,
       new UpdatedAt(new Date()),
       this.deletedAt
@@ -229,12 +236,46 @@ export class User extends AggregateRoot {
       this.totalThreads,
       this.totalThreadResponses,
       this.communityId,
+      this.principalTitle,
       this.createdAt,
       this.updatedAt,
       this.deletedAt
     )
 
     user.record(UserHasPayedUpdatedDomainEvent.fromAggregate(user))
+
+    return user
+  }
+
+  updatePrincipalTitle (principalTitle: Nullable<PrincipalTitle>):User {
+    const user = new User(
+      this.id,
+      this.mainId,
+      this.name,
+      this.username,
+      this.about,
+      this.email,
+      this.hasPayed,
+      this.planId,
+      this.pictureUrl,
+      this.bannerUrl,
+      this.hasCompletedRegister,
+      this.registerData,
+      this.isBanned,
+      this.isAdmin,
+      this.isOwner,
+      this.totalPosts,
+      this.totalMedia,
+      this.totalThreads,
+      this.totalThreadResponses,
+      this.communityId,
+      principalTitle,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt
+    )
+
+    user.record(UserUpdatedPrincipalTitleDomainEvent.fromAggregate(user))
 
     return user
   }
@@ -261,6 +302,7 @@ export class User extends AggregateRoot {
       this.totalThreads,
       this.totalThreadResponses,
       this.communityId,
+      this.principalTitle,
       this.createdAt,
       this.updatedAt,
       new DeletedAt(new Date())
@@ -293,6 +335,7 @@ export class User extends AggregateRoot {
       this.totalThreads,
       this.totalThreadResponses,
       this.communityId,
+      this.principalTitle,
       this.createdAt,
       new UpdatedAt(new Date()),
       this.deletedAt
@@ -325,6 +368,7 @@ export class User extends AggregateRoot {
       this.totalThreads,
       this.totalThreadResponses,
       this.communityId,
+      this.principalTitle,
       this.createdAt,
       new UpdatedAt(new Date()),
       this.deletedAt

@@ -23,6 +23,7 @@ import { IsOwner } from '@Core/User/domain/ValueObjects/IsOwner'
 import { SharedMainUserId } from '@Shared/domain/SharedValueObjects/User/SharedMainUserId'
 import { PictureUrl } from '@Core/User/domain/ValueObjects/PictureUrl'
 import { BannerUrl } from '@Core/User/domain/ValueObjects/BannerUrl'
+import { PrincipalTitle } from '@Core/User/domain/ValueObjects/PrincipalTitle'
 
 export const UserSchema = new EntitySchema<User>({
   name: 'User',
@@ -114,6 +115,11 @@ export const UserSchema = new EntitySchema<User>({
     communityId: {
       type: String,
       transformer: ValueObjectTransformer(CommunityId)
+    },
+    principalTitle: {
+      type: String,
+      nullable: true,
+      transformer: ValueObjectTransformer(PrincipalTitle)
     },
     createdAt: {
       type: Date,
