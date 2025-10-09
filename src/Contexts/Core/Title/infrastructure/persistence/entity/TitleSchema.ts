@@ -29,6 +29,7 @@ export const TitleSchema = new EntitySchema<Title>({
     },
     titleImageUrl: {
       type: String,
+      nullable: true,
       transformer: ValueObjectTransformer(TitleImageUrl)
     },
     createdAt: {

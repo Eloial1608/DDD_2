@@ -44,7 +44,8 @@ export class CommunityPostController implements Controller {
         ALLOWED_FEATURES.CHAT
       ],
       5,
-      10
+      10,
+      req.body.allowsTitles
     )
 
     await this.commandBus.dispatch(createCommunityCommand)

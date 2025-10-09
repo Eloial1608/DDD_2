@@ -1,9 +1,12 @@
 import { DomainEvent } from '@Shared/domain/EventBus/DomainEvent'
 import { Title } from '../Title'
+import { Nullable } from '@Shared/domain/Nullable'
 
 type TitleCreatedDomainEventBody = {
     readonly id: string,
     readonly communityId: string,
+    readonly name: string,
+    readonly titleImageUrl: Nullable<string>
 }
 
 export class TitleCreatedDomainEvent extends DomainEvent {
@@ -11,6 +14,8 @@ export class TitleCreatedDomainEvent extends DomainEvent {
 
   readonly id: string
   readonly communityId: string
+  readonly name: string
+  readonly titleImageUrl: Nullable<string>
 
   static {
     DomainEvent.derived.add(TitleCreatedDomainEvent.EVENT_NAME)
@@ -21,12 +26,16 @@ export class TitleCreatedDomainEvent extends DomainEvent {
 
     this.id = params.id
     this.communityId = params.communityId
+    this.name = params.name
+    this.titleImageUrl = params.titleImageUrl
   }
 
   static fromAggregate (title: Title): TitleCreatedDomainEvent {
     return new TitleCreatedDomainEvent({
       id: title.id.valueOf(),
-      communityId: title.communityId.valueOf()
+      communityId: title.communityId.valueOf(),
+      name: title.name.valueOf(),
+      titleImageUrl: title.titleImageUrl?.valueOf()
     })
   }
 

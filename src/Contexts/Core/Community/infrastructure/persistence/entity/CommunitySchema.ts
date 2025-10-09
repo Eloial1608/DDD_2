@@ -33,6 +33,7 @@ import { AllowedSubcommunities } from '@Core/Community/domain/ValueObjects/Allow
 import { SubcommunitiesCount } from '@Core/Community/domain/ValueObjects/SubcommunitiesCount'
 import { SpaceOrderedIds } from '@Core/Community/domain/ValueObjects/SpaceOrderedIds'
 import { OnboardingStep } from '@Core/Community/domain/ValueObjects/OnboardingStep'
+import { AllowsTitles } from '@Core/Community/domain/ValueObjects/AllowsTitles'
 
 export const CommunitySchema = new EntitySchema<Community>({
   name: 'Community',
@@ -178,6 +179,11 @@ export const CommunitySchema = new EntitySchema<Community>({
       type: String,
       default: 'profile',
       transformer: ValueObjectTransformer(OnboardingStep)
+    },
+    allowsTitles: {
+      type: Boolean,
+      default: false,
+      transformer: ValueObjectTransformer(AllowsTitles)
     },
     expiresAt: {
       type: Date,

@@ -14,7 +14,8 @@ export class UpdateCommunityCommandMother {
     isRegisterOpen: boolean,
     logoUrl: Nullable<string>,
     bannerUrl: Nullable<string>,
-    color: object
+    color: object,
+    allowsTitles: boolean
   ): UpdateCommunityCommand {
     return new UpdateCommunityCommand(
       id,
@@ -27,7 +28,8 @@ export class UpdateCommunityCommandMother {
       logoUrl,
       bannerUrl,
       suffix,
-      color
+      color,
+      allowsTitles
     )
   }
 
@@ -35,7 +37,7 @@ export class UpdateCommunityCommandMother {
     return this.update(
       community.id.valueOf(),
       community.name.valueOf(),
-      community.suffix.valueOf(),
+      community.suffix?.valueOf() ?? '',
       community.slug.valueOf(),
       community.domain?.valueOf(),
       community.about?.valueOf(),
@@ -43,7 +45,8 @@ export class UpdateCommunityCommandMother {
       community.isRegisterOpen.valueOf(),
       community.logoUrl?.valueOf(),
       community.bannerUrl?.valueOf(),
-      community.color.valueOf()
+      community.color.valueOf(),
+      community.allowsTitles.valueOf()
     )
   }
 }

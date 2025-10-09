@@ -42,6 +42,7 @@ import { SpaceOrderedIds } from './ValueObjects/SpaceOrderedIds'
 import { CommunitySpaceOrderedIdsUpdatedDomainEvent } from './Events/CommunitySpaceOrderedIdsUpdatedDomainEvent'
 import { ONBOARDING_STEPS, OnboardingStep } from './ValueObjects/OnboardingStep'
 import { CommunityOnboardingStepUpdatedDomainEvent } from './Events/CommunityOnboardingStepUpdatedDomainEvent'
+import { AllowsTitles } from './ValueObjects/AllowsTitles'
 
 export class Community extends AggregateRoot {
   constructor (
@@ -73,6 +74,7 @@ export class Community extends AggregateRoot {
         readonly subcommunitiesCount: SubcommunitiesCount,
         readonly spaceOrderedIds: SpaceOrderedIds,
         readonly onboardingStep: OnboardingStep,
+        readonly allowsTitles: AllowsTitles,
         readonly expiresAt: ExpiresAt,
         readonly createdAt: CreatedAt,
         readonly updatedAt: UpdatedAt,
@@ -95,6 +97,7 @@ export class Community extends AggregateRoot {
     allowedUsers: AllowedUsers,
     expiresAt: ExpiresAt,
     allowedSubcommunities: AllowedSubcommunities,
+    allowsTitles: AllowsTitles,
     allowsPayments: AllowsPayments = new AllowsPayments(false),
     firstPaymentDone: FirstPaymentDone = new FirstPaymentDone(false),
     about: Nullable<About> = null
@@ -128,6 +131,7 @@ export class Community extends AggregateRoot {
       new SubcommunitiesCount(0),
       new SpaceOrderedIds('[]'),
       new OnboardingStep(ONBOARDING_STEPS.PROFILE),
+      allowsTitles,
       expiresAt,
       new CreatedAt(new Date()),
       new UpdatedAt(new Date()),
@@ -150,7 +154,8 @@ export class Community extends AggregateRoot {
     logoUrl: Nullable<LogoUrl>,
     bannerUrl: Nullable<BannerUrl>,
     suffix: Nullable<Suffix>,
-    color: Color
+    color: Color,
+    allowsTitles: AllowsTitles
   ): Community {
     const community = new Community(
       id,
@@ -181,6 +186,7 @@ export class Community extends AggregateRoot {
       this.subcommunitiesCount,
       this.spaceOrderedIds,
       this.onboardingStep,
+      allowsTitles,
       this.expiresAt,
       this.createdAt,
       new UpdatedAt(new Date()),
@@ -224,6 +230,7 @@ export class Community extends AggregateRoot {
       this.subcommunitiesCount,
       spaceOrderedIds,
       this.onboardingStep,
+      this.allowsTitles,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,
@@ -265,6 +272,7 @@ export class Community extends AggregateRoot {
       this.subcommunitiesCount,
       this.spaceOrderedIds,
       this.onboardingStep,
+      this.allowsTitles,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,
@@ -306,6 +314,7 @@ export class Community extends AggregateRoot {
       this.subcommunitiesCount,
       this.spaceOrderedIds,
       this.onboardingStep,
+      this.allowsTitles,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,
@@ -347,6 +356,7 @@ export class Community extends AggregateRoot {
       subcommunitiesCount,
       this.spaceOrderedIds,
       this.onboardingStep,
+      this.allowsTitles,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,
@@ -388,6 +398,7 @@ export class Community extends AggregateRoot {
       this.subcommunitiesCount,
       this.spaceOrderedIds,
       this.onboardingStep,
+      this.allowsTitles,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,
@@ -429,6 +440,7 @@ export class Community extends AggregateRoot {
       this.subcommunitiesCount,
       this.spaceOrderedIds,
       this.onboardingStep,
+      this.allowsTitles,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,
@@ -470,6 +482,7 @@ export class Community extends AggregateRoot {
       this.subcommunitiesCount,
       this.spaceOrderedIds,
       this.onboardingStep,
+      this.allowsTitles,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,
@@ -511,6 +524,7 @@ export class Community extends AggregateRoot {
       this.subcommunitiesCount,
       this.spaceOrderedIds,
       onboardingStep,
+      this.allowsTitles,
       this.expiresAt,
       this.createdAt,
       this.updatedAt,

@@ -19,6 +19,7 @@ type CommunityAllowsPaymentsUpdatedDomainEventBody = {
     readonly isPrivate: boolean
     readonly isRegisterOpen: boolean
     readonly homeSpaceId: Nullable<string>
+    readonly allowsTitles: boolean
     readonly expiresAt: Date
     readonly createdAt: Date
     readonly updatedAt: Date
@@ -43,6 +44,7 @@ export class CommunityAllowsPaymentsUpdatedDomainEvent extends DomainEvent {
   readonly isPrivate: boolean
   readonly isRegisterOpen: boolean
   readonly homeSpaceId: Nullable<string>
+  readonly allowsTitles: boolean
   readonly expiresAt: Date
   readonly createdAt: Date
   readonly updatedAt: Date
@@ -72,6 +74,7 @@ export class CommunityAllowsPaymentsUpdatedDomainEvent extends DomainEvent {
     this.isPrivate = params.isPrivate
     this.isRegisterOpen = params.isRegisterOpen
     this.homeSpaceId = params.homeSpaceId
+    this.allowsTitles = params.allowsTitles
     this.expiresAt = params.expiresAt
   }
 
@@ -95,7 +98,8 @@ export class CommunityAllowsPaymentsUpdatedDomainEvent extends DomainEvent {
       domain: community.domain?.valueOf(),
       registerFormId: community.registerFormId?.valueOf(),
       hasRegisterForm: community.hasRegisterForm.valueOf(),
-      allowedUsers: community.allowedUsers.valueOf()
+      allowedUsers: community.allowedUsers.valueOf(),
+      allowsTitles: community.allowsTitles.valueOf()
     })
   }
 

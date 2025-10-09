@@ -34,7 +34,8 @@ export class CommunityPatchController implements Controller {
         req.body.logoUrl,
         req.body.bannerUrl,
         req.body.suffix,
-        req.body.color
+        req.body.color,
+        req.body.allowsTitles
       )
 
       await this.commandBus.dispatch(command)

@@ -13,6 +13,7 @@ export class UpdateCommunityCommand implements Command {
         readonly logoUrl: Nullable<string>,
         readonly bannerUrl: Nullable<string>,
         readonly suffix: Nullable<string>,
-        readonly color: object
+        readonly color: object,
+        readonly allowsTitles: boolean
   ) {}
 }
