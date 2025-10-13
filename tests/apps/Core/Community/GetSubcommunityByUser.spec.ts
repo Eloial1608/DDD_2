@@ -59,7 +59,7 @@ test('GET Subcommunities By User should return the subcommunities a user Has Acc
   await userRepository.persist(user2)
 
   const r = await request.get(`/v1/communities/sub/user/communityId/${community.id?.valueOf()}`, {
-    headers: { Authorization: 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlZjM0Y2NkLWI3MzgtNDYwMy1hYzdjLTZmN2I5Y2UxZjU2MCIsImNvbW11bml0eUlkIjoiZDRkMWMyMGItNTQ1Mi00NGNlLTg4YzItYjBkMTY5Y2ZiNTYxIiwiaWF0IjoxNzQ0MjIxMDM1LCJleHAiOjE3NTk3NzMwMzV9.UiKU9sZ3ptDF9oSAGXM40gydOroBagCNUIDC0IBP4ZEYljDEjOS07Li2c4XMGVNVInWXvjBgYXZM1_ioVWUUZg' }
+    headers: { Authorization: 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlZjM0Y2NkLWI3MzgtNDYwMy1hYzdjLTZmN2I5Y2UxZjU2MCIsImNvbW11bml0eUlkIjoiZDRkMWMyMGItNTQ1Mi00NGNlLTg4YzItYjBkMTY5Y2ZiNTYxIn0.9colWlL9kvmAfNAA54lBy4poSN3-F_y8hHVFaytqqL2KHS5LK8RtumoRob_u1Sb_mkE_I5pMtvTKnRx2IvpCCg' }
   })
 
   expect(r.status()).toEqual(200)
