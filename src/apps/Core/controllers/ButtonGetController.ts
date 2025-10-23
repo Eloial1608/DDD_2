@@ -8,14 +8,13 @@ export class ButtonGetController {
 
   async run (req: Request, res: Response): Promise<void> {
     try {
+      const command = new CreateMetricCommand(
+        v4(),
+        'button',
+        new Date()
+      )
 
-        const command = new CreateMetricCommand(
-            v4(),
-            'button',
-            new Date()
-        )
-
-        await this.commandBus.dispatch(command)
+      await this.commandBus.dispatch(command)
 
       res.status(301).redirect('https://pedidos.romanpizza.net/inicio')
     } catch (e) {
