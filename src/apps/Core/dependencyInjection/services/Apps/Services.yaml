@@ -2,34 +2,37 @@ services:
   Apps.Core.Controllers.CommunityByIdGetController:
     class: src/apps/Core/controllers/Community/CommunityByIdGetController
     arguments: ["@Shared.QueryBus"]
-  
+
   Apps.Core.Controllers.CommunitiesGetController:
     class: src/apps/Core/controllers/Community/CommunitiesGetController
     arguments: ["@Shared.QueryBus"]
-  
+
   Apps.Core.Controllers.HealthGetController:
     class: src/apps/Core/controllers/HealthGetController
-  
+
   Apps.Core.Controllers.CommunityBySuffixGetController:
     class: src/apps/Core/controllers/Community/CommunityBySuffixGetController
     arguments: ["@Shared.QueryBus"]
-  
+
   Apps.Core.Controllers.CommunityByDomainGetController:
     class: src/apps/Core/controllers/Community/CommunityByDomainGetController
     arguments: ["@Shared.QueryBus"]
-  
+
+  Apps.Core.Controllers.SubcommunityByUserGetController:
+    class: src/apps/Core/controllers/Community/SubcommunityByUserGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+
   Apps.Core.Controllers.PlansGetController:
     class: src/apps/Core/controllers/Plan/PlansGetController
     arguments: ["@Shared.QueryBus"]
-  
+
   Apps.Core.Controllers.CommunityPostController:
     class: src/apps/Core/controllers/Community/CommunityPostController
     arguments: ["@Shared.CommandBus"]
-  
-  Apps.Core.Controllers.CommunityPutController:
-    class: src/apps/Core/controllers/Community/CommunityPutController
+
+  Apps.Core.Controllers.CommunityPatchController:
+    class: src/apps/Core/controllers/Community/CommunityPatchController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
   Apps.Core.Controllers.CommunitySpaceOrderedIdsPatchController:
     class: src/apps/Core/controllers/Community/CommunitySpaceOrderedIdsPatchController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
@@ -37,47 +40,47 @@ services:
   Apps.Core.Controllers.CommunityDeleteController:
     class: src/apps/Core/controllers/Community/CommunityDeleteController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.UniqueUserPostController:
     class: src/apps/Core/controllers/User/UniqueUserPostController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.SpaceBySlugGetController:
     class: src/apps/Core/controllers/Space/SpaceBySlugGetController
     arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.SpacesGetController:
     class: src/apps/Core/controllers/Space/SpacesGetController
     arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.SpacesPostController:
     class: src/apps/Core/controllers/Space/SpacesPostController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.SpacesDeleteController:
     class: src/apps/Core/controllers/Space/SpacesDeleteController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.SpacesPatchController:
     class: src/apps/Core/controllers/Space/SpacesPatchController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.CommunityBySlugGetController:
     class: src/apps/Core/controllers/Community/CommunityBySlugGetController
     arguments: ["@Shared.QueryBus"]
-  
+
   Apps.Core.Controllers.JoinSubCommunityPostController:
     class: src/apps/Core/controllers/User/JoinSubCommunityPostController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.UserDeleteController:
     class: src/apps/Core/controllers/User/UserDeleteController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.BanUserPostController:
     class: src/apps/Core/controllers/User/BanUserPostController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.UnBanUserPostController:
     class: src/apps/Core/controllers/User/UnBanUserPostController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
@@ -89,11 +92,11 @@ services:
   Apps.Core.Controllers.SpaceMembersGetController:
     class: src/apps/Core/controllers/SpaceMember/SpaceMembersGetController
     arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.SpaceMemberPostController:
     class: src/apps/Core/controllers/SpaceMember/SpaceMemberPostController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.SpaceMemberDeleteController:
     class: src/apps/Core/controllers/SpaceMember/SpaceMemberDeleteController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
@@ -109,51 +112,51 @@ services:
   Apps.Core.Controllers.UsersGetController:
     class: src/apps/Core/controllers/User/UsersGetController
     arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.UserGetController:
     class: src/apps/Core/controllers/User/UserGetController
     arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.StripeAccountPostController:
     class: src/apps/Core/controllers/StripeAccount/StripeAccountPostController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.StripeSessionPostController:
     class: src/apps/Core/controllers/StripeSession/StripeSessionPostController
     arguments: ["@Shared.CommandBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.VerifyStripeSessionPostController:
     class: src/apps/Core/controllers/StripeSession/VerifyStripeSessionPostController
     arguments: ["@Shared.CommandBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.StripeSessionGetController:
     class: src/apps/Core/controllers/StripeSession/StripeSessionGetController
     arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.CalendarGetController:
     class: src/apps/Core/controllers/Calendar/CalendarGetController
     arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.CalendarDeleteController:
     class: src/apps/Core/controllers/Calendar/CalendarDeleteController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.CalendarPutController:
     class: src/apps/Core/controllers/Calendar/CalendarPutController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.CalendarsGetController:
     class: src/apps/Core/controllers/Calendar/CalendarsGetController
     arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.CalendarPostController:
     class: src/apps/Core/controllers/Calendar/CalendarPostController
     arguments: ["@Shared.CommandBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.UserPlanGetController:
     class: src/apps/Core/controllers/UserPlan/UserPlanGetController
     arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.UserPlanByUserIdGetController:
     class: src/apps/Core/controllers/UserPlan/UserPlanByUserIdGetController
     arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
@@ -161,19 +164,19 @@ services:
   Apps.Core.Controllers.UserPatchController:
     class: src/apps/Core/controllers/User/UserPatchController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.MyselfRegisterDataPatchController:
     class: src/apps/Core/controllers/User/MyselfRegisterDataPatchController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.MyselfPatchController:
     class: src/apps/Core/controllers/User/MyselfPatchController
     arguments: ["@Shared.CommandBus", "@Shared.TokenDecoder", "@Shared.QueryBus"]
-  
+
   Apps.Core.Controllers.PlanForUsersGetController:
     class: src/apps/Core/controllers/PlanForUsers/PlanForUsersGetController
     arguments: ["@Shared.QueryBus"]
-  
+
   Apps.Core.Controllers.PlansForUsersGetController:
     class: src/apps/Core/controllers/PlanForUsers/PlansForUsersGetController
     arguments: ["@Shared.QueryBus"]
@@ -181,31 +184,94 @@ services:
   Apps.Core.Controllers.PlanForUsersPostController:
     class: src/apps/Core/controllers/PlanForUsers/PlanForUsersPostController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.PlanForUsersPutController:
     class: src/apps/Core/controllers/PlanForUsers/PlanForUsersPutController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.PlanForUsersDeleteController:
     class: src/apps/Core/controllers/PlanForUsers/PlanForUsersDeleteController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.FormGetController:
     class: src/apps/Core/controllers/Form/FormGetController
     arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.FormPostController:
     class: src/apps/Core/controllers/Form/FormPostController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.FormDeleteController:
     class: src/apps/Core/controllers/Form/FormDeleteController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.SubcommunityPostController:
     class: src/apps/Core/controllers/Community/SubcommunityPostController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
-  
+
   Apps.Core.Controllers.FormPutController:
     class: src/apps/Core/controllers/Form/FormPutController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.ThemeGetController:
+    class: src/apps/Core/controllers/Theme/ThemeGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.ThemesGetController:
+    class: src/apps/Core/controllers/Theme/ThemesGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.ThemePostController:
+    class: src/apps/Core/controllers/Theme/ThemePostController
+    arguments: ["@Shared.CommandBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.ThemePutController:
+    class: src/apps/Core/controllers/Theme/ThemePutController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.ThemeDeleteController:
+    class: src/apps/Core/controllers/Theme/ThemeDeleteController
+
+  Apps.Core.Controllers.CommunityOnboardingStepPatchController:
+    class: src/apps/Core/controllers/Community/CommunityOnboardingStepPatchController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.TitleGetController:
+    class: src/apps/Core/controllers/Title/TitleGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.TitlesGetController:
+    class: src/apps/Core/controllers/Title/TitlesGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.TitlePostController:
+    class: src/apps/Core/controllers/Title/TitlePostController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.TitlePutController:
+    class: src/apps/Core/controllers/Title/TitlePutController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.TitleDeleteController:
+    class: src/apps/Core/controllers/Title/TitleDeleteController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.CommunityConfigurationGetController:
+    class: src/apps/Core/controllers/CommunityConfiguration/CommunityConfigurationGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.CommunityConfigurationsGetController:
+    class: src/apps/Core/controllers/CommunityConfiguration/CommunityConfigurationsGetController
+    arguments: ["@Shared.QueryBus"]
+
+  Apps.Core.Controllers.CommunityConfigurationPostController:
+    class: src/apps/Core/controllers/CommunityConfiguration/CommunityConfigurationPostController
+    arguments: ["@Shared.CommandBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.CommunityConfigurationPutController:
+    class: src/apps/Core/controllers/CommunityConfiguration/CommunityConfigurationPutController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.CommunityConfigurationDeleteController:
+    class: src/apps/Core/controllers/CommunityConfiguration/CommunityConfigurationDeleteController
     arguments: ["@Shared.CommandBus", "@Shared.QueryBus", "@Shared.TokenDecoder"]

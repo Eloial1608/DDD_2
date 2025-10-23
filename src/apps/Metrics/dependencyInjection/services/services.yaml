@@ -1,0 +1,4 @@
+imports:
+    - { resource: ./Metrics/services.yaml }
+    - { resource: ./Shared/services.yaml }
+    - { resource: ./Apps/Services.yaml }

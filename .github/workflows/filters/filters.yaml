@@ -61,7 +61,21 @@ marketplace-service-server:
 
 events-service-server:
 - *shared
-- src/apps/Event/**
-- src/Contexts/Event/**
-- tests/apps/Event/**
-- tests/Contexts/Event/**
+- src/apps/Events/**
+- src/Contexts/Events/**
+- tests/apps/Events/**
+- tests/Contexts/Events/**
+
+projects-service-server:
+- *shared
+- src/apps/Projects/**
+- src/Contexts/Projects/**
+- tests/apps/Projects/**
+- tests/Contexts/Projects/**
+
+metrics-service-server:
+- *shared
+- src/apps/Metrics/**
+- src/Contexts/Metrics/**
+- tests/apps/Metrics/**
+- tests/Contexts/Metrics/**

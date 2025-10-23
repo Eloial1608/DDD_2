@@ -2,6 +2,36 @@ services:
   Community.Repository:
     class: src/Contexts/Marketplace/Community/infrastructure/persistence/TypeOrmCommunityRepository
     arguments: ["@Shared.ORM.Connection"]
+  
+  Community.CreateCommunityOnCommunityCreated.Creator:
+    class: src/Contexts/Marketplace/Community/application/CreateCommunityOnCommunityCreated/Creator
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.CreateCommunityOnCommunityCreated.CreateCommunityOnCommunityCreatedHandler:
+    class: src/Contexts/Marketplace/Community/application/CreateCommunityOnCommunityCreated/CreateCommunityOnCommunityCreatedHandler
+    arguments: ["@Community.CreateCommunityOnCommunityCreated.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.DeleteCommunityOnCommunityDeleted.Deleter:
+    class: src/Contexts/Marketplace/Community/application/DeleteCommunityOnCommunityDeleted/Deleter
+    arguments: ['@Community.Repository', '@Shared.EventBus']
+  
+  Community.DeleteCommunityOnCommunityDeleted.DeleteCommunityOnCommunityDeletedHandler:
+    class: src/Contexts/Marketplace/Community/application/DeleteCommunityOnCommunityDeleted/DeleteCommunityOnCommunityDeletedHandler
+    arguments: ["@Community.DeleteCommunityOnCommunityDeleted.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Community.FindById.FinderById:
+    class: src/Contexts/Marketplace/Community/application/FindById/FinderById
+    arguments: ['@Community.Repository']
+  
+  Community.FindById.FindCommunityByIdQueryHandler:
+    class: src/Contexts/Marketplace/Community/application/FindById/FindCommunityByIdQueryHandler
+    arguments: ['@Community.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
 
   User.Repository:
     class: src/Contexts/Marketplace/User/infrastructure/persistence/TypeOrmUserRepository
@@ -54,7 +84,6 @@ services:
   SpaceMember.Repository:
     class: src/Contexts/Marketplace/SpaceMember/infrastructure/persistence/TypeOrmSpaceMemberRepository
     arguments: ["@Shared.ORM.Connection"]
-
 
   SpaceMember.DeleteSpaceMemberOnSpaceMemberDeleted.Deleter:
     class: src/Contexts/Marketplace/SpaceMember/application/DeleteSpaceMemberOnSpaceMemberDeleted/Deleter
@@ -135,3 +164,181 @@ services:
     arguments: ["@User.CreateUserOnUserCreated.Creator"]
     tags:
       - { name: "domainEventSubscriber" }
+
+  Product.Repository:
+    class: src/Contexts/Marketplace/Product/infrastructure/persistence/TypeOrmProductRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Review.Repository:
+    class: src/Contexts/Marketplace/Review/infrastructure/persistence/TypeOrmReviewRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
+  Product.Create.Creator:
+    class: src/Contexts/Marketplace/Product/application/Create/Creator
+    arguments: ['@Product.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Product.Create.CreateProductCommandHandler:
+    class: src/Contexts/Marketplace/Product/application/Create/CreateProductCommandHandler
+    arguments: ["@Product.Create.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+    
+  Product.Update.Updater:
+    class: src/Contexts/Marketplace/Product/application/Update/Updater
+    arguments: ['@Product.Repository', '@Shared.EventBus']
+  
+  Product.Update.UpdateProductCommandHandler:
+    class: src/Contexts/Marketplace/Product/application/Update/UpdateProductCommandHandler
+    arguments: ["@Product.Update.Updater"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Product.FindById.FinderById:
+    class: src/Contexts/Marketplace/Products/application/FindById/FinderById
+    arguments: ['@Product.Repository']
+  
+  Product.FindById.FindProductByIdQueryHandler:
+    class: src/Contexts/Marketplace/Products/application/FindById/FindProductByIdQueryHandler
+    arguments: ['@Product.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+  
+  Product.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Marketplace/Products/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Product.Repository']
+  
+  Product.FindByCriteria.FindProductsByCriteriaQueryHandler:
+    class: src/Contexts/Marketplace/Products/application/FindByCriteria/FindProductsByCriteriaQueryHandler
+    arguments: ['@Product.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+  
+  Product.Delete.Deleter:
+    class: src/Contexts/Marketplace/Product/application/Delete/Deleter
+    arguments: ['@Product.Repository', '@Shared.EventBus']
+  
+  Product.Delete.DeleteProductCommandHandler:
+    class: src/Contexts/Marketplace/Product/application/Delete/DeleteProductCommandHandler
+    arguments: ["@Product.Delete.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Review.Create.Creator:
+    class: src/Contexts/Marketplace/Review/application/Create/Creator
+    arguments: ['@Review.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Review.Create.CreateReviewCommandHandler:
+    class: src/Contexts/Marketplace/Review/application/Create/CreateReviewCommandHandler
+    arguments: ["@Review.Create.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Review.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Marketplace/Reviews/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Review.Repository']
+  
+  Review.FindByCriteria.FindReviewsByCriteriaQueryHandler:
+    class: src/Contexts/Marketplace/Reviews/application/FindByCriteria/FindReviewsByCriteriaQueryHandler
+    arguments: ['@Review.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+  
+  Review.Delete.Deleter:
+    class: src/Contexts/Marketplace/Review/application/Delete/Deleter
+    arguments: ['@Review.Repository', '@Shared.EventBus']
+  
+  Review.Delete.DeleteReviewCommandHandler:
+    class: src/Contexts/Marketplace/Review/application/Delete/DeleteReviewCommandHandler
+    arguments: ["@Review.Delete.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  Action.Repository:
+    class: src/Contexts/Marketplace/Action/infrastructure/persistence/TypeOrmActionRepository
+    arguments: ["@Shared.ORM.Connection"]
+  
+  Action.Create.Creator:
+    class: src/Contexts/Marketplace/Action/application/Create/Creator
+    arguments: ['@Action.Repository', '@Shared.EventBus', '@Shared.QueryBus']
+  
+  Action.Create.CreateActionCommandHandler:
+    class: src/Contexts/Marketplace/Action/application/Create/CreateActionCommandHandler
+    arguments: ["@Action.Create.Creator"]
+    tags:
+      - { name: "domainEventSubscriber" }
+  
+  Action.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Marketplace/Actions/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Action.Repository']
+  
+  Action.FindByCriteria.FindActionsByCriteriaQueryHandler:
+    class: src/Contexts/Marketplace/Actions/application/FindByCriteria/FindActionsByCriteriaQueryHandler
+    arguments: ['@Action.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+  
+  Action.Delete.Deleter:
+    class: src/Contexts/Marketplace/Action/application/Delete/Deleter
+    arguments: ['@Action.Repository', '@Shared.EventBus']
+  
+  Action.Delete.DeleteActionCommandHandler:
+    class: src/Contexts/Marketplace/Action/application/Delete/DeleteActionCommandHandler
+    arguments: ["@Action.Delete.Deleter"]
+    tags:
+      - { name: "domainEventSubscriber" }
+
+  DigitalStock.Repository:
+    class: src/Contexts/Marketplace/DigitalStock/infrastructure/TypeOrmDigitalStockRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  DigitalStock.Create.Creator:
+    class: src/Contexts/Marketplace/DigitalStock/application/Create/Creator
+    arguments: ['@DigitalStock.Repository', '@Shared.EventBus']
+
+  DigitalStock.Create.CreateDigitalStockCommandHandler:
+    class: src/Contexts/Marketplace/DigitalStock/application/Create/CreateDigitalStockCommandHandler
+    arguments: ["@DigitalStock.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  DigitalStock.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Marketplace/DigitalStock/application/FindByCriteria/FinderByCriteria
+    arguments: ['@DigitalStock.Repository']
+
+  DigitalStock.FindByCriteria.FindDigitalStocksByCriteriaQueryHandler:
+    class: src/Contexts/Marketplace/DigitalStock/application/FindByCriteria/FindDigitalStocksByCriteriaQueryHandler
+    arguments: ['@DigitalStock.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+  DigitalStock.Update.Updater:
+    class: src/Contexts/Marketplace/DigitalStock/application/Update/Updater
+    arguments: ['@DigitalStock.Repository', '@Shared.EventBus']
+
+  DigitalStock.Update.UpdateDigitalStockCommandHandler:
+    class: src/Contexts/Marketplace/DigitalStock/application/Update/UpdateDigitalStockCommandHandler
+    arguments: ["@DigitalStock.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
+  DigitalStock.Delete.Deleter:
+    class: src/Contexts/Marketplace/DigitalStock/application/Delete/Deleter
+    arguments: ['@DigitalStock.Repository', '@Shared.EventBus']
+
+  DigitalStock.Delete.DeleteDigitalStockCommandHandler:
+    class: src/Contexts/Marketplace/DigitalStock/application/Delete/DeleteDigitalStockCommandHandler
+    arguments: ["@DigitalStock.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
+  AvailabilityRule.Repository:
+    class: src/Contexts/Marketplace/AvailabilityRule/infrastructure/TypeOrmAvailabilityRuleRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Booking.Repository:
+    class: src/Contexts/Marketplace/Booking/infrastructure/TypeOrmBookingRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  AvailabilityException.Repository:
+    class: src/Contexts/Marketplace/AvailabilityException/infrastructure/TypeOrmAvailabilityExceptionRepository
+    arguments: ["@Shared.ORM.Connection"]

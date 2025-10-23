@@ -1,0 +1,27 @@
+import { SpaceUserTitle } from '@Core/SpaceUserTitle/domain/SpaceUserTitle'
+import { Id } from '@Core/SpaceUserTitle/domain/ValueObjects/Id'
+import { CommunityId } from '@Core/SpaceUserTitle/domain/ValueObjects/CommunityId'
+import { TitleId } from '@Core/SpaceUserTitle/domain/ValueObjects/TitleId'
+import { UserId } from '@Core/SpaceUserTitle/domain/ValueObjects/UserId'
+import { SpaceId } from '@Core/SpaceUserTitle/domain/ValueObjects/SpaceId'
+import { UpdatedAt } from '@Core/SpaceUserTitle/domain/ValueObjects/UpdatedAt'
+import { CreatedAt } from '@Core/SpaceUserTitle/domain/ValueObjects/CreatedAt'
+import { UuidMother } from '@Tests/Contexts/Shared/domain/UuidMother'
+
+export class SpaceUserTitleMother {
+  static create (params: Partial<SpaceUserTitle>): SpaceUserTitle {
+    return new SpaceUserTitle(
+      params.id ?? new Id(UuidMother.random()),
+      params.communityId ?? new CommunityId(UuidMother.random()),
+      params.titleId ?? new TitleId(UuidMother.random()),
+      params.userId ?? new UserId(UuidMother.random()),
+      params.spaceId ?? new SpaceId(UuidMother.random()),
+      params.createdAt ?? new CreatedAt(new Date()),
+      params.updatedAt ?? new UpdatedAt(new Date())
+    )
+  }
+
+  static random (): SpaceUserTitle {
+    return this.create({})
+  }
+}

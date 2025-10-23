@@ -46,6 +46,7 @@ export class UserMother {
       params.totalThreads ?? new TotalThreads(0),
       params.totalThreadResponses ?? new TotalThreadResponses(0),
       params.communityId ?? new CommunityId(UuidMother.random()),
+      params.principalTitle ?? null,
       params.createdAt ?? new CreatedAt(new Date()),
       params.updatedAt ?? new UpdatedAt(new Date()),
       params.deletedAt ?? null

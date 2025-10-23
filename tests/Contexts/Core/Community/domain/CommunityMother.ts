@@ -3,6 +3,7 @@ import { AllowedFeatures } from '@Core/Community/domain/ValueObjects/AllowedFeat
 import { AllowedSubcommunities } from '@Core/Community/domain/ValueObjects/AllowedSubcommunities'
 import { AllowedUsers } from '@Core/Community/domain/ValueObjects/AllowedUsers'
 import { AllowsPayments } from '@Core/Community/domain/ValueObjects/AllowsPayments'
+import { AllowsTitles } from '@Core/Community/domain/ValueObjects/AllowsTitles'
 import { Color } from '@Core/Community/domain/ValueObjects/Color'
 import { CreatedAt } from '@Core/Community/domain/ValueObjects/CreatedAt'
 import { ExpiresAt } from '@Core/Community/domain/ValueObjects/ExpiresAt'
@@ -14,6 +15,7 @@ import { IsPrivate } from '@Core/Community/domain/ValueObjects/IsPrivate'
 import { IsRegisterOpen } from '@Core/Community/domain/ValueObjects/IsRegisterOpen'
 import { MembersCount } from '@Core/Community/domain/ValueObjects/MembersCount'
 import { Name } from '@Core/Community/domain/ValueObjects/Name'
+import { ONBOARDING_STEPS, OnboardingStep } from '@Core/Community/domain/ValueObjects/OnboardingStep'
 import { Slug } from '@Core/Community/domain/ValueObjects/Slug'
 import { SpaceOrderedIds } from '@Core/Community/domain/ValueObjects/SpaceOrderedIds'
 import { SpacesCount } from '@Core/Community/domain/ValueObjects/SpacesCount'
@@ -55,6 +57,8 @@ export class CommunityMother {
       params.allowedSubcommunities ?? new AllowedSubcommunities(10),
       params.subcommunitiesCount ?? new SubcommunitiesCount(0),
       params.spaceOrderedIds ?? new SpaceOrderedIds('[]'),
+      params.onboardingStep ?? new OnboardingStep(ONBOARDING_STEPS.PROFILE),
+      params.allowsTitles ?? new AllowsTitles(true),
       params.expiresAt ?? new ExpiresAt(MotherCreator.random().date.future()),
       params.createdAt ?? new CreatedAt(new Date()),
       params.updatedAt ?? new UpdatedAt(new Date()),

@@ -50,6 +50,7 @@ export class Creator {
       parentCommunity.allowedUsers,
       parentCommunity.expiresAt,
       parentCommunity.allowedSubcommunities,
+      parentCommunity.allowsTitles,
       parentCommunity.allowsPayments,
       parentCommunity.firstPaymentDone,
       params.about

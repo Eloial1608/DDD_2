@@ -14,7 +14,8 @@ export class CreateCommunityCommandMother {
     expiresAt: Date,
     allowedFeatures: string[],
     allowedUsers: number,
-    allowedSubcommunities: number
+    allowedSubcommunities: number,
+    allowsTitles: boolean
   ): CreateCommunityCommand {
     return new CreateCommunityCommand(
       id,
@@ -27,7 +28,8 @@ export class CreateCommunityCommandMother {
       expiresAt,
       allowedFeatures,
       allowedUsers,
-      allowedSubcommunities
+      allowedSubcommunities,
+      allowsTitles
     )
   }
 
@@ -43,7 +45,8 @@ export class CreateCommunityCommandMother {
       community.expiresAt.valueOf(),
       community.allowedFeatures.valueOf().map(x => x.valueOf()),
       community.allowedUsers.valueOf(),
-      community.allowedSubcommunities.valueOf()
+      community.allowedSubcommunities.valueOf(),
+      community.allowsTitles.valueOf()
     )
   }
 }

@@ -45,6 +45,9 @@
       "@Chat/*": [
         "src/Contexts/Chat/*"
       ],
+      "@Projects/*": [
+        "src/Contexts/Projects/*"
+      ],
       "@Media/*": [
         "src/Contexts/Media/*"
       ],
@@ -56,7 +59,10 @@
       ],
       "@Auth/*": [
         "src/Contexts/Auth/*"
-      ]
+      ],
+       "@Metrics/*": [
+        "src/Contexts/Metrics/*"
+      ],
     }
   },
   "include": [
