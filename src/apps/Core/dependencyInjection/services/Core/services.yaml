@@ -1102,3 +1102,17 @@ services:
     arguments: ['@UserLevel.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
+
+  Metric.Repository:
+    class: src/Contexts/Core/Metric/infrastructure/persistence/TypeOrmMetricRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Metric.Create.Creator:
+    class: src/Contexts/Core/Metric/application/Create/Creator
+    arguments: ['@Metric.Repository', '@Shared.EventBus']
+
+  Metric.Create.CreateMetricCommandHandler:
+    class: src/Contexts/Core/Metric/application/Create/CreateMetricCommandHandler
+    arguments: ["@Metric.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
