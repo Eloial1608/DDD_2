@@ -1,0 +1,17 @@
+env:
+  es2022: true
+  node: true
+extends:
+  - standard
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaVersion: latest
+plugins:
+  - '@typescript-eslint'
+rules: 
+   no-useless-constructor: off
+   no-undef: off
+   no-unused-vars: off
+   import/named: off
+   import/no-unresolved: off
+   no-array-constructor: off

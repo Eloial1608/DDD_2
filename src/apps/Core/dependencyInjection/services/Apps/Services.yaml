@@ -1,0 +1,113 @@
+services:
+  Apps.Core.Middleware.IsAdminMiddleware:
+    class: src/apps/Core/middleware/IsAdminMiddleware
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  # USER
+
+  Apps.Core.Controllers.RegisterPostController:
+    class: src/apps/Core/controllers/http/User/RegisterPostController
+    arguments: ["@Shared.CommandBus"]
+
+  Apps.Core.Controllers.UserDeleteController:
+    class: src/apps/Core/controllers/http/User/UserDeleteController
+    arguments: ["@Shared.CommandBus"]
+
+  Apps.Core.Controllers.UserPutController:
+    class: src/apps/Core/controllers/http/User/UserPutController
+    arguments: ["@Shared.CommandBus"]
+
+  Apps.Core.Controllers.UserPasswordPatchController:
+    class: src/apps/Core/controllers/http/User/UserPasswordPatchController
+    arguments: ["@Shared.CommandBus"]
+
+  Apps.Core.Controllers.UserIsAdminPatchController:
+    class: src/apps/Core/controllers/http/User/UserIsAdminPatchController
+    arguments: ["@Shared.CommandBus"]
+
+  Apps.Core.Controllers.MyselfGetController:
+    class: src/apps/Core/controllers/http/User/MyselfGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.UsersGetController:
+    class: src/apps/Core/controllers/http/User/UsersGetController
+    arguments: ["@Shared.QueryBus"]
+
+  Apps.Core.Controllers.UserGetController:
+    class: src/apps/Core/controllers/http/User/UserGetController
+    arguments: ["@Shared.QueryBus"]
+
+  # ACCOUNT
+
+  Apps.Core.Controllers.AccountGetController:
+    class: src/apps/Core/controllers/http/Account/AccountGetController
+    arguments: ["@Shared.QueryBus"]
+
+  Apps.Core.Controllers.AccountsGetController:
+    class: src/apps/Core/controllers/http/Account/AccountsGetController
+    arguments: ["@Shared.QueryBus"]
+
+  Apps.Core.Controllers.FindByIdAccountController:
+    class: src/apps/Core/controllers/http/Account/FindByIdAccountController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.AccountDeleteController:
+    class: src/apps/Core/controllers/http/Account/AccountDeleteController
+    arguments: ["@Shared.CommandBus"]
+
+  Apps.Core.Controllers.AccountPostController:
+    class: src/apps/Core/controllers/http/Account/AccountPostController
+    arguments: ["@Shared.CommandBus"]
+
+  Apps.Core.Controllers.AccountPutController:
+    class: src/apps/Core/controllers/http/Account/AccountPutController
+    arguments: ["@Shared.CommandBus"]
+
+  Apps.Core.Controllers.SocketHealthController:
+    class: src/apps/Core/controllers/socket/HealthController
+    arguments: []
+
+  # CARD
+
+  Apps.Core.Controllers.CardGetController:
+    class: src/apps/Core/controllers/http/Card/CardGetController
+    arguments: ["@Shared.QueryBus"]
+
+  Apps.Core.Controllers.CardsGetController:
+    class: src/apps/Core/controllers/http/Card/CardsGetController
+    arguments: ["@Shared.QueryBus"]
+
+  Apps.Core.Controllers.FindByIdCardController:
+    class: src/apps/Core/controllers/http/Card/FindByIdCardController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.CardDeleteController:
+    class: src/apps/Core/controllers/http/Card/CardDeleteController
+    arguments: ["@Shared.CommandBus"]
+
+  Apps.Core.Controllers.CardPostController:
+    class: src/apps/Core/controllers/http/Card/CardPostController
+    arguments: ["@Shared.CommandBus"]
+
+  Apps.Core.Controllers.CardPutController:
+    class: src/apps/Core/controllers/http/Card/CardPutController
+    arguments: ["@Shared.CommandBus"]
+
+  Apps.Core.Controllers.LimitCardPutController:
+    class: src/apps/Core/controllers/http/Card/LimitCardPutController
+    arguments: ["@Shared.CommandBus"]
+
+  # TRANSACTION
+
+  Apps.Core.Controllers.TransactionPostController:
+    class: src/apps/Core/controllers/http/Transaction/TransactionPostController
+    arguments: ["@Shared.CommandBus"]
+
+  Apps.Core.Controllers.TransactionGetController:
+    class: src/apps/Core/controllers/http/Transaction/TransactionGetController
+    arguments: ["@Shared.QueryBus"]
+
+  Apps.Core.Controllers.TransactionsGetController:
+    class: src/apps/Core/controllers/http/Transaction/TransactionsGetController
+    arguments: ["@Shared.QueryBus"]
+

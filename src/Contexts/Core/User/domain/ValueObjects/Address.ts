@@ -1,0 +1,5 @@
+import { StringValueObject } from "@Shared/domain/ValueObjects/StringValueObject";
+
+export class Address extends StringValueObject {
+  value: any;
+}

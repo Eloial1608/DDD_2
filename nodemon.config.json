@@ -1,0 +1,8 @@
+{
+    "verbose": true,
+    "watch": ["src"],
+    "ignore": ["node_modules", "tests"],
+    "execMap": {
+        "ts": "ts-node"
+    }
+  }

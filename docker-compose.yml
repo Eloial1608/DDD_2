@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres:17.1
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: superuser
+      POSTGRES_USER: superuser
+    ports:
+      - 5430:5432
+    volumes:
+      - ./etc/database/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro

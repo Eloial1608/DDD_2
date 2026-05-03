@@ -1,0 +1,244 @@
+services:
+
+  # =====================
+  # USER
+  # =====================
+
+  User.Repository:
+    class: src/Contexts/Core/User/infrastructure/persistence/TypeOrmUserRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  User.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/User/application/FindByCriteria/FinderByCriteria
+    arguments: ['@User.Repository']
+
+  User.FindByCriteria.FindUsersByCriteriaQueryHandler:
+    class: src/Contexts/Core/User/application/FindByCriteria/FindUsersByCriteriaQueryHandler
+    arguments: ['@User.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+  User.FindById.FinderById:
+    class: src/Contexts/Core/User/application/FindById/FinderById
+    arguments: ['@User.Repository']
+
+  User.FindById.FindUserByIdQueryHandler:
+    class: src/Contexts/Core/User/application/FindById/FindUserByIdQueryHandler
+    arguments: ['@User.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  User.Create.Creator:
+    class: src/Contexts/Core/User/application/Create/Creator
+    arguments: ['@User.Repository']
+
+  User.Create.CreateUserCommandHandler:
+    class: src/Contexts/Core/User/application/Create/CreateUserCommandHandler
+    arguments: ["@User.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  User.Update.Updater:
+    class: src/Contexts/Core/User/application/Update/Updater
+    arguments: ['@User.Repository']
+
+  User.Update.UpdateUserCommandHandler:
+    class: src/Contexts/Core/User/application/Update/UpdaterUserCommandHandler
+    arguments: ["@User.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
+  User.UpdateIsAdmin.UpdaterIsAdmin:
+    class: src/Contexts/Core/User/application/UpdateIsAdmin/UpdaterIsAdmin
+    arguments: ['@User.Repository']
+
+  User.UpdateIsAdmin.UpdateIsAdminUserCommandHandler:
+    class: src/Contexts/Core/User/application/UpdateIsAdmin/UpdateIsAdminUserCommandHandler
+    arguments: ["@User.UpdateIsAdmin.UpdaterIsAdmin"]
+    tags:
+      - { name: "commandHandler" }
+
+  User.UpdatePassword.UpdatePassword:
+    class: src/Contexts/Core/User/application/UpdatePassword/UpdatePassword
+    arguments: ["@User.Repository"]
+
+  User.UpdatePassword.UpdatePasswordUserCommandHandler:
+    class: src/Contexts/Core/User/application/UpdatePassword/UpdatePasswordUserCommandHandler
+    arguments: ["@User.UpdatePassword.UpdatePassword"]
+    tags:
+      - { name: "commandHandler" }
+
+  User.Delete.Deleter:
+    class: src/Contexts/Core/User/application/Delete/Deleter
+    arguments: ['@User.Repository']
+
+  User.Delete.DeleteUserCommandHandler:
+    class: src/Contexts/Core/User/application/Delete/DeleteUserCommandHandler
+    arguments: ["@User.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
+  # =====================
+  # ACCOUNT
+  # =====================
+
+  Account.Repository:
+    class: src/Contexts/Core/Account/infrastructure/persistence/TypeOrmAccountRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Account.Create.Creator:
+    class: src/Contexts/Core/Account/application/Create/Creator
+    arguments: ['@Account.Repository']
+
+  Account.Create.CreateAccountCommandHandler:
+    class: src/Contexts/Core/Account/application/Create/CreateAccountCommandHandler
+    arguments: ["@Account.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  Account.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/Account/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Account.Repository']
+
+  Account.FindByCriteria.FindAccountsByCriteriaQueryHandler:
+    class: src/Contexts/Core/Account/application/FindByCriteria/FindAccountsByCriteriaQueryHandler
+    arguments: ['@Account.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+  Account.FindById.FinderById:
+    class: src/Contexts/Core/Account/application/FindById/FinderById
+    arguments: ['@Account.Repository']
+
+  Account.FindById.FindAccountByIdQueryHandler:
+    class: src/Contexts/Core/Account/application/FindById/FindAccountByIdQueryHandler
+    arguments: ['@Account.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  Account.Update.Updater:
+    class: src/Contexts/Core/Account/application/Update/Updater
+    arguments: ['@Account.Repository']
+
+  Account.Update.UpdateAccountCommandHandler:
+    class: src/Contexts/Core/Account/application/Update/UpdateAccountCommandHandler
+    arguments: ["@Account.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
+  Account.Delete.Deleter:
+    class: src/Contexts/Core/Account/application/Delete/Deleter
+    arguments: ['@Account.Repository']
+
+  Account.Delete.DeleteAccountCommandHandler:
+    class: src/Contexts/Core/Account/application/Delete/DeleteAccountCommandHandler
+    arguments: ["@Account.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
+  # =====================
+  # CARD
+  # =====================
+
+  Card.Repository:
+    class: src/Contexts/Core/Card/infrastructure/persistence/TypeOrmCardRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Card.Create.Creator:
+    class: src/Contexts/Core/Card/application/Create/Creator
+    arguments: ['@Card.Repository', '@Account.Repository']
+
+  Card.Create.CreateCardCommandHandler:
+    class: src/Contexts/Core/Card/application/Create/CreateCardCommandHandler
+    arguments: ["@Card.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  Card.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/Card/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Card.Repository']
+
+  Card.FindByCriteria.FindCardsByCriteriaQueryHandler:
+    class: src/Contexts/Core/Card/application/FindByCriteria/FindCardsByCriteriaQueryHandler
+    arguments: ['@Card.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+  Card.FindById.FinderById:
+    class: src/Contexts/Core/Card/application/FindById/FinderById
+    arguments: ['@Card.Repository']
+
+  Card.FindById.FindCardByIdQueryHandler:
+    class: src/Contexts/Core/Card/application/FindById/FindCardByIdQueryHandler
+    arguments: ['@Card.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  Card.Update.Updater:
+    class: src/Contexts/Core/Card/application/Update/Updater
+    arguments: ['@Card.Repository']
+
+  Card.Update.UpdateCardCommandHandler:
+    class: src/Contexts/Core/Card/application/Update/UpdateCardCommandHandler
+    arguments: ["@Card.Update.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
+  Card.UpdateLimit.UpdateCardLimit:
+    class: src/Contexts/Core/Card/application/UpdateLimit/UpdateCardLimit
+    arguments: ['@Card.Repository']
+
+  Card.UpdateLimit.UpdateCardLimitCommandHandler:
+    class: src/Contexts/Core/Card/application/UpdateLimit/UpdateCardLimitCommandHandler
+    arguments: ["@Card.UpdateLimit.UpdateCardLimit"]
+    tags:
+      - { name: "commandHandler" }
+
+  Card.Delete.Deleter:
+    class: src/Contexts/Core/Card/application/Delete/Deleter
+    arguments: ['@Card.Repository']
+
+  Card.Delete.DeleteCardCommandHandler:
+    class: src/Contexts/Core/Card/application/Delete/DeleteCardCommandHandler
+    arguments: ["@Card.Delete.Deleter"]
+    tags:
+      - { name: "commandHandler" }
+
+
+  # =====================
+  # TRANSACTION
+  # =====================
+
+  Transaction.Repository:
+    class: src/Contexts/Core/Transaction/infrastructure/persistence/TypeOrmTransactionRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  Transaction.Create.Creator:
+    class: src/Contexts/Core/Transaction/application/Create/Creator
+    arguments: ['@Transaction.Repository', '@Account.Repository']
+
+  Transaction.Create.CreateTransactionCommandHandler:
+    class: src/Contexts/Core/Transaction/application/Create/CreateTransactionCommandHandler
+    arguments: ["@Transaction.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  Transaction.FindByCriteria.FinderByCriteria:
+    class: src/Contexts/Core/Transaction/application/FindByCriteria/FinderByCriteria
+    arguments: ['@Transaction.Repository'] 
+
+  Transaction.FindByCriteria.FindTransactionsByCriteriaQueryHandler:
+    class: src/Contexts/Core/Transaction/application/FindByCriteria/FindTransactionsByCriteriaQueryHandler
+    arguments: ['@Transaction.FindByCriteria.FinderByCriteria']
+    tags:
+      - { name: "queryHandler" }
+
+  Transaction.FindById.FinderById:
+    class: src/Contexts/Core/Transaction/application/FindById/FinderById
+    arguments: ['@Transaction.Repository'] 
+
+  Transaction.FindById.FindTransactionByIdQueryHandler:
+    class: src/Contexts/Core/Transaction/application/FindById/FindTransactionByIdQueryHandler
+    arguments: ['@Transaction.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }

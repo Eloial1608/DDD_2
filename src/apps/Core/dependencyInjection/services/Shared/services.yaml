@@ -1,0 +1,36 @@
+services:
+  Shared.QueryBus.QueryHandlerInformation:
+    class: 'src/Contexts/Shared/infrastructure/QueryBus/handler/QueryHandlerInformation'
+    arguments: ['!tagged queryHandler']
+
+  Shared.QueryBus:
+    class: 'src/Contexts/Shared/infrastructure/QueryBus/QueryBus'
+    arguments: ['@Shared.QueryBus.QueryHandlerInformation']
+
+  Shared.CommandBus.CommandHandlerInformation:
+    class: 'src/Contexts/Shared/infrastructure/CommandBus/handler/CommandHandlerInformation'
+    arguments: ['!tagged commandHandler']
+  
+  Shared.CommandBus:
+    class: 'src/Contexts/Shared/infrastructure/CommandBus/CommandBus'
+    arguments: ['@Shared.CommandBus.CommandHandlerInformation']
+
+  Shared.ORM.DataSourceOptions:
+    factory:
+      class: src/Contexts/Core/Shared/infrastructure/persistence/typeorm/TypeOrmConfigFactory
+      method: "create"
+
+  Shared.ORM.Connection:
+    factory:
+      class: src/Contexts/Shared/infrastructure/persistence/typeorm/DataSourceFactory
+      method: "createPostgres"
+    arguments: ["core", "@Shared.ORM.DataSourceOptions"]
+  
+  Shared.TokenDecoder.ConfigFactory:
+    factory:
+      class: src/Contexts/Shared/infrastructure/TokenDecoder/JwtTokenDecoderConfigFactory
+      method: 'create'
+  
+  Shared.TokenDecoder:
+    arguments: ['@Shared.TokenDecoder.ConfigFactory']
+    class: src/Contexts/Shared/infrastructure/TokenDecoder/JwtTokenDecoder
