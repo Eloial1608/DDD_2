@@ -9,16 +9,26 @@ export class AccountDeleteController implements Controller {
 
   async run (req: Request, res: Response): Promise<Response> {
     try {
-      const command = new DeleteAccountCommand(req.params.id)
+      const accountId = req.params.id
+
+      if (!accountId) {
+        return res.status(400).json({ message: 'Account ID is required' })
+      }
+
+      const command = new DeleteAccountCommand(accountId)
 
       await this.commandBus.dispatch(command)
 
-      return res.status(204).send()
+      return res.status(200).json({
+        message: 'Account deleted successfully'
+      })
     } catch (e) {
-      
-      if (e instanceof AccountNotFound) return res.status(404).json({ message: e.getMessage() })
+      if (e instanceof AccountNotFound) {
+        return res.status(404).json({ message: 'Account not found' })
+      }
 
-      return res.status(500).send()
+      console.error('AccountDeleteController error:', e)
+      return res.status(500).json({ message: 'Internal server error' })
     }
   }
 }

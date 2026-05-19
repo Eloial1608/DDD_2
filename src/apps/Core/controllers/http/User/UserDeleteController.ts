@@ -9,8 +9,14 @@ export class UserDeleteController implements Controller {
 
   async run (req: Request, res: Response): Promise<Response> {
     try {
-      const command = new DeleteUserCommand(req.params.id)
+      const userId = req.params.id
+      const authenticatedUserId = (req as any).user?.id || (req as any).userId
 
+      if (userId !== authenticatedUserId) {
+        return res.status(403).json({ message: 'No tienes permiso para eliminar esta cuenta' })
+      }
+
+      const command = new DeleteUserCommand(userId)
       await this.commandBus.dispatch(command)
 
       return res.status(204).send()

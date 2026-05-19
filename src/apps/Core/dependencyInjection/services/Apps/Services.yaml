@@ -1,4 +1,8 @@
 services:
+  Apps.Core.Middleware.AuthMiddleware:
+    class: src/apps/Core/middleware/AuthMiddleware
+    arguments: ["@Shared.TokenDecoder"]
+
   Apps.Core.Middleware.IsAdminMiddleware:
     class: src/apps/Core/middleware/IsAdminMiddleware
     arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
@@ -8,6 +12,10 @@ services:
   Apps.Core.Controllers.RegisterPostController:
     class: src/apps/Core/controllers/http/User/RegisterPostController
     arguments: ["@Shared.CommandBus"]
+
+  Apps.Core.Controllers.LoginPostController:
+    class: src/apps/Core/controllers/http/User/LoginPostController
+    arguments: ["@User.Repository"]
 
   Apps.Core.Controllers.UserDeleteController:
     class: src/apps/Core/controllers/http/User/UserDeleteController
@@ -29,6 +37,10 @@ services:
     class: src/apps/Core/controllers/http/User/MyselfGetController
     arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
 
+  Apps.Core.Controllers.MyselfPutController:
+    class: src/apps/Core/controllers/http/User/MyselfPutController
+    arguments: ["@Shared.CommandBus", "@Shared.TokenDecoder"]
+
   Apps.Core.Controllers.UsersGetController:
     class: src/apps/Core/controllers/http/User/UsersGetController
     arguments: ["@Shared.QueryBus"]
@@ -43,13 +55,13 @@ services:
     class: src/apps/Core/controllers/http/Account/AccountGetController
     arguments: ["@Shared.QueryBus"]
 
+  Apps.Core.Controllers.FindMyAccountsController:
+    class: src/apps/Core/controllers/http/Account/FindMyAccountsController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+
   Apps.Core.Controllers.AccountsGetController:
     class: src/apps/Core/controllers/http/Account/AccountsGetController
     arguments: ["@Shared.QueryBus"]
-
-  Apps.Core.Controllers.FindByIdAccountController:
-    class: src/apps/Core/controllers/http/Account/FindByIdAccountController
-    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
 
   Apps.Core.Controllers.AccountDeleteController:
     class: src/apps/Core/controllers/http/Account/AccountDeleteController
@@ -66,6 +78,10 @@ services:
   Apps.Core.Controllers.SocketHealthController:
     class: src/apps/Core/controllers/socket/HealthController
     arguments: []
+
+  Apps.Core.Controllers.MyAccountGetController:
+    class: src/apps/Core/controllers/http/Account/MyAccountGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
 
   # CARD
 
@@ -97,17 +113,8 @@ services:
     class: src/apps/Core/controllers/http/Card/LimitCardPutController
     arguments: ["@Shared.CommandBus"]
 
-  # TRANSACTION
+  # BANK OPERATION
 
-  Apps.Core.Controllers.TransactionPostController:
-    class: src/apps/Core/controllers/http/Transaction/TransactionPostController
+  Apps.Core.Controllers.BankOperationPostController:
+    class: src/apps/Core/controllers/http/BankOperation/BankOperationPostController
     arguments: ["@Shared.CommandBus"]
-
-  Apps.Core.Controllers.TransactionGetController:
-    class: src/apps/Core/controllers/http/Transaction/TransactionGetController
-    arguments: ["@Shared.QueryBus"]
-
-  Apps.Core.Controllers.TransactionsGetController:
-    class: src/apps/Core/controllers/http/Transaction/TransactionsGetController
-    arguments: ["@Shared.QueryBus"]
-

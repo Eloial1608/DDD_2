@@ -1,13 +1,10 @@
 import { randomInt } from "crypto";
-
 import { Id } from "@Core/Account/domain/ValueObjects/Id";
 import { AccountRepository } from "@Core/Account/domain/AccountRepository";
-
 import { Card } from "@Core/Card/domain/Card";
 import { CardRepository } from "@Core/Card/domain/CardRepository";
 import { CardAlreadyExistsById } from "@Core/Card/domain/Errors/CardAlreadyExistsById";
 import { CardAlreadyExistsByNumber } from "@Core/Card/domain/Errors/CardAlreadyExistsByNumber";
-
 import { AccountId } from "@Core/Card/domain/ValueObjects/AccountId";
 import { CardPin } from "@Core/Card/domain/ValueObjects/CardPin";
 import { Cvv } from "@Core/Card/domain/ValueObjects/Cvv";
@@ -15,11 +12,9 @@ import { Expiration } from "@Core/Card/domain/ValueObjects/Expiration";
 import { LimitCard } from "@Core/Card/domain/ValueObjects/LimitCard";
 import { NumCard } from "@Core/Card/domain/ValueObjects/NumCard";
 import { Type_Card } from "@Core/Card/domain/ValueObjects/Type_Card";
-
 import { Criteria } from "@Shared/domain/Criteria/Criteria";
 import { Filter } from "@Shared/domain/Criteria/Filter";
 import { Filters } from "@Shared/domain/Criteria/Filters";
-
 import { Balance } from "@Core/Account/domain/ValueObjects/Balance";
 
 export class Creator {
@@ -35,13 +30,10 @@ export class Creator {
   ): Promise<Card> {
 
     const id = new Id(Id.random().toString());
-
     const numCard = this.generateCardNumber();
     const cvv = this.generateCVV();
     const expiration = this.generateExpiration();
-
     await this.ensureCardDoesNotExist(id, numCard);
-
     const account = await this.accountRepository.find(accountId);
 
     if (!account) {

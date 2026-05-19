@@ -28,6 +28,16 @@ services:
     tags:
       - { name: "queryHandler" }
 
+  User.FindByEmail.FinderByEmail:
+    class: src/Contexts/Core/User/application/FindByEmail/FinderByEmail
+    arguments: ['@User.Repository']
+
+  User.FindByEmail.FindUserByEmailQueryHandler:
+    class: src/Contexts/Core/User/application/FindByEmail/FindUserByEmailQueryHandler
+    arguments: ['@User.FindByEmail.FinderByEmail']
+    tags:
+      - { name: "queryHandler" }
+
   User.Create.Creator:
     class: src/Contexts/Core/User/application/Create/Creator
     arguments: ['@User.Repository']
@@ -113,6 +123,12 @@ services:
   Account.FindById.FindAccountByIdQueryHandler:
     class: src/Contexts/Core/Account/application/FindById/FindAccountByIdQueryHandler
     arguments: ['@Account.FindById.FinderById']
+    tags:
+      - { name: "queryHandler" }
+
+  Account.FindById.FindAccountsByUserIdQueryHandler:
+    class: src/Contexts/Core/Account/application/FindById/FindAccountsByUserIdQueryHandler
+    arguments: ['@Account.FindByCriteria.FinderByCriteria']
     tags:
       - { name: "queryHandler" }
 
@@ -204,41 +220,39 @@ services:
     tags:
       - { name: "commandHandler" }
 
-
+  
   # =====================
-  # TRANSACTION
+  # Bank Operation
   # =====================
 
-  Transaction.Repository:
-    class: src/Contexts/Core/Transaction/infrastructure/persistence/TypeOrmTransactionRepository
+  BankOperation.Process.OperationStrategyRegistryFactory:
+    class: src/Contexts/Core/BankOperation/application/Process/registry/OperationStrategyRegistryFactory
+
+  BankOperation.Process.OperationStrategyRegistry:
+    factory:
+      class: src/Contexts/Core/BankOperation/application/Process/registry/OperationStrategyRegistryFactory
+      method: "create"
+    arguments:
+      - '@Shared.CommandBus'
+
+  BankOperation.Process.ProcessBankOperationCreator:
+    class: src/Contexts/Core/BankOperation/application/Process/ProcessBankOperationCreator
+    arguments: ['@BankOperation.Process.OperationStrategyRegistry']
+
+  BankOperation.Process.ProcessBankOperationCommandHandler:
+    class: src/Contexts/Core/BankOperation/application/Process/ProcessBankOperationCommandHandler
+    arguments: ["@BankOperation.Process.ProcessBankOperationCreator"]
+
+  AccountMovement.Repository:
+    class: src/Contexts/Core/AccountMovement/infrastructure/persistence/TypeOrmAccountMovementRepository
     arguments: ["@Shared.ORM.Connection"]
 
-  Transaction.Create.Creator:
-    class: src/Contexts/Core/Transaction/application/Create/Creator
-    arguments: ['@Transaction.Repository', '@Account.Repository']
-
-  Transaction.Create.CreateTransactionCommandHandler:
-    class: src/Contexts/Core/Transaction/application/Create/CreateTransactionCommandHandler
-    arguments: ["@Transaction.Create.Creator"]
+  AccountMovement.Create.Creator:
+    class: src/Contexts/Core/AccountMovement/application/Create/Creator
+    arguments: ['@AccountMovement.Repository']
+  
+  AccountMovement.Create.AccountMovementCommandHandler:
+    class: src/Contexts/Core/AccountMovement/application/Create/AccountMovementCommandHandler
+    arguments: ["@AccountMovement.Create.Creator"]
     tags:
       - { name: "commandHandler" }
-
-  Transaction.FindByCriteria.FinderByCriteria:
-    class: src/Contexts/Core/Transaction/application/FindByCriteria/FinderByCriteria
-    arguments: ['@Transaction.Repository'] 
-
-  Transaction.FindByCriteria.FindTransactionsByCriteriaQueryHandler:
-    class: src/Contexts/Core/Transaction/application/FindByCriteria/FindTransactionsByCriteriaQueryHandler
-    arguments: ['@Transaction.FindByCriteria.FinderByCriteria']
-    tags:
-      - { name: "queryHandler" }
-
-  Transaction.FindById.FinderById:
-    class: src/Contexts/Core/Transaction/application/FindById/FinderById
-    arguments: ['@Transaction.Repository'] 
-
-  Transaction.FindById.FindTransactionByIdQueryHandler:
-    class: src/Contexts/Core/Transaction/application/FindById/FindTransactionByIdQueryHandler
-    arguments: ['@Transaction.FindById.FinderById']
-    tags:
-      - { name: "queryHandler" }

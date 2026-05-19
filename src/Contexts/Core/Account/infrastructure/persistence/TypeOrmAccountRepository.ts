@@ -22,6 +22,5 @@ export class TypeOrmAccountRepository extends TypeOrmRepository<Account> impleme
 
   async persist (Account: Account): Promise<void> {
     await (await this.repository()).save(Account)
-    
   }
 }

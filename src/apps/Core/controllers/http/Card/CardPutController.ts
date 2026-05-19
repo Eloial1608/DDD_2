@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { Controller } from '../../@types/Controller'
 import { CommandBus } from '@Shared/domain/CommandBus/CommandBus'
-import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { UpdateCardCommand } from '@Core/Card/application/Update/UpdateCardCommand'
 import { CardNotFound } from '@Core/Card/domain/Errors/CardNotFound'
 import { CommandNotRegisteredError } from '@Shared/domain/CommandBus/CommandNotRegisteredError'
@@ -11,6 +10,10 @@ export class CardPutController implements Controller {
 
   async run(req: Request, res: Response): Promise<Response> {
     try {
+      if (!req.params.id) {
+        return res.status(400).json({ message: 'Card ID is required' })
+      }
+
       const command = new UpdateCardCommand(
         req.params.id,
         req.body.cardPin,
@@ -20,23 +23,25 @@ export class CardPutController implements Controller {
 
       await this.commandBus.dispatch(command)
 
-      return res.status(200).send()
+      return res.status(200).json({
+        message: 'Card updated successfully',
+        data: { cardId: req.params.id }
+      })
     } catch (e) {
-      console.log(e)
+      if (e instanceof CardNotFound) {
+        return res.status(404).json({ message: 'Card not found' })
+      }
 
-      if (e instanceof CannotDecode)
-        return res.status(401).json({ message: e.getMessage() })
-
-      if (e instanceof CardNotFound)
+      if (e instanceof CommandNotRegisteredError) {
         return res.status(404).json({ message: e.getMessage() })
+      }
 
-      if (e instanceof CommandNotRegisteredError)
-        return res.status(404).json({ message: e.getMessage() })
-
-      if (e instanceof Error)
+      if (e instanceof Error) {
         return res.status(400).json({ message: e.message })
+      }
 
-      return res.status(500).send()
+      console.error('CardPutController error:', e)
+      return res.status(500).json({ message: 'Internal server error' })
     }
   }
 }

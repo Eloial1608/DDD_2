@@ -11,8 +11,14 @@ export class AccountPutController implements Controller {
 
   async run(req: Request, res: Response): Promise<Response> {
     try {
+      const accountId = req.params.id
+
+      if (!accountId) {
+        return res.status(400).json({ message: 'Account ID is required' })
+      }
+
       const command = new UpdateAccountCommand(
-        req.params.id,
+        accountId,
         req.body.iban,
         req.body.balance,
         req.body.type_account
@@ -20,13 +26,16 @@ export class AccountPutController implements Controller {
 
       await this.commandBus.dispatch(command)
 
-      return res.status(200).send()
+      return res.status(200).json({
+        message: 'Account updated successfully',
+        data: { account: { id: accountId } }
+      })
     } catch (e) {
       if (e instanceof CannotDecode)
         return res.status(401).json({ message: e.getMessage() })
 
       if (e instanceof AccountNotFound)
-        return res.status(404).json({ message: e.getMessage() })
+        return res.status(404).json({ message: 'Account not found' })
 
       if (e instanceof ThrowErrorForInvalidValue)
         return res.status(400).json({ message: e.getMessage() })
@@ -34,7 +43,8 @@ export class AccountPutController implements Controller {
       if (e instanceof Error)
         return res.status(400).json({ message: e.message })
 
-      return res.status(500).send()
+      console.error('AccountPutController error:', e)
+      return res.status(500).json({ message: 'Internal server error' })
     }
   }
 }

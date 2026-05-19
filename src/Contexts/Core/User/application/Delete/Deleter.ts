@@ -7,10 +7,7 @@ export class Deleter {
 
   async run (id: Id) {
     
-    console.log(id.valueOf())
     const user = await this.repository.find(id)
-
-    console.log(id.valueOf())
 
     if (!user) throw new UserNotFound(id)
 

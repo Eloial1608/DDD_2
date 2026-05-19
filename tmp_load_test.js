@@ -1,0 +1,11 @@
+﻿const fs = require("fs");
+const path = require("path");
+const { ContainerBuilder, YamlFileLoader } = require("node-dependency-injection");
+const env = "development";
+const envServicesFile = path.resolve(process.cwd(), "src/apps/Core/dependencyInjection/services/services_" + env + ".yaml");
+const defaultServicesFile = path.resolve(process.cwd(), "src/apps/Core/dependencyInjection/services/services.yaml");
+console.log("envServicesFile", envServicesFile, "exists", fs.existsSync(envServicesFile));
+console.log("defaultServicesFile", defaultServicesFile, "exists", fs.existsSync(defaultServicesFile));
+const container = new ContainerBuilder(true, path.resolve(process.cwd()));
+const loader = new YamlFileLoader(container);
+loader.load(envServicesFile).then(() => console.log("loaded env file successfully")).catch(e => { console.error("env load error", e.message); console.error(e.stack); process.exit(1); });

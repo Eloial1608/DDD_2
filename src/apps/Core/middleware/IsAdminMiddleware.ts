@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from 'express'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { TokenDecoder } from '@Shared/domain/TokenDecoder/TokenDecoder'
 import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
-import { FindUserByIdQuery } from '@Core/User/application/FindById/FindUserByIdQuery'
 import { UserResponse } from '@Core/User/application/UserResponse'
 import { UserNotFound } from '@Core/User/domain/Errors/UserNotFound'
+import { FindUserByIdQuery } from '@Core/User/application/FindById/FindUserByIdQuery'
 
 export class IsAdminMiddleware {
   constructor (

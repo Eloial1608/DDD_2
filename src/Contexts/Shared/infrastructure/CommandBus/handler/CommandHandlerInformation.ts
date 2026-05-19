@@ -18,6 +18,13 @@ export class CommandHandlerInformation {
     return map
   }
 
+  registerHandler (handler: CommandHandler<Command>): void {
+    const command = handler.subscribedTo()
+    if (command) {
+      this.commandHandlersMap.set(command, handler)
+    }
+  }
+
   search (command: Command): CommandHandler<Command> {
     const handler = this.commandHandlersMap.get(command.constructor)
 

@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { Controller } from '../../@types/Controller'
 import { CommandBus } from '@Shared/domain/CommandBus/CommandBus'
-import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { CreateCardCommand } from '@Core/Card/application/Create/CreateCardCommand'
 
 export class CardPostController implements Controller {
@@ -9,6 +8,10 @@ export class CardPostController implements Controller {
 
   async run(req: Request, res: Response): Promise<Response> {
     try {
+      if (!req.user?.id) {
+        return res.status(401).json({ message: 'Unauthorized' })
+      }
+
       const command = new CreateCardCommand(
         req.body.type_Card,
         req.body.cardPin,
@@ -17,15 +20,15 @@ export class CardPostController implements Controller {
 
       await this.commandBus.dispatch(command)
 
-      return res.status(201).send()
+      return res.status(201).json({
+        message: 'Card created successfully',
+        data: { card: { userId: req.user.id, type: req.body.type_Card } }
+      })
     } catch (e) {
-
-      if (e instanceof CannotDecode)
-        return res.status(401).json({ message: e.getMessage() })
-
-      if (e instanceof Error)
+      if (e instanceof Error) {
         return res.status(400).json({ message: e.message })
-
+      }
+      console.error('CardPostController error:', e)
       return res.status(500).json({ message: 'Internal server error' })
     }
   }

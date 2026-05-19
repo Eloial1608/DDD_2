@@ -14,7 +14,7 @@ export class IdentityDocType extends EnumValueObject<Type> {
     }
 
     protected throwErrorForInvalidValue(value: Type): void {
-        throw new Error("Method not implemented.");
+        throw new Error(`Invalid IdentityDocType: ${value}`);
     }
 
 }

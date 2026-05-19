@@ -18,6 +18,9 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
+      "src/*": [
+        "src/*"
+      ],
       "@Shared/*": [
         "src/Contexts/Shared/*"
       ],
@@ -29,13 +32,13 @@
       ],
       "@Core/*": [
         "src/Contexts/Core/*"
-      ],
+      ]
     }
   },
   "include": [
     "src/**/**.ts",
     "tests/**/**.ts"
-  ],
+, "src/apps/Core/routes/http/BankOperation"  ],
   "exclude": [
     "node_modules"
   ]

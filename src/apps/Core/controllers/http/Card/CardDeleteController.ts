@@ -9,16 +9,22 @@ export class CardDeleteController implements Controller {
 
   async run (req: Request, res: Response): Promise<Response> {
     try {
+      if (!req.params.id) {
+        return res.status(400).json({ message: 'Card ID is required' })
+      }
+
       const command = new DeleteCardCommand(req.params.id)
 
       await this.commandBus.dispatch(command)
 
-      return res.status(204).send()
+      return res.status(200).json({ message: 'Card deleted successfully' })
     } catch (e) {
-      console.log(e)
-      if (e instanceof CardNotFound) return res.status(404).json({ message: e.getMessage() })
+      if (e instanceof CardNotFound) {
+        return res.status(404).json({ message: 'Card not found' })
+      }
 
-      return res.status(500).send()
+      console.error('CardDeleteController error:', e)
+      return res.status(500).json({ message: 'Internal server error' })
     }
   }
 }

@@ -5,7 +5,7 @@ import { Creator } from './Creator'
 import { Name } from '@Core/User/domain/ValueObjects/Name'
 import { Username } from '@Core/User/domain/ValueObjects/Username'
 import { Email } from '@Core/User/domain/ValueObjects/Email'
-import { Password } from '@Core/User/domain/ValueObjects/Password'
+import { Password, encryptPassword } from '@Core/User/domain/ValueObjects/Password'
 import { IsAdmin } from '@Core/User/domain/ValueObjects/IsAdmin'
 import { IdentityDocNumber } from '@Core/User/domain/ValueObjects/IdentityDoc/IdentityDocNumber'
 import { IdentityDoc } from '@Core/User/domain/ValueObjects/IdentityDoc/IdentityDoc'
@@ -25,12 +25,13 @@ export class CreateUserCommandHandler implements CommandHandler<CreateUserComman
   }
 
   async handle (command: CreateUserCommand): Promise<void> {
+    const encryptedPassword = await encryptPassword(command.password)
 
     await this.creator.run(
       new Name(command.name),
       new Username(command.username),
       new Email(command.email),
-      Password.Create(command.password),
+      new Password(encryptedPassword),
       new IsAdmin(command.isAdmin),
       new IdentityDoc(
         new IdentityDocNumber(command.identityDocNumber),
