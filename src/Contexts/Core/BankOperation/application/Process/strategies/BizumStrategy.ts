@@ -26,6 +26,8 @@ export class BizumStrategy
       throw new Error("Insufficient funds")
     }
 
+    const operationId = crypto.randomUUID()
+
     await this.commandBus.dispatch(
       new AccountMovementCommand(
         crypto.randomUUID(),

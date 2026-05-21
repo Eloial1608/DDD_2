@@ -22,10 +22,12 @@ export class DepositStrategy
     const query = new FindAcountByIdQuery(payload.accountId)
     const bankAccount = await this.queryBus.ask<AccountResponse>(query)
 
+   const operationId = crypto.randomUUID()
+
     await this.commandBus.dispatch(
       new AccountMovementCommand(
         crypto.randomUUID(),
-        payload.operationId,
+        operationId,
         payload.accountId,
         payload.amount,
         AccountMovementTypeEnum.DEPOSIT,
