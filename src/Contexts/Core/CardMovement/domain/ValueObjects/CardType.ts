@@ -3,7 +3,6 @@ import { EnumValueObject } from '@Shared/domain/ValueObjects/EnumValueObject';
 export enum AccountMovementTypeEnum {
   DEBIT = 'DEBIT',
   CREDIT = 'CREDIT',
-  CREDIT_CARD_PAYMENT = "CREDIT_CARD_PAYMENT"
 }
 
 export class AccountMovementType extends EnumValueObject<AccountMovementTypeEnum> {

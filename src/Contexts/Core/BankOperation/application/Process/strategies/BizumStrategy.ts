@@ -31,7 +31,7 @@ export class BizumStrategy
     await this.commandBus.dispatch(
       new AccountMovementCommand(
         crypto.randomUUID(),
-        payload.operationId,
+        operationId,
         payload.originAccountId,
         -payload.amount,
         AccountMovementTypeEnum.BIZUM,
@@ -50,7 +50,7 @@ export class BizumStrategy
     await this.commandBus.dispatch(
       new AccountMovementCommand(
         crypto.randomUUID(),
-        payload.operationId,
+        operationId,
         payload.destinationAccountId,
         -payload.amount,
         AccountMovementTypeEnum.BIZUM,
