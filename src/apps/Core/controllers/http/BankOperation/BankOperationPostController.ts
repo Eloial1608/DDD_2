@@ -4,6 +4,7 @@ import { CommandBus } from '@Shared/domain/CommandBus/CommandBus'
 import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
 import { AccountNotFound } from '@Core/Account/domain/Errors/AccountNotFound'
 import { ProcessBankOperationCommand } from '@Core/BankOperation/application/Process/ProcessBankOperationCommand'
+import { CardNotFound } from 'src/Contexts/Core/Card/domain/Errors/CardNotFound'
 
 export class BankOperationPostController implements Controller {
   constructor(private readonly commandBus: CommandBus) {}
@@ -15,6 +16,7 @@ export class BankOperationPostController implements Controller {
         req.body.payload
       )
 
+    
       await this.commandBus.dispatch(command)
 
       return res.status(201).send()
@@ -26,6 +28,10 @@ export class BankOperationPostController implements Controller {
 
       if (e instanceof AccountNotFound)
         return res.status(404).json({ code: e.getCode(), message: e.getMessage() })
+
+      if (e instanceof CardNotFound)
+        return res.status(404).json({ code: e.getCode(), message: e.getMessage() })
+
 
       if (e instanceof Error)
         return res.status(400).json({ message: e.message })

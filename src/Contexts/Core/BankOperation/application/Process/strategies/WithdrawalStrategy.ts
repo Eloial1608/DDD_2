@@ -24,11 +24,12 @@ export class WithdrawalStrategy
     if (originBankAccount.response.balance < payload.amount) {
       throw new Error("Insufficient funds")
     }
+    const operationId = crypto.randomUUID()
 
     await this.commandBus.dispatch(
       new AccountMovementCommand(
         crypto.randomUUID(),
-        payload.operationId,
+        operationId,
         payload.accountId,
         payload.amount,
         AccountMovementTypeEnum.WITHDRAWAL,

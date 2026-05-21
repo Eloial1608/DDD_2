@@ -35,11 +35,12 @@ export class CreditCardDebtPaymentStrategy
       }
 
       const accountMovementId = crypto.randomUUID()
+      const operationId = crypto.randomUUID()
 
       await this.commandBus.dispatch(
           new AccountMovementCommand(
             accountMovementId,
-            payload.operationId,
+            operationId,
             payload.accountId,
             -cardDiference,
             AccountMovementTypeEnum.CREDIT_CARD_PAYMENT,
@@ -59,7 +60,7 @@ export class CreditCardDebtPaymentStrategy
       await this.commandBus.dispatch(
           new CreateCardMovementCommand(
             crypto.randomUUID(),
-            payload.operationId,
+            operationId,
             payload.cardId,
             cardDiference,
             payload.description ?? "Credit card debt payment",

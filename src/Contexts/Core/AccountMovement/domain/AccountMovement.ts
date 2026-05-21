@@ -8,7 +8,7 @@
   import { CreatedAt } from "./ValueObjects/CreatedAt";
   import { RelatedAccountId } from "./ValueObjects/RelatedAccountId";
   import { TransferId } from "./ValueObjects/TransferId";
-import { AccountMovementId } from "./ValueObjects/AccountMovementId";
+  import { AccountMovementId } from "./ValueObjects/AccountMovementId";
 
   export class AccountMovement extends AggregateRoot {
     constructor(

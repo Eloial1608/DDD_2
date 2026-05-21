@@ -28,11 +28,12 @@ export class DebitCardPaymentStrategy
     }
 
     const accountMovementId = crypto.randomUUID()
-    
+    const operationId = crypto.randomUUID()
+
     await this.commandBus.dispatch(
       new CreateCardMovementCommand(
         crypto.randomUUID(),
-        payload.operationId,
+        operationId,
         payload.cardId,
         -payload.amount,
         payload.description ?? "Debit card payment",
@@ -43,7 +44,7 @@ export class DebitCardPaymentStrategy
     await this.commandBus.dispatch(
       new AccountMovementCommand(
         accountMovementId,
-        payload.operationId,
+        operationId,
         payload.originAccountId,
         -payload.amount,
         AccountMovementTypeEnum.PAYMENT,
@@ -63,7 +64,7 @@ export class DebitCardPaymentStrategy
     await this.commandBus.dispatch(
       new AccountMovementCommand(
         crypto.randomUUID(),
-        payload.operationId,
+        operationId,
         payload.relatedAccountId,
         payload.amount,
         AccountMovementTypeEnum.PAYMENT,

@@ -27,11 +27,12 @@ export class CreditCardPaymentStrategy
     if (originCard.response.balance < payload.amount) {
       throw new Error("Insufficient funds")
     }
+    const operationId = crypto.randomUUID()
 
     await this.commandBus.dispatch(
       new CreateCardMovementCommand(
         crypto.randomUUID(),
-        payload.operationId,
+        operationId,
         payload.cardId,
         -payload.amount,
         payload.description ?? "Credit card payment",
@@ -49,7 +50,7 @@ export class CreditCardPaymentStrategy
     await this.commandBus.dispatch(
       new AccountMovementCommand(
         crypto.randomUUID(),
-        payload.operationId,
+        operationId,
         payload.accountId,
         payload.amount,
         AccountMovementTypeEnum.CREDIT_CARD_PAYMENT,
@@ -60,7 +61,7 @@ export class CreditCardPaymentStrategy
 
     await this.commandBus.dispatch(
       new UpdateAccountBalanceCommand(
-        payload.cardId,
+        payload.accountId,
         originCard.response.balance + payload.amount
       )
      )
