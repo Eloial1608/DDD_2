@@ -19,6 +19,13 @@ export class BizumStrategy
   async execute(
     payload: BizumPayload["payload"]
   ): Promise<void> {
+    const originQuery = new FindAcountByIdQuery(payload.originAccountId)
+    const originBankAccount = await this.queryBus.ask<AccountResponse>(originQuery)
+
+    if (originBankAccount.response.balance < payload.amount) {
+      throw new Error("Insufficient funds")
+    }
+
     await this.commandBus.dispatch(
       new AccountMovementCommand(
         crypto.randomUUID(),
@@ -30,9 +37,6 @@ export class BizumStrategy
         payload.destinationAccountId
       )
     )
-    console.log("Origin account movement created")
-    const originQuery = new FindAcountByIdQuery(payload.originAccountId)
-    const originBankAccount = await this.queryBus.ask<AccountResponse>(originQuery)
 
     await this.commandBus.dispatch(
       new UpdateAccountBalanceCommand(

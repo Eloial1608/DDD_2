@@ -6,6 +6,7 @@ import { CardMovementId } from '@Core/CardMovement/domain/ValueObjects/CardMovem
 import { CardId } from '@Core/CardMovement/domain/ValueObjects/CardId'
 import { CardMovementAmount } from '@Core/CardMovement/domain/ValueObjects/CardMovementAmount'
 import { CardMovementDescription } from '@Core/CardMovement/domain/ValueObjects/CardMovementDescription'
+import { TransferId } from '../../domain/ValueObjects/TransferId'
 
 export class CreateCardMovementCommandHandler implements CommandHandler<CreateCardMovementCommand> {
   constructor (private readonly creator: Creator) {}
@@ -17,6 +18,7 @@ export class CreateCardMovementCommandHandler implements CommandHandler<CreateCa
   async handle (command: CreateCardMovementCommand): Promise<void> {
     await this.creator.run(
       new CardMovementId(command.id),
+      new TransferId(command.operationId),
       new CardId(command.cardId),
       new CardMovementAmount(command.amount),
       command.description ? new CardMovementDescription(command.description) : undefined,

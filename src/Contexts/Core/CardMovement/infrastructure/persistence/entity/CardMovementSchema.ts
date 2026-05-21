@@ -6,6 +6,7 @@ import { CardMovementDescription } from "@Core/CardMovement/domain/ValueObjects/
 import { CardMovementId } from "@Core/CardMovement/domain/ValueObjects/CardMovementId"
 import { CreatedAt } from "@Core/CardMovement/domain/ValueObjects/CreatedAt"
 import { ValueObjectTransformer } from "@Shared/domain/ValueObjects/ValueObjectTransformer"
+import { TransferId } from "../../../domain/ValueObjects/TransferId"
 
 export const CardMovementSchema = new EntitySchema<CardMovement>({
   name: "CardMovement",
@@ -17,6 +18,11 @@ export const CardMovementSchema = new EntitySchema<CardMovement>({
       type: String,
       primary: true,
       transformer: ValueObjectTransformer(CardMovementId),
+    },
+
+    operationId: {
+      type: String,
+      transformer: ValueObjectTransformer(TransferId),
     },
 
     cardId: {

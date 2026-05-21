@@ -4,7 +4,7 @@ import { CommandBus } from '@Shared/domain/CommandBus/CommandBus'
 import { CardNotFound } from '@Core/Card/domain/Errors/CardNotFound'
 import { CommandNotRegisteredError } from '@Shared/domain/CommandBus/CommandNotRegisteredError'
 import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
-import { UpdateCardPinCommand } from 'src/Contexts/Core/Card/application/UpdateAccountCardPin/UpdateCardPinCommand'
+import { UpdateCardPinCommand } from 'src/Contexts/Core/Card/application/UpdateCardPin/UpdateCardPinCommand'
 
 export class CardPinPutController implements Controller {
   constructor(private readonly commandBus: CommandBus) {}

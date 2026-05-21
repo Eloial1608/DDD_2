@@ -5,12 +5,14 @@ import { CardMovementId } from "@Core/CardMovement/domain/ValueObjects/CardMovem
 import { CardMovementAmount } from "@Core/CardMovement/domain/ValueObjects/CardMovementAmount";
 import { CardMovementDescription } from "@Core/CardMovement/domain/ValueObjects/CardMovementDescription";
 import { CardMovementAlreadyExists } from "@Core/CardMovement/domain/Errors/CardMovementAlreadyExists";
+import { TransferId } from "../../domain/ValueObjects/TransferId";
 
 export class Creator {
   constructor(readonly repository: CardMovementRepository) {}
 
   async run(
     id: CardMovementId,
+    operationId: TransferId,
     cardId: CardId,
     amount: CardMovementAmount,
     description?: CardMovementDescription,
@@ -20,6 +22,7 @@ export class Creator {
 
     const movement = CardMovement.create(
       id,
+      operationId,
       cardId,
       amount,
       description,

@@ -5,10 +5,12 @@ import { CardId } from "./ValueObjects/CardId"
 import { CardMovementAmount } from "./ValueObjects/CardMovementAmount"
 import { CardMovementDescription } from "./ValueObjects/CardMovementDescription"
 import { CardMovementId } from "./ValueObjects/CardMovementId"
+import { TransferId } from "./ValueObjects/TransferId"
 
 export class CardMovement extends AggregateRoot {
   constructor(
     readonly id: CardMovementId,
+    readonly operationId: TransferId,
     readonly cardId: CardId,
     readonly amount: CardMovementAmount,
     readonly description: CardMovementDescription,
@@ -20,6 +22,7 @@ export class CardMovement extends AggregateRoot {
 
   static create(
     id: CardMovementId,
+    operationId: TransferId,
     cardId: CardId,
     amount: CardMovementAmount,
     description: Nullable<CardMovementDescription>,
@@ -30,6 +33,7 @@ export class CardMovement extends AggregateRoot {
 
     return new CardMovement(
       id,
+      operationId,
       cardId,
       amount,
       description ?? new CardMovementDescription(""),

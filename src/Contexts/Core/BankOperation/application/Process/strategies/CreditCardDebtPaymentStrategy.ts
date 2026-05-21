@@ -2,15 +2,15 @@ import { AccountMovementCommand } from "@Core/AccountMovement/application/Create
 import { AccountMovementTypeEnum } from "@Core/AccountMovement/domain/ValueObjects/AccountMovementType"
 import { OperationStrategy } from "./OperationStrategy"
 import { CommandBus } from "@Shared/domain/CommandBus/CommandBus"
-import { CardResponse } from "src/Contexts/Core/Card/application/CardResponse"
-import { FindCardByIdQuery } from "src/Contexts/Core/Card/application/FindById/FindCardByIdQuery"
-import { QueryBus } from "src/Contexts/Shared/domain/QueryBus/QueryBus"
+import { CardResponse } from "@Core/Card/application/CardResponse"
+import { FindCardByIdQuery } from "@Core/Card/application/FindById/FindCardByIdQuery"
+import { QueryBus } from "@Shared/domain/QueryBus/QueryBus"
 import { CreditCardDebtPaymentPayload } from "../dto/payloads/CreditCardDebtPaymentPayload"
-import { FindAcountByIdQuery } from "src/Contexts/Core/Account/application/FindById/FindAccountByIdQuery"
-import { AccountResponse } from "src/Contexts/Core/Account/application/AccountResponse"
-import { UpdateAccountBalanceCommand } from "src/Contexts/Core/Account/application/UpdateBalance/UpdateAccountBalanceCommand"
-import { UpdateAccountCardBalanceCommand } from "src/Contexts/Core/Card/application/UpdateAccountCardBalance/UpdateAccountCardBalanceCommand"
-import { CreateCardMovementCommand } from "src/Contexts/Core/CardMovement/application/Create/CreateCardMovementCommand"
+import { FindAcountByIdQuery } from "@Core/Account/application/FindById/FindAccountByIdQuery"
+import { AccountResponse } from "@Core/Account/application/AccountResponse"
+import { UpdateAccountBalanceCommand } from "@Core/Account/application/UpdateBalance/UpdateAccountBalanceCommand"
+import { UpdateBalanceCommand } from "@Core/Card/application/UpdateBalance/UpdateBalanceCommand"
+import { CreateCardMovementCommand } from "@Core/CardMovement/application/Create/CreateCardMovementCommand"
 
 export class CreditCardDebtPaymentStrategy
   implements OperationStrategy<CreditCardDebtPaymentPayload["payload"]> {
@@ -29,14 +29,9 @@ export class CreditCardDebtPaymentStrategy
       const cardDiference = creditCard.response.limitCard - creditCard.response.balance
       const accountQuery = new FindAcountByIdQuery(payload.accountId)
       const bankAccount = await this.queryBus.ask<AccountResponse>(accountQuery)
-
-      console.log("Card difference: ", cardDiference)
-      console.log("Account balance: ", bankAccount.response.balance)
-      console.log("Card balance: ", creditCard.response.balance)
-      console.log("Card limit: ", creditCard.response.limitCard)
       
       if (bankAccount.response.balance < cardDiference) {
-        throw new Error("The card does not have enough balance to make the payment")
+        throw new Error("Insuficient funds")
       }
 
       const accountMovementId = crypto.randomUUID()
@@ -48,7 +43,7 @@ export class CreditCardDebtPaymentStrategy
             payload.accountId,
             -cardDiference,
             AccountMovementTypeEnum.CREDIT_CARD_PAYMENT,
-            payload.description ?? "Credit card payment",
+            payload.description ?? "Credit card debt payment",
             undefined,
             payload.cardId
           )
@@ -64,15 +59,16 @@ export class CreditCardDebtPaymentStrategy
       await this.commandBus.dispatch(
           new CreateCardMovementCommand(
             crypto.randomUUID(),
+            payload.operationId,
             payload.cardId,
             cardDiference,
-            payload.description ?? "Credit card payment",
+            payload.description ?? "Credit card debt payment",
             accountMovementId
           )
         )
   
       await this.commandBus.dispatch(
-        new UpdateAccountCardBalanceCommand(
+        new UpdateBalanceCommand(
           creditCard.response.id,
           creditCard.response.balance + cardDiference
         )
