@@ -142,6 +142,16 @@ services:
     tags:
       - { name: "commandHandler" }
 
+  Account.UpdateBalance.Updater:
+    class: src/Contexts/Core/Account/application/UpdateBalance/Updater
+    arguments: ['@Account.Repository']
+
+  Account.Update.UpdateAccountBalanceCommandHandler:
+    class: src/Contexts/Core/Account/application/UpdateBalance/UpdateAccountBalanceCommandHandler
+    arguments: ["@Account.UpdateBalance.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
   Account.Delete.Deleter:
     class: src/Contexts/Core/Account/application/Delete/Deleter
     arguments: ['@Account.Repository']
@@ -190,6 +200,16 @@ services:
     tags:
       - { name: "queryHandler" }
 
+  Card.FindByUserId.FinderByUserId:
+    class: src/Contexts/Core/Card/application/FindByUserId/FinderByUserId
+    arguments: ['@Card.Repository', '@Account.Repository']
+
+  Card.FindByUserId.FindCardsByUserIdQueryHandler:
+    class: src/Contexts/Core/Card/application/FindByUserId/FindCardsByUserIdQueryHandler
+    arguments: ['@Card.FindByUserId.FinderByUserId']
+    tags:
+      - { name: "queryHandler" }
+
   Card.Update.Updater:
     class: src/Contexts/Core/Card/application/Update/Updater
     arguments: ['@Card.Repository']
@@ -220,7 +240,26 @@ services:
     tags:
       - { name: "commandHandler" }
 
-  
+  Card.UpdateAccountCardBalance.Updater:
+    class: src/Contexts/Core/Card/application/UpdateAccountCardBalance/Updater
+    arguments: ['@Card.Repository']
+
+  Card.UpdateAccountCardBalance.UpdateAccountCardBalanceCommandHandler:
+    class: src/Contexts/Core/Card/application/UpdateAccountCardBalance/UpdateAccountCardBalanceCommandHandler
+    arguments: ["@Card.UpdateAccountCardBalance.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
+  Card.UpdateAccountCardPin.Updater:
+    class: src/Contexts/Core/Card/application/UpdateAccountCardPin/Updater
+    arguments: ['@Card.Repository']
+
+  Card.UpdateAccountCardPin.UpdateCardPinCommandHandler:
+    class: src/Contexts/Core/Card/application/UpdateAccountCardPin/UpdateCardPinCommandHandler
+    arguments: ["@Card.UpdateAccountCardPin.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
   # =====================
   # Bank Operation
   # =====================
@@ -234,6 +273,7 @@ services:
       method: "create"
     arguments:
       - '@Shared.CommandBus'
+      - '@Shared.QueryBus'
 
   BankOperation.Process.ProcessBankOperationCreator:
     class: src/Contexts/Core/BankOperation/application/Process/ProcessBankOperationCreator
@@ -254,5 +294,19 @@ services:
   AccountMovement.Create.AccountMovementCommandHandler:
     class: src/Contexts/Core/AccountMovement/application/Create/AccountMovementCommandHandler
     arguments: ["@AccountMovement.Create.Creator"]
+    tags:
+      - { name: "commandHandler" }
+
+  CardMovement.Repository:
+    class: src/Contexts/Core/CardMovement/infrastructure/persistence/TypeOrmCardMovementRepository
+    arguments: ["@Shared.ORM.Connection"]
+
+  CreateCardMovement.Create.Creator:
+    class: src/Contexts/Core/CardMovement/application/Create/Creator
+    arguments: ['@CardMovement.Repository']
+
+  CreateCardMovement.Create.CardMovementCommandHandler:
+    class: src/Contexts/Core/CardMovement/application/Create/CreateCardMovementCommandHandler
+    arguments: ["@CreateCardMovement.Create.Creator"]
     tags:
       - { name: "commandHandler" }

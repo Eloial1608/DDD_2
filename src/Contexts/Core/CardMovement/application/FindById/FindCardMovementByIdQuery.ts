@@ -1,3 +1,5 @@
-import { CriteriaQuery } from '@Shared/domain/Criteria/CriteriaQuery'
+import { Query } from '@Shared/domain/QueryBus/Query'
 
-export class FindCardMovementByIdQuery extends CriteriaQuery {}
+export class FindCardMovementByIdQuery implements Query {
+  constructor(readonly id: string) {}
+}

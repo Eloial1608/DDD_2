@@ -99,6 +99,45 @@ export class Card extends AggregateRoot {
     );
   }
 
+  UpdateAccountCardPin(
+    cardPin: CardPin
+  ): Card {
+    return new Card(
+      this.id,
+      this.numCard,
+      this.type_Card,
+      this.limitCard,
+      this.balance,
+      this.expiration,
+      cardPin,
+      this.cvv,
+      this.accountId,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      this.deletedAt
+    );
+  }
+
+  UpdateAccountCardBalance(
+    balance: Balance,
+    
+  ): Card {
+    return new Card(
+      this.id,
+      this.numCard,
+      this.type_Card,
+      this.limitCard,
+      balance,
+      this.expiration,
+      this.cardPin,
+      this.cvv,
+      this.accountId,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      this.deletedAt
+    );
+  }
+
   delete(): Card {
     return new Card(
       this.id,

@@ -7,7 +7,8 @@ export enum AccountMovementTypeEnum {
   BIZUM = 'BIZUM',
   REFUND = 'REFUND',
   WITHDRAWAL = 'WITHDRAWAL',
-  CREDIT_CARD_PAYMENT = 'CREDIT_CARD_PAYMENT'
+  CREDIT_CARD_PAYMENT = 'CREDIT_CARD_PAYMENT',
+  CREDIT_CARD_DEBT_PAYMENT = 'CREDIT_CARD_DEBT_PAYMENT'
 }
 
 export class AccountMovementType extends EnumValueObject<AccountMovementTypeEnum> {
@@ -45,5 +46,9 @@ export class AccountMovementType extends EnumValueObject<AccountMovementTypeEnum
 
   static creditCardPayment(): AccountMovementType {
     return new AccountMovementType(AccountMovementTypeEnum.CREDIT_CARD_PAYMENT);
+  }
+
+  static creditCardDebtPayment(): AccountMovementType {
+    return new AccountMovementType(AccountMovementTypeEnum.CREDIT_CARD_DEBT_PAYMENT);
   }
 }

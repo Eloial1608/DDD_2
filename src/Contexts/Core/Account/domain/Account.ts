@@ -61,6 +61,21 @@ export class Account extends AggregateRoot {
     );
   }
 
+    updateBalance(
+    balance: Balance,
+  ): Account {
+    return new Account(
+      this.id,
+      this.iban,
+      balance,
+      this.userId,
+      this.type_account,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      this.deletedAt
+    );
+  }
+
   delete(): Account {
     return new Account(
       this.id,

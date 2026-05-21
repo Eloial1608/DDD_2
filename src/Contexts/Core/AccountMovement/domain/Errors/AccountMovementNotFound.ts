@@ -1,7 +1,7 @@
-import { Id } from "../ValueObjects/Id";
+import { AccountMovementId } from "../ValueObjects/AccountMovementId";
 
 export class AccountMovementNotFound extends Error {
-  constructor(id: Id) {
+  constructor(id: AccountMovementId) {
     super(`AccountMovement with id ${id.valueOf()} not found`);
   }
 

@@ -75,6 +75,10 @@ services:
     class: src/apps/Core/controllers/http/Account/AccountPutController
     arguments: ["@Shared.CommandBus"]
 
+  Apps.Core.Controllers.AccountPatchController:
+    class: src/apps/Core/controllers/http/Account/AccountPatchController
+    arguments: ["@Shared.CommandBus"]
+
   Apps.Core.Controllers.SocketHealthController:
     class: src/apps/Core/controllers/socket/HealthController
     arguments: []
@@ -111,6 +115,14 @@ services:
 
   Apps.Core.Controllers.LimitCardPutController:
     class: src/apps/Core/controllers/http/Card/LimitCardPutController
+    arguments: ["@Shared.CommandBus"]
+
+  Apps.Core.Controllers.MyCardGetController:
+    class: src/apps/Core/controllers/http/Card/MyCardGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+
+  Apps.Core.Controllers.CardPinPutController:
+    class: src/apps/Core/controllers/http/Card/CardPinPutController
     arguments: ["@Shared.CommandBus"]
 
   # BANK OPERATION

@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { Controller } from '../../@types/Controller'
 import { CommandBus } from '@Shared/domain/CommandBus/CommandBus'
 import { CannotDecode } from '@Shared/domain/TokenDecoder/Errors/CannotDecode'
+import { AccountNotFound } from '@Core/Account/domain/Errors/AccountNotFound'
 import { ProcessBankOperationCommand } from '@Core/BankOperation/application/Process/ProcessBankOperationCommand'
 
 export class BankOperationPostController implements Controller {
@@ -22,6 +23,9 @@ export class BankOperationPostController implements Controller {
 
       if (e instanceof CannotDecode)
         return res.status(401).json({ message: e.getMessage() })
+
+      if (e instanceof AccountNotFound)
+        return res.status(404).json({ code: e.getCode(), message: e.getMessage() })
 
       if (e instanceof Error)
         return res.status(400).json({ message: e.message })

@@ -12,6 +12,7 @@ export type CardResponseBody = {
   readonly balance: number;
 
   readonly expiration: Date;
+  readonly cvv: string;
   readonly createdAt: Date;
   readonly updatedAt: Date;
   readonly deletedAt: Date | null;
@@ -37,6 +38,7 @@ export class CardResponse implements QueryResponse<CardResponseBody> {
       balance: card.balance.valueOf(),
 
       expiration: card.expiration.valueOf(),
+      cvv: card.cvv.valueOf(),
 
       createdAt: card.createdAt.valueOf(),
       updatedAt: card.updatedAt.valueOf(),

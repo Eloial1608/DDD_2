@@ -12,6 +12,7 @@ type ResponseBody = {
   readonly type_Card: CardTypeEnum
   readonly balance: number
   readonly expiration: Date
+  readonly cvv: string
 }
 
 export class CardsGetController implements Controller {
@@ -54,7 +55,8 @@ export class CardsGetController implements Controller {
       numCard: x.numCard,
       type_Card: x.type_Card,
       balance: x.balance,
-      expiration: x.expiration
+      expiration: x.expiration,
+      cvv: x.cvv
     }))
   }
 }

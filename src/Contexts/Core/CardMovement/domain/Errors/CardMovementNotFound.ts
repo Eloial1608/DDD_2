@@ -1,7 +1,7 @@
-import { Id } from "../ValueObjects/Id";
+import { CardMovementId } from "../ValueObjects/CardMovementId";
 
 export class CardMovementNotFound extends Error {
-  constructor(id: Id) {
+  constructor(id: CardMovementId) {
     super(`CardMovement with id ${id.valueOf()} not found`);
   }
 
