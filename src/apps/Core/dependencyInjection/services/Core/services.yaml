@@ -240,23 +240,23 @@ services:
     tags:
       - { name: "commandHandler" }
 
-  Card.UpdateAccountCardBalance.Updater:
-    class: src/Contexts/Core/Card/application/UpdateAccountCardBalance/Updater
+  Card.UpdateBalance.Updater:
+    class: src/Contexts/Core/Card/application/UpdateBalance/Updater
     arguments: ['@Card.Repository']
 
-  Card.UpdateAccountCardBalance.UpdateAccountCardBalanceCommandHandler:
-    class: src/Contexts/Core/Card/application/UpdateAccountCardBalance/UpdateAccountCardBalanceCommandHandler
-    arguments: ["@Card.UpdateAccountCardBalance.Updater"]
+  Card.UpdateBalance.UpdateBalanceCommandHandler:
+    class: src/Contexts/Core/Card/application/UpdateBalance/UpdateBalanceCommandHandler
+    arguments: ["@Card.UpdateBalance.Updater"]
     tags:
       - { name: "commandHandler" }
 
-  Card.UpdateAccountCardPin.Updater:
-    class: src/Contexts/Core/Card/application/UpdateAccountCardPin/Updater
+  Card.UpdateCardPin.Updater:
+    class: src/Contexts/Core/Card/application/UpdateCardPin/Updater
     arguments: ['@Card.Repository']
 
-  Card.UpdateAccountCardPin.UpdateCardPinCommandHandler:
-    class: src/Contexts/Core/Card/application/UpdateAccountCardPin/UpdateCardPinCommandHandler
-    arguments: ["@Card.UpdateAccountCardPin.Updater"]
+  Card.UpdateCardPin.UpdateCardPinCommandHandler:
+    class: src/Contexts/Core/Card/application/UpdateCardPin/UpdateCardPinCommandHandler
+    arguments: ["@Card.UpdateCardPin.Updater"]
     tags:
       - { name: "commandHandler" }
 
