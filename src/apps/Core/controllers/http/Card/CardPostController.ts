@@ -15,7 +15,8 @@ export class CardPostController implements Controller {
       const command = new CreateCardCommand(
         req.body.type_Card,
         req.body.cardPin,
-        req.body.accountId
+        req.body.accountId,
+        false
       )
 
       await this.commandBus.dispatch(command)

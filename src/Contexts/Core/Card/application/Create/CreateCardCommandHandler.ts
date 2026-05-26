@@ -7,8 +7,7 @@ import { Type_Card } from '@Core/Card/domain/ValueObjects/Type_Card';
 import { CardPin } from '@Core/Card/domain/ValueObjects/CardPin';
 import { AccountId } from '@Core/Card/domain/ValueObjects/AccountId';
 
-export class CreateCardCommandHandler
-implements CommandHandler<CreateCardCommand> {
+export class CreateCardCommandHandler implements CommandHandler<CreateCardCommand> {
 
   constructor(
     private readonly creator: Creator

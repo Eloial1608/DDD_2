@@ -13,6 +13,7 @@ import { Type_Card } from "./ValueObjects/Type_Card";
 import { UpdatedAt } from "./ValueObjects/UpdatedAt";
 import { AccountId } from "./ValueObjects/AccountId";
 import { Id } from "./ValueObjects/Id";
+import { IsBlocked } from "./ValueObjects/IsBlocked";
 
 export class Card extends AggregateRoot {
   constructor(
@@ -25,6 +26,7 @@ export class Card extends AggregateRoot {
     readonly cardPin: CardPin,
     readonly cvv: Cvv,
     readonly accountId: AccountId,
+    readonly isBlocked: IsBlocked,
     readonly createdAt: CreatedAt,
     readonly updatedAt: UpdatedAt,
     readonly deletedAt: Nullable<DeletedAt>
@@ -41,7 +43,8 @@ export class Card extends AggregateRoot {
     cardPin: CardPin,
     cvv: Cvv,
     accountId: AccountId,
-    limitCard: LimitCard
+    limitCard: LimitCard,
+    isBlocked: IsBlocked
   ): Card {
     const now = new Date();
 
@@ -55,6 +58,7 @@ export class Card extends AggregateRoot {
       cardPin,
       cvv,
       accountId,
+      isBlocked,
       new CreatedAt(now),
       new UpdatedAt(now),
       null
@@ -72,6 +76,7 @@ export class Card extends AggregateRoot {
       this.cardPin,
       this.cvv,
       this.accountId,
+      this.isBlocked,
       this.createdAt,
       new UpdatedAt(new Date()),
       this.deletedAt
@@ -81,7 +86,8 @@ export class Card extends AggregateRoot {
   update(
     balance: Balance,
     limitCard: LimitCard,
-    cardPin: CardPin
+    cardPin: CardPin,
+    isBlocked: IsBlocked
   ): Card {
     return new Card(
       this.id,
@@ -93,6 +99,7 @@ export class Card extends AggregateRoot {
       cardPin,
       this.cvv,
       this.accountId,
+      isBlocked,
       this.createdAt,
       new UpdatedAt(new Date()),
       this.deletedAt
@@ -112,6 +119,7 @@ export class Card extends AggregateRoot {
       cardPin,
       this.cvv,
       this.accountId,
+      this.isBlocked,
       this.createdAt,
       new UpdatedAt(new Date()),
       this.deletedAt
@@ -119,8 +127,7 @@ export class Card extends AggregateRoot {
   }
 
   UpdateAccountCardBalance(
-    balance: Balance,
-    
+    balance: Balance
   ): Card {
     return new Card(
       this.id,
@@ -132,12 +139,33 @@ export class Card extends AggregateRoot {
       this.cardPin,
       this.cvv,
       this.accountId,
+      this.isBlocked,
       this.createdAt,
       new UpdatedAt(new Date()),
       this.deletedAt
     );
   }
 
+  UpdateIsBlocked(
+    isBlocked: IsBlocked
+  ): Card {
+    return new Card(
+      this.id,
+      this.numCard,
+      this.type_Card,
+      this.limitCard,
+      this.balance,
+      this.expiration,
+      this.cardPin,
+      this.cvv,
+      this.accountId,
+      isBlocked,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      this.deletedAt
+    );
+  }
+  
   delete(): Card {
     return new Card(
       this.id,
@@ -149,6 +177,7 @@ export class Card extends AggregateRoot {
       this.cardPin,
       this.cvv,
       this.accountId,
+      this.isBlocked,
       this.createdAt,
       this.updatedAt,
       new DeletedAt(new Date())

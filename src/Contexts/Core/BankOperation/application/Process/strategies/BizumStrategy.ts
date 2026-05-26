@@ -7,13 +7,15 @@ import { UpdateAccountBalanceCommand } from "src/Contexts/Core/Account/applicati
 import { FindAcountByIdQuery } from "src/Contexts/Core/Account/application/FindById/FindAccountByIdQuery"
 import { AccountResponse } from "src/Contexts/Core/Account/application/AccountResponse"
 import { QueryBus } from "src/Contexts/Shared/domain/QueryBus/QueryBus"
+import { AccountRepository } from "@Core/Account/domain/AccountRepository"
 
 export class BizumStrategy
   implements OperationStrategy<BizumPayload["payload"]> {
 
   constructor(
     private readonly commandBus: CommandBus,
-    private readonly queryBus: QueryBus
+    private readonly queryBus: QueryBus,
+    private readonly accountRepository: AccountRepository
   ) {}
 
   async execute(
@@ -26,6 +28,16 @@ export class BizumStrategy
       throw new Error("Insufficient funds")
     }
 
+    // Find destination account by phone number or account ID
+    let destinationAccountId = payload.destinationAccountId
+    if (payload.phone) {
+      const destinationByPhone = await this.accountRepository.findByPhoneNumber(payload.phone)
+      if (!destinationByPhone) {
+        throw new Error("Destination account not found by phone number")
+      }
+      destinationAccountId = destinationByPhone.id.valueOf()
+    }
+
     const operationId = crypto.randomUUID()
 
     await this.commandBus.dispatch(
@@ -36,7 +48,7 @@ export class BizumStrategy
         -payload.amount,
         AccountMovementTypeEnum.BIZUM,
         payload.description ?? "Bizum sent",
-        payload.destinationAccountId
+        destinationAccountId
       )
     )
 
@@ -51,7 +63,7 @@ export class BizumStrategy
       new AccountMovementCommand(
         crypto.randomUUID(),
         operationId,
-        payload.destinationAccountId,
+        destinationAccountId,
         -payload.amount,
         AccountMovementTypeEnum.BIZUM,
         payload.description ?? "Bizum received",
@@ -59,7 +71,7 @@ export class BizumStrategy
       )
     )
 
-    const destinationQuery = new FindAcountByIdQuery(payload.destinationAccountId)
+    const destinationQuery = new FindAcountByIdQuery(destinationAccountId)
     const destinationBankAccount = await this.queryBus.ask<AccountResponse>(destinationQuery)
 
     await this.commandBus.dispatch(

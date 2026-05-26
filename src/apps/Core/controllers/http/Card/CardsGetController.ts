@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { Controller } from '../../@types/Controller'
 import { QueryBus } from '@Shared/domain/QueryBus/QueryBus'
 import { CardCollectionResponse } from '@Core/Card/application/CardCollectionResponse'
-import { FindCardsByCriteriaQuery } from '@Core/Card/application/FindByCriteria/FindCardByCriteriaQuery'
+import { FindCardsByUserIdQuery } from '@Core/Card/application/FindByUserId/FindCardsByUserIdQuery'
 import { CardTypeEnum } from '@Core/Card/domain/ValueObjects/Type_Card'
 
 type ResponseBody = {
@@ -24,18 +24,7 @@ export class CardsGetController implements Controller {
         return res.status(401).json({ message: 'Unauthorized' })
       }
 
-      const filters = new Map<string, string | number | null>()
-      filters.set('userId', req.user.id)
-
-      const query = new FindCardsByCriteriaQuery(
-        [filters],
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined
-      )
-
+      const query = new FindCardsByUserIdQuery(req.user.id)
       const cards = await this.queryBus.ask<CardCollectionResponse>(query)
 
       return res.status(200).json({

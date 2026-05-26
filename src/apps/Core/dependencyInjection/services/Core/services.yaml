@@ -38,6 +38,16 @@ services:
     tags:
       - { name: "queryHandler" }
 
+  User.FindByUsername.FinderByUsername:
+    class: src/Contexts/Core/User/application/FindByUsername/FinderByUsername
+    arguments: ['@User.Repository']
+
+  User.FindByUsername.FindUserByUsernameQueryHandler:
+    class: src/Contexts/Core/User/application/FindByUsername/FindUserByUsernameQueryHandler
+    arguments: ['@User.FindByUsername.FinderByUsername']
+    tags:
+      - { name: "queryHandler" }
+
   User.Create.Creator:
     class: src/Contexts/Core/User/application/Create/Creator
     arguments: ['@User.Repository']
@@ -260,6 +270,16 @@ services:
     tags:
       - { name: "commandHandler" }
 
+  Card.UpdateIsBlocked.Updater:
+    class: src/Contexts/Core/Card/application/UpdateIsBlocked/Updater
+    arguments: ['@Card.Repository']
+
+  Card.UpdateIsBlocked.UpdateIsBlockedCommandHandler:
+    class: src/Contexts/Core/Card/application/UpdateIsBlocked/UpdateIsBlockedCommandHandler
+    arguments: ["@Card.UpdateIsBlocked.Updater"]
+    tags:
+      - { name: "commandHandler" }
+
   # =====================
   # Bank Operation
   # =====================
@@ -274,6 +294,7 @@ services:
     arguments:
       - '@Shared.CommandBus'
       - '@Shared.QueryBus'
+      - '@Account.Repository'
 
   BankOperation.Process.ProcessBankOperationCreator:
     class: src/Contexts/Core/BankOperation/application/Process/ProcessBankOperationCreator

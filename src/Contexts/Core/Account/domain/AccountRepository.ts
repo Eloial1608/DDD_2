@@ -5,6 +5,8 @@ import { Account } from '@Core/Account/domain/Account'
 
 export interface AccountRepository {
     find (id: Id): Promise<Nullable<Account>>
+    findByIban (iban: string): Promise<Nullable<Account>>
+    findByPhoneNumber (phoneNumber: string): Promise<Nullable<Account>>
     search (criteria: Criteria): Promise<Array<Account>>
     persist (Account: Account): Promise<void>
 }

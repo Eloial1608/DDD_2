@@ -9,6 +9,8 @@ import { CardResponse } from "@Core/Card/application/CardResponse"
 import { UpdateBalanceCommand } from "@Core/Card/application/UpdateBalance/UpdateBalanceCommand"
 import { AccountMovementCommand } from "@Core/AccountMovement/application/Create/AccountMovementCommand"
 import { UpdateAccountBalanceCommand } from "@Core/Account/application/UpdateBalance/UpdateAccountBalanceCommand"
+import { CardBlocked } from "@Core/Card/domain/Errors/CardBlocked"
+import { Id } from "@Core/Card/domain/ValueObjects/Id"
 
 export class CreditCardPaymentStrategy
   implements OperationStrategy<CreditCardPaymentPayload["payload"]> {
@@ -23,6 +25,10 @@ export class CreditCardPaymentStrategy
   ): Promise<void> {
     const originQuery = new FindCardByIdQuery(payload.cardId)
     const originCard = await this.queryBus.ask<CardResponse>(originQuery)
+
+    if (originCard.response.isBlocked) {
+      throw new CardBlocked(new Id(payload.cardId))
+    }
 
     if (originCard.response.balance < payload.amount) {
       throw new Error("Insufficient funds")

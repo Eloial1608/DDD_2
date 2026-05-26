@@ -13,6 +13,7 @@ import { Type_Card } from "@Core/Card/domain/ValueObjects/Type_Card";
 import { ValueObjectTransformer } from "@Shared/domain/ValueObjects/ValueObjectTransformer";
 import { EntitySchema } from "typeorm";
 import { Id } from "@Core/Card/domain/ValueObjects/Id";
+import { IsBlocked } from "../../../domain/ValueObjects/IsBlocked";
 
 export const CardSchema = new EntitySchema<Card>({
   name: 'Card',
@@ -71,7 +72,11 @@ export const CardSchema = new EntitySchema<Card>({
       nullable: false,
       transformer: ValueObjectTransformer(AccountId),
     },
-
+    isBlocked: {
+      type: Boolean,
+      default: false,
+      transformer: ValueObjectTransformer(IsBlocked)
+    },
     createdAt: {
       type: Date,
       createDate: true,

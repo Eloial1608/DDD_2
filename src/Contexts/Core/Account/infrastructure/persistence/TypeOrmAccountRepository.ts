@@ -3,6 +3,7 @@ import { AccountRepository } from '@Core/Account/domain/AccountRepository'
 import { TypeOrmRepository } from '@Shared/infrastructure/persistence/typeorm/TypeOrmRepository'
 import { EntitySchema, Equal } from 'typeorm'
 import { Id } from '@Core/Account/domain/ValueObjects/Id'
+import { Iban } from '@Core/Account/domain/ValueObjects/Iban'
 import { Nullable } from '@Shared/domain/Nullable'
 import { Criteria } from '@Shared/domain/Criteria/Criteria'
 import { AccountSchema } from './entity/AccountSchema'
@@ -14,6 +15,14 @@ export class TypeOrmAccountRepository extends TypeOrmRepository<Account> impleme
 
   async find (id: Id): Promise<Nullable<Account>> {
     return await (await this.repository()).findOneBy({ id: Equal(id) })
+  }
+
+  async findByIban (iban: string): Promise<Nullable<Account>> {
+    return await (await this.repository()).findOneBy({ iban: Equal(new Iban(iban)) })
+  }
+
+  async findByPhoneNumber (phoneNumber: string): Promise<Nullable<Account>> {
+    return await (await this.repository()).findOneBy({ phoneNumber: Equal(phoneNumber) })
   }
 
   async search (criteria: Criteria): Promise<Account[]> {

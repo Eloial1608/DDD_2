@@ -7,9 +7,9 @@ import { FindAcountByIdQuery } from "@Core/Account/application/FindById/FindAcco
 import { AccountResponse } from "@Core/Account/application/AccountResponse"
 import { QueryBus } from "@Shared/domain/QueryBus/QueryBus"
 import { UpdateAccountBalanceCommand } from "src/Contexts/Core/Account/application/UpdateBalance/UpdateAccountBalanceCommand"
+import { IbanMismatch } from "@Core/Account/domain/Errors/IbanMismatch"
 
-export class TransferStrategy
-  implements OperationStrategy<TransferPayload["payload"]> {
+export class TransferStrategy implements OperationStrategy<TransferPayload["payload"]> {
 
   constructor(
     private readonly commandBus: CommandBus,
@@ -24,6 +24,16 @@ export class TransferStrategy
 
     if (originBankAccount.response.balance < payload.amount) {
       throw new Error("Insufficient funds")
+    }
+
+    const destinationQuery = new FindAcountByIdQuery(payload.destinationAccountId)
+    const destinationBankAccount = await this.queryBus.ask<AccountResponse>(destinationQuery)
+
+    // Verify IBAN if provided
+    if (payload.destinationIban) {
+      if (destinationBankAccount.response.iban !== payload.destinationIban) {
+        throw new IbanMismatch(destinationBankAccount.response.iban, payload.destinationIban)
+      }
     }
 
     const operationId = crypto.randomUUID()
@@ -62,7 +72,7 @@ export class TransferStrategy
     await this.commandBus.dispatch(
       new UpdateAccountBalanceCommand(
         payload.destinationAccountId,
-        originBankAccount.response.balance + payload.amount
+        destinationBankAccount.response.balance + payload.amount
       )
     )
   }

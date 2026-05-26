@@ -11,6 +11,8 @@ import { AccountResponse } from "@Core/Account/application/AccountResponse"
 import { UpdateAccountBalanceCommand } from "@Core/Account/application/UpdateBalance/UpdateAccountBalanceCommand"
 import { UpdateBalanceCommand } from "@Core/Card/application/UpdateBalance/UpdateBalanceCommand"
 import { CreateCardMovementCommand } from "@Core/CardMovement/application/Create/CreateCardMovementCommand"
+import { CardBlocked } from "@Core/Card/domain/Errors/CardBlocked"
+import { Id } from "@Core/Card/domain/ValueObjects/Id"
 
 export class CreditCardDebtPaymentStrategy
   implements OperationStrategy<CreditCardDebtPaymentPayload["payload"]> {
@@ -26,6 +28,11 @@ export class CreditCardDebtPaymentStrategy
 
       const originQuery = new FindCardByIdQuery(payload.cardId)
       const creditCard = await this.queryBus.ask<CardResponse>(originQuery)
+      
+      if (creditCard.response.isBlocked) {
+        throw new CardBlocked(new Id(payload.cardId))
+      }
+      
       const cardDiference = creditCard.response.limitCard - creditCard.response.balance
       const accountQuery = new FindAcountByIdQuery(payload.accountId)
       const bankAccount = await this.queryBus.ask<AccountResponse>(accountQuery)

@@ -1,4 +1,4 @@
-import { AccountMovementType } from "@Core/CardMovement/domain/ValueObjects/AccountMovementType"
+import { AccountMovementType } from "src/Contexts/Core/AccountMovement/domain/ValueObjects/AccountMovementType"
 import { OperationStrategyRegistry } from "./registry/OperationStrategyRegistry"
 
 export class ProcessBankOperationCreator {

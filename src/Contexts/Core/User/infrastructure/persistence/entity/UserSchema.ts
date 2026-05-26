@@ -56,6 +56,7 @@ export const UserSchema = new EntitySchema<User>({
     },
     phoneNumber:{
       type: String,
+      nullable: true,
       transformer: ValueObjectTransformer(PhoneNumber)
     },
     birthDate:{

@@ -26,7 +26,8 @@ export class Creator {
       id,
       iban,
       userId,
-      type_account
+      type_account,
+      null
     );
 
     await this.repository.persist(account);

@@ -9,6 +9,7 @@ import { UpdatedAt } from "@Core/Account/domain/ValueObjects/UpdatedAt";
 import { UserId } from "@Core/Account/domain/ValueObjects/UserId";
 import { ValueObjectTransformer } from "@Shared/domain/ValueObjects/ValueObjectTransformer";
 import { EntitySchema } from "typeorm";
+import { PhoneNumber } from "../../../domain/ValueObjects/PhoneNumber";
 
 export const AccountSchema = new EntitySchema<Account>({
   name: 'Account',
@@ -40,6 +41,11 @@ export const AccountSchema = new EntitySchema<Account>({
     type_account: {
       type: String,
       transformer: ValueObjectTransformer(Type_Account),
+    },
+    phoneNumber: {
+      type: String,
+      nullable: true,
+      transformer: ValueObjectTransformer(PhoneNumber),
     },
 
     createdAt: {

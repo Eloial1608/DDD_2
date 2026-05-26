@@ -5,6 +5,7 @@ export class UpdateCardCommand implements Command {
     readonly id: string,
     readonly cardPin: string,
     readonly balance: number,
-    readonly limit: number
+    readonly limit: number,
+    readonly isBlocked: boolean
   ) {}
 }

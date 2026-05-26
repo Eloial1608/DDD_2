@@ -2,7 +2,7 @@ import { Command } from "@Shared/domain/CommandBus/Command"
 import { CommandHandler } from "@Shared/domain/CommandBus/CommandHandler"
 import { ProcessBankOperationCommand } from "./ProcessBankOperationCommand"
 import { ProcessBankOperationCreator } from "./ProcessBankOperationCreator"
-import { AccountMovementType, AccountMovementTypeEnum } from "@Core/CardMovement/domain/ValueObjects/AccountMovementType"
+import { AccountMovementType, AccountMovementTypeEnum } from "src/Contexts/Core/AccountMovement/domain/ValueObjects/AccountMovementType"
 
 export class ProcessBankOperationCommandHandler
   implements CommandHandler<ProcessBankOperationCommand> {

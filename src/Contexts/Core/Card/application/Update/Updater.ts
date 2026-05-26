@@ -4,6 +4,7 @@ import { Id } from '@Core/Card/domain/ValueObjects/Id';
 import { CardPin } from '@Core/Card/domain/ValueObjects/CardPin';
 import { Balance } from '@Core/Card/domain/ValueObjects/Balance';
 import { LimitCard } from '@Core/Card/domain/ValueObjects/LimitCard';
+import { IsBlocked } from '../../domain/ValueObjects/IsBlocked';
 
 export class Updater {
   constructor(private readonly repository: CardRepository) {}
@@ -13,6 +14,7 @@ export class Updater {
     balance: Balance,
     limitCard: LimitCard,
     cardPin: CardPin,
+    isBlocked: IsBlocked
   ): Promise<void> {
     const card = await this.repository.find(id);
     if (!card) throw new CardNotFound(id);
@@ -20,7 +22,8 @@ export class Updater {
     const updatedCard = card.update(
       balance,
       limitCard,
-      cardPin
+      cardPin,
+      isBlocked
     );
 
     await this.repository.persist(updatedCard);

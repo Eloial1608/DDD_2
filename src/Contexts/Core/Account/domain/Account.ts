@@ -9,6 +9,7 @@ import { Id } from "./ValueObjects/Id";
 import { Type_Account } from "./ValueObjects/Type_Account";
 import { UpdatedAt } from "./ValueObjects/UpdatedAt";
 import { UserId } from "./ValueObjects/UserId";
+import { PhoneNumber } from "./ValueObjects/PhoneNumber";
 
 export class Account extends AggregateRoot {
   constructor(
@@ -17,6 +18,7 @@ export class Account extends AggregateRoot {
     readonly balance: Balance,
     readonly userId: UserId,
     readonly type_account: Type_Account,
+    readonly phoneNumber: Nullable<PhoneNumber>,
     readonly createdAt: CreatedAt,
     readonly updatedAt: UpdatedAt,
     readonly deletedAt: Nullable<DeletedAt>
@@ -28,7 +30,8 @@ export class Account extends AggregateRoot {
     id: Id,
     iban: Iban,
     userId: UserId,
-    type_account: Type_Account
+    type_account: Type_Account,
+    phoneNumber: Nullable<PhoneNumber>
   ): Account {
     const now = new Date();
 
@@ -38,6 +41,7 @@ export class Account extends AggregateRoot {
       new Balance(0),
       userId,
       type_account,
+      phoneNumber,
       new CreatedAt(now),
       new UpdatedAt(now),
       null
@@ -55,13 +59,14 @@ export class Account extends AggregateRoot {
       balance,
       this.userId,
       type_account,
+      this.phoneNumber,
       this.createdAt,
       new UpdatedAt(new Date()),
       this.deletedAt
     );
   }
 
-    updateBalance(
+  updateBalance(
     balance: Balance,
   ): Account {
     return new Account(
@@ -70,6 +75,23 @@ export class Account extends AggregateRoot {
       balance,
       this.userId,
       this.type_account,
+      this.phoneNumber,
+      this.createdAt,
+      new UpdatedAt(new Date()),
+      this.deletedAt
+    );
+  }
+
+  updatePhoneNumber(
+    phoneNumber: Nullable<PhoneNumber>
+  ): Account {
+    return new Account(
+      this.id,
+      this.iban,
+      this.balance,
+      this.userId,
+      this.type_account,
+      phoneNumber,
       this.createdAt,
       new UpdatedAt(new Date()),
       this.deletedAt
@@ -83,6 +105,7 @@ export class Account extends AggregateRoot {
       this.balance,
       this.userId,
       this.type_account,
+      this.phoneNumber,
       this.createdAt,
       this.updatedAt,
       new DeletedAt(new Date())

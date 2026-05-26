@@ -49,6 +49,10 @@ services:
     class: src/apps/Core/controllers/http/User/UserGetController
     arguments: ["@Shared.QueryBus"]
 
+  Apps.Core.Controllers.UsernameGetController:
+    class: src/apps/Core/controllers/http/User/UsernameGetController
+    arguments: ["@Shared.QueryBus", "@Shared.TokenDecoder"]
+
   # ACCOUNT
 
   Apps.Core.Controllers.AccountGetController:
@@ -124,6 +128,10 @@ services:
   Apps.Core.Controllers.CardPinPutController:
     class: src/apps/Core/controllers/http/Card/CardPinPutController
     arguments: ["@Shared.CommandBus"]
+
+  Apps.Core.Controllers.CardIsBlockedPutController:
+    class: src/apps/Core/controllers/http/Card/CardIsBlockedPutController
+    arguments: ["@Shared.CommandBus", "@Shared.QueryBus"]
 
   # BANK OPERATION
 

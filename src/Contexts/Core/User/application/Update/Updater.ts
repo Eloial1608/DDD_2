@@ -1,10 +1,7 @@
 import { UserRepository } from '@Core/User/domain/UserRepository'
 import { Name } from '@Core/User/domain/ValueObjects/Name'
 import { Username } from '@Core/User/domain/ValueObjects/Username'
-import { Email } from '@Core/User/domain/ValueObjects/Email'
-import { IdentityDoc } from '@Core/User/domain/ValueObjects/IdentityDoc/IdentityDoc'
 import { CompanyName } from '@Core/User/domain/ValueObjects/CompanyName'
-import { PhoneNumber } from '@Core/User/domain/ValueObjects/PhoneNumber'
 import { BirthDate } from '@Core/User/domain/ValueObjects/BirthDate'
 import { Address } from '@Core/User/domain/ValueObjects/Address'
 import { City } from '@Core/User/domain/ValueObjects/City'
@@ -19,10 +16,7 @@ export class Updater {
     id: Id,
     name: Name,
     username: Username,
-    email: Email,
-    identityDoc: IdentityDoc,
     companyName: CompanyName,
-    phoneNumber: PhoneNumber,
     birthDate: BirthDate,
     address: Address,
     city: City,
@@ -36,10 +30,7 @@ export class Updater {
     const updatedUser = user.update(
       name,
       username,
-      email,
-      identityDoc,
       companyName,
-      phoneNumber,
       birthDate,
       address,
       city,

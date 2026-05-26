@@ -12,6 +12,7 @@ import { Expiration } from "@Core/Card/domain/ValueObjects/Expiration";
 import { LimitCard } from "@Core/Card/domain/ValueObjects/LimitCard";
 import { NumCard } from "@Core/Card/domain/ValueObjects/NumCard";
 import { Type_Card } from "@Core/Card/domain/ValueObjects/Type_Card";
+import { IsBlocked } from "@Core/Card/domain/ValueObjects/IsBlocked";
 import { Criteria } from "@Shared/domain/Criteria/Criteria";
 import { Filter } from "@Shared/domain/Criteria/Filter";
 import { Filters } from "@Shared/domain/Criteria/Filters";
@@ -54,7 +55,8 @@ export class Creator {
       cardPin,
       cvv,
       accountId,
-      limitCard
+      limitCard,
+      new IsBlocked(false)
     );
 
     await this.repository.persist(card);

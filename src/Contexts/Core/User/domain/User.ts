@@ -80,26 +80,22 @@ export class User extends AggregateRoot {
   update(
     name: Name,
     username: Username,
-    email: Email,
-    identityDoc: IdentityDoc,
     companyName: CompanyName,
-    phoneNumber: PhoneNumber,
     birthDate: BirthDate,
     address: Address,
     city: City,
     zipcode: ZipCode
   ): User {
-
     return new User(
       this.id,
       name,
       username,
-      email,
+      this.email,
       this.password,
       this.isAdmin,
-      identityDoc,
+      this.identityDoc,
       companyName,
-      phoneNumber,
+      this.phoneNumber,
       birthDate,
       address,
       city,
@@ -152,7 +148,7 @@ export class User extends AggregateRoot {
     )
   }
 
-    updatePassword(password: Password): User{
+  updatePassword(password: Password): User{
     return new User(
       this.id,
       this.name,

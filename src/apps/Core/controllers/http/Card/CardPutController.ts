@@ -18,7 +18,8 @@ export class CardPutController implements Controller {
         req.params.id,
         req.body.cardPin,
         req.body.balance,
-        req.body.limitCard
+        req.body.limitCard,
+        req.body.isBlocked
       )
 
       await this.commandBus.dispatch(command)

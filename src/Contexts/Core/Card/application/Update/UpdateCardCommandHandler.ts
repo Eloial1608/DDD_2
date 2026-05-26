@@ -4,6 +4,7 @@ import { CommandHandler } from "@Shared/domain/CommandBus/CommandHandler";
 import { UpdateCardCommand } from "./UpdateCardCommand";
 import { Updater } from "./Updater";
 import { Id } from "@Core/Card/domain/ValueObjects/Id";
+import { IsBlocked } from "../../domain/ValueObjects/IsBlocked";
 
 export class UpdateCardCommandHandler
   implements CommandHandler<UpdateCardCommand>
@@ -20,6 +21,7 @@ export class UpdateCardCommandHandler
       new Balance(command.balance),
       new Balance(command.limit),
       new CardPin(command.cardPin),
+      new IsBlocked(command.isBlocked)
     );
 
   }
