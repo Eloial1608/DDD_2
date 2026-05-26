@@ -63,7 +63,11 @@ export class BizumStrategy
       new AccountMovementCommand(
         crypto.randomUUID(),
         operationId,
+<<<<<<< HEAD
         destinationAccountId,
+=======
+        payload.destinationAccountId,
+>>>>>>> c914353dbcac19047f94d4043d947759801ff024
         -payload.amount,
         AccountMovementTypeEnum.BIZUM,
         payload.description ?? "Bizum received",
