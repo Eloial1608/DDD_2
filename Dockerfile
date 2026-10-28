@@ -1,5 +1,5 @@
-# Tacter docker image
-FROM node:22.9.0
+# Docker image
+FROM node:22.13.0
 
 WORKDIR /app
 
